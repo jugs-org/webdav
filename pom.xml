@@ -92,6 +92,51 @@
 			<version>[1.1,1.2)</version>
 		</dependency>
 	</dependencies>
+	<issueManagement>
+		<system>CollabNet</system>
+		<url>https://webdav-jaxrs.dev.java.net</url>
+	</issueManagement>
+	<mailingLists>
+		<mailingList>
+			<name>commits</name>
+			<subscribe>commits-subscribe@webdav-jaxrs.dev.java.net</subscribe>
+			<unsubscribe>commits-unsubscribe@webdav-jaxrs.dev.java.net</unsubscribe>
+			<archive>https://webdav-jaxrs.dev.java.net/servlets/SummarizeList?listName=commits</archive>
+		</mailingList>
+		<mailingList>
+			<name>announce</name>
+			<subscribe>announce-subscribe@webdav-jaxrs.dev.java.net</subscribe>
+			<unsubscribe>announce-unsubscribe@webdav-jaxrs.dev.java.net</unsubscribe>
+			<post>announce@webdav-jaxrs.dev.java.net</post>
+			<archive>https://webdav-jaxrs.dev.java.net/servlets/SummarizeList?listName=announce</archive>
+		</mailingList>
+		<mailingList>
+			<name>dev</name>
+			<subscribe>dev-subscribe@webdav-jaxrs.dev.java.net</subscribe>
+			<unsubscribe>dev-unsubscribe@webdav-jaxrs.dev.java.net</unsubscribe>
+			<post>dev@webdav-jaxrs.dev.java.net</post>
+			<archive>https://webdav-jaxrs.dev.java.net/servlets/SummarizeList?listName=dev</archive>
+		</mailingList>
+		<mailingList>
+			<name>cvs</name>
+			<subscribe>cvs-subscribe@webdav-jaxrs.dev.java.net</subscribe>
+			<unsubscribe>cvs-unsubscribe@webdav-jaxrs.dev.java.net</unsubscribe>
+			<archive>https://webdav-jaxrs.dev.java.net/servlets/SummarizeList?listName=cvs</archive>
+		</mailingList>
+		<mailingList>
+			<name>issues</name>
+			<subscribe>issues-subscribe@webdav-jaxrs.dev.java.net</subscribe>
+			<unsubscribe>issues-unsubscribe@webdav-jaxrs.dev.java.net</unsubscribe>
+			<archive>https://webdav-jaxrs.dev.java.net/servlets/SummarizeList?listName=issues</archive>
+		</mailingList>
+		<mailingList>
+			<name>users</name>
+			<subscribe>users-subscribe@webdav-jaxrs.dev.java.net</subscribe>
+			<unsubscribe>users-unsubscribe@webdav-jaxrs.dev.java.net</unsubscribe>
+			<post>users@webdav-jaxrs.dev.java.net</post>
+			<archive>https://webdav-jaxrs.dev.java.net/servlets/SummarizeList?listName=users</archive>
+		</mailingList>
+	</mailingLists>
 	<scm>
 		<connection>scm:svn:https://webdav-jaxrs.dev.java.net/svn/webdav-jaxrs</connection>
 		<developerConnection>scm:svn:https://webdav-jaxrs.dev.java.net/svn/webdav-jaxrd</developerConnection>

@@ -25,7 +25,7 @@
 		<version>1.0</version>
 	</parent>
 	<artifactId>webdav-jaxrs</artifactId>
-	<version>1.1</version>
+	<version>1.2-SNAPSHOT</version>
 	<name>WebDAV Support for JAX-RS</name>
 	<description>Provides classes for easier implementation of WebDAV based JAX-RS applications.</description>
 	<developers>

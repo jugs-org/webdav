@@ -139,7 +139,7 @@
 	</mailingLists>
 	<scm>
 		<connection>scm:svn:https://webdav-jaxrs.dev.java.net/svn/webdav-jaxrs</connection>
-		<developerConnection>scm:svn:https://webdav-jaxrs.dev.java.net/svn/webdav-jaxrd</developerConnection>
+		<developerConnection>scm:svn:https://webdav-jaxrs.dev.java.net/svn/webdav-jaxrs</developerConnection>
 		<url>https://webdav-jaxrs.dev.java.net/source/browse/webdav-jaxrs</url>
 	</scm>
 	<properties>

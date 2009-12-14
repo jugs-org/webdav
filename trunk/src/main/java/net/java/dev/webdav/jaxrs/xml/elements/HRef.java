@@ -37,7 +37,8 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
 @XmlRootElement(name = "href")
 public final class HRef {
 
-	private URI uri;
+	@XmlValue
+	private String value;
 
 	@SuppressWarnings("unused")
 	private HRef() {
@@ -48,16 +49,50 @@ public final class HRef {
 		if (uri == null)
 			throw new NullArgumentException("uri");
 
-		this.uri = uri;
+		this.value = uri.toString();
 	}
 
-	public HRef(final String uri) throws URISyntaxException {
-		this(new URI(uri));
+	public HRef(final String value) {
+		this.value = value;
 	}
 
-	@XmlValue
+	/**
+	 * @return Value as a <code>URI</code> instance, if the content is a valid
+	 *         URI; <code>null</code> otherwise.
+	 * @deprecated Since 1.1.1. Use {@link #getURI()} instead. Future releases
+	 *             will not contain this method anymore.
+	 */
+	@Deprecated
 	public final URI getUri() {
-		return this.uri;
+		/*
+		 * To preserve backwards compatibility, we must not throw an exception:
+		 * Legacy code will not be prepared to catch it. Unfortunately this was
+		 * a design fault in release 1.0 of this library that cannot be undone
+		 * before release 2.0. The value is not a URI in all cases but may be
+		 * any form of a relative reference, and such contain characters which
+		 * would be illegal in an URI.
+		 */
+		try {
+			return this.getURI();
+		} catch (final URISyntaxException e) {
+			return null;
+		}
+	}
+	
+	/**
+	 * @return Value as a <code>URI</code> instance, if the value is a valid
+	 *         URI; <code>null</code> otherwise.
+	 * @since 1.1.1
+	 */
+	public final URI getURI() throws URISyntaxException {
+		return new URI(this.value);
 	}
 
+	/**
+	 * @since 1.1.1
+	 */
+	public final String getValue() {
+		return this.value;
+	}
+	
 }

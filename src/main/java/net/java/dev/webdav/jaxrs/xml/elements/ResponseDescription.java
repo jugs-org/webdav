@@ -32,9 +32,9 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlRootElement(name = "responsedescription")
 public final class ResponseDescription {
 
+	@XmlValue
 	private String content;
 
-	@XmlValue
 	public final String getContent() {
 		return this.content;
 	}

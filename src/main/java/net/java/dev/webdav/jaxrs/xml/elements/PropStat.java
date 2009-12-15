@@ -36,12 +36,16 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
 @XmlRootElement(name = "propstat")
 public final class PropStat {
 
+	@XmlElement
 	private Prop prop;
 
+	@XmlElement
 	private Status status;
 
+	@XmlElement
 	private Error error;
 
+	@XmlElement(name = "responsedescription")
 	private ResponseDescription responseDescription;
 
 	@SuppressWarnings("unused")
@@ -74,22 +78,18 @@ public final class PropStat {
 		this(prop, status, null, responseDescription);
 	}
 
-	@XmlElement
 	public final Prop getProp() {
 		return this.prop;
 	}
 
-	@XmlElement
 	public final Status getStatus() {
 		return this.status;
 	}
 
-	@XmlElement
 	public final Error getError() {
 		return this.error;
 	}
 
-	@XmlElement(name = "responsedescription")
 	public final ResponseDescription getResponseDescription() {
 		return this.responseDescription;
 	}

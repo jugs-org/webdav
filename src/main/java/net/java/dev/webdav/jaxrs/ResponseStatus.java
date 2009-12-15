@@ -101,9 +101,9 @@ public enum ResponseStatus implements StatusType {
 	}
 
 	/**
-	 * @deprecated Use {@link #getReasonPhrase()} instead to get the reason
-	 *             phrase. Future releases will return the name of the enum
-	 *             constant instead of the reason phrase (see
+	 * @deprecated Since 1.1. Use {@link #getReasonPhrase()} instead to get the
+	 *             reason phrase. Future releases will return the name of the
+	 *             enum constant instead of the reason phrase (see
 	 *             {@link java.lang.Enum#toString()}).
 	 */
 	@Deprecated

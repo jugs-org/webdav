@@ -56,7 +56,7 @@ public final class Status {
 	}
 
 	/**
-	 * @deprecated Use {@link #Status(javax.ws.rs.core.Response.StatusType)} instead.
+	 * @deprecated Since 1.1. Use {@link #Status(javax.ws.rs.core.Response.StatusType)} instead.
 	 */
 	@Deprecated
 	public Status(final ResponseStatus responseStatus) {
@@ -64,7 +64,7 @@ public final class Status {
 	}
 
 	/**
-	 * @deprecated Use {@link #Status(javax.ws.rs.core.Response.StatusType)} instead.
+	 * @deprecated Since 1.1. Use {@link #Status(javax.ws.rs.core.Response.StatusType)} instead.
 	 */
 	@Deprecated
 	public Status(final Response.Status responseStatus) {

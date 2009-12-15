@@ -36,10 +36,13 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
 @XmlRootElement(name = "lockinfo")
 public final class LockInfo {
 
+	@XmlElement(name = "lockscope")
 	private LockScope lockScope;
 
+	@XmlElement(name = "locktype")
 	private LockType lockType;
 
+	@XmlElement
 	private Owner owner;
 
 	@SuppressWarnings("unused")
@@ -59,17 +62,14 @@ public final class LockInfo {
 		this.owner = owner;
 	}
 
-	@XmlElement(name = "lockscope")
 	public final LockScope getLockScope() {
 		return this.lockScope;
 	}
 
-	@XmlElement(name = "locktype")
 	public final LockType getLockType() {
 		return this.lockType;
 	}
 
-	@XmlElement
 	public final Owner getOwner() {
 		return this.owner;
 	}

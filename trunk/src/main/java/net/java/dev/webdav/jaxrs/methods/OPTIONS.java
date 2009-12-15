@@ -34,7 +34,7 @@ import javax.ws.rs.HttpMethod;
  * 
  * @see <a href="http://www.webdav.org/specs/rfc2616.html#OPTIONS">Chapter 9.2 "OPTIONS" of RFC 2616 "Hypertext Transfer Protocol -- HTTP/1.1"</a>
  * 
- * @deprecated Use {@link javax.ws.rs.OPTIONS} instead. Future releases will not contain this class anymore.
+ * @deprecated Since 1.1. Use {@link javax.ws.rs.OPTIONS} instead. Future releases will not contain this class anymore.
  */
 @Deprecated
 @Target(METHOD)

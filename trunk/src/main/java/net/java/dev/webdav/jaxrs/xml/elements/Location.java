@@ -34,6 +34,7 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
 @XmlRootElement
 public final class Location {
 
+	@XmlElement(name = "href")
 	private HRef hRef;
 
 	@SuppressWarnings("unused")
@@ -48,7 +49,6 @@ public final class Location {
 		this.hRef = hRef;
 	}
 
-	@XmlElement(name = "href")
 	public final HRef getHRef() {
 		return this.hRef;
 	}

@@ -35,9 +35,9 @@ import net.java.dev.webdav.jaxrs.ResponseStatus;
 @XmlRootElement
 public final class Status {
 
+	@XmlValue
 	protected String statusLine;
 
-	@XmlValue
 	public final String getStatus() {
 		return this.statusLine;
 	}

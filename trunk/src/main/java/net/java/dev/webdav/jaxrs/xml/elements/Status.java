@@ -19,7 +19,10 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
+import static javax.xml.bind.annotation.XmlAccessType.NONE;
+
 import javax.ws.rs.core.Response;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 
@@ -32,6 +35,7 @@ import net.java.dev.webdav.jaxrs.ResponseStatus;
  * 
  * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_status">Chapter 14.28 "status XML Element" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
+@XmlAccessorType(NONE)
 @XmlRootElement
 public final class Status {
 

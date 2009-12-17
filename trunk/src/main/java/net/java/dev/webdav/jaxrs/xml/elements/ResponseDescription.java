@@ -19,6 +19,9 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
+import static javax.xml.bind.annotation.XmlAccessType.NONE;
+
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 
@@ -29,6 +32,7 @@ import javax.xml.bind.annotation.XmlValue;
  * 
  * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_responsedescription">Chapter 14.25 "responsedescription XML Element" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
+@XmlAccessorType(NONE)
 @XmlRootElement(name = "responsedescription")
 public final class ResponseDescription {
 

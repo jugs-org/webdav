@@ -18,8 +18,8 @@
  */
 
 package net.java.dev.webdav.jaxrs.xml.elements;
-
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * WebDAV write XML Element.
@@ -29,6 +29,22 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_write">Chapter 14.30 "write XML Element" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlRootElement
+@XmlType(factoryMethod = "create")
 public final class Write {
-	// Has no members.
+
+	/**
+	 * @since 1.1.1
+	 */
+	public static final Write SINGLETON = new Write();
+
+	// Singleton
+	private Write() {
+		// Contains no members.
+	}
+
+	@SuppressWarnings("unused")
+	private static final Write create() {
+		return SINGLETON;
+	}
+
 }

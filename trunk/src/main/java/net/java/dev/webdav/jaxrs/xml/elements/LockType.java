@@ -23,6 +23,7 @@ import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * WebDAV locktype XML Element.
@@ -33,25 +34,27 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlAccessorType(FIELD)
 @XmlRootElement(name = "locktype")
+@XmlType(factoryMethod = "create")
 public final class LockType {
-
-	/*
-	 * TODO LockType should not be class but enum, but how to tell
-	 * 
-	 * @XmlEnumValue that the value is not #PCDATA but ELEMENT?
-	 */
-
-	public static final LockType WRITE = new LockType(new Write());
+	
+	public static final LockType WRITE = new LockType(Write.SINGLETON);
 
 	@SuppressWarnings("unused")
 	private Write write;
 
+	// Singleton
 	private LockType() {
 		// For unmarshalling only.
 	}
 
+	// Enum
 	private LockType(final Write write) {
 		this.write = write;
+	}
+	
+	@SuppressWarnings("unused")
+	private static final LockType create() {
+		return WRITE;
 	}
 
 }

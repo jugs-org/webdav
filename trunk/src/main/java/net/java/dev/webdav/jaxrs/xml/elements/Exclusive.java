@@ -20,6 +20,7 @@
 package net.java.dev.webdav.jaxrs.xml.elements;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * WebDAV exclusive XML Element.
@@ -29,6 +30,22 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_exclusive">Chapter 14.6 "exclusive XML Element" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlRootElement
+@XmlType(factoryMethod = "create")
 public final class Exclusive {
-	// Has no members.
+
+	/**
+	 * @since 1.1.1
+	 */
+	public static final Exclusive SINGLETON = new Exclusive();
+
+	// Singleton
+	private Exclusive() {
+		// Contains no members.
+	}
+
+	@SuppressWarnings("unused")
+	private static final Exclusive create() {
+		return SINGLETON;
+	}
+
 }

@@ -95,7 +95,18 @@ public final class ActiveLock {
 		return this.lockType;
 	}
 
+	/**
+	 * @deprecated Since 1.1.1. Use {@link #getDepth()} instead.
+	 */
+	@Deprecated
 	public final Depth depth() {
+		return this.depth;
+	}
+
+	/**
+	 * @since 1.1.1
+	 */
+	public final Depth getDepth() {
 		return this.depth;
 	}
 

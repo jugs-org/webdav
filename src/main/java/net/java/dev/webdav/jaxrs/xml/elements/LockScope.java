@@ -24,42 +24,76 @@ import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlAdapter;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * WebDAV lockscope XML Element.
  * 
  * @author Markus KARG (mkarg@users.dev.java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_lockscope">Chapter 14.13 "lockscope XML Element" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+ * @see <a
+ *      href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_lockscope">Chapter
+ *      14.13 "lockscope XML Element" of RFC 4918
+ *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlAccessorType(FIELD)
 @XmlType(propOrder = { "exclusive", "shared" })
+@XmlJavaTypeAdapter(LockScope.LockScopeAdapter.class)
 @XmlRootElement(name = "lockscope")
 public final class LockScope {
 
-	/*
-	 * TODO LockScope should not be class but enum, but how to tell
-	 * 
-	 * @XmlEnumValue that the value is not #PCDATA but ELEMENT?
-	 */
+	public static final LockScope SHARED = new LockScope(Shared.SINGLETON, null);
 
-	public static final LockScope SHARED = new LockScope(new Shared(), null);
+	public static final LockScope EXCLUSIVE = new LockScope(null, Exclusive.SINGLETON);
 
-	public static final LockScope EXCLUSIVE = new LockScope(null, new Exclusive());
-
-	@SuppressWarnings("unused")
 	private Shared shared;
 
-	@SuppressWarnings("unused")
 	private Exclusive exclusive;
 
+	// Singleton
 	private LockScope() {
 		// For unmarshalling only.
 	}
 
+	// Enum
 	private LockScope(final Shared shared, final Exclusive exclusive) {
 		this.shared = shared;
 		this.exclusive = exclusive;
 	}
 
+	/*
+	 * XmlAdapter is intentionally not directly implemented by surrounding class
+	 * to prevent third party code to call it's methods: Unfortunately
+	 * XmlAdapter enforces public visibility of all it's e.
+	 */
+	private static final class LockScopeAdapter extends XmlAdapter<LockScope, LockScope> {
+
+		/**
+		 * For internal use only. Do not call this from client code.
+		 * 
+		 * @since 1.1.1
+		 */
+		@Override
+		public final LockScope marshal(final LockScope value) throws Exception {
+			return value;
+		}
+
+		/**
+		 * For internal use only. Do not call this from client code.
+		 * 
+		 * @since 1.1.1
+		 */
+		@SuppressWarnings("synthetic-access")
+		@Override
+		public final LockScope unmarshal(final LockScope value) throws Exception {
+			if (value.exclusive != null)
+				return EXCLUSIVE;
+
+			if (value.shared != null)
+				return SHARED;
+
+			return value;
+		}
+	}
 }

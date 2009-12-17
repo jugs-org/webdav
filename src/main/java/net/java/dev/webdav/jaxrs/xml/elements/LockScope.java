@@ -66,8 +66,11 @@ public final class LockScope {
 	 * XmlAdapter is intentionally not directly implemented by surrounding class
 	 * to prevent third party code to call it's methods: Unfortunately
 	 * XmlAdapter enforces public visibility of all it's e.
+	 * 
+	 * This inner class cannot be public since Sun's compiler doesn't allow
+	 * that, while Eclipse's compiler actually does.
 	 */
-	private static final class LockScopeAdapter extends XmlAdapter<LockScope, LockScope> {
+	protected static final class LockScopeAdapter extends XmlAdapter<LockScope, LockScope> {
 
 		/**
 		 * For internal use only. Do not call this from client code.

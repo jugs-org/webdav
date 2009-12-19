@@ -90,6 +90,9 @@ public final class LockScope {
 		@SuppressWarnings("synthetic-access")
 		@Override
 		public final LockScope unmarshal(final LockScope value) throws Exception {
+			if (value == null)
+				return null;
+
 			if (value.exclusive != null)
 				return EXCLUSIVE;
 

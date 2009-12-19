@@ -32,71 +32,79 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  * @author Markus KARG (mkarg@users.dev.java.net)
  * 
- * @see <a
- *      href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_lockscope">Chapter
- *      14.13 "lockscope XML Element" of RFC 4918
- *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+ * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_lockscope">Chapter 14.13 "lockscope XML Element" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
-@XmlAccessorType(FIELD)
-@XmlType(propOrder = { "exclusive", "shared" })
 @XmlJavaTypeAdapter(LockScope.LockScopeAdapter.class)
 @XmlRootElement(name = "lockscope")
-public final class LockScope {
+public enum LockScope {
 
-	public static final LockScope SHARED = new LockScope(Shared.SINGLETON, null);
+	SHARED,
 
-	public static final LockScope EXCLUSIVE = new LockScope(null, Exclusive.SINGLETON);
-
-	private Shared shared;
-
-	private Exclusive exclusive;
-
-	// Singleton
-	private LockScope() {
-		// For unmarshalling only.
-	}
-
-	// Enum
-	private LockScope(final Shared shared, final Exclusive exclusive) {
-		this.shared = shared;
-		this.exclusive = exclusive;
-	}
+	EXCLUSIVE;
 
 	/*
 	 * XmlAdapter is intentionally not directly implemented by surrounding class
 	 * to prevent third party code to call it's methods: Unfortunately
 	 * XmlAdapter enforces public visibility of all it's e.
 	 * 
-	 * This inner class cannot be public since Sun's compiler doesn't allow
+	 * This inner class cannot be private since Sun's compiler doesn't allow
 	 * that, while Eclipse's compiler actually does.
 	 */
-	protected static final class LockScopeAdapter extends XmlAdapter<LockScope, LockScope> {
+	protected static final class LockScopeAdapter extends XmlAdapter<LockScopeValueType, LockScope> {
 
-		/**
-		 * For internal use only. Do not call this from client code.
-		 * 
-		 * @since 1.1.1
-		 */
 		@Override
-		public final LockScope marshal(final LockScope value) throws Exception {
-			return value;
+		public final LockScopeValueType marshal(final LockScope value) throws Exception {
+			if (value == null)
+				return null;
+
+			switch (value) {
+			case EXCLUSIVE:
+				return LockScopeValueType.EXCLUSIVE;
+			case SHARED:
+				return LockScopeValueType.SHARED;
+			default:
+				return null;
+			}
 		}
 
-		/**
-		 * For internal use only. Do not call this from client code.
-		 * 
-		 * @since 1.1.1
-		 */
-		@SuppressWarnings("synthetic-access")
 		@Override
-		public final LockScope unmarshal(final LockScope value) throws Exception {
+		public final LockScope unmarshal(final LockScopeValueType value) throws Exception {
+			if (value == null)
+				return null;
+
 			if (value.exclusive != null)
 				return EXCLUSIVE;
 
 			if (value.shared != null)
 				return SHARED;
 
-			return value;
+			return null;
+		}
+	}
+
+	@XmlAccessorType(FIELD)
+	@XmlType(propOrder = { "exclusive", "shared" })
+	private static final class LockScopeValueType {
+
+		public static final LockScopeValueType SHARED = new LockScopeValueType(Shared.SINGLETON, null);
+
+		public static final LockScopeValueType EXCLUSIVE = new LockScopeValueType(null, Exclusive.SINGLETON);
+
+		// Protected instead of private to prevent synthetic accessor.
+		protected Shared shared;
+
+		// Protected instead of private to prevent synthetic accessor.
+		protected Exclusive exclusive;
+
+		// Singleton
+		private LockScopeValueType() {
+			// For unmarshalling only.
+		}
+
+		// Enum
+		private LockScopeValueType(final Shared shared, final Exclusive exclusive) {
+			this.shared = shared;
+			this.exclusive = exclusive;
 		}
 	}
 }

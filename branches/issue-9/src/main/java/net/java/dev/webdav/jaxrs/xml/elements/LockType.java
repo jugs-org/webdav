@@ -23,7 +23,8 @@ import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlAdapter;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * WebDAV locktype XML Element.
@@ -32,29 +33,64 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_locktype">Chapter 14.15 "locktype XML Element" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
-@XmlAccessorType(FIELD)
+@XmlJavaTypeAdapter(LockType.LockTypeAdapter.class)
 @XmlRootElement(name = "locktype")
-@XmlType(factoryMethod = "create")
-public final class LockType {
-	
-	public static final LockType WRITE = new LockType(Write.SINGLETON);
+public enum LockType {
 
-	@SuppressWarnings("unused")
-	private Write write;
+	WRITE;
 
-	// Singleton
-	private LockType() {
-		// For unmarshalling only.
+	/*
+	 * XmlAdapter is intentionally not directly implemented by surrounding class
+	 * to prevent third party code to call it's methods: Unfortunately
+	 * XmlAdapter enforces public visibility of all it's e.
+	 * 
+	 * This inner class cannot be private since Sun's compiler doesn't allow
+	 * that, while Eclipse's compiler actually does.
+	 */
+	protected static final class LockTypeAdapter extends XmlAdapter<LockTypeValueType, LockType> {
+
+		@Override
+		public final LockTypeValueType marshal(final LockType value) throws Exception {
+			if (value == null)
+				return null;
+			
+			switch (value) {
+			case WRITE:
+				return LockTypeValueType.WRITE;
+			default:
+				return null;
+			}
+		}
+
+		@Override
+		public final LockType unmarshal(final LockTypeValueType value) throws Exception {
+			if (value == null)
+				return null;
+			
+			if (value.write != null)
+				return WRITE;
+
+			return null;
+		}
 	}
 
-	// Enum
-	private LockType(final Write write) {
-		this.write = write;
-	}
-	
-	@SuppressWarnings("unused")
-	private static final LockType create() {
-		return WRITE;
-	}
+	@XmlAccessorType(FIELD)
+	private static final class LockTypeValueType {
 
+		public static final LockTypeValueType WRITE = new LockTypeValueType(Write.SINGLETON);
+
+		// Protected instead of private to prevent synthetic accessor.
+		protected Write write;
+
+		// Singleton
+		private LockTypeValueType() {
+			// For unmarshalling only.
+		}
+
+		// Enum
+		private LockTypeValueType(final Write write) {
+			this.write = write;
+		}
+
+	}
 }

@@ -19,32 +19,39 @@
 
 package net.java.dev.webdav.jaxrs.versioning.xml.properties;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlMixed;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlValue;
 
 /**
- * Versioning Extensions to WebDAV creator-displayname Property.
+ * Versioning Extensions to WebDAV report Property.
  * 
  * @author Markus KARG (mkarg@users.dev.java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc3253.html#PROPERTY_creator-displayname">Chapter 3.1.2 "DAV:creator-displayname" of RFC 3253 "Versioning Extensions to WebDAV (Web Distributed Authoring and Versioning)"</a>
+ * @see <a href="http://www.webdav.org/deltav/protocol/rfc3253.html#PROPERTY_supported-report-set">Chapter 3.1.5 "DAV:supported-report-set (protected)" of RFC 3253 "Versioning Extensions to WebDAV (Web Distributed Authoring and Versioning)"</a>
  */
-@XmlRootElement(name = "creator-displayname")
-public final class CreatorDisplayName {
+@XmlRootElement
+public final class Report {
 
-	@XmlValue
-	private String creatorDisplayName;
+	@XmlMixed
+	@XmlAnyElement(lax = true)
+	private LinkedList<Object> any;
 
-	public CreatorDisplayName() {
+	public Report() {
 		// Has no members.
 	}
 
-	public CreatorDisplayName(final String creatorDisplayName) {
-		this.creatorDisplayName = creatorDisplayName;
+	public Report(final Object... any) {
+		this.any = new LinkedList<Object>(Arrays.asList(any));
 	}
 
-	public final String getComment() {
-		return this.creatorDisplayName;
+	@SuppressWarnings("unchecked")
+	public final List<Object> getAny() {
+		return (List<Object>) this.any.clone();
 	}
 
 }

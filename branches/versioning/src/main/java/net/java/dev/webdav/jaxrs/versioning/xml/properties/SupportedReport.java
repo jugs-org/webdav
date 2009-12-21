@@ -19,32 +19,33 @@
 
 package net.java.dev.webdav.jaxrs.versioning.xml.properties;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlValue;
 
 /**
- * Versioning Extensions to WebDAV creator-displayname Property.
+ * Versioning Extensions to WebDAV supported-report Property.
  * 
  * @author Markus KARG (mkarg@users.dev.java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc3253.html#PROPERTY_creator-displayname">Chapter 3.1.2 "DAV:creator-displayname" of RFC 3253 "Versioning Extensions to WebDAV (Web Distributed Authoring and Versioning)"</a>
+ * @see <a href="http://www.webdav.org/deltav/protocol/rfc3253.html#PROPERTY_supported-report-set">Chapter 3.1.5 "DAV:supported-report-set (protected)" of RFC 3253 "Versioning Extensions to WebDAV (Web Distributed Authoring and Versioning)"</a>
  */
-@XmlRootElement(name = "creator-displayname")
-public final class CreatorDisplayName {
+@XmlRootElement(name = "supported-report")
+public final class SupportedReport {
+	
+	@XmlElement
+	private Report report;
 
-	@XmlValue
-	private String creatorDisplayName;
-
-	public CreatorDisplayName() {
-		// Has no members.
+	@SuppressWarnings("unused")
+	private SupportedReport() {
+		// For unmarshalling only.
 	}
 
-	public CreatorDisplayName(final String creatorDisplayName) {
-		this.creatorDisplayName = creatorDisplayName;
+	public SupportedReport(final Report report) {
+		this.report = report;
 	}
 
-	public final String getComment() {
-		return this.creatorDisplayName;
+	public final Report getReport() {
+		return this.report;
 	}
 
 }

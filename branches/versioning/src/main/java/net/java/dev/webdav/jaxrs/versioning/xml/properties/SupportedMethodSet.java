@@ -19,32 +19,37 @@
 
 package net.java.dev.webdav.jaxrs.versioning.xml.properties;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlValue;
 
 /**
- * Versioning Extensions to WebDAV creator-displayname Property.
+ * Versioning Extensions to WebDAV supported-method-set Property.
  * 
  * @author Markus KARG (mkarg@users.dev.java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc3253.html#PROPERTY_creator-displayname">Chapter 3.1.2 "DAV:creator-displayname" of RFC 3253 "Versioning Extensions to WebDAV (Web Distributed Authoring and Versioning)"</a>
+ * @see <a href="http://www.webdav.org/deltav/protocol/rfc3253.html#PROPERTY_supported-method-set">Chapter 3.1.3 "DAV:supported-method-set (protected)" of RFC 3253 "Versioning Extensions to WebDAV (Web Distributed Authoring and Versioning)"</a>
  */
-@XmlRootElement(name = "creator-displayname")
-public final class CreatorDisplayName {
+@XmlRootElement(name = "supported-method-set")
+public final class SupportedMethodSet {
 
-	@XmlValue
-	private String creatorDisplayName;
+	@XmlElement(name = "supported-method")
+	private LinkedList<SupportedMethod> supportedMethods;
 
-	public CreatorDisplayName() {
+	public SupportedMethodSet() {
 		// Has no members.
 	}
 
-	public CreatorDisplayName(final String creatorDisplayName) {
-		this.creatorDisplayName = creatorDisplayName;
+	public SupportedMethodSet(final SupportedMethod... supportedMethods) {
+		this.supportedMethods = new LinkedList<SupportedMethod>(Arrays.asList(supportedMethods));
 	}
 
-	public final String getComment() {
-		return this.creatorDisplayName;
+	@SuppressWarnings("unchecked")
+	public final List<SupportedMethod> getSupportedMethods() {
+		return (List<SupportedMethod>) this.supportedMethods.clone();
 	}
 
 }

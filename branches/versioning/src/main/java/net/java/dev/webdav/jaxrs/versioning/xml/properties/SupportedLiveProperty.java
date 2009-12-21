@@ -19,32 +19,35 @@
 
 package net.java.dev.webdav.jaxrs.versioning.xml.properties;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlValue;
+
+import net.java.dev.webdav.jaxrs.xml.elements.Prop;
 
 /**
- * Versioning Extensions to WebDAV creator-displayname Property.
+ * Versioning Extensions to WebDAV supported-live-property Property.
  * 
  * @author Markus KARG (mkarg@users.dev.java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc3253.html#PROPERTY_creator-displayname">Chapter 3.1.2 "DAV:creator-displayname" of RFC 3253 "Versioning Extensions to WebDAV (Web Distributed Authoring and Versioning)"</a>
+ * @see <a href="http://www.webdav.org/deltav/protocol/rfc3253.html#PROPERTY_supported-live-property-set">Chapter 3.1.4 "DAV:supported-live-property-set (protected)" of RFC 3253 "Versioning Extensions to WebDAV (Web Distributed Authoring and Versioning)"</a>
  */
-@XmlRootElement(name = "creator-displayname")
-public final class CreatorDisplayName {
+@XmlRootElement(name = "supported-live-property")
+public final class SupportedLiveProperty {
 
-	@XmlValue
-	private String creatorDisplayName;
+	@XmlElement
+	private Prop prop;
 
-	public CreatorDisplayName() {
-		// Has no members.
+	@SuppressWarnings("unused")
+	private SupportedLiveProperty() {
+		// For unmarshalling only.
 	}
 
-	public CreatorDisplayName(final String creatorDisplayName) {
-		this.creatorDisplayName = creatorDisplayName;
+	public SupportedLiveProperty(final Prop prop) {
+		this.prop = prop;
 	}
 
-	public final String getComment() {
-		return this.creatorDisplayName;
+	public final Prop getName() {
+		return this.prop;
 	}
 
 }

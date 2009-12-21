@@ -19,32 +19,35 @@
 
 package net.java.dev.webdav.jaxrs.versioning.xml.properties;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlValue;
+
+import net.java.dev.webdav.jaxrs.xml.elements.HRef;
 
 /**
- * Versioning Extensions to WebDAV creator-displayname Property.
+ * Versioning Extensions to WebDAV checked-in Property.
  * 
  * @author Markus KARG (mkarg@users.dev.java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc3253.html#PROPERTY_creator-displayname">Chapter 3.1.2 "DAV:creator-displayname" of RFC 3253 "Versioning Extensions to WebDAV (Web Distributed Authoring and Versioning)"</a>
+ * @see <a href="http://www.webdav.org/deltav/protocol/rfc3253.html#PROPERTY_checked-in">Chapter 3.2.1 "DAV:checked-in (protected)" of RFC 3253 "Versioning Extensions to WebDAV (Web Distributed Authoring and Versioning)"</a>
  */
-@XmlRootElement(name = "creator-displayname")
-public final class CreatorDisplayName {
+@XmlRootElement(name = "checked-in")
+public final class CheckedIn {
 
-	@XmlValue
-	private String creatorDisplayName;
+	@XmlElement(name = "href")
+	private HRef hRef;
 
-	public CreatorDisplayName() {
-		// Has no members.
+	@SuppressWarnings("unused")
+	private CheckedIn() {
+		// For unmarshalling only.
 	}
 
-	public CreatorDisplayName(final String creatorDisplayName) {
-		this.creatorDisplayName = creatorDisplayName;
+	public CheckedIn(final HRef hRef) {
+		this.hRef = hRef;
 	}
 
-	public final String getComment() {
-		return this.creatorDisplayName;
+	public final HRef getHRef() {
+		return this.hRef;
 	}
 
 }

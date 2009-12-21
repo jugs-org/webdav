@@ -20,31 +20,15 @@
 package net.java.dev.webdav.jaxrs.versioning.xml.properties;
 
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlValue;
 
 /**
- * Versioning Extensions to WebDAV creator-displayname Property.
+ * Versioning Extensions to WebDAV auto-version Property.
  * 
  * @author Markus KARG (mkarg@users.dev.java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc3253.html#PROPERTY_creator-displayname">Chapter 3.1.2 "DAV:creator-displayname" of RFC 3253 "Versioning Extensions to WebDAV (Web Distributed Authoring and Versioning)"</a>
+ * @see <a href="http://www.webdav.org/deltav/protocol/rfc3253.html#PROPERTY_auto-version">Chapter 3.2.2 "DAV:auto-version" of RFC 3253 "Versioning Extensions to WebDAV (Web Distributed Authoring and Versioning)"</a>
  */
-@XmlRootElement(name = "creator-displayname")
-public final class CreatorDisplayName {
-
-	@XmlValue
-	private String creatorDisplayName;
-
-	public CreatorDisplayName() {
-		// Has no members.
-	}
-
-	public CreatorDisplayName(final String creatorDisplayName) {
-		this.creatorDisplayName = creatorDisplayName;
-	}
-
-	public final String getComment() {
-		return this.creatorDisplayName;
-	}
-
+@XmlRootElement(name = "checkout-unlocked-checkin")
+public final class CheckoutUnlockedCheckin {
+	// Has no members.
 }

@@ -17,50 +17,36 @@
  * along with webdav-jaxrs.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.java.dev.webdav.jaxrs.versioning.xml.properties;
+package net.java.dev.webdav.jaxrs.versioning.xml.elements;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlMixed;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Versioning Extensions to WebDAV supported-method Property.
+ * Versioning Extensions to WebDAV report XML Element.
  * 
  * @author Markus KARG (mkarg@users.dev.java.net)
  * 
- * @see <a href="http://www.webdav.org/deltav/protocol/rfc3253.html#PROPERTY_supported-method-set">Chapter 3.1.3 "DAV:supported-method-set (protected)" of RFC 3253 "Versioning Extensions to WebDAV (Web Distributed Authoring and Versioning)"</a>
+ * @see <a href="http://www.webdav.org/deltav/protocol/rfc3253.html#PROPERTY_supported-report-set">Chapter 3.1.5 "DAV:supported-report-set (protected)" of RFC 3253 "Versioning Extensions to WebDAV (Web Distributed Authoring and Versioning)"</a>
  */
-@XmlRootElement(name = "supported-method")
-public final class SupportedMethod {
+@XmlRootElement
+public final class Report {
 
 	@XmlMixed
 	@XmlAnyElement(lax = true)
 	private LinkedList<Object> any;
 
-	@XmlAttribute
-	private String name;
-
-	@SuppressWarnings("unused")
-	private SupportedMethod() {
-		// For unmarshalling only.
+	public Report() {
+		// Has no members.
 	}
 
-	public SupportedMethod(final String name) {
-		this.name = name;
-	}
-
-	public SupportedMethod(final String name, final Object... any) {
-		this.name = name;
+	public Report(final Object... any) {
 		this.any = new LinkedList<Object>(Arrays.asList(any));
-	}
-
-	public final String getName() {
-		return this.name;
 	}
 
 	@SuppressWarnings("unchecked")

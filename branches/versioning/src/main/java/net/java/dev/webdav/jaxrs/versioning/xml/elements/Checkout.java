@@ -17,35 +17,18 @@
  * along with webdav-jaxrs.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.java.dev.webdav.jaxrs.versioning.xml.properties;
+package net.java.dev.webdav.jaxrs.versioning.xml.elements;
 
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Versioning Extensions to WebDAV supported-report Property.
+ * Versioning Extensions to WebDAV checkout XML Element.
  * 
  * @author Markus KARG (mkarg@users.dev.java.net)
  * 
- * @see <a href="http://www.webdav.org/deltav/protocol/rfc3253.html#PROPERTY_supported-report-set">Chapter 3.1.5 "DAV:supported-report-set (protected)" of RFC 3253 "Versioning Extensions to WebDAV (Web Distributed Authoring and Versioning)"</a>
+ * @see <a href="http://www.webdav.org/deltav/protocol/rfc3253.html#PROPERTY_auto-version">Chapter 3.2.2 "DAV:auto-version" of RFC 3253 "Versioning Extensions to WebDAV (Web Distributed Authoring and Versioning)"</a>
  */
-@XmlRootElement(name = "supported-report")
-public final class SupportedReport {
-	
-	@XmlElement
-	private Report report;
-
-	@SuppressWarnings("unused")
-	private SupportedReport() {
-		// For unmarshalling only.
-	}
-
-	public SupportedReport(final Report report) {
-		this.report = report;
-	}
-
-	public final Report getReport() {
-		return this.report;
-	}
-
+@XmlRootElement(name = "checkout")
+public final class Checkout {
+	// Has no members.
 }

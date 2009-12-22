@@ -22,7 +22,7 @@
  * 
  * @author Markus KARG (mkarg@users.dev.java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc3253.html#rfc.section.3.1">Chapter 3.1 "Additional Resource Properties" of RFC 3253 "Versioning Extensions to WebDAV (Web Distributed Authoring and Versioning)"</a>
+ * @see <a href="http://www.webdav.org/specs/rfc3253.html">RFC 3253 "Versioning Extensions to WebDAV (Web Distributed Authoring and Versioning)"</a>
  */
 @XmlSchema(namespace = "DAV:", xmlns = @XmlNs(prefix = "D", namespaceURI = "DAV:"), elementFormDefault = QUALIFIED)
 package net.java.dev.webdav.jaxrs.versioning.xml.properties;

@@ -26,6 +26,8 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import net.java.dev.webdav.jaxrs.versioning.xml.elements.SupportedLiveProperty;
+
 /**
  * Versioning Extensions to WebDAV supported-live-property-set Property.
  * 

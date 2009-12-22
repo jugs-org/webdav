@@ -17,18 +17,18 @@
  * along with webdav-jaxrs.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.java.dev.webdav.jaxrs.versioning.xml.properties;
-
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
- * Versioning Extensions to WebDAV auto-version Property.
+ * This package contains Versioning Extensions to WebDAV XML Elements.
  * 
  * @author Markus KARG (mkarg@users.dev.java.net)
  * 
- * @see <a href="http://www.webdav.org/deltav/protocol/rfc3253.html#PROPERTY_auto-version">Chapter 3.2.2 "DAV:auto-version" of RFC 3253 "Versioning Extensions to WebDAV (Web Distributed Authoring and Versioning)"</a>
+ * @see <a href="http://www.webdav.org/specs/rfc3253.html">RFC 3253 "Versioning Extensions to WebDAV (Web Distributed Authoring and Versioning)"</a>
  */
-@XmlRootElement(name = "checkout-checkin")
-public final class CheckoutCheckin {
-	// Has no members.
-}
+@XmlSchema(namespace = "DAV:", xmlns = @XmlNs(prefix = "D", namespaceURI = "DAV:"), elementFormDefault = QUALIFIED)
+package net.java.dev.webdav.jaxrs.versioning.xml.elements;
+
+import static javax.xml.bind.annotation.XmlNsForm.QUALIFIED;
+
+import javax.xml.bind.annotation.XmlNs;
+import javax.xml.bind.annotation.XmlSchema;
+

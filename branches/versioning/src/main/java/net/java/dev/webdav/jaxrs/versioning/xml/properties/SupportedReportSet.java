@@ -42,7 +42,7 @@ public final class SupportedReportSet {
 	private LinkedList<SupportedReport> supportedReports;
 
 	public SupportedReportSet() {
-		// Has no members.
+		// Keeping defaults by intention.
 	}
 
 	public SupportedReportSet(final SupportedReport... supportedReports) {

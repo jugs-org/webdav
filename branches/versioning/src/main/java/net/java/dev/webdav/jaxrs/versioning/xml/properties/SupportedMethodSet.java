@@ -42,7 +42,7 @@ public final class SupportedMethodSet {
 	private LinkedList<SupportedMethod> supportedMethods;
 
 	public SupportedMethodSet() {
-		// Has no members.
+		// Keeping defaults by intention.
 	}
 
 	public SupportedMethodSet(final SupportedMethod... supportedMethods) {

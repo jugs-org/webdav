@@ -36,7 +36,7 @@ public final class Comment {
 	private String comment;
 
 	public Comment() {
-		// Has no members.
+		// Keeping defaults by intention.
 	}
 
 	public Comment(final String comment) {

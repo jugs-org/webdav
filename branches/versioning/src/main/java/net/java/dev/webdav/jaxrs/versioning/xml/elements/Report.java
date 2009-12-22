@@ -42,7 +42,7 @@ public final class Report {
 	private LinkedList<Object> any;
 
 	public Report() {
-		// Has no members.
+		// Keeping defaults by intention.
 	}
 
 	public Report(final Object... any) {

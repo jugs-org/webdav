@@ -36,7 +36,7 @@ public final class CreatorDisplayName {
 	private String creatorDisplayName;
 
 	public CreatorDisplayName() {
-		// Has no members.
+		// Keeping defaults by intention.
 	}
 
 	public CreatorDisplayName(final String creatorDisplayName) {

@@ -42,7 +42,7 @@ public final class SupportedLivePropertySet {
 	private LinkedList<SupportedLiveProperty> supportedLiveProperties;
 
 	public SupportedLivePropertySet() {
-		// Has no members.
+		// Keeping defaults by intention.
 	}
 
 	public SupportedLivePropertySet(final SupportedLiveProperty... supportedLiveProperties) {

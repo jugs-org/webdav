@@ -40,9 +40,14 @@ public final class CreationDate {
 
 	private Date dateTime;
 
-	@SuppressWarnings("unused")
-	private CreationDate() {
-		// For unmarshalling only.
+	/**
+	 * Creates an empty (thus <em>invalid</em>) instance. Use <em>only</em> to
+	 * list property name within response to &lt;propname/&gt; request. Not to
+	 * be used for creation of valid instances of this property; use
+	 * {@link #CreationDate(Date)} instead.
+	 */
+	public CreationDate() {
+		// Keeping defaults by intention.
 	}
 
 	public CreationDate(final Date dateTime) {

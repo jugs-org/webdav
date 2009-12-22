@@ -40,9 +40,14 @@ public final class GetLastModified {
 
 	private Date dateTime;
 
-	@SuppressWarnings("unused")
-	private GetLastModified() {
-		// For unmarshalling only.
+	/**
+	 * Creates an empty (thus <em>invalid</em>) instance. Use <em>only</em> to
+	 * list property name within response to &lt;propname/&gt; request. Not to
+	 * be used for creation of valid instances of this property; use
+	 * {@link #GetLastModified(Date)} instead.
+	 */
+	public GetLastModified() {
+		// Keeping defaults by intention.
 	}
 
 	public GetLastModified(final Date dateTime) {

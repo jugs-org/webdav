@@ -43,9 +43,14 @@ public final class ResourceType {
 
 	public static final ResourceType COLLECTION = new ResourceType(new Collection());
 
-	@SuppressWarnings("unused")
-	private ResourceType() {
-		// For unmarshalling only.
+	/**
+	 * Creates an empty (thus <em>invalid</em>) instance. Use <em>only</em> to
+	 * list property name within response to &lt;propname/&gt; request. Not to
+	 * be used for creation of valid instances of this property; use
+	 * {@link #ResourceType(Object...)} instead.
+	 */
+	public ResourceType() {
+		// Keeping defaults by intention.
 	}
 
 	public ResourceType(final Object... any) {

@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public final class Include {
 
-	@XmlAnyElement
+	@XmlAnyElement(lax = true)
 	private LinkedList<Object> includes;
 
 	@SuppressWarnings("unused")

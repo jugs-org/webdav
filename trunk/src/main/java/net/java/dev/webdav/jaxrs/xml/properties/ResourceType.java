@@ -38,7 +38,7 @@ import net.java.dev.webdav.jaxrs.xml.elements.Collection;
 @XmlRootElement(name = "resourcetype")
 public final class ResourceType {
 
-	@XmlAnyElement
+	@XmlAnyElement(lax = true)
 	private LinkedList<Object> resourceTypes;
 
 	public static final ResourceType COLLECTION = new ResourceType(new Collection());

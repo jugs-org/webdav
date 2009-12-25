@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public final class Owner {
 
 	@XmlMixed
-	@XmlAnyElement
+	@XmlAnyElement(lax = true)
 	private LinkedList<Object> any;
 
 	@SuppressWarnings("unused")

@@ -34,12 +34,12 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
  * 
  * @author Markus KARG (mkarg@users.dev.java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_activelock">Chapter 14.5 "error XML Element" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+ * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_error">Chapter 14.5 "error XML Element" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlRootElement
 public final class Error {
 
-	@XmlAnyElement
+	@XmlAnyElement(lax = true)
 	public LinkedList<Object> errors;
 
 	@SuppressWarnings("unused")

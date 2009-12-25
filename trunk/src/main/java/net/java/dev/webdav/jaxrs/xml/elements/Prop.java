@@ -24,7 +24,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlMixed;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -37,7 +36,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public final class Prop {
 
-	@XmlMixed
 	@XmlAnyElement(lax = true)
 	private LinkedList<Object> properties;
 

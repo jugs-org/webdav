@@ -32,7 +32,7 @@ import javax.ws.rs.HttpMethod;
  * 
  * @author Markus KARG (mkarg@users.dev.java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc4918.html#METHOD_MOVE">Chapter 9.2 "PROPPATCH Method" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+ * @see <a href="http://www.webdav.org/specs/rfc4918.html#METHOD_PROPPATCH">Chapter 9.2 "PROPPATCH Method" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @Target(METHOD)
 @Retention(RUNTIME)

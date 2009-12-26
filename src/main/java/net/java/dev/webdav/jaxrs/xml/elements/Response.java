@@ -22,6 +22,7 @@ package net.java.dev.webdav.jaxrs.xml.elements;
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -86,6 +87,18 @@ public final class Response {
 		this.propStats.addAll(Arrays.asList(propStats));
 	}
 
+	/**
+	 * @since 1.1.1
+	 */
+	public Response(final HRef hRef, final Error error, final ResponseDescription responseDescription, final Location location, final Collection<PropStat> propStats) {
+		this(hRef, error, responseDescription, location);
+
+		if (propStats == null || !propStats.iterator().hasNext())
+			throw new NullArgumentException("propStat");
+
+		this.propStats = new LinkedList<PropStat>(propStats);
+	}
+	
 	public Response(final Status status, final Error error, final ResponseDescription responseDescription, final Location location, final HRef hRef,
 			final HRef... hRefs) {
 		this(hRef, error, responseDescription, location);

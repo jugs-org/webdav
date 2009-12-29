@@ -25,7 +25,7 @@
 		<version>1.0</version>
 	</parent>
 	<artifactId>webdav-jaxrs</artifactId>
-	<version>1.1.1</version>
+	<version>1.2-SNAPSHOT</version>
 	<name>WebDAV Support for JAX-RS</name>
 	<description>Provides classes for easier implementation of WebDAV based JAX-RS applications.</description>
 	<developers>
@@ -138,9 +138,9 @@
 		</mailingList>
 	</mailingLists>
 	<scm>
-		<connection>scm:svn:https://webdav-jaxrs.dev.java.net/svn/webdav-jaxrs/tags/webdav-jaxrs-1.1.1</connection>
-		<developerConnection>scm:svn:https://webdav-jaxrs.dev.java.net/svn/webdav-jaxrs/tags/webdav-jaxrs-1.1.1</developerConnection>
-		<url>https://webdav-jaxrs.dev.java.net/source/browse/webdav-jaxrs/tags/webdav-jaxrs-1.1.1</url>
+		<connection>scm:svn:https://webdav-jaxrs.dev.java.net/svn/webdav-jaxrs</connection>
+		<developerConnection>scm:svn:https://webdav-jaxrs.dev.java.net/svn/webdav-jaxrs</developerConnection>
+		<url>https://webdav-jaxrs.dev.java.net/source/browse/webdav-jaxrs</url>
 	</scm>
 	<properties>
 		<project.build.sourceEncoding>Cp1252</project.build.sourceEncoding>

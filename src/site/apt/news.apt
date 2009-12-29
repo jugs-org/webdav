@@ -1,5 +1,7 @@
 News
 
+  2009-12-29 Version 1.1.1
+
   2009-12-09 Version 1.1
 
   2009-11-27 API adjustments according to JAX-RS 1.1 (@OPTIONS and some other items now are deprecated: Use JAX-RS 1.1's replacements instead.).

@@ -8,7 +8,7 @@ Installation
 <dependency>
 	<groupId>net.java.dev.webdav</groupId>
 	<artifactId>webdav-jaxrs</artifactId>
-	<version>[1.1,1.2)</version>
+	<version>[1.1.1,1.2)</version>
 </dependency>
 ---
 
@@ -24,5 +24,5 @@ Installation
 
 * Manual Installation
   
-  * Download {{{http://download.java.net/maven/2/net/java/dev/webdav/webdav-jaxrs/1.1/webdav-jaxrs-1.1.jar}webdav-jaxrs-1.1.jar}} and add it to your project.
+  * Download {{{http://download.java.net/maven/2/net/java/dev/webdav/webdav-jaxrs/1.1.1/webdav-jaxrs-1.1.1.jar}webdav-jaxrs-1.1.1.jar}} and add it to your project.
 

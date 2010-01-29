@@ -31,10 +31,10 @@
 	<developers>
 		<developer>
 			<id>mkarg</id>
-			<email>mkarg@users.dev.java.net</email>
-			<url>http://wiki.java.net/bin/view/People/MarkusKarg</url>
-			<organization>The java.net WebDAV Project</organization>
-			<organizationUrl>http://webdav.dev.java.net</organizationUrl>
+			<email>markus@headcrashing.eu</email>
+			<url>http://www.headcrashing.eu</url>
+			<organization>Head Crashing Informatics</organization>
+			<organizationUrl>http://www.headcrashing.eu</organizationUrl>
 			<roles>
 				<role>owner</role>
 				<role>developer</role>

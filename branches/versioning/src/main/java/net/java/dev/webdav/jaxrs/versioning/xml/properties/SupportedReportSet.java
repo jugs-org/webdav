@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import net.java.dev.webdav.jaxrs.versioning.xml.elements.SupportedReport;
 
 /**
- * Versioning Extensions to WebDAV supported-report-set Property.
+ * Versioning Extensions to WebDAV <code>supported-report-set</code> Property.
  * 
  * @author Markus KARG (mkarg@users.dev.java.net)
  * 

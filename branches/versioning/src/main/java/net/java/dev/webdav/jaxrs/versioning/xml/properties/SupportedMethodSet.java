@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import net.java.dev.webdav.jaxrs.versioning.xml.elements.SupportedMethod;
 
 /**
- * Versioning Extensions to WebDAV supported-method-set Property.
+ * Versioning Extensions to WebDAV <code>supported-method-set</code> Property.
  * 
  * @author Markus KARG (mkarg@users.dev.java.net)
  * 

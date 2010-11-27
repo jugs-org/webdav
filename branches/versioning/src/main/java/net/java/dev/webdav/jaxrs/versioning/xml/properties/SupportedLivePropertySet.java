@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import net.java.dev.webdav.jaxrs.versioning.xml.elements.SupportedLiveProperty;
 
 /**
- * Versioning Extensions to WebDAV supported-live-property-set Property.
+ * Versioning Extensions to WebDAV <code>supported-live-property-set</code> Property.
  * 
  * @author Markus KARG (mkarg@users.dev.java.net)
  * 

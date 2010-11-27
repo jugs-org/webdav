@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 
 /**
- * Versioning Extensions to WebDAV creator-displayname Property.
+ * Versioning Extensions to WebDAV <code>creator-displayname</code> Property.
  * 
  * @author Markus KARG (mkarg@users.dev.java.net)
  * 

@@ -26,7 +26,7 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.elements.HRef;
 
 /**
- * Versioning Extensions to WebDAV checked-in Property.
+ * Versioning Extensions to WebDAV <code>checked-in</code> Property.
  * 
  * @author Markus KARG (mkarg@users.dev.java.net)
  * 

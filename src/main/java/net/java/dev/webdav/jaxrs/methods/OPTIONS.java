@@ -30,7 +30,7 @@ import javax.ws.rs.HttpMethod;
 /**
  * Indicates that the annotated method responds to HTTP OPTIONS requests.
  * 
- * @author Markus KARG (mkarg@users.dev.java.net)
+ * @author Markus KARG (mkarg@java.net)
  * 
  * @see <a href="http://www.webdav.org/specs/rfc2616.html#OPTIONS">Chapter 9.2 "OPTIONS" of RFC 2616 "Hypertext Transfer Protocol -- HTTP/1.1"</a>
  * 

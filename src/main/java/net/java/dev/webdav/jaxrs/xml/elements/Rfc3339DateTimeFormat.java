@@ -37,7 +37,7 @@ import java.util.TimeZone;
  * flexible and can handle not only optional fraction of seconds, but also
  * numeric time offsets in addition to the time offset literal 'Z'.
  * 
- * @author Markus KARG (mkarg@users.dev.java.net)
+ * @author Markus KARG (mkarg@java.net)
  */
 @SuppressWarnings("serial")
 public final class Rfc3339DateTimeFormat extends SimpleDateFormat {

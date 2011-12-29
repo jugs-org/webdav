@@ -30,7 +30,7 @@ import javax.ws.rs.HttpMethod;
 /**
  * Indicates that the annotated method responds to WebDAV LOCK requests.
  * 
- * @author Markus KARG (mkarg@users.dev.java.net)
+ * @author Markus KARG (mkarg@java.net)
  * 
  * @see <a href="http://www.webdav.org/specs/rfc4918.html#METHOD_LOCK">Chapter 9.10 "LOCK Method" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */

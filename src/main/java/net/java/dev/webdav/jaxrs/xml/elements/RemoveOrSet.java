@@ -32,7 +32,7 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
  * @see Set
  * @see Remove
  * 
- * @author Markus KARG (mkarg@users.dev.java.net)
+ * @author Markus KARG (mkarg@java.net)
  */
 public abstract class RemoveOrSet {
 

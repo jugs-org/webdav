@@ -41,7 +41,7 @@
 	<developers>
 		<developer>
 			<id>mkarg</id>
-			<email>markus@headcrashing.eu</email>
+			<email>mkarg@java.net</email>
 			<url>http://www.headcrashing.eu</url>
 			<organization>Head Crashing Informatics</organization>
 			<organizationUrl>http://www.headcrashing.eu</organizationUrl>
@@ -140,7 +140,7 @@
 		<dependency>
 			<groupId>javax.ws.rs</groupId>
 			<artifactId>jsr311-api</artifactId>
-			<version>[1.1,1.2)</version>
+			<version>1.1.1</version>
 		</dependency>
 	</dependencies>
 	<properties>

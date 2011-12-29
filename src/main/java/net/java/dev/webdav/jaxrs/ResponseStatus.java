@@ -31,7 +31,7 @@ import javax.ws.rs.core.Response.Status.Family;
 /**
  * Commonly used status codes defined by WebDAV.
  * 
- * @author Markus KARG (mkarg@users.dev.java.net)
+ * @author Markus KARG (mkarg@java.net)
  * 
  * @see <a href="http://www.webdav.org/specs/rfc4918.html#status.code.extensions.to.http11">Chapter 11 "Status Code Extensions to HTTP/1.1" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */

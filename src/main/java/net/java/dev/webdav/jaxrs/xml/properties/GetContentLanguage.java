@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlValue;
 /**
  * WebDAV getcontentlanguage Property.
  * 
- * @author Markus KARG (mkarg@users.dev.java.net)
+ * @author Markus KARG (mkarg@java.net)
  * 
  * @see <a href="http://www.webdav.org/specs/rfc4918.html#PROPERTY_getcontentlanguage">Chapter 15.3 "getcontentlanguage Property" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */

@@ -30,7 +30,7 @@ import java.util.TimeZone;
  * This class formats and parses dates using the RFC 1123 compliant pattern
  * [WDY], [DY] [MTH] [YEAR] [hh]:[mm]:[ss] GMT.
  * 
- * @author Markus KARG (mkarg@users.dev.java.net)
+ * @author Markus KARG (mkarg@java.net)
  */
 @SuppressWarnings("serial")
 public final class Rfc1123DateFormat extends SimpleDateFormat {

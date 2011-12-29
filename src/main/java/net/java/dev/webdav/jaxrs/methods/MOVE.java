@@ -30,7 +30,7 @@ import javax.ws.rs.HttpMethod;
 /**
  * Indicates that the annotated method responds to WebDAV MOVE requests.
  * 
- * @author Markus KARG (mkarg@users.dev.java.net)
+ * @author Markus KARG (mkarg@java.net)
  * 
  * @see <a href="http://www.webdav.org/specs/rfc4918.html#METHOD_MOVE">Chapter 9.9 "COPY Method" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */

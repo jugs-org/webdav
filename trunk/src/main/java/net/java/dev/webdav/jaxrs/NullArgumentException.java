@@ -23,7 +23,7 @@ package net.java.dev.webdav.jaxrs;
  * Thrown to indicate that a method has been passed <code>null</code> for an
  * argument which is not allowed to be <code>null<code>.
  * 
- * @author Markus KARG (mkarg@users.dev.java.net)
+ * @author Markus KARG (mkarg@java.net)
  */
 @SuppressWarnings("serial")
 public final class NullArgumentException extends IllegalArgumentException {

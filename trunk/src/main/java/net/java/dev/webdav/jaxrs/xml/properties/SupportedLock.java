@@ -31,7 +31,7 @@ import net.java.dev.webdav.jaxrs.xml.elements.LockEntry;
 /**
  * WebDAV supportedlock Property.
  * 
- * @author Markus KARG (mkarg@users.dev.java.net)
+ * @author Markus KARG (mkarg@java.net)
  * 
  * @see <a href="http://www.webdav.org/specs/rfc4918.html#PROPERTY_supportedlock">Chapter 15.10 "supportedlock Property" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */

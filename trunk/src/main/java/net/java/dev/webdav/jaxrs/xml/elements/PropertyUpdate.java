@@ -33,7 +33,7 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
 /**
  * WebDAV propertyupdate XML Element.
  * 
- * @author Markus KARG (mkarg@users.dev.java.net)
+ * @author Markus KARG (mkarg@java.net)
  * 
  * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_propertyupdate">Chapter 14.19 "propertyupdate XML Element" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */

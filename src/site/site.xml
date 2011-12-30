@@ -4,7 +4,7 @@
 
 	<bannerLeft>
 		<name>WebDAV Support for JAX-RS</name>
-		<href>http://webdav.dev.java.net/webdav-jaxrs/</href>
+		<href>http://webdav-jaxrs.java.net</href>
 	</bannerLeft>
   
 	<bannerRight>
@@ -16,7 +16,7 @@
 		<links>
 			<item name="WebDAV" href="http://www.webdav.org/" />
 			<item name="JAX-RS" href="http://jsr311.java.net/" />
-			<item name="Interop" href="http://java.net/projects/webdav-interop" />
+			<item name="WebDAV Interoperability Filter" href="http://webdav-interop.java.net" />
 		</links>
 
 		<menu name="WebDAV Support for JAX-RS">

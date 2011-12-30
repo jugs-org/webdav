@@ -221,11 +221,11 @@
 	<distributionManagement>
 		<downloadUrl>https://maven.java.net/content/groups/public/net/java/dev/webdav/webdav-jaxrs</downloadUrl>
 		<repository>
-			<id>java.net-release</id>
+			<id>jvnet-nexus-staging</id>
 			<url>https://maven.java.net/service/local/staging/deploy/maven2</url>
 		</repository>
 		<snapshotRepository>
-			<id>java.net-snapshot</id>
+			<id>jvnet-nexus-snapshots</id>
 			<url>https://maven.java.net/content/repositories/snapshots</url>
 		</snapshotRepository>
 		<site>

@@ -15,7 +15,7 @@
 	<body>
 		<links>
 			<item name="WebDAV" href="http://www.webdav.org/" />
-			<item name="JAX-RS" href="http://jsr311.dev.java.net/" />
+			<item name="JAX-RS" href="http://jsr311.java.net/" />
 			<item name="Interop" href="http://java.net/projects/webdav-interop" />
 		</links>
 

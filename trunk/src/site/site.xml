@@ -33,7 +33,7 @@
 		<menu ref="reports" />
 		
 		<breadcrumbs>
-			<item name="The WebDAV Project" href="http://java.net/projects/webdav" />
+			<item name="The java.net WebDAV Project" href="http://java.net/projects/webdav" />
 		</breadcrumbs>
 	</body>
 </project>

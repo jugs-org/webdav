@@ -17,6 +17,7 @@
 			<item name="WebDAV" href="http://www.webdav.org/" />
 			<item name="JAX-RS" href="http://jsr311.java.net/" />
 			<item name="WebDAV Interoperability Filter" href="http://webdav-interop.java.net" />
+			<item name="WebDAV Address-Book Sample" href="http://webdav-addressbook.java.net" />
 		</links>
 
 		<menu name="WebDAV Support for JAX-RS">

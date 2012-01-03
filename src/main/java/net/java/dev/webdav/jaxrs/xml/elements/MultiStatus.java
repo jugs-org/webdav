@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, 2009 Markus KARG
+ * Copyright 2008, 2009, 2011 Markus KARG
  *
  * This file is part of webdav-jaxrs.
  *
@@ -45,7 +45,7 @@ public final class MultiStatus {
 	private ResponseDescription responseDescription;
 
 	public MultiStatus() {
-		// Has no members.
+		this.responses = new LinkedList<Response>();
 	}
 
 	public MultiStatus(final ResponseDescription responseDescription, final Response... responses) {

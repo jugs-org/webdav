@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
 public final class ProjectConventions {
 	@DataPoint
 	public static Class<?> COPY = COPY.class;
-	
+
 	@DataPoint
 	public static Class<?> LOCK = LOCK.class;
 
@@ -40,6 +40,7 @@ public final class ProjectConventions {
 
 	@Theory
 	public final void annotationNameEqualsHttpMethodName(final Class<?> sample) {
-		assertThat("HTTP method name must equal annotation name.", sample.getAnnotation(HttpMethod.class).value(), is(equalTo(sample.getSimpleName())));
+		assertThat("HTTP method name must equal simple name of " + sample + ".", sample.getAnnotation(HttpMethod.class).value(),
+				is(equalTo(sample.getSimpleName())));
 	}
 }

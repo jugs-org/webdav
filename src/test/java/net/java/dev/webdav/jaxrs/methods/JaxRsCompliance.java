@@ -45,23 +45,23 @@ public final class JaxRsCompliance {
 
 	@Theory
 	public final void isAnAnnotation(final Class<?> sample) {
-		assertThat("Must be an annotation.", sample.isAnnotation(), is(true));
+		assertThat(sample + " must be an annotation.", sample.isAnnotation(), is(true));
 	}
 
 	@Theory
 	public final void canBeUsedOnMethods(final Class<?> sample) {
-		assertThat("Must have @Target.", sample.isAnnotationPresent(Target.class), is(true));
-		assertThat("Target element type must be METHOD.", sample.getAnnotation(Target.class).value()[0], is(sameInstance(METHOD)));
+		assertThat(sample + " must be annotated with @Target.", sample.isAnnotationPresent(Target.class), is(true));
+		assertThat("Target element type of " + sample + " must be METHOD.", sample.getAnnotation(Target.class).value()[0], is(sameInstance(METHOD)));
 	}
 
 	@Theory
 	public final void hasRuntimeRetention(final Class<?> sample) {
-		assertThat("Must have @Retention.", sample.isAnnotationPresent(Retention.class), is(true));
-		assertThat("Retention policy must be RUNTIME.", sample.getAnnotation(Retention.class).value(), is(sameInstance(RUNTIME)));
+		assertThat(sample + " must be annotated with @Retention.", sample.isAnnotationPresent(Retention.class), is(true));
+		assertThat("Retention policy of " + sample + " must be RUNTIME.", sample.getAnnotation(Retention.class).value(), is(sameInstance(RUNTIME)));
 	}
 
 	@Theory
 	public final void hasHttpMethod(final Class<?> sample) {
-		assertThat("Must have @HttpMethod.", sample.isAnnotationPresent(HttpMethod.class), is(true));
+		assertThat(sample + " must be annotated with @HttpMethod.", sample.isAnnotationPresent(HttpMethod.class), is(true));
 	}
 }

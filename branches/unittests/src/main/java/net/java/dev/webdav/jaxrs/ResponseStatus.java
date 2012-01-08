@@ -81,10 +81,12 @@ public enum ResponseStatus implements StatusType {
 		this.reasonPhrase = reasonPhrase;
 	}
 
+	@Override
 	public final int getStatusCode() {
 		return this.statusCode;
 	}
 
+	@Override
 	public final Family getFamily() {
 		switch (this.statusCode / 100) {
 		case 1:

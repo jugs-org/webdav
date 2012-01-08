@@ -30,7 +30,7 @@ import java.lang.annotation.Target;
 
 import javax.ws.rs.HttpMethod;
 
-import org.junit.experimental.theories.DataPoint;
+import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
@@ -42,50 +42,29 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Theories.class)
 public final class JaxRsCompliance {
-	@DataPoint
-	public static Class<?> COPY = COPY.class;
-
-	@DataPoint
-	public static Class<?> LOCK = LOCK.class;
-
-	@DataPoint
-	public static Class<?> MKCOL = MKCOL.class;
-
-	@DataPoint
-	public static Class<?> MOVE = MOVE.class;
-
 	@SuppressWarnings("deprecation")
-	@DataPoint
-	public static Class<?> OPTIONS = OPTIONS.class;
-
-	@DataPoint
-	public static Class<?> PROPFIND = PROPFIND.class;
-
-	@DataPoint
-	public static Class<?> PROPPATCH = PROPPATCH.class;
-
-	@DataPoint
-	public static Class<?> UNLOCK = UNLOCK.class;
+	@DataPoints
+	public static Class<?>[] DATA_POINTS = { COPY.class, LOCK.class, MKCOL.class, MOVE.class, OPTIONS.class, PROPFIND.class, PROPPATCH.class, UNLOCK.class };
 
 	@Theory
-	public final void isAnAnnotation(final Class<?> sample) {
-		assertThat(sample + " must be an annotation.", sample.isAnnotation(), is(true));
+	public final void isAnAnnotation(final Class<?> dataPoint) {
+		assertThat(dataPoint + " must be an annotation.", dataPoint.isAnnotation(), is(true));
 	}
 
 	@Theory
-	public final void canBeUsedOnMethods(final Class<?> sample) {
-		assertThat(sample + " must be annotated with @Target.", sample.isAnnotationPresent(Target.class), is(true));
-		assertThat("Target element type of " + sample + " must be METHOD.", sample.getAnnotation(Target.class).value()[0], is(sameInstance(METHOD)));
+	public final void canBeUsedOnMethods(final Class<?> dataPoint) {
+		assertThat(dataPoint + " must be annotated with @Target.", dataPoint.isAnnotationPresent(Target.class), is(true));
+		assertThat("Target element type of " + dataPoint + " must be METHOD.", dataPoint.getAnnotation(Target.class).value()[0], is(sameInstance(METHOD)));
 	}
 
 	@Theory
-	public final void hasRuntimeRetention(final Class<?> sample) {
-		assertThat(sample + " must be annotated with @Retention.", sample.isAnnotationPresent(Retention.class), is(true));
-		assertThat("Retention policy of " + sample + " must be RUNTIME.", sample.getAnnotation(Retention.class).value(), is(sameInstance(RUNTIME)));
+	public final void hasRuntimeRetention(final Class<?> dataPoint) {
+		assertThat(dataPoint + " must be annotated with @Retention.", dataPoint.isAnnotationPresent(Retention.class), is(true));
+		assertThat("Retention policy of " + dataPoint + " must be RUNTIME.", dataPoint.getAnnotation(Retention.class).value(), is(sameInstance(RUNTIME)));
 	}
 
 	@Theory
-	public final void hasHttpMethod(final Class<?> sample) {
-		assertThat(sample + " must be annotated with @HttpMethod.", sample.isAnnotationPresent(HttpMethod.class), is(true));
+	public final void hasHttpMethod(final Class<?> dataPoint) {
+		assertThat(dataPoint + " must be annotated with @HttpMethod.", dataPoint.isAnnotationPresent(HttpMethod.class), is(true));
 	}
 }

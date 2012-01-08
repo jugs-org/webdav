@@ -31,12 +31,12 @@ import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
 /**
- * Tests WebDAV method annotations for project conventions.
+ * Tests WebDAV method annotations's implementation details.
  * 
  * @author Markus KARG (mkarg@java.net)
  */
 @RunWith(Theories.class)
-public final class ProjectConventions {
+public final class ImplementationDetails {
 	@SuppressWarnings("deprecation")
 	@DataPoints
 	public static Class<?>[] DATA_POINTS = { COPY.class, LOCK.class, MKCOL.class, MOVE.class, OPTIONS.class, PROPFIND.class, PROPPATCH.class, UNLOCK.class };

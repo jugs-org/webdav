@@ -20,7 +20,6 @@
 package net.java.dev.webdav.jaxrs;
 
 import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static org.junit.Assert.assertThat;
 
@@ -39,6 +38,6 @@ public final class NullArgumentExceptionTest {
 
 	@Test
 	public final void constructorProducesDesiredMessage() {
-		assertThat(new NullArgumentException("x").getMessage(), is(equalTo("Argument 'x' must not be null.")));
+		assertThat(new NullArgumentException("x").getMessage(), is("Argument 'x' must not be null."));
 	}
 }

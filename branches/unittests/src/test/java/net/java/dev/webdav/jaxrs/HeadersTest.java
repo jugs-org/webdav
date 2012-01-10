@@ -19,8 +19,21 @@
 
 package net.java.dev.webdav.jaxrs;
 
+import static net.java.dev.webdav.jaxrs.Headers.DAV;
+import static net.java.dev.webdav.jaxrs.Headers.DEPTH;
+import static net.java.dev.webdav.jaxrs.Headers.DEPTH_0;
+import static net.java.dev.webdav.jaxrs.Headers.DEPTH_1;
+import static net.java.dev.webdav.jaxrs.Headers.DEPTH_INFINITY;
+import static net.java.dev.webdav.jaxrs.Headers.DESTINATION;
+import static net.java.dev.webdav.jaxrs.Headers.IF;
+import static net.java.dev.webdav.jaxrs.Headers.LOCK_TOKEN;
+import static net.java.dev.webdav.jaxrs.Headers.OVERWRITE;
+import static net.java.dev.webdav.jaxrs.Headers.OVERWRITE_FALSE;
+import static net.java.dev.webdav.jaxrs.Headers.OVERWRITE_TRUE;
+import static net.java.dev.webdav.jaxrs.Headers.TIMEOUT;
+import static net.java.dev.webdav.jaxrs.Headers.TIMEOUT_INFINITE;
+import static net.java.dev.webdav.jaxrs.Headers.TIMEOUT_SECOND;
 import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
@@ -33,19 +46,19 @@ import org.junit.Test;
 public final class HeadersTest {
 	@Test
 	public final void testHeaders() {
-		assertThat(Headers.DAV, is(equalTo("DAV")));
-		assertThat(Headers.DEPTH, is(equalTo("Depth")));
-		assertThat(Headers.DEPTH_0, is(equalTo("0")));
-		assertThat(Headers.DEPTH_1, is(equalTo("1")));
-		assertThat(Headers.DEPTH_INFINITY, is(equalTo("infinity")));
-		assertThat(Headers.DESTINATION, is(equalTo("Destination")));
-		assertThat(Headers.IF, is(equalTo("If")));
-		assertThat(Headers.LOCK_TOKEN, is(equalTo("Lock-Token")));
-		assertThat(Headers.OVERWRITE, is(equalTo("Overwrite")));
-		assertThat(Headers.OVERWRITE_TRUE, is(equalTo("T")));
-		assertThat(Headers.OVERWRITE_FALSE, is(equalTo("F")));
-		assertThat(Headers.TIMEOUT, is(equalTo("Timeout")));
-		assertThat(Headers.TIMEOUT_SECOND, is(equalTo("Second-")));
-		assertThat(Headers.TIMEOUT_INFINITE, is(equalTo("Infinite")));
+		assertThat(DAV, is("DAV"));
+		assertThat(DEPTH, is("Depth"));
+		assertThat(DEPTH_0, is("0"));
+		assertThat(DEPTH_1, is("1"));
+		assertThat(DEPTH_INFINITY, is("infinity"));
+		assertThat(DESTINATION, is("Destination"));
+		assertThat(IF, is("If"));
+		assertThat(LOCK_TOKEN, is("Lock-Token"));
+		assertThat(OVERWRITE, is("Overwrite"));
+		assertThat(OVERWRITE_TRUE, is("T"));
+		assertThat(OVERWRITE_FALSE, is("F"));
+		assertThat(TIMEOUT, is("Timeout"));
+		assertThat(TIMEOUT_SECOND, is("Second-"));
+		assertThat(TIMEOUT_INFINITE, is("Infinite"));
 	}
 }

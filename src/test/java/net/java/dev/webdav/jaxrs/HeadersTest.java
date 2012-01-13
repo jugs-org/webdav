@@ -45,7 +45,7 @@ import org.junit.Test;
  */
 public final class HeadersTest {
 	@Test
-	public final void testHeaders() {
+	public final void webDAVConstantsProduceCorrectly() {
 		assertThat(DAV, is("DAV"));
 		assertThat(DEPTH, is("Depth"));
 		assertThat(DEPTH_0, is("0"));

@@ -45,7 +45,7 @@ import org.junit.runner.RunWith;
 @RunWith(Theories.class)
 public final class ResponseStatusTest {
 	@DataPoints
-	public static final Object[][] dataPoints = new Object[][] {
+	public static final Object[][] DATA_POINTS = new Object[][] {
 		{ MULTI_STATUS, 207, "Multi-Status", SUCCESSFUL },
 		{ UNPROCESSABLE_ENTITY, 422, "Unprocessable Entity", CLIENT_ERROR },
 		{ LOCKED, 423, "Locked", CLIENT_ERROR },

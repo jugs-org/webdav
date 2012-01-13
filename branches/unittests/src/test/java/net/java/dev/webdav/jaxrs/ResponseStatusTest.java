@@ -30,46 +30,39 @@ import static net.java.dev.webdav.jaxrs.ResponseStatus.UNPROCESSABLE_ENTITY;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
+import javax.ws.rs.core.Response.Status.Family;
+
 import org.junit.Test;
+import org.junit.experimental.theories.DataPoints;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.runner.RunWith;
 
 /**
  * Tests WebDAV response statuses.
  * 
  * @author Markus KARG (mkarg@java.net)
  */
+@RunWith(Theories.class)
 public final class ResponseStatusTest {
-	@Test
-	public final void test207MultiStatus() {
-		assertThat(MULTI_STATUS.getStatusCode(), is(207));
-		assertThat(MULTI_STATUS.getReasonPhrase(), is("Multi-Status"));
-		assertThat(MULTI_STATUS.getFamily(), is(SUCCESSFUL));
-	}
+	@DataPoints
+	public static final Object[][] dataPoints = new Object[][] {
+		{ MULTI_STATUS, 207, "Multi-Status", SUCCESSFUL },
+		{ UNPROCESSABLE_ENTITY, 422, "Unprocessable Entity", CLIENT_ERROR },
+		{ LOCKED, 423, "Locked", CLIENT_ERROR },
+		{ FAILED_DEPENDENCY, 424, "Failed Dependency", CLIENT_ERROR },
+		{ INSUFFICIENT_STORAGE, 507, "Insufficient Storage", SERVER_ERROR }
+	};
 
-	@Test
-	public final void test422UnprocessableEntity() {
-		assertThat(UNPROCESSABLE_ENTITY.getStatusCode(), is(422));
-		assertThat(UNPROCESSABLE_ENTITY.getReasonPhrase(), is("Unprocessable Entity"));
-		assertThat(UNPROCESSABLE_ENTITY.getFamily(), is(CLIENT_ERROR));
-	}
+	@Theory
+	public final void webDAVConstantsProduceCorrectly(final Object[] dataPoint) {
+		final ResponseStatus actual = (ResponseStatus) dataPoint[0];
+		final int expectedStatusCode = (Integer) dataPoint[1];
+		final String expectedReasonPhrase = (String) dataPoint[2];
+		final Family expectedFamily = (Family) dataPoint[3];
 
-	@Test
-	public final void test423Locked() {
-		assertThat(LOCKED.getStatusCode(), is(423));
-		assertThat(LOCKED.getReasonPhrase(), is("Locked"));
-		assertThat(LOCKED.getFamily(), is(CLIENT_ERROR));
-	}
-
-	@Test
-	public final void test424FailedDependency() {
-		assertThat(FAILED_DEPENDENCY.getStatusCode(), is(424));
-		assertThat(FAILED_DEPENDENCY.getReasonPhrase(), is("Failed Dependency"));
-		assertThat(FAILED_DEPENDENCY.getFamily(), is(CLIENT_ERROR));
-	}
-
-	@Test
-	public final void test507InsufficientStorage() {
-		assertThat(INSUFFICIENT_STORAGE.getStatusCode(), is(507));
-		assertThat(INSUFFICIENT_STORAGE.getReasonPhrase(), is("Insufficient Storage"));
-		assertThat(INSUFFICIENT_STORAGE.getFamily(), is(SERVER_ERROR));
+		assertThat(actual.getStatusCode(), is(expectedStatusCode));
+		assertThat(actual.getReasonPhrase(), is(expectedReasonPhrase));
+		assertThat(actual.getFamily(), is(expectedFamily));
 	}
 }

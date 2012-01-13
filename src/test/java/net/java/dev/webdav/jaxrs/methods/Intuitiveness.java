@@ -31,12 +31,12 @@ import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
 /**
- * Tests WebDAV method annotations's implementation details.
+ * Tests WebDAV method annotations's intuitiveness (i. e. whether the API is intuitive to use).
  * 
  * @author Markus KARG (mkarg@java.net)
  */
 @RunWith(Theories.class)
-public final class ImplementationDetails {
+public final class Intuitiveness {
 	@SuppressWarnings("deprecation")
 	@DataPoints
 	public static Class<?>[] DATA_POINTS = { COPY.class, LOCK.class, MKCOL.class, MOVE.class, OPTIONS.class, PROPFIND.class, PROPPATCH.class, UNLOCK.class };

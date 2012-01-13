@@ -32,7 +32,6 @@ import static org.junit.Assert.assertThat;
 
 import javax.ws.rs.core.Response.Status.Family;
 
-import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;

@@ -1,4 +1,4 @@
-package net.java.dev.webdav.jaxrs.methods;
+package net.java.dev.webdav.jaxrs.elements;
 
 import static net.java.dev.webdav.jaxrs.xml.elements.Depth.INFINITY;
 import static net.java.dev.webdav.jaxrs.xml.elements.Depth.ONE;

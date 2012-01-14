@@ -1,4 +1,4 @@
-package net.java.dev.webdav.jaxrs.methods;
+package net.java.dev.webdav.jaxrs.elements;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;

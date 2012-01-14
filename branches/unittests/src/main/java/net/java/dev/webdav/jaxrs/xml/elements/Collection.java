@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public final class Collection {
 	@Override
 	public final boolean equals(final Object obj) {
-		return true;
+		return obj != null && obj instanceof Collection;
 	}
 
 	@Override

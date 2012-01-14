@@ -44,7 +44,7 @@ import org.junit.runner.RunWith;
 public final class JaxRsCompliance {
 	@SuppressWarnings("deprecation")
 	@DataPoints
-	public static Class<?>[] DATA_POINTS = { COPY.class, LOCK.class, MKCOL.class, MOVE.class, OPTIONS.class, PROPFIND.class, PROPPATCH.class, UNLOCK.class };
+	public static final Class<?>[] DATA_POINTS = { COPY.class, LOCK.class, MKCOL.class, MOVE.class, OPTIONS.class, PROPFIND.class, PROPPATCH.class, UNLOCK.class };
 
 	@Theory
 	public final void isAnAnnotation(final Class<?> dataPoint) {

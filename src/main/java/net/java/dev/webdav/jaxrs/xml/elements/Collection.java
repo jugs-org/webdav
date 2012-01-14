@@ -34,4 +34,9 @@ public final class Collection {
 	public final boolean equals(final Object obj) {
 		return true;
 	}
+
+	@Override
+	public final int hashCode() {
+		return 0;
+	}
 }

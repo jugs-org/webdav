@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, 2009 Markus KARG
+ * Copyright 2008-2009, 2011 Markus KARG
  *
  * This file is part of webdav-jaxrs.
  *
@@ -30,5 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "no-external-entities")
 public final class NoExternalEntities {
-	// Has no members.
+	@Override
+	public final boolean equals(final Object object) {
+		return object instanceof NoExternalEntities;
+	}
 }

@@ -34,4 +34,9 @@ public final class PreservedLiveProperties {
 	public final boolean equals(final Object object) {
 		return object instanceof PreservedLiveProperties;
 	}
+
+	@Override
+	public final int hashCode() {
+		return 0;
+	}
 }

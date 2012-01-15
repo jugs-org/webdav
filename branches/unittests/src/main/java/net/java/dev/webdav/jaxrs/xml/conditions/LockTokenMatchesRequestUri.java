@@ -34,4 +34,9 @@ public final class LockTokenMatchesRequestUri {
 	public final boolean equals(final Object object) {
 		return object instanceof LockTokenMatchesRequestUri;
 	}
+
+	@Override
+	public final int hashCode() {
+		return 0;
+	}
 }

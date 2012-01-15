@@ -31,8 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "cannot-modify-protected-property")
 public final class CannotModifyProtectedProperty {
 	@Override
-	public final boolean equals(final Object obj) {
-		return obj != null && obj instanceof CannotModifyProtectedProperty;
+	public final boolean equals(final Object object) {
+		return object instanceof CannotModifyProtectedProperty;
 	}
 
 	@Override

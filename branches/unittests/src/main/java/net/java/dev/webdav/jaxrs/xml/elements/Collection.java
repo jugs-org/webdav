@@ -31,8 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public final class Collection {
 	@Override
-	public final boolean equals(final Object obj) {
-		return obj != null && obj instanceof Collection;
+	public final boolean equals(final Object object) {
+		return object instanceof Collection;
 	}
 
 	@Override

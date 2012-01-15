@@ -34,4 +34,9 @@ public final class PropFindFiniteDepth {
 	public final boolean equals(final Object object) {
 		return object instanceof PropFindFiniteDepth;
 	}
+
+	@Override
+	public final int hashCode() {
+		return 0;
+	}
 }

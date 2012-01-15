@@ -34,4 +34,9 @@ public final class NoExternalEntities {
 	public final boolean equals(final Object object) {
 		return object instanceof NoExternalEntities;
 	}
+
+	@Override
+	public final int hashCode() {
+		return 0;
+	}
 }

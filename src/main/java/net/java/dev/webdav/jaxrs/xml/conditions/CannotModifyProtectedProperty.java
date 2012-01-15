@@ -34,4 +34,9 @@ public final class CannotModifyProtectedProperty {
 	public final boolean equals(final Object obj) {
 		return obj != null && obj instanceof CannotModifyProtectedProperty;
 	}
+
+	@Override
+	public final int hashCode() {
+		return 0;
+	}
 }

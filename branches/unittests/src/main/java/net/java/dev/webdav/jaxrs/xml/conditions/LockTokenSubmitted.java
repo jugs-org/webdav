@@ -61,4 +61,13 @@ public final class LockTokenSubmitted {
 		return (List<HRef>) this.hRefs.clone();
 	}
 
+	@Override
+	public final boolean equals(final Object other) {
+		if (!(other instanceof LockTokenSubmitted))
+			return false;
+
+		final LockTokenSubmitted that = (LockTokenSubmitted) other;
+
+		return this.hRefs.equals(that.hRefs);
+	}
 }

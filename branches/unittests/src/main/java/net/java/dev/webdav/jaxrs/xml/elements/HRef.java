@@ -104,4 +104,9 @@ public final class HRef {
 
 		return this.value.equals(that.value);
 	}
+	
+	@Override
+	public final int hashCode() {
+		return this.value.hashCode();
+	}
 }

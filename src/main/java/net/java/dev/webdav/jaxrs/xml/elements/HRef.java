@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, 2009 Markus KARG
+ * Copyright 2008-2009, 2012 Markus KARG
  *
  * This file is part of webdav-jaxrs.
  *
@@ -78,7 +78,7 @@ public final class HRef {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * @return Value as a <code>URI</code> instance, if the value is a valid
 	 *         URI; <code>null</code> otherwise.
@@ -94,5 +94,14 @@ public final class HRef {
 	public final String getValue() {
 		return this.value;
 	}
-	
+
+	@Override
+	public final boolean equals(final Object other) {
+		if (!(other instanceof HRef))
+			return false;
+
+		final HRef that = (HRef) other;
+
+		return this.value.equals(that.value);
+	}
 }

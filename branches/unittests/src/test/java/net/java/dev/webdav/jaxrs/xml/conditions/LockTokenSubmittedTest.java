@@ -21,6 +21,8 @@ package net.java.dev.webdav.jaxrs.xml.conditions;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
 import static org.xmlmatchers.XmlMatchers.isEquivalentTo;
 import static org.xmlmatchers.transform.XmlConverters.the;
@@ -83,5 +85,7 @@ public final class LockTokenSubmittedTest {
 		final LockTokenSubmitted actualElement = JAXB.unmarshal(new StringReader((String) dataPoint[1]), LockTokenSubmitted.class);
 		final LockTokenSubmitted expectedElement = (LockTokenSubmitted) dataPoint[0];
 		assertThat(actualElement, is(equalTo(expectedElement)));
+		assertThat(actualElement.getHRefs(), is(equalTo(expectedElement.getHRefs())));
+		assertThat(actualElement.getHRefs(), is(not(sameInstance(expectedElement.getHRefs()))));
 	}
 }

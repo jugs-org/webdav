@@ -70,4 +70,9 @@ public final class LockTokenSubmitted {
 
 		return this.hRefs.equals(that.hRefs);
 	}
+
+	@Override
+	public final int hashCode() {
+		return this.hRefs.hashCode();
+	}
 }

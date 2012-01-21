@@ -30,6 +30,7 @@ import static org.xmlmatchers.transform.XmlConverters.the;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.List;
 
 import javax.xml.bind.JAXB;
 
@@ -66,10 +67,9 @@ public final class LockTokenSubmittedTest {
 
 	@DataPoints
 	public static final Object[][] DATA_POINTS = new Object[][] {
-		{ new LockTokenSubmitted(new HRef("x")), "<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href></D:lock-token-submitted>" },
-		{ new LockTokenSubmitted(new HRef("x"), new HRef("y")), "<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href></D:lock-token-submitted>" },
-		{ new LockTokenSubmitted(new HRef("x"), new HRef[] { new HRef("y") }), "<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href></D:lock-token-submitted>" }
-	};
+			{ new LockTokenSubmitted(new HRef("x")), "<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href></D:lock-token-submitted>" },
+			{ new LockTokenSubmitted(new HRef("x"), new HRef("y")),	"<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href></D:lock-token-submitted>" },
+			{ new LockTokenSubmitted(new HRef("x"), new HRef[] { new HRef("y") }), "<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href></D:lock-token-submitted>" } };
 
 	@Theory
 	public final void marshalling(final Object[] dataPoint) {
@@ -85,7 +85,20 @@ public final class LockTokenSubmittedTest {
 		final LockTokenSubmitted actualElement = JAXB.unmarshal(new StringReader((String) dataPoint[1]), LockTokenSubmitted.class);
 		final LockTokenSubmitted expectedElement = (LockTokenSubmitted) dataPoint[0];
 		assertThat(actualElement, is(equalTo(expectedElement)));
-		assertThat(actualElement.getHRefs(), is(equalTo(expectedElement.getHRefs())));
-		assertThat(actualElement.getHRefs(), is(not(sameInstance(expectedElement.getHRefs()))));
+	}
+
+	@Theory
+	public final void getHRefsKeepsSequence(final Object[] dataPoint) {
+		final List<HRef> actualSequence = JAXB.unmarshal(new StringReader((String) dataPoint[1]), LockTokenSubmitted.class).getHRefs();
+		final List<HRef> expectedSequence = ((LockTokenSubmitted) dataPoint[0]).getHRefs();
+		assertThat(actualSequence, is(expectedSequence));
+	}
+
+	@Theory
+	public final void getHRefsReturnsNewCloneEachTime(final Object[] dataPoint) {
+		final LockTokenSubmitted unmarshalledElement = (LockTokenSubmitted) dataPoint[0];
+		final List<HRef> resultOfFirstCall = unmarshalledElement.getHRefs();
+		final List<HRef> resultOfSecondCall = unmarshalledElement.getHRefs();
+		assertThat(resultOfFirstCall, is(not(sameInstance(resultOfSecondCall))));
 	}
 }

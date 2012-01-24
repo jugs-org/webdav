@@ -19,6 +19,8 @@
 
 package net.java.dev.webdav.jaxrs.xml.conditions;
 
+import static net.java.dev.webdav.jaxrs.Immutable.immutable;
+import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -30,6 +32,7 @@ import static org.xmlmatchers.transform.XmlConverters.the;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.Collection;
 import java.util.List;
 
 import javax.xml.bind.JAXB;
@@ -69,7 +72,8 @@ public final class LockTokenSubmittedTest {
 	public static final Object[][] DATA_POINTS = new Object[][] {
 			{ new LockTokenSubmitted(new HRef("x")), "<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href></D:lock-token-submitted>" },
 			{ new LockTokenSubmitted(new HRef("x"), new HRef("y")),	"<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href></D:lock-token-submitted>" },
-			{ new LockTokenSubmitted(new HRef("x"), new HRef[] { new HRef("y") }), "<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href></D:lock-token-submitted>" } };
+			{ new LockTokenSubmitted(new HRef("x"), new HRef[] { new HRef("y") }), "<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href></D:lock-token-submitted>" }
+	};
 
 	@Theory
 	public final void marshalling(final Object[] dataPoint) {
@@ -88,17 +92,21 @@ public final class LockTokenSubmittedTest {
 	}
 
 	@Theory
-	public final void getHRefsKeepsSequence(final Object[] dataPoint) {
+	public final void hRefsAreSorted(final Object[] dataPoint) {
 		final List<HRef> actualSequence = JAXB.unmarshal(new StringReader((String) dataPoint[1]), LockTokenSubmitted.class).getHRefs();
 		final List<HRef> expectedSequence = ((LockTokenSubmitted) dataPoint[0]).getHRefs();
 		assertThat(actualSequence, is(expectedSequence));
 	}
 
 	@Theory
-	public final void getHRefsReturnsNewCloneEachTime(final Object[] dataPoint) {
-		final LockTokenSubmitted unmarshalledElement = (LockTokenSubmitted) dataPoint[0];
-		final List<HRef> resultOfFirstCall = unmarshalledElement.getHRefs();
-		final List<HRef> resultOfSecondCall = unmarshalledElement.getHRefs();
-		assertThat(resultOfFirstCall, is(not(sameInstance(resultOfSecondCall))));
+	public final void hRefsAreEffectivelyImmutable(final Object[] dataPoint) {
+		assertEffectivelyImmutableHRefs((LockTokenSubmitted) dataPoint[0]);
+		assertEffectivelyImmutableHRefs(JAXB.unmarshal(new StringReader((String) dataPoint[1]), LockTokenSubmitted.class));
+	}
+
+	private static final void assertEffectivelyImmutableHRefs(final LockTokenSubmitted immutableObject) {
+		final Collection<HRef> resultOfFirstCall = immutableObject.getHRefs();
+		final Collection<HRef> resultOfSecondCall = immutableObject.getHRefs();
+		assertThat(resultOfFirstCall, is(anyOf(immutable(HRef.class), not(sameInstance(resultOfSecondCall)))));
 	}
 }

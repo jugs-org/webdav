@@ -97,6 +97,9 @@ public final class HRef {
 
 	@Override
 	public final boolean equals(final Object other) {
+		if (other == this)
+			return true;
+
 		if (!(other instanceof HRef))
 			return false;
 

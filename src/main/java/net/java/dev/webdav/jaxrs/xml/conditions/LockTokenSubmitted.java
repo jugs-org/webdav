@@ -21,7 +21,6 @@ package net.java.dev.webdav.jaxrs.xml.conditions;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -41,7 +40,7 @@ import net.java.dev.webdav.jaxrs.xml.elements.HRef;
 public final class LockTokenSubmitted {
 
 	@XmlElement(name = "href")
-	private LinkedList<HRef> hRefs;
+	private List<HRef> hRefs;
 
 	@SuppressWarnings("unused")
 	private LockTokenSubmitted() {
@@ -52,13 +51,19 @@ public final class LockTokenSubmitted {
 		if (hRef == null)
 			throw new NullArgumentException("hRef");
 
-		this.hRefs = new LinkedList<HRef>(Collections.singleton(hRef));
-		this.hRefs.addAll(Arrays.asList(hRefs));
+		this.hRefs = combine(hRef, hRefs);
 	}
 
-	@SuppressWarnings("unchecked")
+	private static final <E> List<E> combine(final E e, final E... es) {
+		@SuppressWarnings("unchecked")
+		final E combined[] = (E[]) new Object[1 + es.length];
+		combined[0] = e;
+		System.arraycopy(es, 0, combined, 1, es.length);
+		return Arrays.asList(combined);
+	}
+
 	public final List<HRef> getHRefs() {
-		return (List<HRef>) this.hRefs.clone();
+		return Collections.unmodifiableList(this.hRefs);
 	}
 
 	@Override

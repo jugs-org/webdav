@@ -67,4 +67,9 @@ public final class NoConflictingLock {
 
 		return this.hRefs == null && that.hRefs == null || this.hRefs.equals(that.hRefs);
 	}
+
+	@Override
+	public final int hashCode() {
+		return this.hRefs == null ? 0 : this.hRefs.hashCode();
+	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, 2009 Markus KARG
+ * Copyright 2008-2009, 2012 Markus KARG
  *
  * This file is part of webdav-jaxrs.
  *
@@ -54,4 +54,16 @@ public final class NoConflictingLock {
 		return (List<HRef>) this.hRefs.clone();
 	}
 
+	@Override
+	public final boolean equals(final Object other) {
+		if (other == this)
+			return true;
+
+		if (!(other instanceof NoConflictingLock))
+			return false;
+
+		final NoConflictingLock that = (NoConflictingLock) other;
+
+		return this.hRefs == null && that.hRefs == null || this.hRefs.equals(that.hRefs);
+	}
 }

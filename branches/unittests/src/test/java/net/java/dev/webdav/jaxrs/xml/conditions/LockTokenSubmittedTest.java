@@ -19,7 +19,7 @@
 
 package net.java.dev.webdav.jaxrs.xml.conditions;
 
-import static net.java.dev.webdav.jaxrs.Immutable.immutable;
+import static net.java.dev.webdav.jaxrs.ImmutableCollection.immutable;
 import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;

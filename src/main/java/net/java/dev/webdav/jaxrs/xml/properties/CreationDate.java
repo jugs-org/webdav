@@ -58,18 +58,27 @@ public final class CreationDate {
 	}
 
 	public final Date getDateTime() {
-		return this.dateTime;
+		return this.dateTime == null ? null : (Date) this.dateTime.clone();
 	}
 
 	@SuppressWarnings("unused")
 	@XmlValue
 	private final String getXmlDateTime() {
-		return new Rfc3339DateTimeFormat().format(this.dateTime);
+		return this.dateTime == null ? null : new Rfc3339DateTimeFormat().format(this.dateTime);
 	}
 
 	@SuppressWarnings("unused")
 	private final void setXmlDateTime(final String rfc3339DateTime) throws ParseException {
-		this.dateTime = new Rfc3339DateTimeFormat().parse(rfc3339DateTime);
+		this.dateTime = rfc3339DateTime == null ? null : new Rfc3339DateTimeFormat().parse(rfc3339DateTime);
 	}
 
+	@Override
+	public final boolean equals(final Object other) {
+		if (!(other instanceof CreationDate))
+				return false;
+		
+		final CreationDate that = (CreationDate) other;
+		
+		return this.dateTime == null && that.dateTime == null || this.dateTime != null && that.dateTime != null && this.dateTime.equals(that.dateTime);
+	}
 }

@@ -39,7 +39,6 @@ import javax.xml.bind.JAXB;
 
 import net.java.dev.webdav.jaxrs.xml.elements.HRef;
 
-import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
@@ -52,14 +51,6 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Theories.class)
 public final class NoConflictingLockTest {
-	@Test
-	public final void construction() {
-		new NoConflictingLock();
-		new NoConflictingLock(new HRef("x"));
-		new NoConflictingLock(new HRef("x"), new HRef("y"));
-		new NoConflictingLock(new HRef[] { new HRef("x"), new HRef("y") });
-	}
-
 	@DataPoints
 	public static final Object[][] DATA_POINTS = new Object[][] {
 		{ new NoConflictingLock(), "<D:no-conflicting-lock xmlns:D=\"DAV:\"/>" },

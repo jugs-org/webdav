@@ -19,6 +19,7 @@
 
 package net.java.dev.webdav.jaxrs.xml.conditions;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -40,11 +41,11 @@ import net.java.dev.webdav.jaxrs.xml.elements.HRef;
 public final class LockTokenSubmitted {
 
 	@XmlElement(name = "href")
-	private List<HRef> hRefs;
+	private final List<HRef> hRefs;
 
 	@SuppressWarnings("unused")
 	private LockTokenSubmitted() {
-		// For unmarshalling only.
+		this.hRefs = new ArrayList<HRef>();
 	}
 
 	public LockTokenSubmitted(final HRef hRef, final HRef... hRefs) {

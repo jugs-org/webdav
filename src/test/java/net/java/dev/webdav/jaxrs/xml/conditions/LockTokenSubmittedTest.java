@@ -70,9 +70,9 @@ public final class LockTokenSubmittedTest {
 
 	@DataPoints
 	public static final Object[][] DATA_POINTS = new Object[][] {
-			{ new LockTokenSubmitted(new HRef("x")), "<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href></D:lock-token-submitted>" },
-			{ new LockTokenSubmitted(new HRef("x"), new HRef("y")),	"<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href></D:lock-token-submitted>" },
-			{ new LockTokenSubmitted(new HRef("x"), new HRef[] { new HRef("y") }), "<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href></D:lock-token-submitted>" }
+		{ new LockTokenSubmitted(new HRef("x")), "<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href></D:lock-token-submitted>" },
+		{ new LockTokenSubmitted(new HRef("x"), new HRef("y")),	"<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href></D:lock-token-submitted>" },
+		{ new LockTokenSubmitted(new HRef("x"), new HRef[] { new HRef("y") }), "<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href></D:lock-token-submitted>" }
 	};
 
 	@Theory

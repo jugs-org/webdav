@@ -20,6 +20,7 @@
 package net.java.dev.webdav.jaxrs.xml.conditions;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public final class NoConflictingLock {
 
 	@SuppressWarnings("unchecked")
 	public final List<HRef> getHRefs() {
-		return (List<HRef>) this.hRefs.clone();
+		return this.hRefs == null ? Collections.EMPTY_LIST : (List<HRef>) this.hRefs.clone();
 	}
 
 	@Override

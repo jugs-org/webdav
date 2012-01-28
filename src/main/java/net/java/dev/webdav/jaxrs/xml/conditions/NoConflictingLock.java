@@ -19,9 +19,9 @@
 
 package net.java.dev.webdav.jaxrs.xml.conditions;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -40,19 +40,18 @@ import net.java.dev.webdav.jaxrs.xml.elements.HRef;
 public final class NoConflictingLock {
 
 	@XmlElement(name = "href")
-	private LinkedList<HRef> hRefs;
+	private final List<HRef> hRefs;
 
 	public NoConflictingLock() {
-		// Has no members.
+		this.hRefs = new ArrayList<HRef>();
 	}
 
 	public NoConflictingLock(final HRef... hRefs) {
-		this.hRefs = new LinkedList<HRef>(Arrays.asList(hRefs));
+		this.hRefs = Arrays.asList(hRefs);
 	}
 
-	@SuppressWarnings("unchecked")
 	public final List<HRef> getHRefs() {
-		return this.hRefs == null ? Collections.EMPTY_LIST : (List<HRef>) this.hRefs.clone();
+		return Collections.unmodifiableList(this.hRefs);
 	}
 
 	@Override
@@ -65,11 +64,11 @@ public final class NoConflictingLock {
 
 		final NoConflictingLock that = (NoConflictingLock) other;
 
-		return this.hRefs == null && that.hRefs == null || this.hRefs.equals(that.hRefs);
+		return this.hRefs.equals(that.hRefs);
 	}
 
 	@Override
 	public final int hashCode() {
-		return this.hRefs == null ? 0 : this.hRefs.hashCode();
+		return this.hRefs.hashCode();
 	}
 }

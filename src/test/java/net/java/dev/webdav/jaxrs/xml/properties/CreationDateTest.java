@@ -17,10 +17,11 @@
  * along with webdav-jaxrs.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.java.dev.webdav.jaxrs.xml.conditions;
+package net.java.dev.webdav.jaxrs.xml.properties;
 
-import static net.java.dev.webdav.jaxrs.ImmutableCollection.immutable;
+import static net.java.dev.webdav.jaxrs.ImmutableDate.immutable;
 import static org.hamcrest.CoreMatchers.anyOf;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -32,31 +33,34 @@ import static org.xmlmatchers.transform.XmlConverters.the;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.Collection;
-import java.util.List;
+import java.util.Date;
 
 import javax.xml.bind.JAXB;
 
-import net.java.dev.webdav.jaxrs.xml.elements.HRef;
+import net.java.dev.webdav.jaxrs.NullArgumentException;
 
+import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
 /**
- * Unit test for {@link NoConflictingLock}
+ * Unit test for {@link CreationDate}
  * 
  * @author Markus KARG (mkarg@java.net)
  */
 @RunWith(Theories.class)
-public final class NoConflictingLockTest {
+public final class CreationDateTest {
+	@Test(expected = NullArgumentException.class)
+	public final void constructorDoesNotAcceptNull() {
+		new CreationDate(null);
+	}
+
 	@DataPoints
 	public static final Object[][] DATA_POINTS = new Object[][] {
-		{ new NoConflictingLock(), "<D:no-conflicting-lock xmlns:D=\"DAV:\"/>" },
-		{ new NoConflictingLock(new HRef("x")), "<D:no-conflicting-lock xmlns:D=\"DAV:\"><D:href>x</D:href></D:no-conflicting-lock>" },
-		{ new NoConflictingLock(new HRef("x"), new HRef("y")), "<D:no-conflicting-lock xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href></D:no-conflicting-lock>" },
-		{ new NoConflictingLock(new HRef[] { new HRef("x"), new HRef("y") }), "<D:no-conflicting-lock xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href></D:no-conflicting-lock>" }
+		{ new CreationDate(), "<D:creationdate xmlns:D=\"DAV:\"/>" },
+		{ new CreationDate(new Date(1)), "<D:creationdate xmlns:D=\"DAV:\">1970-01-01T00:00:00.001Z</D:creationdate>" },
 	};
 
 	@Theory
@@ -70,27 +74,20 @@ public final class NoConflictingLockTest {
 
 	@Theory
 	public final void unmarshalling(final Object[] dataPoint) {
-		final NoConflictingLock actualElement = JAXB.unmarshal(new StringReader((String) dataPoint[1]), NoConflictingLock.class);
-		final NoConflictingLock expectedElement = (NoConflictingLock) dataPoint[0];
+		final CreationDate actualElement = JAXB.unmarshal(new StringReader((String) dataPoint[1]), CreationDate.class);
+		final CreationDate expectedElement = (CreationDate) dataPoint[0];
 		assertThat(actualElement, is(equalTo(expectedElement)));
 	}
 
 	@Theory
-	public final void hRefsAreSorted(final Object[] dataPoint) {
-		final List<HRef> actualSequence = JAXB.unmarshal(new StringReader((String) dataPoint[1]), NoConflictingLock.class).getHRefs();
-		final List<HRef> expectedSequence = ((NoConflictingLock) dataPoint[0]).getHRefs();
-		assertThat(actualSequence, is(expectedSequence));
+	public final void dateIsEffectivelyImmutable(final Object[] dataPoint) {
+		assertEffectivelyImmutableDate((CreationDate) dataPoint[0]);
+		assertEffectivelyImmutableDate(JAXB.unmarshal(new StringReader((String) dataPoint[1]), CreationDate.class));
 	}
 
-	@Theory
-	public final void hRefsAreEffectivelyImmutable(final Object[] dataPoint) {
-		assertEffectivelyImmutableHRefs((NoConflictingLock) dataPoint[0]);
-		assertEffectivelyImmutableHRefs(JAXB.unmarshal(new StringReader((String) dataPoint[1]), NoConflictingLock.class));
-	}
-
-	private static final void assertEffectivelyImmutableHRefs(final NoConflictingLock immutableObject) {
-		final Collection<HRef> resultOfFirstCall = immutableObject.getHRefs();
-		final Collection<HRef> resultOfSecondCall = immutableObject.getHRefs();
-		assertThat(resultOfFirstCall, is(anyOf(immutable(HRef.class), not(sameInstance(resultOfSecondCall)))));
+	private static final void assertEffectivelyImmutableDate(final CreationDate immutableObject) {
+		final Date resultOfFirstCall = immutableObject.getDateTime();
+		final Date resultOfSecondCall = immutableObject.getDateTime();
+		assertThat(resultOfFirstCall, is(anyOf(immutable(), not(sameInstance(resultOfSecondCall)), nullValue())));
 	}
 }

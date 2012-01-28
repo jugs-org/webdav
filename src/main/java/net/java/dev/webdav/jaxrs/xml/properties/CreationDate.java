@@ -81,4 +81,9 @@ public final class CreationDate {
 		
 		return this.dateTime == null && that.dateTime == null || this.dateTime != null && that.dateTime != null && this.dateTime.equals(that.dateTime);
 	}
+
+	@Override
+	public final int hashCode() {
+		return this.dateTime == null ? 0 : this.dateTime.hashCode();
+	}
 }

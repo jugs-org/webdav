@@ -52,4 +52,9 @@ public final class Write {
 	public final boolean equals(final Object object) {
 		return object instanceof Write;
 	}
+
+	@Override
+	public final int hashCode() {
+		return 0;
+	}
 }

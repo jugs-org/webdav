@@ -34,15 +34,12 @@ import java.io.Writer;
 import javax.xml.bind.JAXB;
 
 import org.junit.Test;
-import org.junit.experimental.theories.Theories;
-import org.junit.runner.RunWith;
 
 /**
  * Unit test for {@link Exclusive}
  * 
  * @author Markus KARG (mkarg@java.net)
  */
-@RunWith(Theories.class)
 public final class ExclusiveTest {
 	@Test
 	public final void marshalling() {

@@ -64,4 +64,16 @@ public final class TimeOut {
 		return this.isInfinite() ? Long.MAX_VALUE : Long.valueOf(this.timeType.substring(this.timeType.indexOf("-") + 1));
 	}
 
+	@Override
+	public final boolean equals(final Object object) {
+		if (object == this)
+			return true;
+
+		if (!(object instanceof TimeOut))
+			return false;
+
+		final TimeOut that = (TimeOut) object;
+
+		return this.timeType.equals(that.timeType);
+	}
 }

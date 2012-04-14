@@ -76,4 +76,9 @@ public final class TimeOut {
 
 		return this.timeType.equals(that.timeType);
 	}
+
+	@Override
+	public final int hashCode() {
+		return this.timeType.hashCode();
+	}
 }

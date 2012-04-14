@@ -52,4 +52,9 @@ public final class Exclusive {
 	public final boolean equals(final Object object) {
 		return object instanceof Exclusive;
 	}
+
+	@Override
+	public final int hashCode() {
+		return 0;
+	}
 }

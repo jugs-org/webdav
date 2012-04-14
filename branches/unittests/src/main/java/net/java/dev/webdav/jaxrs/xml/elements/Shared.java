@@ -52,4 +52,9 @@ public final class Shared {
 	public final boolean equals(final Object object) {
 		return object instanceof Shared;
 	}
+
+	@Override
+	public final int hashCode() {
+		return 0;
+	}
 }

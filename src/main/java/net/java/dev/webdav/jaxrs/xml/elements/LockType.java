@@ -61,4 +61,9 @@ public final class LockType {
 	public final boolean equals(final Object object) {
 		return object instanceof LockType;
 	}
+
+	@Override
+	public final int hashCode() {
+		return 0;
+	}
 }

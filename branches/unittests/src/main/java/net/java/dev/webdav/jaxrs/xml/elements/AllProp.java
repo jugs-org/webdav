@@ -34,4 +34,9 @@ public final class AllProp {
 	public final boolean equals(final Object object) {
 		return object instanceof AllProp;
 	}
+
+	@Override
+	public final int hashCode() {
+		return 0;
+	}
 }

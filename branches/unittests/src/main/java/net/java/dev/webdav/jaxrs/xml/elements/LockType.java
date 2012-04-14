@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, 2009 Markus KARG
+ * Copyright 2008, 2009, 2012 Markus KARG
  *
  * This file is part of webdav-jaxrs.
  *
@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "locktype")
 @XmlType(factoryMethod = "create")
 public final class LockType {
-	
+
 	public static final LockType WRITE = new LockType(Write.SINGLETON);
 
 	@SuppressWarnings("unused")
@@ -51,10 +51,14 @@ public final class LockType {
 	private LockType(final Write write) {
 		this.write = write;
 	}
-	
+
 	@SuppressWarnings("unused")
 	private static final LockType create() {
 		return WRITE;
 	}
 
+	@Override
+	public final boolean equals(final Object object) {
+		return object instanceof LockType;
+	}
 }

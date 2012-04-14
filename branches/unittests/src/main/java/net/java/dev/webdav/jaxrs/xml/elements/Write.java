@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, 2009 Markus KARG
+ * Copyright 2008, 2009, 2012 Markus KARG
  *
  * This file is part of webdav-jaxrs.
  *
@@ -18,6 +18,7 @@
  */
 
 package net.java.dev.webdav.jaxrs.xml.elements;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -47,4 +48,8 @@ public final class Write {
 		return SINGLETON;
 	}
 
+	@Override
+	public final boolean equals(final Object object) {
+		return object instanceof Write;
+	}
 }

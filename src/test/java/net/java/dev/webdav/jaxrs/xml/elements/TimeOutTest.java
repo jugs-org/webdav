@@ -19,6 +19,9 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
+import static java.lang.Long.MAX_VALUE;
 import static net.java.dev.webdav.jaxrs.xml.elements.TimeOut.INFINITE;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -46,8 +49,8 @@ import org.junit.runner.RunWith;
 public final class TimeOutTest {
 	@DataPoints
 	public static final Object[][] DATA_POINTS = {
-		{ INFINITE, "<D:timeout xmlns:D=\"DAV:\">Infinite</D:timeout>" },
-		{ new TimeOut(1), "<D:timeout xmlns:D=\"DAV:\">Second-1</D:timeout>" }
+		{ INFINITE, "<D:timeout xmlns:D=\"DAV:\">Infinite</D:timeout>", MAX_VALUE, TRUE },
+		{ new TimeOut(1), "<D:timeout xmlns:D=\"DAV:\">Second-1</D:timeout>", 1L, FALSE }
 	};
 
 	@Theory
@@ -65,5 +68,7 @@ public final class TimeOutTest {
 		final TimeOut actual = JAXB.unmarshal(reader, TimeOut.class);
 		final TimeOut expected = (TimeOut) dataPoint[0];
 		assertThat(actual, is(expected));
+		assertThat(actual.getSeconds(), is(dataPoint[2]));
+		assertThat(actual.isInfinite(), is(dataPoint[3]));
 	}
 }

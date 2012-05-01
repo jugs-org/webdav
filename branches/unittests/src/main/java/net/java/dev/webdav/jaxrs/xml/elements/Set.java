@@ -57,4 +57,9 @@ public final class Set extends RemoveOrSet {
 
 		return this.getProp().equals(that.getProp());
 	}
+
+	@Override
+	public final int hashCode() {
+		return this.getProp().hashCode();
+	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, 2009 Markus KARG
+ * Copyright 2008, 2009, 2012 Markus KARG
  *
  * This file is part of webdav-jaxrs.
  *
@@ -45,4 +45,16 @@ public final class Set extends RemoveOrSet {
 		return String.format("Set (%s)", super.getProp());
 	}
 
+	@Override
+	public final boolean equals(final Object object) {
+		if (object == this)
+			return true;
+
+		if (!(object instanceof Set))
+			return false;
+
+		final Set that = (Set) object;
+
+		return this.getProp().equals(that.getProp());
+	}
 }

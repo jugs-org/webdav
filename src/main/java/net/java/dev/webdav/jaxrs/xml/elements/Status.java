@@ -91,4 +91,9 @@ public final class Status {
 
 		return this.statusLine.equals(that.statusLine);
 	}
+
+	@Override
+	public final int hashCode() {
+		return this.statusLine.hashCode();
+	}
 }

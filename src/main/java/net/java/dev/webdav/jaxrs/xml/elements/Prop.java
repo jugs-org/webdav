@@ -64,4 +64,16 @@ public final class Prop {
 		return String.format("Prop (%s)", content);
 	}
 
+	@Override
+	public final boolean equals(final Object object) {
+		if (object == this)
+			return true;
+
+		if (!(object instanceof Prop))
+			return false;
+
+		final Prop that = (Prop) object;
+
+		return this.properties.equals(that.properties);
+	}
 }

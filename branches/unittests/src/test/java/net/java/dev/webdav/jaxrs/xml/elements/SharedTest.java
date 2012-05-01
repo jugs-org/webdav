@@ -20,41 +20,15 @@
 package net.java.dev.webdav.jaxrs.xml.elements;
 
 import static net.java.dev.webdav.jaxrs.xml.elements.Shared.SINGLETON;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.xmlmatchers.XmlMatchers.isEquivalentTo;
-import static org.xmlmatchers.transform.XmlConverters.the;
 
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.Writer;
-
-import javax.xml.bind.JAXB;
-
-import org.junit.Test;
+import org.junit.experimental.theories.DataPoint;
 
 /**
  * Unit test for {@link Shared}
  * 
  * @author Markus KARG (mkarg@java.net)
  */
-public final class SharedTest {
-	@Test
-	public final void marshalling() {
-		final Writer writer = new StringWriter();
-		JAXB.marshal(SINGLETON, writer);
-		final String actual = writer.toString();
-		final String expected = "<D:shared xmlns:D=\"DAV:\"/>";
-		assertThat(the(actual), isEquivalentTo(the(expected)));
-	}
-
-	@Test
-	public final void unmarshalling() {
-		final Reader reader = new StringReader("<D:shared xmlns:D=\"DAV:\"/>");
-		final Shared actual = JAXB.unmarshal(reader, Shared.class);
-		final Shared expected = SINGLETON;
-		assertThat(actual, is(equalTo(expected)));
-	}
+public final class SharedTest extends AbstractElementTest<Shared> {
+	@DataPoint
+	public static final Object[] DATA_POINT = { SINGLETON, "<D:shared xmlns:D=\"DAV:\"/>" };
 }

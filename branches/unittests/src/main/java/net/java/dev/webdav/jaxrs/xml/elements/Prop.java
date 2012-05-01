@@ -37,11 +37,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 public final class Prop {
 
 	@XmlAnyElement(lax = true)
-	private LinkedList<Object> properties;
+	private final LinkedList<Object> properties;
 
 	@SuppressWarnings("unused")
 	private Prop() {
 		// For unmarshalling only.
+		this.properties = new LinkedList<Object>();
 	}
 
 	public Prop(final Object... any) {

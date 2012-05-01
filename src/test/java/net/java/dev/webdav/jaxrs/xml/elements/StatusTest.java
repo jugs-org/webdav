@@ -21,31 +21,19 @@ package net.java.dev.webdav.jaxrs.xml.elements;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.xmlmatchers.XmlMatchers.isEquivalentTo;
-import static org.xmlmatchers.transform.XmlConverters.the;
-
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.Writer;
 
 import javax.ws.rs.core.Response;
-import javax.xml.bind.JAXB;
 
 import net.java.dev.webdav.jaxrs.ResponseStatus;
 
 import org.junit.experimental.theories.DataPoints;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
 
 /**
  * Unit test for {@link Status}
  * 
  * @author Markus KARG (mkarg@java.net)
  */
-@RunWith(Theories.class)
-public final class StatusTest {
+public final class StatusTest extends AbstractElementTest<Status> {
 	@SuppressWarnings("deprecation")
 	@DataPoints
 	public static final Object[][] DATA_POINTS = {
@@ -54,21 +42,8 @@ public final class StatusTest {
 		{ new Status((Response.StatusType) Response.Status.BAD_REQUEST), "<D:status xmlns:D=\"DAV:\">HTTP/1.1 400 Bad Request</D:status>", "HTTP/1.1 400 Bad Request" }
 	};
 
-	@Theory
-	public final void marshalling(final Object[] dataPoint) {
-		final Writer writer = new StringWriter();
-		JAXB.marshal(dataPoint[0], writer);
-		final String actual = writer.toString();
-		final String expected = (String) dataPoint[1];
-		assertThat(the(actual), isEquivalentTo(the(expected)));
-	}
-
-	@Theory
-	public final void unmarshalling(final Object[] dataPoint) {
-		final Reader reader = new StringReader((String) dataPoint[1]);
-		final Status actual = JAXB.unmarshal(reader, Status.class);
-		final Status expected = (Status) dataPoint[0];
-		assertThat(actual, is(expected));
+	@Override
+	protected void assertThatGettersProvideExpectedValues(final Status actual, final Status expected, final Object[] dataPoint) {
 		assertThat(actual.getStatus(), is(dataPoint[2]));
 	}
 }

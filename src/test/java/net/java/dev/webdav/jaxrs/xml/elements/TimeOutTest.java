@@ -25,49 +25,21 @@ import static java.lang.Long.MAX_VALUE;
 import static net.java.dev.webdav.jaxrs.xml.elements.TimeOut.INFINITE;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.xmlmatchers.XmlMatchers.isEquivalentTo;
-import static org.xmlmatchers.transform.XmlConverters.the;
-
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.Writer;
-
-import javax.xml.bind.JAXB;
 
 import org.junit.experimental.theories.DataPoints;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
 
 /**
  * Unit test for {@link TimeOut}
  * 
  * @author Markus KARG (mkarg@java.net)
  */
-@RunWith(Theories.class)
-public final class TimeOutTest {
+public final class TimeOutTest extends AbstractElementTest<TimeOut> {
 	@DataPoints
-	public static final Object[][] DATA_POINTS = {
-		{ INFINITE, "<D:timeout xmlns:D=\"DAV:\">Infinite</D:timeout>", MAX_VALUE, TRUE },
-		{ new TimeOut(1), "<D:timeout xmlns:D=\"DAV:\">Second-1</D:timeout>", 1L, FALSE }
-	};
+	public static final Object[][] DATA_POINTS = { { INFINITE, "<D:timeout xmlns:D=\"DAV:\">Infinite</D:timeout>", MAX_VALUE, TRUE },
+			{ new TimeOut(1), "<D:timeout xmlns:D=\"DAV:\">Second-1</D:timeout>", 1L, FALSE } };
 
-	@Theory
-	public final void marshalling(final Object[] dataPoint) {
-		final Writer writer = new StringWriter();
-		JAXB.marshal(dataPoint[0], writer);
-		final String actual = writer.toString();
-		final String expected = (String) dataPoint[1];
-		assertThat(the(actual), isEquivalentTo(the(expected)));
-	}
-
-	@Theory
-	public final void unmarshalling(final Object[] dataPoint) {
-		final Reader reader = new StringReader((String) dataPoint[1]);
-		final TimeOut actual = JAXB.unmarshal(reader, TimeOut.class);
-		final TimeOut expected = (TimeOut) dataPoint[0];
-		assertThat(actual, is(expected));
+	@Override
+	protected void assertThatGettersProvideExpectedValues(final TimeOut actual, final TimeOut expected, final Object[] dataPoint) {
 		assertThat(actual.getSeconds(), is(dataPoint[2]));
 		assertThat(actual.isInfinite(), is(dataPoint[3]));
 	}

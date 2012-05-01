@@ -20,41 +20,15 @@
 package net.java.dev.webdav.jaxrs.xml.elements;
 
 import static net.java.dev.webdav.jaxrs.xml.elements.Write.SINGLETON;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.xmlmatchers.XmlMatchers.isEquivalentTo;
-import static org.xmlmatchers.transform.XmlConverters.the;
 
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.Writer;
-
-import javax.xml.bind.JAXB;
-
-import org.junit.Test;
+import org.junit.experimental.theories.DataPoint;
 
 /**
  * Unit test for {@link Write}
  * 
  * @author Markus KARG (mkarg@java.net)
  */
-public final class WriteTest {
-	@Test
-	public final void marshalling() {
-		final Writer writer = new StringWriter();
-		JAXB.marshal(SINGLETON, writer);
-		final String actual = writer.toString();
-		final String expected = "<D:write xmlns:D=\"DAV:\"/>";
-		assertThat(the(actual), isEquivalentTo(the(expected)));
-	}
-
-	@Test
-	public final void unmarshalling() {
-		final Reader reader = new StringReader("<D:write xmlns:D=\"DAV:\"/>");
-		final Write actual = JAXB.unmarshal(reader, Write.class);
-		final Write expected = SINGLETON;
-		assertThat(actual, is(equalTo(expected)));
-	}
+public final class WriteTest extends AbstractElementTest<Write> {
+	@DataPoint
+	public static final Object[] DATA_POINT = { SINGLETON, "<D:write xmlns:D=\"DAV:\"/>" };
 }

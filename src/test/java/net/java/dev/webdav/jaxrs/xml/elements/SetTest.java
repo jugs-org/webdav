@@ -21,46 +21,20 @@ package net.java.dev.webdav.jaxrs.xml.elements;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.xmlmatchers.XmlMatchers.isEquivalentTo;
-import static org.xmlmatchers.transform.XmlConverters.the;
 
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.Writer;
-
-import javax.xml.bind.JAXB;
-
-import org.junit.experimental.theories.DataPoints;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import org.junit.experimental.theories.DataPoint;
 
 /**
  * Unit test for {@link Set}
  * 
  * @author Markus KARG (mkarg@java.net)
  */
-@RunWith(Theories.class)
-public final class SetTest {
-	@DataPoints
-	public static final Object[][] DATA_POINTS = { { new Set(new Prop()), "<D:set xmlns:D=\"DAV:\"><D:prop/></D:set>", new Prop() } };
+public final class SetTest extends AbstractElementTest<Set> {
+	@DataPoint
+	public static final Object[] DATA_POINT = { new Set(new Prop()), "<D:set xmlns:D=\"DAV:\"><D:prop/></D:set>" };
 
-	@Theory
-	public final void marshalling(final Object[] dataPoint) {
-		final Writer writer = new StringWriter();
-		JAXB.marshal(dataPoint[0], writer);
-		final String actual = writer.toString();
-		final String expected = (String) dataPoint[1];
-		assertThat(the(actual), isEquivalentTo(the(expected)));
-	}
-
-	@Theory
-	public final void unmarshalling(final Object[] dataPoint) {
-		final Reader reader = new StringReader((String) dataPoint[1]);
-		final Set actual = JAXB.unmarshal(reader, Set.class);
-		final Set expected = (Set) dataPoint[0];
-		assertThat(actual, is(expected));
-		assertThat(actual.getProp(), is(dataPoint[2]));
+	@Override
+	protected final void assertThatGettersProvideExpectedValues(final Set actual, final Set expected, final Object[] dataPoint) {
+		assertThat(actual.getProp(), is(expected.getProp()));
 	}
 }

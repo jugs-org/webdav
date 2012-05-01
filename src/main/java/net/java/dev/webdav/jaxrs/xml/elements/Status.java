@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, 2009 Markus KARG
+ * Copyright 2008, 2009, 2012 Markus KARG
  *
  * This file is part of webdav-jaxrs.
  *
@@ -74,9 +74,21 @@ public final class Status {
 	public Status(final Response.Status responseStatus) {
 		this(responseStatus.getStatusCode(), responseStatus.toString());
 	}
-	
+
 	public Status(final Response.StatusType responseStatus) {
 		this(responseStatus.getStatusCode(), responseStatus.getReasonPhrase());
 	}
 
+	@Override
+	public final boolean equals(final Object object) {
+		if (object == this)
+			return true;
+
+		if (!(object instanceof Status))
+			return false;
+
+		final Status that = (Status) object;
+
+		return this.statusLine.equals(that.statusLine);
+	}
 }

@@ -19,6 +19,8 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
+import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
+
 import org.junit.experimental.theories.DataPoint;
 
 /**
@@ -26,7 +28,7 @@ import org.junit.experimental.theories.DataPoint;
  * 
  * @author Markus KARG (mkarg@java.net)
  */
-public final class AllPropTest extends AbstractElementTest<AllProp> {
+public final class AllPropTest extends AbstractJaxbCoreFunctionality<AllProp> {
 	@DataPoint
 	public static final Object[] DATA_POINT = { new AllProp(), "<D:allprop xmlns:D=\"DAV:\"/>" };
 }

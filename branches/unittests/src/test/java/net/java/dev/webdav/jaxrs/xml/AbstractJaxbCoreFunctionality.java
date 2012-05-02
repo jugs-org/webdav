@@ -17,7 +17,7 @@
  * along with webdav-jaxrs.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.java.dev.webdav.jaxrs.xml.elements;
+package net.java.dev.webdav.jaxrs.xml;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -44,7 +44,7 @@ import org.junit.runner.RunWith;
  * @author Markus KARG (mkarg@java.net)
  */
 @RunWith(Theories.class)
-public abstract class AbstractElementTest<T> {
+public abstract class AbstractJaxbCoreFunctionality<T> {
 	@SuppressWarnings("unchecked")
 	@Theory
 	public final void marshalling(final Object[] dataPoint) {

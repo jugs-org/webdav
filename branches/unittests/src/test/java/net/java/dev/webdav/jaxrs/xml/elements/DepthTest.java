@@ -22,6 +22,7 @@ package net.java.dev.webdav.jaxrs.xml.elements;
 import static net.java.dev.webdav.jaxrs.xml.elements.Depth.INFINITY;
 import static net.java.dev.webdav.jaxrs.xml.elements.Depth.ONE;
 import static net.java.dev.webdav.jaxrs.xml.elements.Depth.ZERO;
+import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 
 import org.junit.experimental.theories.DataPoints;
 
@@ -30,11 +31,8 @@ import org.junit.experimental.theories.DataPoints;
  * 
  * @author Markus KARG (mkarg@java.net)
  */
-public final class DepthTest extends AbstractElementTest<Depth> {
+public final class DepthTest extends AbstractJaxbCoreFunctionality<Depth> {
 	@DataPoints
-	public static final Object[][] DATA_POINTS = {
-		{ ZERO, "<depth xmlns=\"DAV:\">0</depth>" },
-		{ ONE, "<depth xmlns=\"DAV:\">1</depth>" },
-		{ INFINITY, "<depth xmlns=\"DAV:\">infinity</depth>" }
-	};
+	public static final Object[][] DATA_POINTS = { { ZERO, "<depth xmlns=\"DAV:\">0</depth>" }, { ONE, "<depth xmlns=\"DAV:\">1</depth>" },
+			{ INFINITY, "<depth xmlns=\"DAV:\">infinity</depth>" } };
 }

@@ -25,6 +25,7 @@ import static java.lang.Long.MAX_VALUE;
 import static net.java.dev.webdav.jaxrs.xml.elements.TimeOut.INFINITE;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 
 import org.junit.experimental.theories.DataPoints;
 
@@ -33,7 +34,7 @@ import org.junit.experimental.theories.DataPoints;
  * 
  * @author Markus KARG (mkarg@java.net)
  */
-public final class TimeOutTest extends AbstractElementTest<TimeOut> {
+public final class TimeOutTest extends AbstractJaxbCoreFunctionality<TimeOut> {
 	@DataPoints
 	public static final Object[][] DATA_POINTS = { { INFINITE, "<D:timeout xmlns:D=\"DAV:\">Infinite</D:timeout>", MAX_VALUE, TRUE },
 			{ new TimeOut(1), "<D:timeout xmlns:D=\"DAV:\">Second-1</D:timeout>", 1L, FALSE } };

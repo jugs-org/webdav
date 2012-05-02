@@ -21,6 +21,7 @@ package net.java.dev.webdav.jaxrs.xml.elements;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 
 import org.junit.experimental.theories.DataPoint;
 
@@ -29,7 +30,7 @@ import org.junit.experimental.theories.DataPoint;
  * 
  * @author Markus KARG (mkarg@java.net)
  */
-public final class SetTest extends AbstractElementTest<Set> {
+public final class SetTest extends AbstractJaxbCoreFunctionality<Set> {
 	@DataPoint
 	public static final Object[] DATA_POINT = { new Set(new Prop()), "<D:set xmlns:D=\"DAV:\"><D:prop/></D:set>" };
 

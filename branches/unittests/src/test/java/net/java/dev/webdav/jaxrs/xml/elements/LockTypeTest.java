@@ -20,6 +20,7 @@
 package net.java.dev.webdav.jaxrs.xml.elements;
 
 import static net.java.dev.webdav.jaxrs.xml.elements.LockType.WRITE;
+import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 
 import org.junit.experimental.theories.DataPoint;
 
@@ -28,7 +29,7 @@ import org.junit.experimental.theories.DataPoint;
  * 
  * @author Markus KARG (mkarg@java.net)
  */
-public final class LockTypeTest extends AbstractElementTest<LockType> {
+public final class LockTypeTest extends AbstractJaxbCoreFunctionality<LockType> {
 	@DataPoint
 	public static final Object[] DATA_POINT = { WRITE, "<D:locktype xmlns:D=\"DAV:\"><D:write/></D:locktype>" };
 }

@@ -20,6 +20,7 @@
 package net.java.dev.webdav.jaxrs.xml.elements;
 
 import static net.java.dev.webdav.jaxrs.xml.elements.Exclusive.SINGLETON;
+import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 
 import org.junit.experimental.theories.DataPoint;
 
@@ -28,7 +29,7 @@ import org.junit.experimental.theories.DataPoint;
  * 
  * @author Markus KARG (mkarg@java.net)
  */
-public final class ExclusiveTest extends AbstractElementTest<Exclusive> {
+public final class ExclusiveTest extends AbstractJaxbCoreFunctionality<Exclusive> {
 	@DataPoint
 	public static final Object[] DATA_POINT = { SINGLETON, "<D:exclusive xmlns:D=\"DAV:\"/>" };
 }

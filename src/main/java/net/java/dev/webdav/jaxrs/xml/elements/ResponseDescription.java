@@ -56,4 +56,16 @@ public final class ResponseDescription {
 		this.content = content;
 	}
 
+	@Override
+	public final boolean equals(final Object object) {
+		if (object == this)
+			return true;
+
+		if (!(object instanceof ResponseDescription))
+			return false;
+
+		final ResponseDescription that = (ResponseDescription) object;
+
+		return this.content.equals(that.content);
+	}
 }

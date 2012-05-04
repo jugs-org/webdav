@@ -68,4 +68,9 @@ public final class ResponseDescription {
 
 		return this.content.equals(that.content);
 	}
+
+	@Override
+	public final int hashCode() {
+		return this.content.hashCode();
+	}
 }

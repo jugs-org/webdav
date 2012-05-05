@@ -43,5 +43,7 @@ public final class TimeOutTest extends AbstractJaxbCoreFunctionality<TimeOut> {
 	protected void assertThatGettersProvideExpectedValues(final TimeOut actual, final TimeOut expected, final Object[] dataPoint) {
 		assertThat(actual.getSeconds(), is(dataPoint[2]));
 		assertThat(actual.isInfinite(), is(dataPoint[3]));
+		assertThat(expected.getSeconds(), is(dataPoint[2]));
+		assertThat(expected.isInfinite(), is(dataPoint[3]));
 	}
 }

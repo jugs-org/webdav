@@ -32,10 +32,11 @@ import org.junit.experimental.theories.DataPoint;
  */
 public final class SetTest extends AbstractJaxbCoreFunctionality<Set> {
 	@DataPoint
-	public static final Object[] DATA_POINT = { new Set(new Prop()), "<D:set xmlns:D=\"DAV:\"><D:prop/></D:set>" };
+	public static final Object[] DATA_POINT = { new Set(new Prop()), "<D:set xmlns:D=\"DAV:\"><D:prop/></D:set>", new Prop() };
 
 	@Override
 	protected final void assertThatGettersProvideExpectedValues(final Set actual, final Set expected, final Object[] dataPoint) {
-		assertThat(actual.getProp(), is(expected.getProp()));
+		assertThat(actual.getProp(), is(dataPoint[2]));
+		assertThat(expected.getProp(), is(dataPoint[2]));
 	}
 }

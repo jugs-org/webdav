@@ -48,5 +48,6 @@ public final class StatusTest extends AbstractJaxbCoreFunctionality<Status> {
 	@Override
 	protected void assertThatGettersProvideExpectedValues(final Status actual, final Status expected, final Object[] dataPoint) {
 		assertThat(actual.getStatus(), is(dataPoint[2]));
+		assertThat(expected.getStatus(), is(dataPoint[2]));
 	}
 }

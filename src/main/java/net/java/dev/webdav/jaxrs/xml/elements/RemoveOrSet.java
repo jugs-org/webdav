@@ -54,15 +54,20 @@ public abstract class RemoveOrSet {
 	}
 
 	@Override
-	public boolean equals(final Object object) {
+	public final boolean equals(final Object object) {
 		if (object == this)
 			return true;
 
-		if (!(object instanceof RemoveOrSet))
+		if (!(object.getClass() == this.getClass()))
 			return false;
 
 		final RemoveOrSet that = (RemoveOrSet) object;
 
 		return this.getProp().equals(that.getProp());
+	}
+
+	@Override
+	public final int hashCode() {
+		return this.getProp().hashCode();
 	}
 }

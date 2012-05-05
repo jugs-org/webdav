@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, 2009 Markus KARG
+ * Copyright 2008, 2009, 2012 Markus KARG
  *
  * This file is part of webdav-jaxrs.
  *
@@ -33,5 +33,10 @@ public final class PropName {
 	@Override
 	public final boolean equals(final Object object) {
 		return object instanceof PropName;
+	}
+
+	@Override
+	public final int hashCode() {
+		return 0;
 	}
 }

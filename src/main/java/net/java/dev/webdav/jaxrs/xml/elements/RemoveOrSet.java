@@ -26,8 +26,7 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
 /**
  * Internal superclass of set and remove WebDAV elements.<br>
  * 
- * This class shall not be used directly, but instead <code>Set</code> and
- * <code>Remove</code> classes should be used.
+ * This class shall not be used directly, but instead <code>Set</code> and <code>Remove</code> classes should be used.
  * 
  * @see Set
  * @see Remove
@@ -54,4 +53,16 @@ public abstract class RemoveOrSet {
 		this.prop = prop;
 	}
 
+	@Override
+	public boolean equals(final Object object) {
+		if (object == this)
+			return true;
+
+		if (!(object instanceof RemoveOrSet))
+			return false;
+
+		final RemoveOrSet that = (RemoveOrSet) object;
+
+		return this.getProp().equals(that.getProp());
+	}
 }

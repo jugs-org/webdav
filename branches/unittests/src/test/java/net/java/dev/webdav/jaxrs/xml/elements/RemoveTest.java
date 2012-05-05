@@ -21,8 +21,10 @@ package net.java.dev.webdav.jaxrs.xml.elements;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 
+import org.junit.Test;
 import org.junit.experimental.theories.DataPoint;
 
 /**
@@ -38,5 +40,10 @@ public final class RemoveTest extends AbstractJaxbCoreFunctionality<Remove> {
 	protected final void assertThatGettersProvideExpectedValues(final Remove actual, final Remove expected, final Object[] dataPoint) {
 		assertThat(actual.getProp(), is(dataPoint[2]));
 		assertThat(expected.getProp(), is(dataPoint[2]));
+	}
+
+	@Test(expected = NullArgumentException.class)
+	public final void constructorDoesNotAcceptNull() {
+		new Remove(null);
 	}
 }

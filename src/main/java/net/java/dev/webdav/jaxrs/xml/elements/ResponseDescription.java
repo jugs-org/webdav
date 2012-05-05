@@ -20,6 +20,7 @@
 package net.java.dev.webdav.jaxrs.xml.elements;
 
 import static javax.xml.bind.annotation.XmlAccessType.NONE;
+import static net.java.dev.webdav.util.Utilities.sameOrEqual;
 
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -66,7 +67,7 @@ public final class ResponseDescription {
 
 		final ResponseDescription that = (ResponseDescription) object;
 
-		return this.content.equals(that.content);
+		return sameOrEqual(this.content, that.content);
 	}
 
 	@Override

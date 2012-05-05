@@ -54,6 +54,11 @@ public final class Remove extends RemoveOrSet {
 	}
 
 	@Override
+	public final int hashCode() {
+		return this.getProp().hashCode();
+	}
+
+	@Override
 	public final String toString() {
 		return String.format("Remove (%s)", super.getProp());
 	}

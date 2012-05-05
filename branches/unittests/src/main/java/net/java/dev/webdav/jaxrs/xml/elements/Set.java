@@ -44,22 +44,4 @@ public final class Set extends RemoveOrSet {
 	public final String toString() {
 		return String.format("Set (%s)", super.getProp());
 	}
-
-	@Override
-	public final boolean equals(final Object object) {
-		if (object == this)
-			return true;
-
-		if (!(object instanceof Set))
-			return false;
-
-		final Set that = (Set) object;
-
-		return this.getProp().equals(that.getProp());
-	}
-
-	@Override
-	public final int hashCode() {
-		return this.getProp().hashCode();
-	}
 }

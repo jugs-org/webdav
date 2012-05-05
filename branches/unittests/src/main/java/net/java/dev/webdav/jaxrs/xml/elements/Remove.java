@@ -41,24 +41,6 @@ public final class Remove extends RemoveOrSet {
 	}
 
 	@Override
-	public final boolean equals(final Object object) {
-		if (object == this)
-			return true;
-
-		if (!(object instanceof Remove))
-			return false;
-
-		final Remove that = (Remove) object;
-
-		return this.getProp().equals(that.getProp());
-	}
-
-	@Override
-	public final int hashCode() {
-		return this.getProp().hashCode();
-	}
-
-	@Override
 	public final String toString() {
 		return String.format("Remove (%s)", super.getProp());
 	}

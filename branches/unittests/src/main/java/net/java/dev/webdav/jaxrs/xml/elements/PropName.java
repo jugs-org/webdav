@@ -32,12 +32,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 public final class PropName {
 	@Override
 	public final boolean equals(final Object object) {
-		if (object == this)
-			return true;
-
-		if (!(object instanceof PropName))
-			return false;
-
-		return true;
+		return object instanceof PropName;
 	}
 }

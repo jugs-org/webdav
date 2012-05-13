@@ -33,6 +33,6 @@ import org.junit.experimental.theories.DataPoints;
  */
 public final class DepthTest extends AbstractJaxbCoreFunctionality<Depth> {
 	@DataPoints
-	public static final Object[][] DATA_POINTS = { { ZERO, "<depth xmlns=\"DAV:\">0</depth>" }, { ONE, "<depth xmlns=\"DAV:\">1</depth>" },
-			{ INFINITY, "<depth xmlns=\"DAV:\">infinity</depth>" } };
+	public static final Object[][] DATA_POINTS = { { ZERO, "<D:depth xmlns:D=\"DAV:\">0</D:depth>" }, { ONE, "<D:depth xmlns:D=\"DAV:\">1</D:depth>" },
+			{ INFINITY, "<D:depth xmlns:D=\"DAV:\">infinity</D:depth>" } };
 }

@@ -19,6 +19,10 @@
 
 package net.java.dev.webdav.util;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
+
 /**
  * Common purpose utilities.
  * 
@@ -37,5 +41,69 @@ public final class Utilities {
 	 */
 	public static final boolean sameOrEqual(final Object firstObject, final Object secondObject) {
 		return firstObject == secondObject || firstObject != null && firstObject.equals(secondObject);
+	}
+
+	/**
+	 * Supplies an instance of the specified class.
+	 * 
+	 * @param <T>
+	 *            The class provided to {@code cls}.
+	 * 
+	 * @param cls
+	 *            The class of which an instance is to be supplied, or {@code null}.
+	 * @return An instance of the specified class, or {@code null} if it is impossible to obtain it (e. g. the class does not exist or {@code cls} is {@code null}:
+	 */
+	public static final <T> T buildInstanceOf(final Class<T> cls) {
+		if (cls == null)
+			return null;
+
+		if (cls.isEnum()) {
+			final T[] enumConstants = cls.getEnumConstants();
+			return enumConstants.length > 0 ? enumConstants[0] : null;
+		}
+
+		return Utilities.newInstance(cls);
+	}
+
+	/**
+	 * Creates an instance of the specified class, even when the constructor is private.
+	 * 
+	 * @param cls
+	 *            The class of which an instance is to be created. Must have a (possibly private) no-arguments constructor.
+	 * @return The created instance, or {@code null} if it is impossible to create it.
+	 */
+	private static final <T> T newInstance(final Class<T> cls) {
+		try {
+			final Constructor<T> constructor = cls.getDeclaredConstructor();
+			constructor.setAccessible(true); // Prevents exception in case the constructor is not public.
+			return constructor.newInstance();
+		} catch (final NoSuchMethodException e) {
+			return null;
+		} catch (final SecurityException e) {
+			return null;
+		} catch (final InstantiationException e) {
+			return null;
+		} catch (final IllegalAccessException e) {
+			return null;
+		} catch (final IllegalArgumentException e) {
+			return null;
+		} catch (final InvocationTargetException e) {
+			return null;
+		}
+	}
+
+	/**
+	 * Expands an array by appending a second array.
+	 * 
+	 * @param firstArray
+	 *            The array to expand by appending the second array.
+	 * @param secondArray
+	 *            The array to append to the first array.
+	 * @return An array holding all elements of the first and second array, in the provided order.
+	 */
+	public static final <T> T[] append(final T[] firstArray, final T[] secondArray) {
+		final T[] expandedArray = Arrays.copyOf(firstArray, firstArray.length + secondArray.length);
+		System.arraycopy(secondArray, 0, expandedArray, firstArray.length, secondArray.length);
+		return expandedArray;
 	}
 }

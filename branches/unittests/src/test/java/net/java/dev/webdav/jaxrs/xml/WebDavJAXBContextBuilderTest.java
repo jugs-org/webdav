@@ -1,11 +1,33 @@
+/*
+ * Copyright 2012 Markus KARG
+ *
+ * This file is part of webdav-jaxrs.
+ *
+ * webdav-jaxrs is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * webdav-jaxrs is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with webdav-jaxrs.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package net.java.dev.webdav.jaxrs.xml;
 
+import static net.java.dev.webdav.util.ElementOf.elementOf;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import net.java.dev.webdav.jaxrs.xml.conditions.CannotModifyProtectedProperty;
 import net.java.dev.webdav.jaxrs.xml.conditions.LockTokenMatchesRequestUri;
@@ -55,14 +77,27 @@ import net.java.dev.webdav.jaxrs.xml.properties.LockDiscovery;
 import net.java.dev.webdav.jaxrs.xml.properties.ResourceType;
 import net.java.dev.webdav.jaxrs.xml.properties.SupportedLock;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
+/**
+ * Unit test for {@link WebDavJAXBContextBuilder}
+ * 
+ * @author Markus KARG (mkarg@junit.org)
+ */
 @RunWith(Theories.class)
-public final class WebDavContextFactoryTest {
+public final class WebDavJAXBContextBuilderTest {
+	private static JAXBContext context;
+
+	@BeforeClass
+	public static final void setUp() throws JAXBException {
+		context = WebDavJAXBContextBuilder.build();
+	}
+
 	@DataPoints
 	public static final Class<?>[] DATA_POINTS = new Class<?>[] { ActiveLock.class, AllProp.class, CannotModifyProtectedProperty.class, Collection.class,
 			CreationDate.class, Depth.class, DisplayName.class, Error.class, Exclusive.class, GetContentLanguage.class, GetContentLength.class,
@@ -73,21 +108,32 @@ public final class WebDavContextFactoryTest {
 			ResponseDescription.class, Set.class, Shared.class, Status.class, SupportedLock.class, TimeOut.class, Write.class };
 
 	@Test
-	public final void createsJAXBContext() throws JAXBException {
-		final Object context = new WebDavContextFactory().create();
+	public final void createsJAXBContext() {
 		assertThat(context, instanceOf(JAXBContext.class));
 	}
 
 	@Theory
-	public final void factoryPretendsToContainAllWebDavElements(final Class<?> webDavElement) throws JAXBException {
-		final WebDavContextFactory factory = new WebDavContextFactory();
-		assertThat(factory.contains(webDavElement), is(true));
+	public final void containsWebDavClasses(final Class<?> webDavElement) {
+		assertThat(webDavElement, is(elementOf(context)));
+	}
+
+	@XmlRootElement
+	private static final class CustomClass {
+		// Intentionally left blank.
 	}
 
 	@Test
-	public final void containsCustomClasses() throws JAXBException {
-		final WebDavContextFactory factory = new WebDavContextFactory(String.class, Integer.class);
-		assertThat(factory.contains(String.class), is(true));
-		assertThat(factory.contains(Integer.class), is(true));
+	public final void containsCustomClass() throws JAXBException {
+		assertThat(CustomClass.class, is(elementOf(WebDavJAXBContextBuilder.build(CustomClass.class))));
+	}
+
+	@XmlRootElement
+	private static final class UnboundClass {
+		// Intentionally left blank.
+	}
+
+	@Test
+	public final void doesNotContainUnboundClasses() {
+		assertThat(UnboundClass.class, is(not(elementOf(context))));
 	}
 }

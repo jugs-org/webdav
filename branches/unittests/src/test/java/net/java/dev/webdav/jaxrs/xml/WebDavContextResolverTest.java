@@ -19,11 +19,15 @@
 
 package net.java.dev.webdav.jaxrs.xml;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import static net.java.dev.webdav.util.ElementOf.elementOf;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsInstanceOf.instanceOf;
+import static org.hamcrest.core.IsNot.not;
+import static org.junit.Assert.assertThat;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import net.java.dev.webdav.jaxrs.xml.conditions.CannotModifyProtectedProperty;
 import net.java.dev.webdav.jaxrs.xml.conditions.LockTokenMatchesRequestUri;
@@ -73,60 +77,63 @@ import net.java.dev.webdav.jaxrs.xml.properties.LockDiscovery;
 import net.java.dev.webdav.jaxrs.xml.properties.ResourceType;
 import net.java.dev.webdav.jaxrs.xml.properties.SupportedLock;
 
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.theories.DataPoints;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.runner.RunWith;
+
 /**
- * Provides support for custom extensions to WebDAV, like custom Properties and XML Elements.<br>
+ * Unit test for {@link WebDavContextResolver}
  * 
- * WebDAV allows custom extensions for XML Elements and Properties. To enable JAX-RS to deal with these, each of them must be implemented as a JAXB class and registered by passing it to the constructor of this factory.
- * 
- * @author Markus KARG (mkarg@java.net)
- * 
- * @see <a href="http://www.webdav.org/specs/rfc4918.html#xml-extensibility">Chapter 17 "XML Extensibility in DAV" of RFC 2616 "Hypertext Transfer Protocol -- HTTP/1.1"</a>
+ * @author Markus KARG (mkarg@junit.org)
  */
-public final class WebDavContextFactory {
+@RunWith(Theories.class)
+public final class WebDavContextResolverTest {
+	private static WebDavContextResolver resolver;
 
-	private final JAXBContext context;
-
-	private final java.util.Collection<Class<?>> classes;
-
-	/**
-	 * Creates a JAXB context factory for WebDAV.
-	 * 
-	 * @param auxiliaryClasses
-	 *            Optional set of custom XML elements which shall get part of the context.
-	 * @throws JAXBException
-	 *             If JAXB cannot create the context.
-	 */
-	@SuppressWarnings("unchecked")
-	public WebDavContextFactory(final Class<?>... auxiliaryClasses) throws JAXBException {
-		// new ArrayList() prevents UnsupportedOperationException, as the implied collection of Arrays.asList cannot do addAll().
-		this.classes = new ArrayList<Class<?>>(Arrays.asList(ActiveLock.class, AllProp.class, CannotModifyProtectedProperty.class, Collection.class,
-				CreationDate.class, Depth.class, DisplayName.class, Error.class, Exclusive.class, GetContentLanguage.class, GetContentLength.class,
-				GetContentType.class, GetETag.class, GetLastModified.class, HRef.class, Include.class, Location.class, LockDiscovery.class, LockEntry.class,
-				LockInfo.class, LockRoot.class, LockScope.class, LockToken.class, LockTokenMatchesRequestUri.class, LockTokenSubmitted.class, LockType.class,
-				MultiStatus.class, NoConflictingLock.class, NoExternalEntities.class, Owner.class, PreservedLiveProperties.class, Prop.class,
-				PropertyUpdate.class, PropFind.class, PropFindFiniteDepth.class, PropName.class, PropStat.class, Remove.class, ResourceType.class,
-				Response.class, ResponseDescription.class, Set.class, Shared.class, Status.class, SupportedLock.class, TimeOut.class, Write.class));
-		this.classes.addAll(Arrays.asList(auxiliaryClasses));
-		final Class<?> a[] = this.classes.toArray(new Class[] {});
-		this.context = JAXBContext.newInstance(a);
+	@BeforeClass
+	public static final void setUp() throws JAXBException {
+		resolver = new WebDavContextResolver(CustomElement.class);
 	}
 
-	/**
-	 * Creates a JAXB context.
-	 * 
-	 * @return The created JAXB context.
-	 */
-	public final JAXBContext create() {
-		return this.context;
+	@DataPoints
+	public static final Class<?>[] DATA_POINTS = new Class<?>[] { ActiveLock.class, AllProp.class, CannotModifyProtectedProperty.class, Collection.class,
+			CreationDate.class, Depth.class, DisplayName.class, Error.class, Exclusive.class, GetContentLanguage.class, GetContentLength.class,
+			GetContentType.class, GetETag.class, GetLastModified.class, HRef.class, Include.class, Location.class, LockDiscovery.class, LockEntry.class,
+			LockInfo.class, LockRoot.class, LockScope.class, LockToken.class, LockTokenMatchesRequestUri.class, LockTokenSubmitted.class, LockType.class,
+			MultiStatus.class, NoConflictingLock.class, NoExternalEntities.class, Owner.class, PreservedLiveProperties.class, Prop.class, PropertyUpdate.class,
+			PropFind.class, PropFindFiniteDepth.class, PropName.class, PropStat.class, Remove.class, ResourceType.class, Response.class,
+			ResponseDescription.class, Set.class, Shared.class, Status.class, SupportedLock.class, TimeOut.class, Write.class };
+
+	@Test
+	public final void createsJAXBContext() {
+		assertThat(resolver.getContext(MultiStatus.class), instanceOf(JAXBContext.class));
 	}
 
-	/**
-	 * Checks whether the provided class is part of the contexts created by this factory.
-	 * 
-	 * @param cls
-	 * @return {@code true} if the contexts created by this factory contain the provided class.
-	 */
-	public final boolean contains(final Class<?> cls) {
-		return this.classes.contains(cls);
+	@Theory
+	public final void containsWebDavElements(final Class<?> webDavElement) {
+		assertThat(webDavElement, is(elementOf(resolver.getContext(MultiStatus.class))));
+	}
+
+	@XmlRootElement
+	private static class CustomElement {
+		// Intentionally left blank.
+	}
+
+	@Test
+	public final void containsCustomElements() throws JAXBException {
+		assertThat(CustomElement.class, is(elementOf(new WebDavContextResolver(CustomElement.class).getContext(MultiStatus.class))));
+	}
+
+	@XmlRootElement
+	private static class UnboundElement {
+		// Intentionally left blank.
+	}
+
+	@Test
+	public final void doesNotContainUnboundElements() {
+		assertThat(UnboundElement.class, is(not(elementOf(resolver.getContext(MultiStatus.class)))));
 	}
 }

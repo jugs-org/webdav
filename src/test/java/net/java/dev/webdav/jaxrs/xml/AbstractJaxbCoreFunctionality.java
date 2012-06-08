@@ -58,7 +58,7 @@ public abstract class AbstractJaxbCoreFunctionality<T> {
 
 	@BeforeClass
 	public static final void setUpContext() throws JAXBException {
-		context = new WebDavContextFactory().create();
+		context = new WebDavJAXBContextBuilder().build();
 		marshaller = context.createMarshaller();
 		unmarshaller = context.createUnmarshaller();
 	}

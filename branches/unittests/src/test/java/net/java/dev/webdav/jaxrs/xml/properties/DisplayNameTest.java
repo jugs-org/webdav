@@ -21,8 +21,10 @@ package net.java.dev.webdav.jaxrs.xml.properties;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 
+import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
 
 /**
@@ -31,8 +33,13 @@ import org.junit.experimental.theories.DataPoints;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class DisplayNameTest extends AbstractJaxbCoreFunctionality<DisplayName> {
+	@Test(expected = NullArgumentException.class)
+	public final void constructorDoesNotAcceptNullAsName() {
+		new DisplayName(null);
+	}
+
 	@DataPoints
-	public static final Object[][] DATA_POINT = { { new DisplayName(), "<D:displayname xmlns:D=\"DAV:\"/>", null },
+	public static final Object[][] DATA_POINT = { { new DisplayName(), "<D:displayname xmlns:D=\"DAV:\"/>", "" },
 			{ new DisplayName("SomeName"), "<D:displayname xmlns:D=\"DAV:\">SomeName</D:displayname>", "SomeName" } };
 
 	@Override

@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, 2009 Markus KARG
+ * Copyright 2008, 2009, 2012 Markus KARG
  *
  * This file is part of webdav-jaxrs.
  *
@@ -21,9 +21,10 @@ package net.java.dev.webdav.jaxrs.xml.properties;
 
 import static net.java.dev.webdav.util.Utilities.sameOrEqual;
 
-import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
+
+import net.java.dev.webdav.jaxrs.NullArgumentException;
 
 /**
  * WebDAV displayname Property.
@@ -36,13 +37,16 @@ import javax.xml.bind.annotation.XmlValue;
 public final class DisplayName {
 
 	@XmlValue
-	private String name;
+	private final String name;
 
 	public DisplayName() {
-		// Has no members.
+		this.name = "";
 	}
 
 	public DisplayName(final String name) {
+		if (name == null)
+			throw new NullArgumentException("name");
+
 		this.name = name;
 	}
 
@@ -62,12 +66,6 @@ public final class DisplayName {
 
 	@Override
 	public final int hashCode() {
-		return this.name == null ? 0 : this.name.hashCode();
-	}
-
-	@SuppressWarnings("unused")
-	private final void afterUnmarshal(final Unmarshaller unmarshaller, final Object parent) {
-		if (this.name != null && this.name.length() == 0)
-			this.name = null;
+		return this.name.hashCode();
 	}
 }

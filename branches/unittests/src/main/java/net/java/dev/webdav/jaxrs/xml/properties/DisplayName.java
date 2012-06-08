@@ -19,8 +19,6 @@
 
 package net.java.dev.webdav.jaxrs.xml.properties;
 
-import static net.java.dev.webdav.util.Utilities.sameOrEqual;
-
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 
@@ -61,7 +59,7 @@ public final class DisplayName {
 
 		final DisplayName that = (DisplayName) other;
 
-		return sameOrEqual(this.name, that.name);
+		return this.name.equals(that.name);
 	}
 
 	@Override

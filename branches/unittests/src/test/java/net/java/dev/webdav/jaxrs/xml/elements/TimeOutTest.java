@@ -40,7 +40,7 @@ public final class TimeOutTest extends AbstractJaxbCoreFunctionality<TimeOut> {
 			{ new TimeOut(1), "<D:timeout xmlns:D=\"DAV:\">Second-1</D:timeout>", 1L, FALSE } };
 
 	@Override
-	protected void assertThatGettersProvideExpectedValues(final TimeOut actual, final TimeOut expected, final Object[] dataPoint) {
+	protected final void assertThatGettersProvideExpectedValues(final TimeOut actual, final TimeOut expected, final Object[] dataPoint) {
 		assertThat(actual.getSeconds(), is(dataPoint[2]));
 		assertThat(actual.isInfinite(), is(dataPoint[3]));
 		assertThat(expected.getSeconds(), is(dataPoint[2]));

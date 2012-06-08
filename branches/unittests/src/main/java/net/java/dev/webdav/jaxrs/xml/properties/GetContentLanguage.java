@@ -19,6 +19,9 @@
 
 package net.java.dev.webdav.jaxrs.xml.properties;
 
+import static net.java.dev.webdav.util.Utilities.sameOrEqual;
+
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 
@@ -47,4 +50,19 @@ public final class GetContentLanguage {
 		return this.languageTag;
 	}
 
+	@Override
+	public final boolean equals(final Object other) {
+		if (!(other instanceof GetContentLanguage))
+			return false;
+
+		final GetContentLanguage that = (GetContentLanguage) other;
+
+		return sameOrEqual(this.languageTag, that.languageTag);
+	}
+
+	@SuppressWarnings("unused")
+	private final void afterUnmarshal(final Unmarshaller unmarshaller, final Object parent) {
+		if (this.languageTag != null && this.languageTag.length() == 0)
+			this.languageTag = null;
+	}
 }

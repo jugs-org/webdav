@@ -21,8 +21,10 @@ package net.java.dev.webdav.jaxrs.xml.properties;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 
+import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
 
 /**
@@ -31,8 +33,13 @@ import org.junit.experimental.theories.DataPoints;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class GetContentLanguageTest extends AbstractJaxbCoreFunctionality<GetContentLanguage> {
+	@Test(expected = NullArgumentException.class)
+	public final void constructorDoesNotAcceptNullAsName() {
+		new GetContentLanguage(null);
+	}
+
 	@DataPoints
-	public static final Object[][] DATA_POINT = { { new GetContentLanguage(), "<D:getcontentlanguage xmlns:D=\"DAV:\"/>", null },
+	public static final Object[][] DATA_POINT = { { new GetContentLanguage(), "<D:getcontentlanguage xmlns:D=\"DAV:\"/>", "" },
 			{ new GetContentLanguage("SomeLanguageTag"), "<D:getcontentlanguage xmlns:D=\"DAV:\">SomeLanguageTag</D:getcontentlanguage>", "SomeLanguageTag" } };
 
 	@Override

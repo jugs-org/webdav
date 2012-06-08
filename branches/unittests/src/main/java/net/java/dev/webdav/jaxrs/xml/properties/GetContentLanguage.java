@@ -19,11 +19,10 @@
 
 package net.java.dev.webdav.jaxrs.xml.properties;
 
-import static net.java.dev.webdav.util.Utilities.sameOrEqual;
-
-import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
+
+import net.java.dev.webdav.jaxrs.NullArgumentException;
 
 /**
  * WebDAV getcontentlanguage Property.
@@ -36,13 +35,16 @@ import javax.xml.bind.annotation.XmlValue;
 public final class GetContentLanguage {
 
 	@XmlValue
-	private String languageTag;
+	private final String languageTag;
 
 	public GetContentLanguage() {
-		// Has no members.
+		this.languageTag = "";
 	}
 
 	public GetContentLanguage(final String languageTag) {
+		if (languageTag == null)
+			throw new NullArgumentException("languageTag");
+
 		this.languageTag = languageTag;
 	}
 
@@ -57,17 +59,11 @@ public final class GetContentLanguage {
 
 		final GetContentLanguage that = (GetContentLanguage) other;
 
-		return sameOrEqual(this.languageTag, that.languageTag);
-	}
-
-	@SuppressWarnings("unused")
-	private final void afterUnmarshal(final Unmarshaller unmarshaller, final Object parent) {
-		if (this.languageTag != null && this.languageTag.length() == 0)
-			this.languageTag = null;
+		return this.languageTag.equals(that.languageTag);
 	}
 
 	@Override
 	public final int hashCode() {
-		return this.languageTag == null ? 0 : this.languageTag.hashCode();
+		return this.languageTag.hashCode();
 	}
 }

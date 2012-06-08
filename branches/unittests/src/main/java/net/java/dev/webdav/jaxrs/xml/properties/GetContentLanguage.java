@@ -65,4 +65,9 @@ public final class GetContentLanguage {
 		if (this.languageTag != null && this.languageTag.length() == 0)
 			this.languageTag = null;
 	}
+
+	@Override
+	public final int hashCode() {
+		return this.languageTag == null ? 0 : this.languageTag.hashCode();
+	}
 }

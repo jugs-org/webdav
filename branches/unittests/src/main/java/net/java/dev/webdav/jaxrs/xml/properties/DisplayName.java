@@ -19,6 +19,9 @@
 
 package net.java.dev.webdav.jaxrs.xml.properties;
 
+import static net.java.dev.webdav.util.Utilities.sameOrEqual;
+
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 
@@ -47,4 +50,19 @@ public final class DisplayName {
 		return this.name;
 	}
 
+	@Override
+	public final boolean equals(final Object other) {
+		if (!(other instanceof DisplayName))
+			return false;
+
+		final DisplayName that = (DisplayName) other;
+
+		return sameOrEqual(this.name, that.name);
+	}
+
+	@SuppressWarnings("unused")
+	private final void afterUnmarshal(final Unmarshaller unmarshaller, final Object parent) {
+		if (this.name != null && this.name.length() == 0)
+			this.name = null;
+	}
 }

@@ -19,6 +19,8 @@
 
 package net.java.dev.webdav.jaxrs.xml.properties;
 
+import static net.java.dev.webdav.util.Utilities.sameOrEqual;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 
@@ -33,7 +35,7 @@ import javax.xml.bind.annotation.XmlValue;
 public final class GetContentLength {
 
 	@XmlValue
-	private long contentLength;
+	private Long contentLength;
 
 	public GetContentLength() {
 		// Has no members.
@@ -43,8 +45,26 @@ public final class GetContentLength {
 		this.contentLength = contentLength;
 	}
 
+	/**
+	 * @deprecated Since 1.2 use {@link #getContentLength()} instead. This method will not be supported anymore in future releases.
+	 * @return The same result as {@link #getContentLength()}
+	 */
+	@Deprecated
 	public final long getLanguageTag() {
-		return this.contentLength;
+		return this.getContentLength();
 	}
 
+	public final long getContentLength() {
+		return this.contentLength == null ? 0 : this.contentLength;
+	}
+
+	@Override
+	public final boolean equals(final Object other) {
+		if (!(other instanceof GetContentLength))
+			return false;
+
+		final GetContentLength that = (GetContentLength) other;
+
+		return sameOrEqual(this.contentLength, that.contentLength);
+	}
 }

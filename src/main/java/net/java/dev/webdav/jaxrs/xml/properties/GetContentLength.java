@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, 2009 Markus KARG
+ * Copyright 2008, 2009, 2012 Markus KARG
  *
  * This file is part of webdav-jaxrs.
  *
@@ -66,5 +66,10 @@ public final class GetContentLength {
 		final GetContentLength that = (GetContentLength) other;
 
 		return sameOrEqual(this.contentLength, that.contentLength);
+	}
+
+	@Override
+	public final int hashCode() {
+		return this.contentLength == null ? 0 : this.contentLength.hashCode();
 	}
 }

@@ -60,6 +60,11 @@ public final class DisplayName {
 		return sameOrEqual(this.name, that.name);
 	}
 
+	@Override
+	public final int hashCode() {
+		return this.name == null ? 0 : this.name.hashCode();
+	}
+
 	@SuppressWarnings("unused")
 	private final void afterUnmarshal(final Unmarshaller unmarshaller, final Object parent) {
 		if (this.name != null && this.name.length() == 0)

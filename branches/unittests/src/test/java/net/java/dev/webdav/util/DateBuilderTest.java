@@ -37,11 +37,10 @@ import org.junit.Test;
 public final class DateBuilderTest {
 	@Test
 	public final void date() {
-		final String UTC = "UTC";
-		final Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone(UTC));
+		final Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Berlin"));
 		calendar.set(2012, 11 - 1 /* Months count starts with zero! */, 12, 13, 14, 15);
 		calendar.set(MILLISECOND, 16);
 		final Date expectedDate = calendar.getTime();
-		assertThat(DateBuilder.date(2012, 11, 12, 13, 14, 15, 16, UTC), is(expectedDate));
+		assertThat(DateBuilder.date(2012, 11, 12, 13 - 1 /* Europe/Berlin = UTC+1 */, 14, 15, 16, "UTC"), is(expectedDate));
 	}
 }

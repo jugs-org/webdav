@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, 2009 Markus KARG
+ * Copyright 2008, 2009, 2012 Markus KARG
  *
  * This file is part of webdav-jaxrs.
  *
@@ -41,10 +41,7 @@ public final class CreationDate {
 	private Date dateTime;
 
 	/**
-	 * Creates an empty (thus <em>invalid</em>) instance. Use <em>only</em> to
-	 * list property name within response to &lt;propname/&gt; request. Not to
-	 * be used for creation of valid instances of this property; use
-	 * {@link #CreationDate(Date)} instead.
+	 * Creates an empty (thus <em>invalid</em>) instance. Use <em>only</em> to list property name within response to &lt;propname/&gt; request. Not to be used for creation of valid instances of this property; use {@link #CreationDate(Date)} instead.
 	 */
 	public CreationDate() {
 		// Keeping defaults by intention.
@@ -75,10 +72,10 @@ public final class CreationDate {
 	@Override
 	public final boolean equals(final Object other) {
 		if (!(other instanceof CreationDate))
-				return false;
-		
+			return false;
+
 		final CreationDate that = (CreationDate) other;
-		
+
 		return this.dateTime == null && that.dateTime == null || this.dateTime != null && that.dateTime != null && this.dateTime.equals(that.dateTime);
 	}
 

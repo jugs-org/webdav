@@ -19,9 +19,19 @@
 
 package net.java.dev.webdav.util;
 
+import static net.java.dev.webdav.jaxrs.ImmutableDate.immutable;
+import static org.hamcrest.CoreMatchers.anyOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.CoreMatchers.sameInstance;
+import static org.junit.Assert.assertThat;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Date;
 
 /**
  * Common purpose utilities.
@@ -105,5 +115,31 @@ public final class Utilities {
 		final T[] expandedArray = Arrays.copyOf(firstArray, firstArray.length + secondArray.length);
 		System.arraycopy(secondArray, 0, expandedArray, firstArray.length, secondArray.length);
 		return expandedArray;
+	}
+
+	/**
+	 * Asserts that a method's {@link Date} getter in fact returns immutable objects, or a different object with every call.
+	 * 
+	 * @param immutableObject
+	 *            The object to check.
+	 * @param getter
+	 *            The getter's name to check.
+	 * @throws SecurityException
+	 *             When the getter is not allowed to be called.
+	 * @throws NoSuchMethodException
+	 *             When no such getter exists.
+	 * @throws InvocationTargetException
+	 *             When the getter cannot get called.
+	 * @throws IllegalArgumentException
+	 *             When the getter needs arguments.
+	 * @throws IllegalAccessException
+	 *             When the getter is not public.
+	 */
+	public static final <T> void assertEffectivelyImmutableDate(final T immutableObject, final String getterName) throws NoSuchMethodException,
+			SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		final Method getter = immutableObject.getClass().getMethod(getterName);
+		final Date resultOfFirstCall = (Date) getter.invoke(immutableObject);
+		final Date resultOfSecondCall = (Date) getter.invoke(immutableObject);
+		assertThat(resultOfFirstCall, is(anyOf(immutable(), not(sameInstance(resultOfSecondCall)), nullValue())));
 	}
 }

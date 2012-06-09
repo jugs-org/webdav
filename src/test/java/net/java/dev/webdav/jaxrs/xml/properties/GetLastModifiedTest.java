@@ -19,17 +19,13 @@
 
 package net.java.dev.webdav.jaxrs.xml.properties;
 
-import static net.java.dev.webdav.jaxrs.ImmutableDate.immutable;
 import static net.java.dev.webdav.util.DateBuilder.date;
-import static org.hamcrest.CoreMatchers.anyOf;
+import static net.java.dev.webdav.util.Utilities.assertEffectivelyImmutableDate;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
 
 import java.io.StringReader;
-import java.util.Date;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.xml.bind.JAXB;
 
@@ -65,14 +61,9 @@ public final class GetLastModifiedTest extends AbstractJaxbCoreFunctionality<Get
 	}
 
 	@Theory
-	public final void dateIsEffectivelyImmutable(final Object[] dataPoint) {
-		assertEffectivelyImmutableDate((GetLastModified) dataPoint[0]);
-		assertEffectivelyImmutableDate(JAXB.unmarshal(new StringReader((String) dataPoint[1]), GetLastModified.class));
-	}
-
-	private static final void assertEffectivelyImmutableDate(final GetLastModified immutableObject) {
-		final Date resultOfFirstCall = immutableObject.getDateTime();
-		final Date resultOfSecondCall = immutableObject.getDateTime();
-		assertThat(resultOfFirstCall, is(anyOf(immutable(), not(sameInstance(resultOfSecondCall)), nullValue())));
+	public final void dateIsEffectivelyImmutable(final Object[] dataPoint) throws NoSuchMethodException, SecurityException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException {
+		assertEffectivelyImmutableDate(dataPoint[0], "getDateTime");
+		assertEffectivelyImmutableDate(JAXB.unmarshal(new StringReader((String) dataPoint[1]), GetLastModified.class), "getDateTime");
 	}
 }

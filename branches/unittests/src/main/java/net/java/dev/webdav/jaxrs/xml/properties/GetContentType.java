@@ -22,6 +22,8 @@ package net.java.dev.webdav.jaxrs.xml.properties;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 
+import net.java.dev.webdav.jaxrs.NullArgumentException;
+
 /**
  * WebDAV getcontenttype Property.
  * 
@@ -33,13 +35,16 @@ import javax.xml.bind.annotation.XmlValue;
 public final class GetContentType {
 
 	@XmlValue
-	private String mediaType;
+	private final String mediaType;
 
 	public GetContentType() {
-		// Has no members.
+		this.mediaType = "";
 	}
 
 	public GetContentType(final String mediaType) {
+		if (mediaType == null)
+			throw new NullArgumentException("mediaType");
+
 		this.mediaType = mediaType;
 	}
 
@@ -47,4 +52,13 @@ public final class GetContentType {
 		return this.mediaType;
 	}
 
+	@Override
+	public final boolean equals(final Object other) {
+		if (!(other instanceof GetContentType))
+			return false;
+
+		final GetContentType that = (GetContentType) other;
+
+		return this.mediaType.equals(that.mediaType);
+	}
 }

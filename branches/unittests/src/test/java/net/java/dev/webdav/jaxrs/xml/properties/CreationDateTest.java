@@ -21,10 +21,10 @@ package net.java.dev.webdav.jaxrs.xml.properties;
 
 import static net.java.dev.webdav.jaxrs.ImmutableDate.immutable;
 import static org.hamcrest.CoreMatchers.anyOf;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
 import static org.xmlmatchers.XmlMatchers.isEquivalentTo;
@@ -58,10 +58,8 @@ public final class CreationDateTest {
 	}
 
 	@DataPoints
-	public static final Object[][] DATA_POINTS = new Object[][] {
-		{ new CreationDate(), "<D:creationdate xmlns:D=\"DAV:\"/>" },
-		{ new CreationDate(new Date(1)), "<D:creationdate xmlns:D=\"DAV:\">1970-01-01T00:00:00.001Z</D:creationdate>" },
-	};
+	public static final Object[][] DATA_POINTS = new Object[][] { { new CreationDate(), "<D:creationdate xmlns:D=\"DAV:\"/>" },
+			{ new CreationDate(new Date(1)), "<D:creationdate xmlns:D=\"DAV:\">1970-01-01T00:00:00.001Z</D:creationdate>" }, };
 
 	@Theory
 	public final void marshalling(final Object[] dataPoint) {

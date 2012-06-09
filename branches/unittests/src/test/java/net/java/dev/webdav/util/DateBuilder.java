@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, 2009 Markus KARG
+ * Copyright 2008, 2009, 2012 Markus KARG
  *
  * This file is part of webdav-jaxrs.
  *
@@ -55,7 +55,7 @@ public final class DateBuilder {
 	public static final Date date(final int year, final int month, final int day, final int hour, final int minute, final int second, final int millisecond,
 			final String timeZone) {
 		final Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone(timeZone));
-		calendar.set(year, month - 1, day, hour, minute, second);
+		calendar.set(year, month - 1 /* Months count starts with zero! */, day, hour, minute, second);
 		calendar.set(MILLISECOND, millisecond);
 		return calendar.getTime();
 	}

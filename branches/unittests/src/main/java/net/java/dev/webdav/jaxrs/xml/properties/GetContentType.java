@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, 2009 Markus KARG
+ * Copyright 2008, 2009, 2012 Markus KARG
  *
  * This file is part of webdav-jaxrs.
  *
@@ -37,6 +37,9 @@ public final class GetContentType {
 	@XmlValue
 	private final String mediaType;
 
+	/**
+	 * Creates an empty (thus <em>invalid</em>) instance. Use <em>only</em> to list property name within response to &lt;propname/&gt; request. Not to be used for creation of valid instances of this property; use {@link #GetContentType(String)} instead.
+	 */
 	public GetContentType() {
 		this.mediaType = "";
 	}

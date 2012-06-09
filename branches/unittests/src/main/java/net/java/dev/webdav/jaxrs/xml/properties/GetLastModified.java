@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, 2009 Markus KARG
+ * Copyright 2008, 2009, 2012 Markus KARG
  *
  * This file is part of webdav-jaxrs.
  *
@@ -41,10 +41,7 @@ public final class GetLastModified {
 	private Date dateTime;
 
 	/**
-	 * Creates an empty (thus <em>invalid</em>) instance. Use <em>only</em> to
-	 * list property name within response to &lt;propname/&gt; request. Not to
-	 * be used for creation of valid instances of this property; use
-	 * {@link #GetLastModified(Date)} instead.
+	 * Creates an empty (thus <em>invalid</em>) instance. Use <em>only</em> to list property name within response to &lt;propname/&gt; request. Not to be used for creation of valid instances of this property; use {@link #GetLastModified(Date)} instead.
 	 */
 	public GetLastModified() {
 		// Keeping defaults by intention.
@@ -58,18 +55,27 @@ public final class GetLastModified {
 	}
 
 	public final Date getDateTime() {
-		return this.dateTime;
+		return this.dateTime == null ? null : (Date) this.dateTime.clone();
 	}
 
 	@SuppressWarnings("unused")
 	@XmlValue
 	private final String getXmlDateTime() {
-		return new Rfc1123DateFormat().format(this.dateTime);
+		return this.dateTime == null ? null : new Rfc1123DateFormat().format(this.dateTime);
 	}
 
 	@SuppressWarnings("unused")
-	private final void setXmlDateTime(final String rfc1123date) throws ParseException {
-		this.dateTime = new Rfc1123DateFormat().parse(rfc1123date);
+	private final void setXmlDateTime(final String rfc1123DateTime) throws ParseException {
+		this.dateTime = rfc1123DateTime == null ? null : new Rfc1123DateFormat().parse(rfc1123DateTime);
 	}
 
+	@Override
+	public final boolean equals(final Object other) {
+		if (!(other instanceof GetLastModified))
+			return false;
+
+		final GetLastModified that = (GetLastModified) other;
+
+		return this.dateTime == null && that.dateTime == null || this.dateTime != null && that.dateTime != null && this.dateTime.equals(that.dateTime);
+	}
 }

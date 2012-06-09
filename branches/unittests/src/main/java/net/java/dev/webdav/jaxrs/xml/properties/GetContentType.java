@@ -61,4 +61,9 @@ public final class GetContentType {
 
 		return this.mediaType.equals(that.mediaType);
 	}
+
+	@Override
+	public final int hashCode() {
+		return this.mediaType.hashCode();
+	}
 }

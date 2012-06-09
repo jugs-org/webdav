@@ -20,61 +20,48 @@
 package net.java.dev.webdav.jaxrs.xml.properties;
 
 import static net.java.dev.webdav.jaxrs.ImmutableDate.immutable;
+import static net.java.dev.webdav.util.DateBuilder.date;
 import static org.hamcrest.CoreMatchers.anyOf;
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
-import static org.xmlmatchers.XmlMatchers.isEquivalentTo;
-import static org.xmlmatchers.transform.XmlConverters.the;
 
 import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.Writer;
 import java.util.Date;
 
 import javax.xml.bind.JAXB;
 
 import net.java.dev.webdav.jaxrs.NullArgumentException;
+import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 
 import org.junit.Test;
-import org.junit.experimental.theories.DataPoints;
-import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.DataPoint;
 import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
 
 /**
  * Unit test for {@link CreationDate}
  * 
  * @author Markus KARG (mkarg@java.net)
  */
-@RunWith(Theories.class)
-public final class CreationDateTest {
+public final class CreationDateTest extends AbstractJaxbCoreFunctionality<CreationDate> {
 	@Test(expected = NullArgumentException.class)
 	public final void constructorDoesNotAcceptNull() {
 		new CreationDate(null);
 	}
 
-	@DataPoints
-	public static final Object[][] DATA_POINTS = new Object[][] { { new CreationDate(), "<D:creationdate xmlns:D=\"DAV:\"/>" },
-			{ new CreationDate(new Date(1)), "<D:creationdate xmlns:D=\"DAV:\">1970-01-01T00:00:00.001Z</D:creationdate>" }, };
+	@DataPoint
+	public static final Object[] NO_ARGS_CONSTRUCTOR = new Object[] { new CreationDate(), "<D:creationdate xmlns:D=\"DAV:\"/>", null };
 
-	@Theory
-	public final void marshalling(final Object[] dataPoint) {
-		final Writer writer = new StringWriter();
-		JAXB.marshal(dataPoint[0], writer);
-		final String actualXml = writer.toString();
-		final String expectedXml = (String) dataPoint[1];
-		assertThat(the(actualXml), isEquivalentTo(the(expectedXml)));
-	}
+	@DataPoint
+	public static final Object[] DATE_CONSTRUCTOR = new Object[] { new CreationDate(date(2012, 11, 12, 13, 14, 15, 16, "UTC")),
+			"<D:creationdate xmlns:D=\"DAV:\">2012-11-12T13:14:15.016Z</D:creationdate>", date(2012, 11, 12, 13, 14, 15, 16, "UTC") };
 
-	@Theory
-	public final void unmarshalling(final Object[] dataPoint) {
-		final CreationDate actualElement = JAXB.unmarshal(new StringReader((String) dataPoint[1]), CreationDate.class);
-		final CreationDate expectedElement = (CreationDate) dataPoint[0];
-		assertThat(actualElement, is(equalTo(expectedElement)));
+	@Override
+	protected final void assertThatGettersProvideExpectedValues(final CreationDate actual, final CreationDate expected, final Object[] dataPoint) {
+		assertThat(actual.getDateTime(), is(dataPoint[2]));
+		assertThat(expected.getDateTime(), is(dataPoint[2]));
 	}
 
 	@Theory

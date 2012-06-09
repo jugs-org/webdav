@@ -37,6 +37,9 @@ public final class DisplayName {
 	@XmlValue
 	private final String name;
 
+	/**
+	 * Creates an empty (thus <em>invalid</em>) instance. Use <em>only</em> to list property name within response to &lt;propname/&gt; request. Not to be used for creation of valid instances of this property; use {@link #DisplayName(String)} instead.
+	 */
 	public DisplayName() {
 		this.name = "";
 	}

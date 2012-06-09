@@ -26,7 +26,7 @@ import static org.junit.Assert.assertThat;
 import java.text.ParseException;
 import java.util.Date;
 
-import org.junit.experimental.theories.DataPoints;
+import org.junit.experimental.theories.DataPoint;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
@@ -38,8 +38,8 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Theories.class)
 public final class Rfc1123DateFormatTest {
-	@DataPoints
-	public static final Object[][] DATA_POINTS = new Object[][] { { date(2012, 11, 12, 13, 14, 15, 0, "UTC"), "Mon, 12 Nov 2012 13:14:15 GMT" } };
+	@DataPoint
+	public static final Object[] DATA_POINTS = new Object[] { date(2012, 11, 12, 13, 14, 15, 0, "UTC"), "Mon, 12 Nov 2012 13:14:15 GMT" };
 
 	@Theory
 	public final void parsing(final Object[] dataPoint) throws ParseException {

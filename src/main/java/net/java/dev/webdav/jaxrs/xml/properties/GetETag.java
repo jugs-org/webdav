@@ -61,4 +61,9 @@ public final class GetETag {
 
 		return this.entityTag.equals(that.entityTag);
 	}
+
+	@Override
+	public final int hashCode() {
+		return this.entityTag.hashCode();
+	}
 }

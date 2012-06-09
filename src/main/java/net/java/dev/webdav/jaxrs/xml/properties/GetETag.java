@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, 2009 Markus KARG
+ * Copyright 2008, 2009, 2012 Markus KARG
  *
  * This file is part of webdav-jaxrs.
  *
@@ -22,6 +22,8 @@ package net.java.dev.webdav.jaxrs.xml.properties;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 
+import net.java.dev.webdav.jaxrs.NullArgumentException;
+
 /**
  * WebDAV getetag Property.
  * 
@@ -33,13 +35,16 @@ import javax.xml.bind.annotation.XmlValue;
 public final class GetETag {
 
 	@XmlValue
-	private String entityTag;
+	private final String entityTag;
 
 	public GetETag() {
-		// Has no members.
+		this.entityTag = "";
 	}
 
 	public GetETag(final String entityTag) {
+		if (entityTag == null)
+			throw new NullArgumentException("entityTag");
+
 		this.entityTag = entityTag;
 	}
 
@@ -47,4 +52,13 @@ public final class GetETag {
 		return this.entityTag;
 	}
 
+	@Override
+	public final boolean equals(final Object other) {
+		if (!(other instanceof GetETag))
+			return false;
+
+		final GetETag that = (GetETag) other;
+
+		return this.entityTag.equals(that.entityTag);
+	}
 }

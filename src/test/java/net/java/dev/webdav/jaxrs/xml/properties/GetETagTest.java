@@ -35,7 +35,7 @@ import org.junit.experimental.theories.DataPoints;
 public final class GetETagTest extends AbstractJaxbCoreFunctionality<GetETag> {
 	@Test(expected = NullArgumentException.class)
 	public final void constructorDoesNotAcceptNullAsName() {
-		new GetContentType(null);
+		new GetETag(null);
 	}
 
 	@DataPoints

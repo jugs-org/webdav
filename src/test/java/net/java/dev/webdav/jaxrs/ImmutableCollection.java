@@ -19,8 +19,6 @@
 
 package net.java.dev.webdav.jaxrs;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 
 import org.hamcrest.Description;
@@ -28,11 +26,10 @@ import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Assert;
+import org.powermock.reflect.Whitebox;
 
 /**
- * Matches when collection is immutable, i. e. invoking
- * {@link Collection#add(Object)} throws {@link UnsupportedOperationException}
- * or does effectively not extend the collection.
+ * Matches when collection is immutable, i. e. invoking {@link Collection#add(Object)} throws {@link UnsupportedOperationException} or does effectively not extend the collection.
  * 
  * @author Markus KARG (mkarg@java.net)
  */
@@ -47,7 +44,7 @@ public final class ImmutableCollection<E> extends TypeSafeMatcher<Collection<E>>
 	public final boolean matchesSafely(final Collection<E> collection) {
 		try {
 			final int sizeBeforeAdd = collection.size();
-			collection.add(this.createElement());
+			collection.add(Whitebox.newInstance(this.elementType));
 			return sizeBeforeAdd == collection.size();
 		} catch (final UnsupportedOperationException e) {
 			return true;
@@ -55,13 +52,6 @@ public final class ImmutableCollection<E> extends TypeSafeMatcher<Collection<E>>
 			Assert.fail(e.toString());
 			return false;
 		}
-	}
-
-	private final E createElement() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
-			NoSuchMethodException, SecurityException {
-		final Constructor<E> defaultConstructor = this.elementType.getDeclaredConstructor();
-		defaultConstructor.setAccessible(true);
-		return defaultConstructor.newInstance();
 	}
 
 	@Override

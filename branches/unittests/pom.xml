@@ -138,6 +138,12 @@
 	</scm>
 	<dependencies>
 		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+			<version>${powermock.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>javax.ws.rs</groupId>
 			<artifactId>jsr311-api</artifactId>
 			<version>[1.1,1.2)</version>
@@ -163,6 +169,7 @@
 	</dependencies>
 	<properties>
 		<project.build.sourceEncoding>Cp1252</project.build.sourceEncoding>
+		<powermock.version>1.5.2</powermock.version>
 	</properties>
 	<build>
 		<plugins>

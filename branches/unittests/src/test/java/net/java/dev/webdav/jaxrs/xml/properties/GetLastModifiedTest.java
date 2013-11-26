@@ -20,7 +20,7 @@
 package net.java.dev.webdav.jaxrs.xml.properties;
 
 import static net.java.dev.webdav.util.DateBuilder.date;
-import static net.java.dev.webdav.util.Utilities.assertEffectivelyImmutableDate;
+import static net.java.dev.webdav.util.TestUtilities.assertEffectivelyImmutableDate;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 

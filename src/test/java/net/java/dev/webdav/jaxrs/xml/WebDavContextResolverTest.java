@@ -124,7 +124,7 @@ public final class WebDavContextResolverTest {
 
 	@Test
 	public final void containsCustomElements() throws JAXBException {
-		assertThat(CustomElement.class, is(elementOf(new WebDavContextResolver(CustomElement.class).getContext(MultiStatus.class))));
+		assertThat(CustomElement.class, is(elementOf(resolver.getContext(MultiStatus.class))));
 	}
 
 	@XmlRootElement

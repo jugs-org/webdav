@@ -87,7 +87,7 @@ import org.junit.runner.RunWith;
 /**
  * Unit test for {@link WebDavJAXBContextBuilder}
  * 
- * @author Markus KARG (mkarg@junit.org)
+ * @author Markus KARG (mkarg@java.net)
  */
 @RunWith(Theories.class)
 public final class WebDavJAXBContextBuilderTest {

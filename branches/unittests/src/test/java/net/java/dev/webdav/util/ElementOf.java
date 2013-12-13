@@ -28,7 +28,7 @@ import org.hamcrest.TypeSafeMatcher;
 /**
  * This hamcrest matcher checks whether a class is known to a particular JAXB context.
  * 
- * @author Markus KARG (mkarg@junit.org)
+ * @author Markus KARG (mkarg@java.net)
  */
 public final class ElementOf extends TypeSafeMatcher<Class<?>> {
 	private final JAXBContext context;

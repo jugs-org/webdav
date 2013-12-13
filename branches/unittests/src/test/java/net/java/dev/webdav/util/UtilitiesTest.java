@@ -30,7 +30,7 @@ import org.junit.Test;
 /**
  * Unit test for {@link Utilities}
  * 
- * @author Markus KARG (mkarg@junit.org)
+ * @author Markus KARG (mkarg@java.net)
  */
 public final class UtilitiesTest {
 	@Test

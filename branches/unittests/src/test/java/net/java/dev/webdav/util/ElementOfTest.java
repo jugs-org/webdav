@@ -28,7 +28,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.StringDescription;
@@ -38,7 +37,7 @@ import org.junit.Test;
 /**
  * Unit test for {@link ElementOf}
  * 
- * @author Markus KARG (mkarg@junit.org)
+ * @author Markus KARG (mkarg@java.net)
  */
 public final class ElementOfTest {
 	private static JAXBContext context;

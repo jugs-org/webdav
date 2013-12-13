@@ -43,7 +43,7 @@ public final class TestUtilities {
 	 * 
 	 * @param immutableObject
 	 *            The object to check.
-	 * @param getter
+	 * @param getterName
 	 *            The getter's name to check.
 	 * @throws SecurityException
 	 *             When the getter is not allowed to be called.

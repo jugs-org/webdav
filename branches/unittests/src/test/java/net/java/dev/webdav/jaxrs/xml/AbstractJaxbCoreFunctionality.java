@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Markus KARG
+ * Copyright 2013 Markus KARG
  *
  * This file is part of webdav-jaxrs.
  *
@@ -42,8 +42,9 @@ import org.junit.runner.RunWith;
 /**
  * Abstract unit test for elements.
  * 
- * Tests marshalling and unmarshalling of descendant classes. Descendant has to provide {@code @DataPoint}(s) of array type {@code Object[]}, where element 0 contains the Java representation of the object to test, and element 1 contains the XML representation. Further elements can be used to provide expectations for
- * getters, which will get checked using {@link #assertThatGettersProvideExpectedValues(Object, Object[])}.
+ * Tests marshalling and unmarshalling of descendant classes. Descendant has to provide {@code @DataPoint}(s) of array type {@code Object[]}, where element 0
+ * contains the Java representation of the object to test, and element 1 contains the XML representation. Further elements can be used to provide expectations
+ * for getters, which will get checked using {@link #assertThatGettersProvideExpectedValues(Object, Object[])}.
  * 
  * @author Markus KARG (mkarg@java.net)
  */
@@ -86,7 +87,7 @@ public abstract class AbstractJaxbCoreFunctionality<T> {
 	}
 
 	/**
-	 * Invoked by {@link #assertThatGettersProvideExpectedValues(Object, Object[])} to allow descendant to check getters after unmarshalling.
+	 * Invoked by {@link #unmarshalling(Object[])} to allow descendant to check getters after unmarshalling.
 	 * 
 	 * @param actual
 	 *            The actually unmarshalled Java object instance.

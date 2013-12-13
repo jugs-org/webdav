@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Markus KARG
+ * Copyright 2013 Markus KARG
  *
  * This file is part of webdav-jaxrs.
  *
@@ -32,7 +32,7 @@ import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
 /**
- * Unit test for {@link Rfc1123DateTimeFormat}
+ * Unit test for {@link Rfc1123DateFormat}
  * 
  * @author Markus KARG (mkarg@java.net)
  */

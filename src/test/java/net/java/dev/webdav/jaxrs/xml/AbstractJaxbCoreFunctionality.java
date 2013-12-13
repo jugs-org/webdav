@@ -44,7 +44,7 @@ import org.junit.runner.RunWith;
  * 
  * Tests marshalling and unmarshalling of descendant classes. Descendant has to provide {@code @DataPoint}(s) of array type {@code Object[]}, where element 0
  * contains the Java representation of the object to test, and element 1 contains the XML representation. Further elements can be used to provide expectations
- * for getters, which will get checked using {@link #assertThatGettersProvideExpectedValues(Object, Object[])}.
+ * for getters, which will get checked using {@link #assertThatGettersProvideExpectedValues(Object, Object, Object[])}.
  * 
  * @author Markus KARG (mkarg@java.net)
  */

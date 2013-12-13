@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, 2009, 2012 Markus KARG
+ * Copyright 2008, 2009, 2012, 2013 Markus KARG
  *
  * This file is part of webdav-jaxrs.
  *
@@ -58,7 +58,6 @@ public final class GetLastModified {
 		return this.dateTime == null ? null : (Date) this.dateTime.clone();
 	}
 
-	@SuppressWarnings("unused")
 	@XmlValue
 	private final String getXmlDateTime() {
 		return this.dateTime == null ? null : new Rfc1123DateFormat().format(this.dateTime);

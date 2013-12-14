@@ -170,17 +170,11 @@
 	<properties>
 		<project.build.sourceEncoding>Cp1252</project.build.sourceEncoding>
 		<powermock.version>1.5.2</powermock.version>
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
 	</properties>
 	<build>
 		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
 			<plugin>
 				<artifactId>maven-source-plugin</artifactId>
 				<version>2.1.2</version>

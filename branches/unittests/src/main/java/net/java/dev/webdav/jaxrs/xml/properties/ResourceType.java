@@ -70,6 +70,11 @@ public final class ResourceType {
 	}
 	
 	@Override
+	public final int hashCode() {
+		return this.resourceTypes.hashCode();
+	}
+
+	@Override
 	public final boolean equals(final Object other) {
 		if (!(other instanceof ResourceType))
 			return false;

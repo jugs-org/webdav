@@ -39,7 +39,7 @@ import java.util.Date;
  * 
  * @author Markus KARG (mkarg@java.net)
  */
-public final class TestUtilities {
+public final class UnitTestUtilities {
 
 	/**
 	 * Asserts that a method's {@link Date} getter in fact returns immutable objects, or a different object with every call.

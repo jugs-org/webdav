@@ -29,6 +29,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.elements.Collection;
 
 /**
@@ -53,16 +54,28 @@ public final class ResourceType {
 	 * {@link #ResourceType(Object...)} instead.
 	 */
 	public ResourceType() {
-		// Keeping defaults by intention.
+		this.resourceTypes = new LinkedList<Object>();
 	}
 
-	public ResourceType(final Object... any) {
-		this.resourceTypes = new LinkedList<Object>(Arrays.asList(any));
+	public ResourceType(final Object... resourceTypes) {
+		if (resourceTypes == null)
+			throw new NullArgumentException("resourceTypes");
+
+		this.resourceTypes = new LinkedList<Object>(Arrays.asList(resourceTypes));
 	}
 
 	@SuppressWarnings("unchecked")
 	public final List<Object> getResourceType() {
 		return (List<Object>) this.resourceTypes.clone();
 	}
+	
+	@Override
+	public final boolean equals(final Object other) {
+		if (!(other instanceof ResourceType))
+			return false;
 
+		final ResourceType that = (ResourceType) other;
+
+		return this.resourceTypes.equals(that.resourceTypes);
+	}
 }

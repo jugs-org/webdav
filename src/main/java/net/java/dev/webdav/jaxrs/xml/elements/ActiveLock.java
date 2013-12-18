@@ -23,6 +23,7 @@
 package net.java.dev.webdav.jaxrs.xml.elements;
 
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
+import static net.java.dev.webdav.util.Utilities.sameOrEqual;
 
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -129,4 +130,14 @@ public final class ActiveLock {
 		return this.lockRoot;
 	}
 
+	@Override
+	public final boolean equals(final Object other) {
+		if (!(other instanceof ActiveLock))
+			return false;
+
+		final ActiveLock that = (ActiveLock) other;
+
+		return this.lockScope == that.lockScope && this.lockType == that.lockType && this.depth == that.depth && sameOrEqual(this.owner, that.owner)
+				&& sameOrEqual(this.timeOut, that.timeOut) && sameOrEqual(this.lockToken, that.lockToken) && this.lockRoot == that.lockRoot;
+	}
 }

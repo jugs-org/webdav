@@ -66,6 +66,11 @@ public final class Owner {
 	}
 
 	@Override
+	public final int hashCode() {
+		return this.any.hashCode();
+	}
+
+	@Override
 	public final boolean equals(final Object other) {
 		if (!(other instanceof Owner))
 			return false;

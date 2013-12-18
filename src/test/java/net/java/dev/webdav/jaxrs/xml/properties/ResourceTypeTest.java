@@ -28,7 +28,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
-import net.java.dev.webdav.jaxrs.xml.elements.ActiveLock;
 import net.java.dev.webdav.jaxrs.xml.elements.Collection;
 import net.java.dev.webdav.util.Utilities;
 

@@ -57,6 +57,9 @@ public final class HRef {
 	}
 
 	public HRef(final String value) {
+		if (value == null)
+			throw new NullArgumentException("uri");
+		
 		this.value = value;
 	}
 

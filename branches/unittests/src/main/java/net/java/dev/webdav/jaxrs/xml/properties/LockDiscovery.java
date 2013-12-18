@@ -63,6 +63,11 @@ public final class LockDiscovery {
 	}
 
 	@Override
+	public final int hashCode() {
+		return this.activeLocks.hashCode();
+	}
+
+	@Override
 	public final boolean equals(final Object other) {
 		if (!(other instanceof LockDiscovery))
 			return false;

@@ -129,6 +129,11 @@ public final class ActiveLock {
 	public final LockRoot getLockRoot() {
 		return this.lockRoot;
 	}
+	
+	@Override
+	public final int hashCode() {
+		return this.lockScope.hashCode() ^ this.lockType.hashCode() ^ this.depth.hashCode() ^ (this.owner == null ? -1 : this.owner.hashCode()) ^  (this.timeOut == null ? -1 : this.timeOut.hashCode()) ^(this.lockToken == null ? -1 : this.lockToken.hashCode()) ^  this.lockRoot.hashCode();
+	}
 
 	@Override
 	public final boolean equals(final Object other) {

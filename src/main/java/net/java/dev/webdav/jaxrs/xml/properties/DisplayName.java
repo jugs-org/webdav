@@ -32,7 +32,8 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc4918.html#PROPERTY_displayname">Chapter 15.2 "displayname Property" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+ * @see <a href="http://www.webdav.org/specs/rfc4918.html#PROPERTY_displayname">Chapter 15.2 "displayname Property" of RFC 4918
+ *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlRootElement(name = "displayname")
 public final class DisplayName {
@@ -41,7 +42,8 @@ public final class DisplayName {
 	private final String name;
 
 	/**
-	 * Creates an empty (thus <em>invalid</em>) instance. Use <em>only</em> to list property name within response to &lt;propname/&gt; request. Not to be used for creation of valid instances of this property; use {@link #DisplayName(String)} instead.
+	 * Creates an empty (thus <em>invalid</em>) instance. Use <em>only</em> to list property name within response to &lt;propname/&gt; request. Not to be used
+	 * for creation of valid instances of this property; use {@link #DisplayName(String)} instead.
 	 */
 	public DisplayName() {
 		this.name = "";

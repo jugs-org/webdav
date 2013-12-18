@@ -35,7 +35,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_lockscope">Chapter 14.13 "lockscope XML Element" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+ * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_lockscope">Chapter 14.13 "lockscope XML Element" of RFC 4918
+ *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlAccessorType(FIELD)
 @XmlType(propOrder = { "exclusive", "shared" })
@@ -63,12 +64,10 @@ public final class LockScope {
 	}
 
 	/*
-	 * XmlAdapter is intentionally not directly implemented by surrounding class
-	 * to prevent third party code to call it's methods: Unfortunately
-	 * XmlAdapter enforces public visibility of all it's e.
+	 * XmlAdapter is intentionally not directly implemented by surrounding class to prevent third party code to call it's methods: Unfortunately XmlAdapter
+	 * enforces public visibility of all it's e.
 	 * 
-	 * This inner class cannot be public since Sun's compiler doesn't allow
-	 * that, while Eclipse's compiler actually does.
+	 * This inner class cannot be public since Sun's compiler doesn't allow that, while Eclipse's compiler actually does.
 	 */
 	protected static final class LockScopeAdapter extends XmlAdapter<LockScope, LockScope> {
 

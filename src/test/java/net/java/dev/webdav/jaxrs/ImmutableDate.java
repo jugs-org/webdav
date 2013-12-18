@@ -31,9 +31,7 @@ import org.hamcrest.TypeSafeMatcher;
 import org.junit.Assert;
 
 /**
- * Matches when date is immutable, i. e. invoking and setter either throws
- * {@link UnsupportedOperationException} or does effectively not modify the
- * date.
+ * Matches when date is immutable, i. e. invoking and setter either throws {@link UnsupportedOperationException} or does effectively not modify the date.
  * 
  * @author Markus KARG (mkarg@java.net)
  */

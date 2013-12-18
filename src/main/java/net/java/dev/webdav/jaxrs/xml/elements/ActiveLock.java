@@ -37,7 +37,8 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_activelock">Chapter 14.1 "activelock XML Element" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+ * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_activelock">Chapter 14.1 "activelock XML Element" of RFC 4918
+ *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlAccessorType(FIELD)
 @XmlType(propOrder = { "lockScope", "lockType", "depth", "owner", "timeOut", "lockToken", "lockRoot" })
@@ -129,10 +130,11 @@ public final class ActiveLock {
 	public final LockRoot getLockRoot() {
 		return this.lockRoot;
 	}
-	
+
 	@Override
 	public final int hashCode() {
-		return this.lockScope.hashCode() ^ this.lockType.hashCode() ^ this.depth.hashCode() ^ (this.owner == null ? -1 : this.owner.hashCode()) ^  (this.timeOut == null ? -1 : this.timeOut.hashCode()) ^(this.lockToken == null ? -1 : this.lockToken.hashCode()) ^  this.lockRoot.hashCode();
+		return this.lockScope.hashCode() ^ this.lockType.hashCode() ^ this.depth.hashCode() ^ (this.owner == null ? -1 : this.owner.hashCode())
+				^ (this.timeOut == null ? -1 : this.timeOut.hashCode()) ^ (this.lockToken == null ? -1 : this.lockToken.hashCode()) ^ this.lockRoot.hashCode();
 	}
 
 	@Override

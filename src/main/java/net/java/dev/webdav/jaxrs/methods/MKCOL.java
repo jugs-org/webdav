@@ -35,7 +35,8 @@ import javax.ws.rs.HttpMethod;
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc4918.html#METHOD_MKCOL">Chapter 9.3 "MKCOL Method" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+ * @see <a href="http://www.webdav.org/specs/rfc4918.html#METHOD_MKCOL">Chapter 9.3 "MKCOL Method" of RFC 4918
+ *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @Target(METHOD)
 @Retention(RUNTIME)

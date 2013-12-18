@@ -35,7 +35,8 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_lockentry">Chapter 14.10 "lockentry XML Element" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+ * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_lockentry">Chapter 14.10 "lockentry XML Element" of RFC 4918
+ *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlType(propOrder = { "lockScope", "lockType" })
 @XmlRootElement(name = "lockentry")
@@ -75,7 +76,7 @@ public final class LockEntry {
 	public final int hashCode() {
 		return (this.lockScope == null ? -1 : this.lockScope.hashCode()) ^ (this.lockType == null ? -1 : this.lockType.hashCode());
 	}
-	
+
 	@Override
 	public final boolean equals(final Object other) {
 		if (!(other instanceof LockEntry))

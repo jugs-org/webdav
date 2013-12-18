@@ -77,11 +77,13 @@ import net.java.dev.webdav.util.Utilities;
 /**
  * Provides support for custom extensions to WebDAV, like custom Properties and XML Elements.<br>
  * 
- * WebDAV allows custom extensions for XML Elements and Properties. To enable JAX-RS to deal with these, each of them must be implemented as a JAXB class and registered by passing it to the constructor of this factory.
+ * WebDAV allows custom extensions for XML Elements and Properties. To enable JAX-RS to deal with these, each of them must be implemented as a JAXB class and
+ * registered by passing it to the constructor of this factory.
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc4918.html#xml-extensibility">Chapter 17 "XML Extensibility in DAV" of RFC 2616 "Hypertext Transfer Protocol -- HTTP/1.1"</a>
+ * @see <a href="http://www.webdav.org/specs/rfc4918.html#xml-extensibility">Chapter 17 "XML Extensibility in DAV" of RFC 2616
+ *      "Hypertext Transfer Protocol -- HTTP/1.1"</a>
  */
 final class WebDavJAXBContextBuilder {
 

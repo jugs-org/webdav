@@ -32,7 +32,8 @@ import javax.xml.bind.annotation.XmlValue;
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc4918.html#PROPERTY_getcontentlength">Chapter 15.4 "getcontentlength Property" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+ * @see <a href="http://www.webdav.org/specs/rfc4918.html#PROPERTY_getcontentlength">Chapter 15.4 "getcontentlength Property" of RFC 4918
+ *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlRootElement(name = "getcontentlength")
 public final class GetContentLength {
@@ -41,7 +42,8 @@ public final class GetContentLength {
 	private Long contentLength;
 
 	/**
-	 * Creates an empty (thus <em>invalid</em>) instance. Use <em>only</em> to list property name within response to &lt;propname/&gt; request. Not to be used for creation of valid instances of this property; use {@link #GetContentLength(long)} instead.
+	 * Creates an empty (thus <em>invalid</em>) instance. Use <em>only</em> to list property name within response to &lt;propname/&gt; request. Not to be used
+	 * for creation of valid instances of this property; use {@link #GetContentLength(long)} instead.
 	 */
 	public GetContentLength() {
 		// Has no members.

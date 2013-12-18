@@ -35,7 +35,8 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_href">Chapter 14.7 "href XML Element" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+ * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_href">Chapter 14.7 "href XML Element" of RFC 4918
+ *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlRootElement(name = "href")
 public final class HRef {
@@ -60,20 +61,15 @@ public final class HRef {
 	}
 
 	/**
-	 * @return Value as a <code>URI</code> instance, if the content is a valid
-	 *         URI; <code>null</code> otherwise.
-	 * @deprecated Since 1.1.1. Use {@link #getURI()} instead. Future releases
-	 *             will not contain this method anymore.
+	 * @return Value as a <code>URI</code> instance, if the content is a valid URI; <code>null</code> otherwise.
+	 * @deprecated Since 1.1.1. Use {@link #getURI()} instead. Future releases will not contain this method anymore.
 	 */
 	@Deprecated
 	public final URI getUri() {
 		/*
-		 * To preserve backwards compatibility, we must not throw an exception:
-		 * Legacy code will not be prepared to catch it. Unfortunately this was
-		 * a design fault in release 1.0 of this library that cannot be undone
-		 * before release 2.0. The value is not a URI in all cases but may be
-		 * any form of a relative reference, and such contain characters which
-		 * would be illegal in an URI.
+		 * To preserve backwards compatibility, we must not throw an exception: Legacy code will not be prepared to catch it. Unfortunately this was a design
+		 * fault in release 1.0 of this library that cannot be undone before release 2.0. The value is not a URI in all cases but may be any form of a relative
+		 * reference, and such contain characters which would be illegal in an URI.
 		 */
 		try {
 			return this.getURI();
@@ -83,8 +79,7 @@ public final class HRef {
 	}
 
 	/**
-	 * @return Value as a <code>URI</code> instance, if the value is a valid
-	 *         URI; <code>null</code> otherwise.
+	 * @return Value as a <code>URI</code> instance, if the value is a valid URI; <code>null</code> otherwise.
 	 * @since 1.1.1
 	 */
 	public final URI getURI() throws URISyntaxException {
@@ -110,7 +105,7 @@ public final class HRef {
 
 		return this.value.equals(that.value);
 	}
-	
+
 	@Override
 	public final int hashCode() {
 		return this.value.hashCode();

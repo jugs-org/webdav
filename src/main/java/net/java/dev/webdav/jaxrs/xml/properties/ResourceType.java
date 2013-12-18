@@ -37,7 +37,8 @@ import net.java.dev.webdav.jaxrs.xml.elements.Collection;
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc4918.html#PROPERTY_resourcetype">Chapter 15.9 "resourcetype Property" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+ * @see <a href="http://www.webdav.org/specs/rfc4918.html#PROPERTY_resourcetype">Chapter 15.9 "resourcetype Property" of RFC 4918
+ *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlRootElement(name = "resourcetype")
 public final class ResourceType {
@@ -48,10 +49,8 @@ public final class ResourceType {
 	public static final ResourceType COLLECTION = new ResourceType(new Collection());
 
 	/**
-	 * Creates an empty (thus <em>invalid</em>) instance. Use <em>only</em> to
-	 * list property name within response to &lt;propname/&gt; request. Not to
-	 * be used for creation of valid instances of this property; use
-	 * {@link #ResourceType(Object...)} instead.
+	 * Creates an empty (thus <em>invalid</em>) instance. Use <em>only</em> to list property name within response to &lt;propname/&gt; request. Not to be used
+	 * for creation of valid instances of this property; use {@link #ResourceType(Object...)} instead.
 	 */
 	public ResourceType() {
 		this.resourceTypes = new LinkedList<Object>();

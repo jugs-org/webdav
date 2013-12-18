@@ -36,11 +36,13 @@ import net.java.dev.webdav.util.Utilities;
 /**
  * Provides support for custom extensions to WebDAV, like custom Properties and XML Elements.<br>
  * 
- * WebDAV allows custom extensions for XML Elements and Properties. To enable JAX-RS to deal with these, each of them must be implemented as a JAXB class and registered by passing it to the constructor of this resolver.
+ * WebDAV allows custom extensions for XML Elements and Properties. To enable JAX-RS to deal with these, each of them must be implemented as a JAXB class and
+ * registered by passing it to the constructor of this resolver.
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc4918.html#xml-extensibility">Chapter 17 "XML Extensibility in DAV" of RFC 2616 "Hypertext Transfer Protocol -- HTTP/1.1"</a>
+ * @see <a href="http://www.webdav.org/specs/rfc4918.html#xml-extensibility">Chapter 17 "XML Extensibility in DAV" of RFC 2616
+ *      "Hypertext Transfer Protocol -- HTTP/1.1"</a>
  */
 @Provider
 @Produces(APPLICATION_XML)
@@ -56,8 +58,9 @@ public final class WebDavContextResolver implements ContextResolver<JAXBContext>
 	 * @param additionalClasses
 	 *            The custom extensions (JAXB classes) to be registered (can be left blank).
 	 * @throws JAXBException
-	 *             if an error was encountered while creating the JAXBContext, such as (but not limited to): No JAXB implementation was discovered, Classes use JAXB annotations incorrectly, Classes have colliding annotations (i.e., two classes with the same type name), The JAXB implementation was unable to locate
-	 *             provider-specific out-of-band information (such as additional files generated at the development time.)
+	 *             if an error was encountered while creating the JAXBContext, such as (but not limited to): No JAXB implementation was discovered, Classes use
+	 *             JAXB annotations incorrectly, Classes have colliding annotations (i.e., two classes with the same type name), The JAXB implementation was
+	 *             unable to locate provider-specific out-of-band information (such as additional files generated at the development time.)
 	 */
 	public WebDavContextResolver(final Class<?>... additionalClasses) throws JAXBException {
 		this.context = WebDavJAXBContextBuilder.build(additionalClasses);

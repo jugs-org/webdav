@@ -38,7 +38,8 @@ import net.java.dev.webdav.jaxrs.xml.elements.HRef;
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc4918.html#precondition.postcondition.xml.elements">Chapter 16 "Precondition/Postcondition XML Elements" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+ * @see <a href="http://www.webdav.org/specs/rfc4918.html#precondition.postcondition.xml.elements">Chapter 16 "Precondition/Postcondition XML Elements" of RFC
+ *      4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlRootElement(name = "lock-token-submitted")
 public final class LockTokenSubmitted {

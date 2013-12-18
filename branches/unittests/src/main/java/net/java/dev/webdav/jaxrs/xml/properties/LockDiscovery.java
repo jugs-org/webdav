@@ -38,7 +38,8 @@ import net.java.dev.webdav.jaxrs.xml.elements.ActiveLock;
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc4918.html#PROPERTY_lockdiscovery">Chapter 15.8 "lockdiscovery Property" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+ * @see <a href="http://www.webdav.org/specs/rfc4918.html#PROPERTY_lockdiscovery">Chapter 15.8 "lockdiscovery Property" of RFC 4918
+ *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlRootElement(name = "lockdiscovery")
 public final class LockDiscovery {

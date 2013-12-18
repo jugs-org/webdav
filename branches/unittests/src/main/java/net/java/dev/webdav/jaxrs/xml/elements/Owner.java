@@ -35,7 +35,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_owner">Chapter 14.17 "owner XML Element" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+ * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_owner">Chapter 14.17 "owner XML Element" of RFC 4918
+ *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlRootElement
 public final class Owner {

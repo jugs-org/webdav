@@ -54,7 +54,8 @@ public final class Utilities {
 	 * 
 	 * @param cls
 	 *            The class of which an instance is to be supplied, or {@code null}.
-	 * @return An instance of the specified class, or {@code null} if it is impossible to obtain it (e. g. the class does not exist or {@code cls} is {@code null}:
+	 * @return An instance of the specified class, or {@code null} if it is impossible to obtain it (e. g. the class does not exist or {@code cls} is
+	 *         {@code null}:
 	 */
 	public static final <T> T buildInstanceOf(final Class<T> cls) {
 		if (cls == null)

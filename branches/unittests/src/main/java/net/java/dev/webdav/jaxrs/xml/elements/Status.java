@@ -36,7 +36,8 @@ import net.java.dev.webdav.jaxrs.ResponseStatus;
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_status">Chapter 14.28 "status XML Element" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+ * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_status">Chapter 14.28 "status XML Element" of RFC 4918
+ *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlAccessorType(NONE)
 @XmlRootElement

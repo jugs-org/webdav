@@ -48,13 +48,9 @@ import org.junit.runner.RunWith;
 @RunWith(Theories.class)
 public final class ResponseStatusTest {
 	@DataPoints
-	public static final Object[][] DATA_POINTS = new Object[][] {
-		{ MULTI_STATUS, 207, "Multi-Status", SUCCESSFUL },
-		{ UNPROCESSABLE_ENTITY, 422, "Unprocessable Entity", CLIENT_ERROR },
-		{ LOCKED, 423, "Locked", CLIENT_ERROR },
-		{ FAILED_DEPENDENCY, 424, "Failed Dependency", CLIENT_ERROR },
-		{ INSUFFICIENT_STORAGE, 507, "Insufficient Storage", SERVER_ERROR }
-	};
+	public static final Object[][] DATA_POINTS = new Object[][] { { MULTI_STATUS, 207, "Multi-Status", SUCCESSFUL },
+			{ UNPROCESSABLE_ENTITY, 422, "Unprocessable Entity", CLIENT_ERROR }, { LOCKED, 423, "Locked", CLIENT_ERROR },
+			{ FAILED_DEPENDENCY, 424, "Failed Dependency", CLIENT_ERROR }, { INSUFFICIENT_STORAGE, 507, "Insufficient Storage", SERVER_ERROR } };
 
 	@Theory
 	public final void webDAVConstantsProduceCorrectly(final Object[] dataPoint) {

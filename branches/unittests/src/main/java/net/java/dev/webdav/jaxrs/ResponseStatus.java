@@ -28,50 +28,56 @@ import static javax.ws.rs.core.Response.Status.Family.REDIRECTION;
 import static javax.ws.rs.core.Response.Status.Family.SERVER_ERROR;
 import static javax.ws.rs.core.Response.Status.Family.SUCCESSFUL;
 
-import javax.ws.rs.core.Response.StatusType;
 import javax.ws.rs.core.Response.Status.Family;
+import javax.ws.rs.core.Response.StatusType;
 
 /**
  * Commonly used status codes defined by WebDAV.
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc4918.html#status.code.extensions.to.http11">Chapter 11 "Status Code Extensions to HTTP/1.1" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+ * @see <a href="http://www.webdav.org/specs/rfc4918.html#status.code.extensions.to.http11">Chapter 11 "Status Code Extensions to HTTP/1.1" of RFC 4918
+ *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 public enum ResponseStatus implements StatusType {
 
 	/**
 	 * 207 Multi-Status
 	 * 
-	 * @see <a href="http://www.webdav.org/specs/rfc4918.html#STATUS_207">Chapter 11.1 "207 Multi-Status" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+	 * @see <a href="http://www.webdav.org/specs/rfc4918.html#STATUS_207">Chapter 11.1 "207 Multi-Status" of RFC 4918
+	 *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
 	 */
 	MULTI_STATUS(207, "Multi-Status"),
 
 	/**
 	 * 422 Unprocessable Entity
 	 * 
-	 * @see <a href="http://www.webdav.org/specs/rfc4918.html#STATUS_422">Chapter 11.2 "422 Unprocessable Entity" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+	 * @see <a href="http://www.webdav.org/specs/rfc4918.html#STATUS_422">Chapter 11.2 "422 Unprocessable Entity" of RFC 4918
+	 *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
 	 */
 	UNPROCESSABLE_ENTITY(422, "Unprocessable Entity"),
 
 	/**
 	 * 423 Locked
 	 * 
-	 * @see <a href="http://www.webdav.org/specs/rfc4918.html#STATUS_423">Chapter 11.3 "423 Locked" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+	 * @see <a href="http://www.webdav.org/specs/rfc4918.html#STATUS_423">Chapter 11.3 "423 Locked" of RFC 4918
+	 *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
 	 */
 	LOCKED(423, "Locked"),
 
 	/**
 	 * 424 Failed Dependency
 	 * 
-	 * @see <a href="http://www.webdav.org/specs/rfc4918.html#STATUS_424">Chapter 11.4 "424 Failed Dependency" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+	 * @see <a href="http://www.webdav.org/specs/rfc4918.html#STATUS_424">Chapter 11.4 "424 Failed Dependency" of RFC 4918
+	 *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
 	 */
 	FAILED_DEPENDENCY(424, "Failed Dependency"),
 
 	/**
 	 * 507 Insufficient Storage
 	 * 
-	 * @see <a href="http://www.webdav.org/specs/rfc4918.html#STATUS_507">Chapter 11.5 "507 Insufficient Storage" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+	 * @see <a href="http://www.webdav.org/specs/rfc4918.html#STATUS_507">Chapter 11.5 "507 Insufficient Storage" of RFC 4918
+	 *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
 	 */
 	INSUFFICIENT_STORAGE(507, "Insufficient Storage");
 
@@ -106,10 +112,8 @@ public enum ResponseStatus implements StatusType {
 	}
 
 	/**
-	 * @deprecated Since 1.1. Use {@link #getReasonPhrase()} instead to get the
-	 *             reason phrase. Future releases will return the name of the
-	 *             enum constant instead of the reason phrase (see
-	 *             {@link java.lang.Enum#toString()}).
+	 * @deprecated Since 1.1. Use {@link #getReasonPhrase()} instead to get the reason phrase. Future releases will return the name of the enum constant instead
+	 *             of the reason phrase (see {@link java.lang.Enum#toString()}).
 	 */
 	@Deprecated
 	@Override

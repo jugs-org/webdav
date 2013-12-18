@@ -23,8 +23,7 @@
 package net.java.dev.webdav.jaxrs;
 
 /**
- * Thrown to indicate that a method has been passed <code>null</code> for an
- * argument which is not allowed to be <code>null<code>.
+ * Thrown to indicate that a method has been passed <code>null</code> for an argument which is not allowed to be <code>null<code>.
  * 
  * @author Markus KARG (mkarg@java.net)
  */

@@ -42,7 +42,8 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_response">Chapter 14.24 "response XML Element" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+ * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_response">Chapter 14.24 "response XML Element" of RFC 4918
+ *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlAccessorType(FIELD)
 @XmlType(propOrder = { "hRefs", "status", "propStats", "error", "responseDescription", "location" })
@@ -93,7 +94,8 @@ public final class Response {
 	/**
 	 * @since 1.1.1
 	 */
-	public Response(final HRef hRef, final Error error, final ResponseDescription responseDescription, final Location location, final Collection<PropStat> propStats) {
+	public Response(final HRef hRef, final Error error, final ResponseDescription responseDescription, final Location location,
+			final Collection<PropStat> propStats) {
 		this(hRef, error, responseDescription, location);
 
 		if (propStats == null || !propStats.iterator().hasNext())
@@ -101,7 +103,7 @@ public final class Response {
 
 		this.propStats = new LinkedList<PropStat>(propStats);
 	}
-	
+
 	public Response(final Status status, final Error error, final ResponseDescription responseDescription, final Location location, final HRef hRef,
 			final HRef... hRefs) {
 		this(hRef, error, responseDescription, location);

@@ -32,13 +32,10 @@ import java.util.TimeZone;
 /**
  * RFC 3339 date-time format<br>
  * 
- * This class formats and parses dates using the ISO 8601 compliant pattern
- * [YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].([fff])[OFS]. Parsing and formatting are
- * handled in different ways to provide at-most stability and compatibility.
- * While formatting always will produce a String in full UTC notation
- * (containing time offset literal 'Z' and fraction of seconds), parsing is
- * flexible and can handle not only optional fraction of seconds, but also
- * numeric time offsets in addition to the time offset literal 'Z'.
+ * This class formats and parses dates using the ISO 8601 compliant pattern [YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].([fff])[OFS]. Parsing and formatting are handled in
+ * different ways to provide at-most stability and compatibility. While formatting always will produce a String in full UTC notation (containing time offset
+ * literal 'Z' and fraction of seconds), parsing is flexible and can handle not only optional fraction of seconds, but also numeric time offsets in addition to
+ * the time offset literal 'Z'.
  * 
  * @author Markus KARG (mkarg@java.net)
  */

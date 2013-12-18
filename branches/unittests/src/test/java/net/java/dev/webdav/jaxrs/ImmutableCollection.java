@@ -32,7 +32,8 @@ import org.junit.Assert;
 import org.powermock.reflect.Whitebox;
 
 /**
- * Matches when collection is immutable, i. e. invoking {@link Collection#add(Object)} throws {@link UnsupportedOperationException} or does effectively not extend the collection.
+ * Matches when collection is immutable, i. e. invoking {@link Collection#add(Object)} throws {@link UnsupportedOperationException} or does effectively not
+ * extend the collection.
  * 
  * @author Markus KARG (mkarg@java.net)
  */

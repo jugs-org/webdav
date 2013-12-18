@@ -35,7 +35,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_multistatus">Chapter 14.16 "multistatus XML Element" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+ * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_multistatus">Chapter 14.16 "multistatus XML Element" of RFC 4918
+ *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlType(propOrder = { "responses", "responseDescription" })
 @XmlRootElement(name = "multistatus")

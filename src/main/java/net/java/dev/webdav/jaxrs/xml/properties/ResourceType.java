@@ -64,11 +64,20 @@ public final class ResourceType {
 		this.resourceTypes = new LinkedList<Object>(Arrays.asList(resourceTypes));
 	}
 
-	@SuppressWarnings("unchecked")
+	/**
+	 * @deprecated Since 1.2 use {@link #getResourceTypes()} instead. This method will not be supported anymore in future releases.
+	 * @return The same result as {@link #getResourceTypes()}
+	 */
+	@Deprecated
 	public final List<Object> getResourceType() {
+		return this.getResourceTypes();
+	}
+
+	@SuppressWarnings("unchecked")
+	public final List<Object> getResourceTypes() {
 		return (List<Object>) this.resourceTypes.clone();
 	}
-	
+
 	@Override
 	public final int hashCode() {
 		return this.resourceTypes.hashCode();

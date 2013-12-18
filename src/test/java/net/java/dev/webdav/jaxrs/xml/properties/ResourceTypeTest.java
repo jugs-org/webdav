@@ -55,7 +55,7 @@ public final class ResourceTypeTest extends AbstractJaxbCoreFunctionality<Resour
 
 	@Override
 	protected final void assertThatGettersProvideExpectedValues(final ResourceType actual, final ResourceType expected, final Object[] dataPoint) {
-		assertThat(actual.getResourceType(), is(dataPoint[2]));
-		assertThat(expected.getResourceType(), is(dataPoint[2]));
+		assertThat(actual.getResourceTypes(), is(dataPoint[2]));
+		assertThat(expected.getResourceTypes(), is(dataPoint[2]));
 	}
 }

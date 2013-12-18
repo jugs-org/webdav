@@ -63,6 +63,11 @@ public final class SupportedLock {
 	}
 
 	@Override
+	public final int hashCode() {
+		return this.lockEntries.hashCode();
+	}
+
+	@Override
 	public final boolean equals(final Object other) {
 		if (!(other instanceof SupportedLock))
 			return false;

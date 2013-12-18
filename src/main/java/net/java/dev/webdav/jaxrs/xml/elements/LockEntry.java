@@ -72,6 +72,11 @@ public final class LockEntry {
 	}
 
 	@Override
+	public final int hashCode() {
+		return (this.lockScope == null ? -1 : this.lockScope.hashCode()) ^ (this.lockType == null ? -1 : this.lockType.hashCode());
+	}
+	
+	@Override
 	public final boolean equals(final Object other) {
 		if (!(other instanceof LockEntry))
 			return false;

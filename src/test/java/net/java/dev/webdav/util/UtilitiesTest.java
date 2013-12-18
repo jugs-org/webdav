@@ -55,6 +55,12 @@ public final class UtilitiesTest {
 		}
 	}
 
+	private static final class NoDefaultConstructor {
+		private NoDefaultConstructor(final int ignore) {
+			// Intentionally left blank.
+		}
+	}
+
 	private static enum Enum {
 		SOME_VALUE
 	}
@@ -63,13 +69,19 @@ public final class UtilitiesTest {
 		// Intentionally left blank.
 	}
 
+	private static abstract class Abstract {
+		// Intentionally left blank.
+	}
+
 	@Test
 	public final void buildInstanceOf() {
 		assertThat(Utilities.buildInstanceOf(null), is(nullValue()));
 		assertThat(Utilities.buildInstanceOf(A.class), is(instanceOf(A.class)));
 		assertThat(Utilities.buildInstanceOf(PrivatelyConstructed.class), is(instanceOf(PrivatelyConstructed.class)));
+		assertThat(Utilities.buildInstanceOf(NoDefaultConstructor.class), is(nullValue()));
 		assertThat(Utilities.buildInstanceOf(Enum.class), is(instanceOf(Enum.class)));
 		assertThat(Utilities.buildInstanceOf(EmptyEnum.class), is(nullValue()));
+		assertThat(Utilities.buildInstanceOf(Abstract.class), is(nullValue()));
 	}
 
 	@Test

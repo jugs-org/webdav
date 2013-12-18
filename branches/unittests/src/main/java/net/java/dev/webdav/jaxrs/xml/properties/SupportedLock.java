@@ -22,13 +22,15 @@
 
 package net.java.dev.webdav.jaxrs.xml.properties;
 
-import java.util.Arrays;
+import static java.util.Arrays.asList;
+
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.elements.LockEntry;
 
 /**
@@ -45,11 +47,14 @@ public final class SupportedLock {
 	private LinkedList<LockEntry> lockEntries;
 
 	public SupportedLock() {
-		// Has no members.
+		this.lockEntries = new LinkedList<LockEntry>();
 	}
 
 	public SupportedLock(final LockEntry... lockEntries) {
-		this.lockEntries = new LinkedList<LockEntry>(Arrays.asList(lockEntries));
+		if (lockEntries == null)
+			throw new NullArgumentException("lockEntries");
+
+		this.lockEntries = new LinkedList<LockEntry>(asList(lockEntries));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -57,4 +62,13 @@ public final class SupportedLock {
 		return (List<LockEntry>) this.lockEntries.clone();
 	}
 
+	@Override
+	public final boolean equals(final Object other) {
+		if (!(other instanceof SupportedLock))
+			return false;
+
+		final SupportedLock that = (SupportedLock) other;
+
+		return this.lockEntries.equals(that.lockEntries);
+	}
 }

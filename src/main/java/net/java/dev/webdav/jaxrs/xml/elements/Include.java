@@ -64,6 +64,11 @@ public final class Include {
 	}
 
 	@Override
+	public final int hashCode() {
+		return this.includes.hashCode();
+	}
+
+	@Override
 	public final boolean equals(final Object other) {
 		if (other == this)
 			return true;

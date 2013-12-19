@@ -57,4 +57,16 @@ public final class LockRoot {
 		return this.hRef;
 	}
 
+	@Override
+	public final boolean equals(final Object other) {
+		if (other == this)
+			return true;
+
+		if (!(other instanceof LockRoot))
+			return false;
+
+		final LockRoot that = (LockRoot) other;
+
+		return this.hRef.equals(that.hRef);
+	}
 }

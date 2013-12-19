@@ -57,4 +57,16 @@ public final class Location {
 		return this.hRef;
 	}
 
+	@Override
+	public final boolean equals(final Object other) {
+		if (other == this)
+			return true;
+
+		if (!(other instanceof Location))
+			return false;
+
+		final Location that = (Location) other;
+
+		return this.hRef.equals(that.hRef);
+	}
 }

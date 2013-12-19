@@ -57,4 +57,16 @@ public final class LockToken {
 		return this.hRef;
 	}
 
+	@Override
+	public final boolean equals(final Object other) {
+		if (other == this)
+			return true;
+
+		if (!(other instanceof LockToken))
+			return false;
+
+		final LockToken that = (LockToken) other;
+
+		return this.hRef.equals(that.hRef);
+	}
 }

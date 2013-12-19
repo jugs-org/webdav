@@ -81,6 +81,11 @@ public final class LockInfo {
 	}
 
 	@Override
+	public final int hashCode() {
+		return this.lockScope.hashCode() ^ this.lockType.hashCode() ^ (this.owner == null ? -1 : this.owner.hashCode());
+	}
+
+	@Override
 	public final boolean equals(final Object other) {
 		if (other == this)
 			return true;

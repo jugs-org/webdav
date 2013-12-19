@@ -58,6 +58,11 @@ public final class LockToken {
 	}
 
 	@Override
+	public final int hashCode() {
+		return this.hRef.hashCode();
+	}
+
+	@Override
 	public final boolean equals(final Object other) {
 		if (other == this)
 			return true;

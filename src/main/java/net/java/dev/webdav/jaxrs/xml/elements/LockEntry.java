@@ -22,8 +22,6 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
-import static net.java.dev.webdav.util.Utilities.sameOrEqual;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -74,7 +72,7 @@ public final class LockEntry {
 
 	@Override
 	public final int hashCode() {
-		return (this.lockScope == null ? -1 : this.lockScope.hashCode()) ^ (this.lockType == null ? -1 : this.lockType.hashCode());
+		return this.lockScope.hashCode() ^ this.lockType.hashCode();
 	}
 
 	@Override
@@ -84,6 +82,6 @@ public final class LockEntry {
 
 		final LockEntry that = (LockEntry) other;
 
-		return sameOrEqual(this.lockScope, that.lockScope) && sameOrEqual(this.lockType, that.lockType);
+		return this.lockScope == that.lockScope && this.lockType == that.lockType;
 	}
 }

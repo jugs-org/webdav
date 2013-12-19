@@ -65,6 +65,11 @@ public final class LockScope {
 	}
 
 	@Override
+	public final int hashCode() {
+		return (this.shared == null ? -1 : this.shared.hashCode()) ^ (this.exclusive == null ? -1 : this.exclusive.hashCode());
+	}
+
+	@Override
 	public final boolean equals(final Object other) {
 		if (other == this)
 			return true;

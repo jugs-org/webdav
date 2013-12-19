@@ -23,6 +23,7 @@
 package net.java.dev.webdav.jaxrs.xml.elements;
 
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
+import static net.java.dev.webdav.util.Utilities.sameOrEqual;
 
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -61,6 +62,19 @@ public final class LockScope {
 	private LockScope(final Shared shared, final Exclusive exclusive) {
 		this.shared = shared;
 		this.exclusive = exclusive;
+	}
+
+	@Override
+	public final boolean equals(final Object other) {
+		if (other == this)
+			return true;
+
+		if (!(other instanceof LockScope))
+			return false;
+
+		final LockScope that = (LockScope) other;
+
+		return sameOrEqual(this.exclusive, that.exclusive) && sameOrEqual(this.shared, that.shared);
 	}
 
 	/*

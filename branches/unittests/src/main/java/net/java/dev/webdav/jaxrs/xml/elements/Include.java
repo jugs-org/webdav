@@ -22,12 +22,15 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
-import java.util.Arrays;
+import static java.util.Arrays.asList;
+
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import net.java.dev.webdav.jaxrs.NullArgumentException;
 
 /**
  * WebDAV include XML Element.
@@ -45,11 +48,14 @@ public final class Include {
 
 	@SuppressWarnings("unused")
 	private Include() {
-		// For unmarshalling only.
+		this.includes = new LinkedList<Object>();
 	}
 
 	public Include(final Object... includes) {
-		this.includes = new LinkedList<Object>(Arrays.asList(includes));
+		if (includes == null)
+			throw new NullArgumentException("includes");
+
+		this.includes = new LinkedList<Object>(asList(includes));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -57,4 +63,16 @@ public final class Include {
 		return (List<Object>) this.includes.clone();
 	}
 
+	@Override
+	public final boolean equals(final Object other) {
+		if (other == this)
+			return true;
+
+		if (!(other instanceof Include))
+			return false;
+
+		final Include that = (Include) other;
+
+		return this.includes.equals(that.includes);
+	}
 }

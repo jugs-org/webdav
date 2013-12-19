@@ -22,6 +22,8 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
+import static net.java.dev.webdav.util.Utilities.sameOrEqual;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -78,4 +80,16 @@ public final class LockInfo {
 		return this.owner;
 	}
 
+	@Override
+	public final boolean equals(final Object other) {
+		if (other == this)
+			return true;
+
+		if (!(other instanceof LockInfo))
+			return false;
+
+		final LockInfo that = (LockInfo) other;
+
+		return this.lockScope.equals(that.lockScope) && this.lockType.equals(that.lockType) && sameOrEqual(this.owner, that.owner);
+	}
 }

@@ -66,6 +66,11 @@ public final class Error {
 	}
 
 	@Override
+	public final int hashCode() {
+		return this.errors.hashCode();
+	}
+
+	@Override
 	public final boolean equals(final Object other) {
 		if (!(other instanceof Error))
 			return false;

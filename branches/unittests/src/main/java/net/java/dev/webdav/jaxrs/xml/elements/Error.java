@@ -22,8 +22,9 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
-import java.util.Arrays;
-import java.util.Collections;
+import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -48,15 +49,15 @@ public final class Error {
 
 	@SuppressWarnings("unused")
 	private Error() {
-		// For unmarshalling only.
+		this.errors = new LinkedList<Object>();
 	}
 
 	public Error(final Object error, final Object... errors) {
 		if (error == null)
 			throw new NullArgumentException("error");
 
-		this.errors = new LinkedList<Object>(Collections.singletonList(error));
-		this.errors.addAll(Arrays.asList(errors));
+		this.errors = new LinkedList<Object>(singletonList(error));
+		this.errors.addAll(asList(errors));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -64,4 +65,13 @@ public final class Error {
 		return (List<Object>) this.errors.clone();
 	}
 
+	@Override
+	public final boolean equals(final Object other) {
+		if (!(other instanceof Error))
+			return false;
+
+		final Error that = (Error) other;
+
+		return this.errors.equals(that.errors);
+	}
 }

@@ -69,6 +69,11 @@ public final class Prop {
 	}
 
 	@Override
+	public final int hashCode() {
+		return this.properties.hashCode();
+	}
+
+	@Override
 	public final boolean equals(final Object object) {
 		if (object == this)
 			return true;

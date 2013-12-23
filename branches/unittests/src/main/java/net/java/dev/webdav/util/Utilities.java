@@ -42,7 +42,7 @@ public final class Utilities {
 	 *            This will be the sole parameter provided to the first reference's {@link #equals(Object)}.
 	 * @return {@code true} if, and only if, either both references are null or referencing equal objects.
 	 */
-	public static final boolean sameOrEqual(final Object firstObject, final Object secondObject) {
+	public static final <T> boolean sameOrEqual(final T firstObject, final T secondObject) {
 		return firstObject == secondObject || firstObject != null && firstObject.equals(secondObject);
 	}
 

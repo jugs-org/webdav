@@ -22,6 +22,9 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
+import static java.lang.String.format;
+import static net.java.dev.webdav.util.Utilities.sameOrEqual;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -98,4 +101,17 @@ public final class PropStat {
 		return this.responseDescription;
 	}
 
+	@Override
+	public final boolean equals(final Object o) {
+		if (this == o)
+			return true;
+
+		if (!(this instanceof PropStat))
+			return false;
+
+		final PropStat that = (PropStat) o;
+
+		return this.prop.equals(that.prop) && this.status.equals(that.status) && sameOrEqual(this.error, that.error)
+				&& sameOrEqual(this.responseDescription, that.responseDescription);
+	}
 }

@@ -23,6 +23,7 @@
 package net.java.dev.webdav.jaxrs.xml.elements;
 
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
+import static net.java.dev.webdav.util.Utilities.sameOrEqual;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -67,7 +68,8 @@ public final class Response {
 
 	@SuppressWarnings("unused")
 	private Response() {
-		// For unmarshalling only.
+		this.hRefs = new LinkedList<HRef>();
+		this.propStats = new LinkedList<PropStat>();
 	}
 
 	private Response(final HRef hRef, final Error error, final ResponseDescription responseDescription, final Location location) {
@@ -92,8 +94,11 @@ public final class Response {
 	}
 
 	/**
+	 * @deprecated Since 1.2, as the provided {@code propStats} collection is not necessarily immutable and there is no standard Java way to enforce
+	 *             immutability. Use {@link #Response(HRef, Error, ResponseDescription, Location, PropStat, PropStat...)} instead.
 	 * @since 1.1.1
 	 */
+	@Deprecated
 	public Response(final HRef hRef, final Error error, final ResponseDescription responseDescription, final Location location,
 			final Collection<PropStat> propStats) {
 		this(hRef, error, responseDescription, location);
@@ -113,6 +118,7 @@ public final class Response {
 
 		this.status = status;
 		this.hRefs.addAll(Arrays.asList(hRefs));
+		this.propStats = new LinkedList<PropStat>();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -141,4 +147,18 @@ public final class Response {
 		return (List<PropStat>) this.propStats.clone();
 	}
 
+	@Override
+	public final boolean equals(final Object o) {
+		if (this == o)
+			return true;
+
+		if (!(o instanceof Response))
+			return false;
+
+		final Response that = (Response) o;
+
+		return this.hRefs.equals(that.hRefs) && sameOrEqual(this.status, that.status) && this.propStats.equals(that.propStats)
+				&& sameOrEqual(this.error, that.error) && sameOrEqual(this.responseDescription, that.responseDescription)
+				&& sameOrEqual(this.location, that.location);
+	}
 }

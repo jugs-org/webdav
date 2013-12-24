@@ -23,6 +23,7 @@
 package net.java.dev.webdav.jaxrs.xml.elements;
 
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
+import static net.java.dev.webdav.util.Utilities.sameOrEqual;
 
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -101,4 +102,17 @@ public final class PropFind {
 		return this.prop;
 	}
 
+	@Override
+	public final boolean equals(final Object o) {
+		if (this == o)
+			return true;
+
+		if (!(o instanceof PropFind))
+			return false;
+
+		final PropFind that = (PropFind) o;
+
+		return sameOrEqual(this.propName, that.propName) && sameOrEqual(this.allProp, that.allProp) && sameOrEqual(this.include, that.include)
+				&& sameOrEqual(this.prop, that.prop);
+	}
 }

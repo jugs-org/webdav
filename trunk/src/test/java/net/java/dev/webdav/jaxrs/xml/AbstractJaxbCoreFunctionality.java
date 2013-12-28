@@ -23,6 +23,7 @@
 package net.java.dev.webdav.jaxrs.xml;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
 import static org.xmlmatchers.XmlMatchers.isEquivalentTo;
 import static org.xmlmatchers.transform.XmlConverters.the;
@@ -87,6 +88,15 @@ public abstract class AbstractJaxbCoreFunctionality<T> {
 		final T actual = (T) unmarshaller.unmarshal(reader);
 		assertThat(actual, is(expected));
 		this.assertThatGettersProvideExpectedValues(actual, expected, dataPoint);
+
+		final T singleton = this.getSingleton();
+		if (singleton != null)
+			this.runSingletonTests(actual, singleton);
+	}
+
+	private final void runSingletonTests(final T actual, final T singleton) {
+		this.shouldUnmarshalToSingletonInstance(actual, singleton);
+		this.shouldReturnSingletonHashCodeForAnyInstance(actual, singleton);
 	}
 
 	/**
@@ -101,5 +111,59 @@ public abstract class AbstractJaxbCoreFunctionality<T> {
 	 */
 	protected void assertThatGettersProvideExpectedValues(final T actual, final T expected, final Object[] dataPoint) {
 		// Does nothing by default.
+	}
+
+	/**
+	 * Invoked by {@link #unmarshalling(Object[])} to allow descendant to check whether unmarshalled instance actually is a singleton (if this is intended by
+	 * the particular class / test).
+	 * 
+	 * @param actual
+	 *            The unmarshalled Java object instance.
+	 * @param expected
+	 *            The singleton instance.
+	 */
+	private final void shouldUnmarshalToSingletonInstance(final T actual, final T expected) {
+		// given
+		final T singletonInstance = expected;
+		final T unmarshalledInstance = actual;
+
+		// when
+		// (doing nothing, as unmarshalling already happened)
+
+		// then
+		assertThat(unmarshalledInstance, sameInstance(singletonInstance));
+	}
+
+	/**
+	 * Invoked by {@link #unmarshalling(Object[])} to allow descendant to check whether unmarshalled instance actually is using one singleton hash code (if this
+	 * is intended by the particular class / test).
+	 * 
+	 * @param actual
+	 *            The unmarshalled Java object instance.
+	 * @param expected
+	 *            The singleton instance.
+	 */
+	private final void shouldReturnSingletonHashCodeForAnyInstance(final T actual, final T expected) {
+		// given
+		final T singletonInstance = expected;
+		final T unmarshalledInstance = actual;
+
+		// when
+		final int unmarshalledHashCode = unmarshalledInstance.hashCode();
+		final int singletonHashCode = singletonInstance.hashCode();
+
+		// then
+		assertThat(unmarshalledHashCode, is(singletonHashCode));
+	}
+
+	/**
+	 * Invoked by {@link #unmarshalling(Object[])} to allow descendant to decide whether this test shall check whether unmarshalled instance actually is a
+	 * singleton. To activate this test, the descendant returns the expected singleton instance. This default implementation returns {@code null} , hence the
+	 * test is skipped.
+	 * 
+	 * @return Singleton instance expected as unmarshalling result, or {@code null} to skip this test.
+	 */
+	protected T getSingleton() {
+		return null;
 	}
 }

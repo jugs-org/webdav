@@ -33,5 +33,10 @@ import org.junit.experimental.theories.DataPoint;
  */
 public final class AllPropTest extends AbstractJaxbCoreFunctionality<AllProp> {
 	@DataPoint
-	public static final Object[] DATA_POINT = { new AllProp(), "<D:allprop xmlns:D=\"DAV:\"/>" };
+	public static final Object[] SINGLETON = { AllProp.ALL_PROP, "<D:allprop xmlns:D=\"DAV:\"/>" };
+
+	@Override
+	protected final AllProp getSingleton() {
+		return AllProp.ALL_PROP;
+	}
 }

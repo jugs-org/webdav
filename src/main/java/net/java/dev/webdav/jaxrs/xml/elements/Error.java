@@ -1,26 +1,30 @@
 /*
- * Copyright 2008, 2009 Markus KARG
- *
- * This file is part of webdav-jaxrs.
- *
- * webdav-jaxrs is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * webdav-jaxrs is distributed in the hope that it will be useful,
+ * #%L
+ * WebDAV Support for JAX-RS
+ * %%
+ * Copyright (C) 2008 - 2013 The java.net WebDAV Project
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the 
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with webdav-jaxrs.  If not, see <http://www.gnu.org/licenses/>.
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public 
+ * License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * #L%
  */
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
-import java.util.Arrays;
-import java.util.Collections;
+import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,7 +38,8 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_error">Chapter 14.5 "error XML Element" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+ * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_error">Chapter 14.5 "error XML Element" of RFC 4918
+ *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlRootElement
 public final class Error {
@@ -44,15 +49,15 @@ public final class Error {
 
 	@SuppressWarnings("unused")
 	private Error() {
-		// For unmarshalling only.
+		this.errors = new LinkedList<Object>();
 	}
 
 	public Error(final Object error, final Object... errors) {
 		if (error == null)
 			throw new NullArgumentException("error");
 
-		this.errors = new LinkedList<Object>(Collections.singletonList(error));
-		this.errors.addAll(Arrays.asList(errors));
+		this.errors = new LinkedList<Object>(singletonList(error));
+		this.errors.addAll(asList(errors));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -60,4 +65,18 @@ public final class Error {
 		return (List<Object>) this.errors.clone();
 	}
 
+	@Override
+	public final int hashCode() {
+		return this.errors.hashCode();
+	}
+
+	@Override
+	public final boolean equals(final Object other) {
+		if (!(other instanceof Error))
+			return false;
+
+		final Error that = (Error) other;
+
+		return this.errors.equals(that.errors);
+	}
 }

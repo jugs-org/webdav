@@ -1,20 +1,23 @@
 /*
- * Copyright 2008, 2009 Markus KARG
- *
- * This file is part of webdav-jaxrs.
- *
- * webdav-jaxrs is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * webdav-jaxrs is distributed in the hope that it will be useful,
+ * #%L
+ * WebDAV Support for JAX-RS
+ * %%
+ * Copyright (C) 2008 - 2013 The java.net WebDAV Project
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the 
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with webdav-jaxrs.  If not, see <http://www.gnu.org/licenses/>.
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public 
+ * License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * #L%
  */
 
 package net.java.dev.webdav.jaxrs.xml.elements;
@@ -29,13 +32,10 @@ import java.util.TimeZone;
 /**
  * RFC 3339 date-time format<br>
  * 
- * This class formats and parses dates using the ISO 8601 compliant pattern
- * [YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].([fff])[OFS]. Parsing and formatting are
- * handled in different ways to provide at-most stability and compatibility.
- * While formatting always will produce a String in full UTC notation
- * (containing time offset literal 'Z' and fraction of seconds), parsing is
- * flexible and can handle not only optional fraction of seconds, but also
- * numeric time offsets in addition to the time offset literal 'Z'.
+ * This class formats and parses dates using the ISO 8601 compliant pattern [YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].([fff])[OFS]. Parsing and formatting are handled in
+ * different ways to provide at-most stability and compatibility. While formatting always will produce a String in full UTC notation (containing time offset
+ * literal 'Z' and fraction of seconds), parsing is flexible and can handle not only optional fraction of seconds, but also numeric time offsets in addition to
+ * the time offset literal 'Z'.
  * 
  * @author Markus KARG (mkarg@java.net)
  */

@@ -75,4 +75,16 @@ public final class PropertyUpdate {
 		return String.format("PropertyUpdate (%s)", content);
 	}
 
+	@Override
+	public final boolean equals(final Object o) {
+		if (this == o)
+			return true;
+
+		if (!(o instanceof PropertyUpdate))
+			return false;
+
+		final PropertyUpdate that = (PropertyUpdate) o;
+
+		return this.removesOrSets.equals(that.removesOrSets);
+	}
 }

@@ -49,4 +49,14 @@ public final class Remove extends RemoveOrSet {
 		return String.format("Remove (%s)", super.getProp());
 	}
 
+	@Override
+	public final boolean equals(final Object o) {
+		if (this == o)
+			return true;
+
+		if (!(o instanceof Remove))
+			return false;
+
+		return super.equals(o);
+	}
 }

@@ -48,4 +48,15 @@ public final class Set extends RemoveOrSet {
 	public final String toString() {
 		return String.format("Set (%s)", super.getProp());
 	}
+
+	@Override
+	public final boolean equals(final Object o) {
+		if (this == o)
+			return true;
+
+		if (!(o instanceof Set))
+			return false;
+
+		return super.equals(o);
+	}
 }

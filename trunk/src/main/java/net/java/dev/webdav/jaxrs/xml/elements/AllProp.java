@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlType;
  * WebDAV allprop XML Element.
  * 
  * <p>
- * This is a singleton. All instances are absolutely identical, hence can be compared using {@code ==} and share one unique hash code. Use {@link ALL_PROP}
+ * This is a singleton. All instances are absolutely identical, hence can be compared using {@code ==} and share one unique hash code. Use {@link #ALL_PROP}
  * always.
  * </p>
  * 

@@ -76,6 +76,11 @@ public final class PropertyUpdate {
 	}
 
 	@Override
+	public final int hashCode() {
+		return this.removesOrSets.hashCode();
+	}
+
+	@Override
 	public final boolean equals(final Object o) {
 		if (this == o)
 			return true;

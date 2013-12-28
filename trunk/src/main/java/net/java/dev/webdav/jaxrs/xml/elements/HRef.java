@@ -1,20 +1,23 @@
 /*
- * Copyright 2008, 2009 Markus KARG
- *
- * This file is part of webdav-jaxrs.
- *
- * webdav-jaxrs is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * webdav-jaxrs is distributed in the hope that it will be useful,
+ * #%L
+ * WebDAV Support for JAX-RS
+ * %%
+ * Copyright (C) 2008 - 2013 The java.net WebDAV Project
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the 
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with webdav-jaxrs.  If not, see <http://www.gnu.org/licenses/>.
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public 
+ * License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * #L%
  */
 
 package net.java.dev.webdav.jaxrs.xml.elements;
@@ -32,7 +35,8 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_href">Chapter 14.7 "href XML Element" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+ * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_href">Chapter 14.7 "href XML Element" of RFC 4918
+ *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlRootElement(name = "href")
 public final class HRef {
@@ -53,24 +57,22 @@ public final class HRef {
 	}
 
 	public HRef(final String value) {
+		if (value == null)
+			throw new NullArgumentException("uri");
+		
 		this.value = value;
 	}
 
 	/**
-	 * @return Value as a <code>URI</code> instance, if the content is a valid
-	 *         URI; <code>null</code> otherwise.
-	 * @deprecated Since 1.1.1. Use {@link #getURI()} instead. Future releases
-	 *             will not contain this method anymore.
+	 * @return Value as a <code>URI</code> instance, if the content is a valid URI; <code>null</code> otherwise.
+	 * @deprecated Since 1.1.1. Use {@link #getURI()} instead. Future releases will not contain this method anymore.
 	 */
 	@Deprecated
 	public final URI getUri() {
 		/*
-		 * To preserve backwards compatibility, we must not throw an exception:
-		 * Legacy code will not be prepared to catch it. Unfortunately this was
-		 * a design fault in release 1.0 of this library that cannot be undone
-		 * before release 2.0. The value is not a URI in all cases but may be
-		 * any form of a relative reference, and such contain characters which
-		 * would be illegal in an URI.
+		 * To preserve backwards compatibility, we must not throw an exception: Legacy code will not be prepared to catch it. Unfortunately this was a design
+		 * fault in release 1.0 of this library that cannot be undone before release 2.0. The value is not a URI in all cases but may be any form of a relative
+		 * reference, and such contain characters which would be illegal in an URI.
 		 */
 		try {
 			return this.getURI();
@@ -78,10 +80,9 @@ public final class HRef {
 			return null;
 		}
 	}
-	
+
 	/**
-	 * @return Value as a <code>URI</code> instance, if the value is a valid
-	 *         URI; <code>null</code> otherwise.
+	 * @return Value as a <code>URI</code> instance, if the value is a valid URI; <code>null</code> otherwise.
 	 * @since 1.1.1
 	 */
 	public final URI getURI() throws URISyntaxException {
@@ -94,5 +95,22 @@ public final class HRef {
 	public final String getValue() {
 		return this.value;
 	}
-	
+
+	@Override
+	public final boolean equals(final Object other) {
+		if (other == this)
+			return true;
+
+		if (!(other instanceof HRef))
+			return false;
+
+		final HRef that = (HRef) other;
+
+		return this.value.equals(that.value);
+	}
+
+	@Override
+	public final int hashCode() {
+		return this.value.hashCode();
+	}
 }

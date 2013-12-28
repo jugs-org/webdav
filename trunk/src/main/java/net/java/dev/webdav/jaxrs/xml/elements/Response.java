@@ -1,25 +1,29 @@
 /*
- * Copyright 2008, 2009 Markus KARG
- *
- * This file is part of webdav-jaxrs.
- *
- * webdav-jaxrs is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * webdav-jaxrs is distributed in the hope that it will be useful,
+ * #%L
+ * WebDAV Support for JAX-RS
+ * %%
+ * Copyright (C) 2008 - 2013 The java.net WebDAV Project
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the 
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with webdav-jaxrs.  If not, see <http://www.gnu.org/licenses/>.
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public 
+ * License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * #L%
  */
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
+import static net.java.dev.webdav.util.Utilities.sameOrEqual;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -39,7 +43,8 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
- * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_response">Chapter 14.24 "response XML Element" of RFC 4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+ * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_response">Chapter 14.24 "response XML Element" of RFC 4918
+ *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlAccessorType(FIELD)
 @XmlType(propOrder = { "hRefs", "status", "propStats", "error", "responseDescription", "location" })
@@ -63,7 +68,8 @@ public final class Response {
 
 	@SuppressWarnings("unused")
 	private Response() {
-		// For unmarshalling only.
+		this.hRefs = new LinkedList<HRef>();
+		this.propStats = new LinkedList<PropStat>();
 	}
 
 	private Response(final HRef hRef, final Error error, final ResponseDescription responseDescription, final Location location) {
@@ -88,9 +94,13 @@ public final class Response {
 	}
 
 	/**
+	 * @deprecated Since 1.2, as the provided {@code propStats} collection is not necessarily immutable and there is no standard Java way to enforce
+	 *             immutability. Use {@link #Response(HRef, Error, ResponseDescription, Location, PropStat, PropStat...)} instead.
 	 * @since 1.1.1
 	 */
-	public Response(final HRef hRef, final Error error, final ResponseDescription responseDescription, final Location location, final Collection<PropStat> propStats) {
+	@Deprecated
+	public Response(final HRef hRef, final Error error, final ResponseDescription responseDescription, final Location location,
+			final Collection<PropStat> propStats) {
 		this(hRef, error, responseDescription, location);
 
 		if (propStats == null || !propStats.iterator().hasNext())
@@ -98,7 +108,7 @@ public final class Response {
 
 		this.propStats = new LinkedList<PropStat>(propStats);
 	}
-	
+
 	public Response(final Status status, final Error error, final ResponseDescription responseDescription, final Location location, final HRef hRef,
 			final HRef... hRefs) {
 		this(hRef, error, responseDescription, location);
@@ -108,6 +118,7 @@ public final class Response {
 
 		this.status = status;
 		this.hRefs.addAll(Arrays.asList(hRefs));
+		this.propStats = new LinkedList<PropStat>();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -136,4 +147,18 @@ public final class Response {
 		return (List<PropStat>) this.propStats.clone();
 	}
 
+	@Override
+	public final boolean equals(final Object o) {
+		if (this == o)
+			return true;
+
+		if (!(o instanceof Response))
+			return false;
+
+		final Response that = (Response) o;
+
+		return this.hRefs.equals(that.hRefs) && sameOrEqual(this.status, that.status) && this.propStats.equals(that.propStats)
+				&& sameOrEqual(this.error, that.error) && sameOrEqual(this.responseDescription, that.responseDescription)
+				&& sameOrEqual(this.location, that.location);
+	}
 }

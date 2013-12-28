@@ -22,7 +22,6 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
-import static java.lang.String.format;
 import static net.java.dev.webdav.util.Utilities.sameOrEqual;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -99,6 +98,12 @@ public final class PropStat {
 
 	public final ResponseDescription getResponseDescription() {
 		return this.responseDescription;
+	}
+
+	@Override
+	public final int hashCode() {
+		return this.prop.hashCode() ^ this.status.hashCode() ^ (this.error == null ? -1 : this.error.hashCode())
+				^ (this.responseDescription == null ? -1 : this.responseDescription.hashCode());
 	}
 
 	@Override

@@ -31,6 +31,11 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * WebDAV locktype XML Element.
  * 
+ * <p>
+ * This is a singleton. All instances are absolutely identical, hence can be compared using {@code ==} and share one unique hash code. Use {@link #WRITE}
+ * always.
+ * </p>
+ * 
  * @author Markus KARG (mkarg@java.net)
  * 
  * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_locktype">Chapter 14.15 "locktype XML Element" of RFC 4918
@@ -38,15 +43,24 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(FIELD)
 @XmlRootElement(name = "locktype")
-@XmlType(factoryMethod = "create")
+@XmlType(factoryMethod = "createSingleton")
 public final class LockType {
-
+	/**
+	 * Singleton instance, providing improved performance and the ability to compare by <em>same</em> instance.
+	 */
 	public static final LockType WRITE = new LockType(Write.SINGLETON);
+
+	/**
+	 * Singleton factory to be used solely by JAXB.
+	 */
+	@SuppressWarnings("unused")
+	private static final LockType createSingleton() {
+		return WRITE;
+	}
 
 	@SuppressWarnings("unused")
 	private Write write;
 
-	// Singleton
 	private LockType() {
 		// For unmarshalling only.
 	}
@@ -54,11 +68,6 @@ public final class LockType {
 	// Enum
 	private LockType(final Write write) {
 		this.write = write;
-	}
-
-	@SuppressWarnings("unused")
-	private static final LockType create() {
-		return WRITE;
 	}
 
 	@Override

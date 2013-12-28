@@ -22,7 +22,6 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
-import static net.java.dev.webdav.jaxrs.xml.elements.LockType.WRITE;
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 
 import org.junit.experimental.theories.DataPoint;
@@ -34,5 +33,10 @@ import org.junit.experimental.theories.DataPoint;
  */
 public final class LockTypeTest extends AbstractJaxbCoreFunctionality<LockType> {
 	@DataPoint
-	public static final Object[] DATA_POINT = { WRITE, "<D:locktype xmlns:D=\"DAV:\"><D:write/></D:locktype>" };
+	public static final Object[] SINGLETON = { LockType.WRITE, "<D:locktype xmlns:D=\"DAV:\"><D:write/></D:locktype>" };
+
+	@Override
+	protected final LockType getSingleton() {
+		return LockType.WRITE;
+	}
 }

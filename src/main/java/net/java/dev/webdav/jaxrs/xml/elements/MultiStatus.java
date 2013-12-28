@@ -22,6 +22,8 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
+import static net.java.dev.webdav.util.Utilities.sameOrEqual;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -53,7 +55,7 @@ public final class MultiStatus {
 	}
 
 	public MultiStatus(final ResponseDescription responseDescription, final Response... responses) {
-		this.responses = new LinkedList<Response>(Arrays.asList(responses));
+		this.responses = responses == null ? new LinkedList<Response>() : new LinkedList<Response>(Arrays.asList(responses));
 		this.responseDescription = responseDescription;
 	}
 
@@ -62,7 +64,7 @@ public final class MultiStatus {
 	}
 
 	public MultiStatus(final ResponseDescription responseDescription) {
-		this(responseDescription, (Response) null);
+		this(responseDescription, (Response[]) null);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -74,4 +76,16 @@ public final class MultiStatus {
 		return this.responseDescription;
 	}
 
+	@Override
+	public final boolean equals(final Object o) {
+		if (this == o)
+			return true;
+
+		if (!(o instanceof MultiStatus))
+			return false;
+
+		final MultiStatus that = (MultiStatus) o;
+
+		return this.responses.equals(that.responses) && sameOrEqual(this.responseDescription, that.responseDescription);
+	}
 }

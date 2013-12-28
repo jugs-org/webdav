@@ -77,6 +77,11 @@ public final class MultiStatus {
 	}
 
 	@Override
+	public final int hashCode() {
+		return this.responses.hashCode() ^ (this.responseDescription == null ? -1 : this.responseDescription.hashCode());
+	}
+
+	@Override
 	public final boolean equals(final Object o) {
 		if (this == o)
 			return true;

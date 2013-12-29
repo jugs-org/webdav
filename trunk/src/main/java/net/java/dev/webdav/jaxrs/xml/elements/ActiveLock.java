@@ -22,7 +22,6 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
-import static java.lang.String.format;
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 import static net.java.dev.webdav.util.Utilities.sameOrEqual;
 

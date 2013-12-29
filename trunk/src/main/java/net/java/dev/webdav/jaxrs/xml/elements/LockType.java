@@ -48,7 +48,7 @@ public final class LockType {
 	/**
 	 * Singleton instance, providing improved performance and the ability to compare by <em>same</em> instance.
 	 */
-	public static final LockType WRITE = new LockType(Write.SINGLETON);
+	public static final LockType WRITE = new LockType(Write.WRITE);
 
 	/**
 	 * Singleton factory to be used solely by JAXB.

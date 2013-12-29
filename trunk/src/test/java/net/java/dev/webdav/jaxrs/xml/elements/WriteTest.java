@@ -22,7 +22,6 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
-import static net.java.dev.webdav.jaxrs.xml.elements.Write.SINGLETON;
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 
 import org.junit.experimental.theories.DataPoint;
@@ -34,5 +33,10 @@ import org.junit.experimental.theories.DataPoint;
  */
 public final class WriteTest extends AbstractJaxbCoreFunctionality<Write> {
 	@DataPoint
-	public static final Object[] DATA_POINT = { SINGLETON, "<D:write xmlns:D=\"DAV:\"/>" };
+	public static final Object[] SINGLETON = { Write.WRITE, "<D:write xmlns:D=\"DAV:\"/>" };
+
+	@Override
+	protected final Write getSingleton() {
+		return Write.WRITE;
+	}
 }

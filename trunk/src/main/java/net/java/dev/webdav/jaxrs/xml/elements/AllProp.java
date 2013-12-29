@@ -43,6 +43,8 @@ import javax.xml.bind.annotation.XmlType;
 public final class AllProp {
 	/**
 	 * Singleton instance, providing improved performance and the ability to compare by <em>same</em> instance.
+	 * 
+	 * @since 1.2
 	 */
 	public static final AllProp ALL_PROP = new AllProp();
 

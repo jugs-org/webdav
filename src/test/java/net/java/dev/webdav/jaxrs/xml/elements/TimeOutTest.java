@@ -71,7 +71,7 @@ public final class TimeOutTest extends AbstractJaxbCoreFunctionality<TimeOut> {
 	}
 
 	@Test
-	public final void shouldUnmarshalInfiniteConstant() throws JAXBException {
+	public final void shouldUnmarshalINFINITEConstant() throws JAXBException {
 		// given
 		final String marshalledForm = "<D:timeout>Infinite</D:timeout>";
 

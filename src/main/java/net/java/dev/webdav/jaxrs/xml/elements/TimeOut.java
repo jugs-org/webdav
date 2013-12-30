@@ -26,14 +26,17 @@ import static java.lang.Long.MAX_VALUE;
 import static java.lang.Long.parseLong;
 import static java.lang.Long.valueOf;
 import static java.lang.String.format;
+import static java.util.Collections.singleton;
 import static javax.xml.bind.annotation.XmlAccessType.NONE;
+
+import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import net.java.dev.webdav.jaxrs.ConstantsAdapter;
 import net.java.dev.webdav.jaxrs.xml.elements.TimeOut.Adapter;
 
 /**
@@ -111,40 +114,12 @@ public final class TimeOut {
 	/**
 	 * Guarantees that any unmarshalled enum constants effectively are the constant Java instances itself, so that {@code ==} can be used form comparison.
 	 * 
-	 * Abstract class {@link XmlAdapter} is intentionally not directly implemented by surrounding class to prevent third party code to call its methods:
-	 * Unfortunately {@linkplain XmlAdapter} enforces {@code public} visibility of all it's elements!
-	 * 
-	 * This inner class cannot be {@code public} since Sun's compiler doesn't allow that, while Eclipse's compiler actually does.
-	 * 
 	 * @since 1.2
 	 */
-	protected static final class Adapter extends XmlAdapter<TimeOut, TimeOut> {
-
-		/**
-		 * For internal use only. Do not call this from client code.
-		 * 
-		 * @since 1.2
-		 */
+	protected static final class Adapter extends ConstantsAdapter<TimeOut> {
 		@Override
-		public final TimeOut marshal(final TimeOut value) throws Exception {
-			return value;
-		}
-
-		/**
-		 * For internal use only. Do not call this from client code.
-		 * 
-		 * @since 1.2
-		 */
-		@SuppressWarnings("synthetic-access")
-		@Override
-		public final TimeOut unmarshal(final TimeOut value) throws Exception {
-			if (value == null)
-				return null;
-
-			if (value.timeType == INFINITE_VALUE)
-				return INFINITE;
-
-			return value;
+		protected final Collection<TimeOut> getConstants() {
+			return singleton(INFINITE);
 		}
 	}
 }

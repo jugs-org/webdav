@@ -22,8 +22,21 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
+import static java.lang.String.format;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.sameInstance;
+import static org.junit.Assert.assertThat;
+
+import java.io.StringReader;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlAdapter;
+
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 
+import org.junit.Test;
 import org.junit.experimental.theories.DataPoint;
 
 /**
@@ -37,4 +50,38 @@ public final class LockScopeTest extends AbstractJaxbCoreFunctionality<LockScope
 
 	@DataPoint
 	public static final Object[] SHARED = { LockScope.SHARED, "<D:lockscope xmlns:D=\"DAV:\"><D:shared/></D:lockscope>" };
+
+	/**
+	 * JAXB Workaround: JAXB only invokes {@link XmlAdapter} if element is wrapped.
+	 */
+	@XmlRootElement
+	private static final class X {
+		public LockScope lockscope;
+	}
+
+	@Test
+	public final void shouldUnmarshalEXCLUSIVEConstant() throws JAXBException {
+		// given
+		final String marshalledForm = "<D:lockscope><D:exclusive/></D:lockscope>";
+
+		// when
+		final LockScope unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
+				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).lockscope;
+
+		// then
+		assertThat(unmarshalledInstance, is(sameInstance(LockScope.EXCLUSIVE)));
+	}
+
+	@Test
+	public final void shouldUnmarshalSHAREDConstant() throws JAXBException {
+		// given
+		final String marshalledForm = "<D:lockscope><D:shared/></D:lockscope>";
+
+		// when
+		final LockScope unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
+				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).lockscope;
+
+		// then
+		assertThat(unmarshalledInstance, is(sameInstance(LockScope.SHARED)));
+	}
 }

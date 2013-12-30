@@ -25,10 +25,21 @@ package net.java.dev.webdav.jaxrs.xml.elements;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 import static java.lang.Long.MAX_VALUE;
+import static java.lang.String.format;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
+
+import java.io.StringReader;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlAdapter;
+
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 
+import org.junit.Test;
 import org.junit.experimental.theories.DataPoint;
 
 /**
@@ -49,5 +60,26 @@ public final class TimeOutTest extends AbstractJaxbCoreFunctionality<TimeOut> {
 		assertThat(actual.isInfinite(), is(dataPoint[3]));
 		assertThat(expected.getSeconds(), is(dataPoint[2]));
 		assertThat(expected.isInfinite(), is(dataPoint[3]));
+	}
+
+	/**
+	 * JAXB Workaround: JAXB only invokes {@link XmlAdapter} if element is wrapped.
+	 */
+	@XmlRootElement
+	private static final class X {
+		public TimeOut timeout;
+	}
+
+	@Test
+	public final void shouldUnmarshalInfiniteConstant() throws JAXBException {
+		// given
+		final String marshalledForm = "<D:timeout>Infinite</D:timeout>";
+
+		// when
+		final TimeOut unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
+				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).timeout;
+
+		// then
+		assertThat(unmarshalledInstance, is(sameInstance(TimeOut.INFINITE)));
 	}
 }

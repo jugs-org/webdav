@@ -31,6 +31,10 @@ import static javax.xml.bind.annotation.XmlAccessType.NONE;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
+import javax.xml.bind.annotation.adapters.XmlAdapter;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import net.java.dev.webdav.jaxrs.xml.elements.TimeOut.Adapter;
 
 /**
  * WebDAV timeout XML Element.
@@ -42,6 +46,7 @@ import javax.xml.bind.annotation.XmlValue;
  */
 @XmlAccessorType(NONE)
 @XmlRootElement(name = "timeout")
+@XmlJavaTypeAdapter(Adapter.class)
 public final class TimeOut {
 	private static final long INFINITE_VALUE = MAX_VALUE;
 
@@ -101,5 +106,45 @@ public final class TimeOut {
 	@Override
 	public final int hashCode() {
 		return valueOf(this.timeType).hashCode();
+	}
+
+	/**
+	 * Guarantees that any unmarshalled enum constants effectively are the constant Java instances itself, so that {@code ==} can be used form comparison.
+	 * 
+	 * Abstract class {@link XmlAdapter} is intentionally not directly implemented by surrounding class to prevent third party code to call its methods:
+	 * Unfortunately {@linkplain XmlAdapter} enforces {@code public} visibility of all it's elements!
+	 * 
+	 * This inner class cannot be {@code public} since Sun's compiler doesn't allow that, while Eclipse's compiler actually does.
+	 * 
+	 * @since 1.2
+	 */
+	protected static final class Adapter extends XmlAdapter<TimeOut, TimeOut> {
+
+		/**
+		 * For internal use only. Do not call this from client code.
+		 * 
+		 * @since 1.2
+		 */
+		@Override
+		public final TimeOut marshal(final TimeOut value) throws Exception {
+			return value;
+		}
+
+		/**
+		 * For internal use only. Do not call this from client code.
+		 * 
+		 * @since 1.2
+		 */
+		@SuppressWarnings("synthetic-access")
+		@Override
+		public final TimeOut unmarshal(final TimeOut value) throws Exception {
+			if (value == null)
+				return null;
+
+			if (value.timeType == INFINITE_VALUE)
+				return INFINITE;
+
+			return value;
+		}
 	}
 }

@@ -25,12 +25,11 @@ package net.java.dev.webdav.jaxrs.xml.elements;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 import static java.lang.Long.MAX_VALUE;
-import static net.java.dev.webdav.jaxrs.xml.elements.TimeOut.INFINITE;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 
-import org.junit.experimental.theories.DataPoints;
+import org.junit.experimental.theories.DataPoint;
 
 /**
  * Unit test for {@link TimeOut}
@@ -38,9 +37,11 @@ import org.junit.experimental.theories.DataPoints;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class TimeOutTest extends AbstractJaxbCoreFunctionality<TimeOut> {
-	@DataPoints
-	public static final Object[][] DATA_POINTS = { { INFINITE, "<D:timeout xmlns:D=\"DAV:\">Infinite</D:timeout>", MAX_VALUE, TRUE },
-			{ new TimeOut(1), "<D:timeout xmlns:D=\"DAV:\">Second-1</D:timeout>", 1L, FALSE } };
+	@DataPoint
+	public static final Object[] INFINITE = { TimeOut.INFINITE, "<D:timeout xmlns:D=\"DAV:\">Infinite</D:timeout>", MAX_VALUE, TRUE };
+
+	@DataPoint
+	public static final Object[] SECOND = { new TimeOut(60), "<D:timeout xmlns:D=\"DAV:\">Second-60</D:timeout>", 60L, FALSE };
 
 	@Override
 	protected final void assertThatGettersProvideExpectedValues(final TimeOut actual, final TimeOut expected, final Object[] dataPoint) {

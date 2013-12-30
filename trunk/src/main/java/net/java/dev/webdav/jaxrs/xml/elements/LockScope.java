@@ -22,14 +22,18 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
+import static java.util.Arrays.asList;
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 import static net.java.dev.webdav.util.Utilities.sameOrEqual;
+
+import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import net.java.dev.webdav.jaxrs.ConstantsAdapter;
 
 /**
  * WebDAV lockscope XML Element.
@@ -41,7 +45,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  */
 @XmlAccessorType(FIELD)
 @XmlType(propOrder = { "exclusive", "shared" })
-@XmlJavaTypeAdapter(LockScope.LockScopeAdapter.class)
+@XmlJavaTypeAdapter(LockScope.Adapter.class)
 @XmlRootElement(name = "lockscope")
 public final class LockScope {
 
@@ -82,42 +86,15 @@ public final class LockScope {
 		return sameOrEqual(this.exclusive, that.exclusive) && sameOrEqual(this.shared, that.shared);
 	}
 
-	/*
-	 * XmlAdapter is intentionally not directly implemented by surrounding class to prevent third party code to call it's methods: Unfortunately XmlAdapter
-	 * enforces public visibility of all it's e.
+	/**
+	 * Guarantees that any unmarshalled enum constants effectively are the constant Java instances itself, so that {@code ==} can be used form comparison.
 	 * 
-	 * This inner class cannot be public since Sun's compiler doesn't allow that, while Eclipse's compiler actually does.
+	 * @since 1.2
 	 */
-	protected static final class LockScopeAdapter extends XmlAdapter<LockScope, LockScope> {
-
-		/**
-		 * For internal use only. Do not call this from client code.
-		 * 
-		 * @since 1.1.1
-		 */
+	protected static final class Adapter extends ConstantsAdapter<LockScope> {
 		@Override
-		public final LockScope marshal(final LockScope value) throws Exception {
-			return value;
-		}
-
-		/**
-		 * For internal use only. Do not call this from client code.
-		 * 
-		 * @since 1.1.1
-		 */
-		@SuppressWarnings("synthetic-access")
-		@Override
-		public final LockScope unmarshal(final LockScope value) throws Exception {
-			if (value == null)
-				return null;
-
-			if (value.exclusive != null)
-				return EXCLUSIVE;
-
-			if (value.shared != null)
-				return SHARED;
-
-			return value;
+		protected final Collection<LockScope> getConstants() {
+			return asList(SHARED, EXCLUSIVE);
 		}
 	}
 }

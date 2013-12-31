@@ -23,9 +23,15 @@
 package net.java.dev.webdav.jaxrs.xml.conditions;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * WebDAV preserved-live-propertes Postcondition XML Element.
+ * 
+ * <p>
+ * This is a singleton. All instances are absolutely identical, hence can be compared using {@code ==} and share one unique hash code. Use
+ * {@link #PRESERVED_LIVE_PROPERTIES} always.
+ * </p>
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
@@ -33,7 +39,32 @@ import javax.xml.bind.annotation.XmlRootElement;
  *      4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlRootElement(name = "preserved-live-properties")
+@XmlType(factoryMethod = "createSingleton")
 public final class PreservedLiveProperties {
+	/**
+	 * Singleton instance, providing improved performance and the ability to compare by <em>same</em> instance.
+	 * 
+	 * @since 1.2
+	 */
+	public static final PreservedLiveProperties PRESERVED_LIVE_PROPERTIES = new PreservedLiveProperties();
+
+	/**
+	 * Singleton factory to be used solely by JAXB.
+	 */
+	@SuppressWarnings("unused")
+	private static final PreservedLiveProperties createSingleton() {
+		return PRESERVED_LIVE_PROPERTIES;
+	}
+
+	/**
+	 * @deprecated Since 1.2. Use {@link #PRESERVED_LIVE_PROPERTIES} instead to obtain a singleton. In future releases this will have {@code private}
+	 *             visibility.
+	 */
+	@Deprecated
+	public PreservedLiveProperties() {
+		// For unmarshalling only.
+	}
+
 	@Override
 	public final boolean equals(final Object object) {
 		return object instanceof PreservedLiveProperties;

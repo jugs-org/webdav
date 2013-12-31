@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlType;
  * WebDAV allprop XML Element.
  * 
  * <p>
- * This is a singleton. All instances are absolutely identical, hence can be compared using {@code ==} and share one unique hash code. Use {@link #ALL_PROP}
+ * This is a singleton. All instances are absolutely identical, hence can be compared using {@code ==} and share one unique hash code. Use {@link #ALLPROP}
  * always.
  * </p>
  * 
@@ -46,18 +46,18 @@ public final class AllProp {
 	 * 
 	 * @since 1.2
 	 */
-	public static final AllProp ALL_PROP = new AllProp();
+	public static final AllProp ALLPROP = new AllProp();
 
 	/**
 	 * Singleton factory to be used solely by JAXB.
 	 */
 	@SuppressWarnings("unused")
 	private static final AllProp createSingleton() {
-		return ALL_PROP;
+		return ALLPROP;
 	}
 
 	/**
-	 * @deprecated Since 1.2. Use {@link #ALL_PROP} instead to obtain a singleton. In future releases this will have {@code private} visibility.
+	 * @deprecated Since 1.2. Use {@link #ALLPROP} instead to obtain a singleton. In future releases this will have {@code private} visibility.
 	 */
 	@Deprecated
 	public AllProp() {

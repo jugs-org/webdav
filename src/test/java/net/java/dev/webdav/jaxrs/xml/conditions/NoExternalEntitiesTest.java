@@ -33,5 +33,10 @@ import org.junit.experimental.theories.DataPoint;
  */
 public final class NoExternalEntitiesTest extends AbstractJaxbCoreFunctionality<NoExternalEntities> {
 	@DataPoint
-	public static final Object[] DATA_POINT = new Object[] { new NoExternalEntities(), "<D:no-external-entities xmlns:D=\"DAV:\"/>" };
+	public static final Object[] SINGLETON = new Object[] { NoExternalEntities.NO_EXTERNAL_ENTITIES, "<D:no-external-entities xmlns:D=\"DAV:\"/>" };
+
+	@Override
+	protected final NoExternalEntities getSingleton() {
+		return NoExternalEntities.NO_EXTERNAL_ENTITIES;
+	}
 }

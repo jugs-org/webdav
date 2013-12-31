@@ -23,9 +23,15 @@
 package net.java.dev.webdav.jaxrs.xml.conditions;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * WebDAV no-external-entities Precondition XML Element.
+ * 
+ * <p>
+ * This is a singleton. All instances are absolutely identical, hence can be compared using {@code ==} and share one unique hash code. Use
+ * {@link #NO_EXTERNAL_ENTITIES} always.
+ * </p>
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
@@ -33,7 +39,31 @@ import javax.xml.bind.annotation.XmlRootElement;
  *      4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlRootElement(name = "no-external-entities")
+@XmlType(factoryMethod = "createSingleton")
 public final class NoExternalEntities {
+	/**
+	 * Singleton instance, providing improved performance and the ability to compare by <em>same</em> instance.
+	 * 
+	 * @since 1.2
+	 */
+	public static final NoExternalEntities NO_EXTERNAL_ENTITIES = new NoExternalEntities();
+
+	/**
+	 * Singleton factory to be used solely by JAXB.
+	 */
+	@SuppressWarnings("unused")
+	private static final NoExternalEntities createSingleton() {
+		return NO_EXTERNAL_ENTITIES;
+	}
+
+	/**
+	 * @deprecated Since 1.2. Use {@link #NO_EXTERNAL_ENTITIES} instead to obtain a singleton. In future releases this will have {@code private} visibility.
+	 */
+	@Deprecated
+	public NoExternalEntities() {
+		// For unmarshalling only.
+	}
+
 	@Override
 	public final boolean equals(final Object object) {
 		return object instanceof NoExternalEntities;

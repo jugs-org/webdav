@@ -22,7 +22,6 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
-import static net.java.dev.webdav.jaxrs.xml.elements.Shared.SINGLETON;
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 
 import org.junit.experimental.theories.DataPoint;
@@ -34,5 +33,10 @@ import org.junit.experimental.theories.DataPoint;
  */
 public final class SharedTest extends AbstractJaxbCoreFunctionality<Shared> {
 	@DataPoint
-	public static final Object[] DATA_POINT = { SINGLETON, "<D:shared xmlns:D=\"DAV:\"/>" };
+	public static final Object[] SINGLETON = { Shared.SHARED, "<D:shared xmlns:D=\"DAV:\"/>" };
+
+	@Override
+	protected final Shared getSingleton() {
+		return Shared.SHARED;
+	}
 }

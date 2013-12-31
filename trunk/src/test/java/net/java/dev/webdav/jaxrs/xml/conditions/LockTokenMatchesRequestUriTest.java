@@ -33,5 +33,11 @@ import org.junit.experimental.theories.DataPoint;
  */
 public final class LockTokenMatchesRequestUriTest extends AbstractJaxbCoreFunctionality<LockTokenMatchesRequestUri> {
 	@DataPoint
-	public static final Object[] DATA_POINT = { new LockTokenMatchesRequestUri(), "<D:lock-token-matches-request-uri xmlns:D=\"DAV:\"/>" };
+	public static final Object[] SINGLETON = { LockTokenMatchesRequestUri.LOCK_TOKEN_MATCHES_REQUEST_URI,
+			"<D:lock-token-matches-request-uri xmlns:D=\"DAV:\"/>" };
+
+	@Override
+	protected final LockTokenMatchesRequestUri getSingleton() {
+		return LockTokenMatchesRequestUri.LOCK_TOKEN_MATCHES_REQUEST_URI;
+	}
 }

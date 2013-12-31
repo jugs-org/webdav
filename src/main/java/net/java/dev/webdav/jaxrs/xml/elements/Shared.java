@@ -56,7 +56,7 @@ public final class Shared {
 
 	@SuppressWarnings("unused")
 	private static final Shared createSingleton() {
-		return SINGLETON;
+		return SHARED;
 	}
 
 	private Shared() {

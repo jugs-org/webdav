@@ -33,5 +33,11 @@ import org.junit.experimental.theories.DataPoint;
  */
 public final class PreservedLivePropertiesTest extends AbstractJaxbCoreFunctionality<PreservedLiveProperties> {
 	@DataPoint
-	public static final Object[] DATA_POINT = new Object[] { new PreservedLiveProperties(), "<D:preserved-live-properties xmlns:D=\"DAV:\"/>" };
+	public static final Object[] SINGLETON = new Object[] { PreservedLiveProperties.PRESERVED_LIVE_PROPERTIES,
+			"<D:preserved-live-properties xmlns:D=\"DAV:\"/>" };
+
+	@Override
+	protected final PreservedLiveProperties getSingleton() {
+		return PreservedLiveProperties.PRESERVED_LIVE_PROPERTIES;
+	}
 }

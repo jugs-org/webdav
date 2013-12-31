@@ -33,5 +33,10 @@ import org.junit.experimental.theories.DataPoint;
  */
 public final class PropNameTest extends AbstractJaxbCoreFunctionality<PropName> {
 	@DataPoint
-	public static final Object[] DATA_POINT = { new PropName(), "<D:propname xmlns:D=\"DAV:\"/>" };
+	public static final Object[] SINGLETON = { PropName.PROPNAME, "<D:propname xmlns:D=\"DAV:\"/>" };
+
+	@Override
+	protected final PropName getSingleton() {
+		return PropName.PROPNAME;
+	}
 }

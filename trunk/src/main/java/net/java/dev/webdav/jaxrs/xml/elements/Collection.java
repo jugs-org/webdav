@@ -23,9 +23,15 @@
 package net.java.dev.webdav.jaxrs.xml.elements;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * WebDAV collection XML Element.
+ * 
+ * <p>
+ * This is a singleton. All instances are absolutely identical, hence can be compared using {@code ==} and share one unique hash code. Use {@link #COLLECTION}
+ * always.
+ * </p>
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
@@ -33,7 +39,31 @@ import javax.xml.bind.annotation.XmlRootElement;
  *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlRootElement
+@XmlType(factoryMethod = "createSingleton")
 public final class Collection {
+	/**
+	 * Singleton instance, providing improved performance and the ability to compare by <em>same</em> instance.
+	 * 
+	 * @since 1.2
+	 */
+	public static final Collection COLLECTION = new Collection();
+
+	/**
+	 * Singleton factory to be used solely by JAXB.
+	 */
+	@SuppressWarnings("unused")
+	private static final Collection createSingleton() {
+		return COLLECTION;
+	}
+
+	/**
+	 * @deprecated Since 1.2. Use {@link #COLLECTION} instead to obtain a singleton. In future releases this will have {@code private} visibility.
+	 */
+	@Deprecated
+	public Collection() {
+		// Has no members.
+	}
+
 	@Override
 	public final boolean equals(final Object object) {
 		return object instanceof Collection;

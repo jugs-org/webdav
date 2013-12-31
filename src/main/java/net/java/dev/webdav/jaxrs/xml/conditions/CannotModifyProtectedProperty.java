@@ -23,9 +23,15 @@
 package net.java.dev.webdav.jaxrs.xml.conditions;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * WebDAV cannot-modify-protected-property Precondition XML Element.
+ * 
+ * <p>
+ * This is a singleton. All instances are absolutely identical, hence can be compared using {@code ==} and share one unique hash code. Use
+ * {@link #CANNOT_MODIFY_PROTECTED_PROPERTY} always.
+ * </p>
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
@@ -33,7 +39,29 @@ import javax.xml.bind.annotation.XmlRootElement;
  *      4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlRootElement(name = "cannot-modify-protected-property")
+@XmlType(factoryMethod = "createSingleton")
 public final class CannotModifyProtectedProperty {
+	/**
+	 * Singleton instance, providing improved performance and the ability to compare by <em>same</em> instance.
+	 * 
+	 * @since 1.2
+	 */
+	public static final CannotModifyProtectedProperty CANNOT_MODIFY_PROTECTED_PROPERTY = new CannotModifyProtectedProperty();
+
+	@SuppressWarnings("unused")
+	private static final CannotModifyProtectedProperty createSingleton() {
+		return CANNOT_MODIFY_PROTECTED_PROPERTY;
+	}
+
+	/**
+	 * @deprecated Since 1.2. Use {@link #CANNOT_MODIFY_PROTECTED_PROPERTY} instead to obtain a singleton. In future releases this will have {@code private}
+	 *             visibility.
+	 */
+	@Deprecated
+	public CannotModifyProtectedProperty() {
+		// For unmarshalling only.
+	}
+
 	@Override
 	public final boolean equals(final Object object) {
 		return object instanceof CannotModifyProtectedProperty;

@@ -49,9 +49,9 @@ import net.java.dev.webdav.jaxrs.ConstantsAdapter;
 @XmlRootElement(name = "lockscope")
 public final class LockScope {
 
-	public static final LockScope SHARED = new LockScope(Shared.SINGLETON, null);
+	public static final LockScope SHARED = new LockScope(Shared.SHARED, null);
 
-	public static final LockScope EXCLUSIVE = new LockScope(null, Exclusive.SINGLETON);
+	public static final LockScope EXCLUSIVE = new LockScope(null, Exclusive.EXCLUSIVE);
 
 	private Shared shared;
 

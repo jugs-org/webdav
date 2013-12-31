@@ -33,5 +33,11 @@ import org.junit.experimental.theories.DataPoint;
  */
 public final class CannotModifyProtectedPropertyTest extends AbstractJaxbCoreFunctionality<CannotModifyProtectedProperty> {
 	@DataPoint
-	public static final Object[] DATA_POINT = { new CannotModifyProtectedProperty(), "<D:cannot-modify-protected-property xmlns:D=\"DAV:\"/>" };
+	public static final Object[] SINGLETON = { CannotModifyProtectedProperty.CANNOT_MODIFY_PROTECTED_PROPERTY,
+			"<D:cannot-modify-protected-property xmlns:D=\"DAV:\"/>" };
+
+	@Override
+	protected final CannotModifyProtectedProperty getSingleton() {
+		return CannotModifyProtectedProperty.CANNOT_MODIFY_PROTECTED_PROPERTY;
+	}
 }

@@ -61,7 +61,7 @@ public final class AllProp {
 	 */
 	@Deprecated
 	public AllProp() {
-		// Has no members.
+		// For unmarshalling only.
 	}
 
 	@Override

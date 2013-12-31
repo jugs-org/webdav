@@ -22,7 +22,6 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
-import static net.java.dev.webdav.jaxrs.xml.elements.Exclusive.SINGLETON;
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 
 import org.junit.experimental.theories.DataPoint;
@@ -34,5 +33,10 @@ import org.junit.experimental.theories.DataPoint;
  */
 public final class ExclusiveTest extends AbstractJaxbCoreFunctionality<Exclusive> {
 	@DataPoint
-	public static final Object[] DATA_POINT = { SINGLETON, "<D:exclusive xmlns:D=\"DAV:\"/>" };
+	public static final Object[] SINGLETON = { Exclusive.EXCLUSIVE, "<D:exclusive xmlns:D=\"DAV:\"/>" };
+
+	@Override
+	protected final Exclusive getSingleton() {
+		return Exclusive.EXCLUSIVE;
+	}
 }

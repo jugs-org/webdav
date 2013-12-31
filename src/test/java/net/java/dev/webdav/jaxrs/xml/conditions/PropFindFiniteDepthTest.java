@@ -33,5 +33,10 @@ import org.junit.experimental.theories.DataPoint;
  */
 public final class PropFindFiniteDepthTest extends AbstractJaxbCoreFunctionality<PropFindFiniteDepth> {
 	@DataPoint
-	public static final Object[] DATA_POINT = new Object[] { new PropFindFiniteDepth(), "<D:propfind-finite-depth xmlns:D=\"DAV:\"/>" };
+	public static final Object[] SINGLETON = new Object[] { PropFindFiniteDepth.PROPFIND_FINITE_DEPTH, "<D:propfind-finite-depth xmlns:D=\"DAV:\"/>" };
+
+	@Override
+	protected final PropFindFiniteDepth getSingleton() {
+		return PropFindFiniteDepth.PROPFIND_FINITE_DEPTH;
+	}
 }

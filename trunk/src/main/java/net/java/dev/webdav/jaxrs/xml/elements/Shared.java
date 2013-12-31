@@ -28,28 +28,39 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * WebDAV shared XML Element.
  * 
+ * <p>
+ * This is a singleton. All instances are absolutely identical, hence can be compared using {@code ==} and share one unique hash code. Use {@link #SHARED}
+ * always.
+ * </p>
+ * 
  * @author Markus KARG (mkarg@java.net)
  * 
  * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_shared">Chapter 14.27 "shared XML Element" of RFC 4918
  *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlRootElement
-@XmlType(factoryMethod = "create")
+@XmlType(factoryMethod = "createSingleton")
 public final class Shared {
+	/**
+	 * Singleton instance, providing improved performance and the ability to compare by <em>same</em> instance.
+	 * 
+	 * @since 1.2
+	 */
+	public static final Shared SHARED = new Shared();
 
 	/**
 	 * @since 1.1.1
+	 * @deprecated Since 1.2. Use {@link #SHARED} instead to obtain a singleton. In future releases this will be removed.
 	 */
-	public static final Shared SINGLETON = new Shared();
-
-	// Singleton
-	private Shared() {
-		// Contains no members.
-	}
+	public static final Shared SINGLETON = SHARED;
 
 	@SuppressWarnings("unused")
-	private static final Shared create() {
+	private static final Shared createSingleton() {
 		return SINGLETON;
+	}
+
+	private Shared() {
+		// For unmarshalling only.
 	}
 
 	@Override

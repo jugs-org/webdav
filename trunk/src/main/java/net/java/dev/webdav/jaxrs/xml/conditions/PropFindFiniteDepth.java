@@ -23,9 +23,15 @@
 package net.java.dev.webdav.jaxrs.xml.conditions;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * WebDAV propfind-finite-depth Precondition XML Element.
+ * 
+ * <p>
+ * This is a singleton. All instances are absolutely identical, hence can be compared using {@code ==} and share one unique hash code. Use
+ * {@link #PROPFIND_FINITE_DEPTH} always.
+ * </p>
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
@@ -33,7 +39,31 @@ import javax.xml.bind.annotation.XmlRootElement;
  *      4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlRootElement(name = "propfind-finite-depth")
+@XmlType(factoryMethod = "createSingleton")
 public final class PropFindFiniteDepth {
+	/**
+	 * Singleton instance, providing improved performance and the ability to compare by <em>same</em> instance.
+	 * 
+	 * @since 1.2
+	 */
+	public static final PropFindFiniteDepth PROPFIND_FINITE_DEPTH = new PropFindFiniteDepth();
+
+	/**
+	 * Singleton factory to be used solely by JAXB.
+	 */
+	@SuppressWarnings("unused")
+	private static final PropFindFiniteDepth createSingleton() {
+		return PROPFIND_FINITE_DEPTH;
+	}
+
+	/**
+	 * @deprecated Since 1.2. Use {@link #PROPFIND_FINITE_DEPTH} instead to obtain a singleton. In future releases this will have {@code private} visibility.
+	 */
+	@Deprecated
+	public PropFindFiniteDepth() {
+		// For unmarshalling only.
+	}
+
 	@Override
 	public final boolean equals(final Object object) {
 		return object instanceof PropFindFiniteDepth;

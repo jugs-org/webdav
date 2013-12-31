@@ -34,5 +34,10 @@ import org.junit.experimental.theories.DataPoint;
  */
 public final class CollectionTest extends AbstractJaxbCoreFunctionality<Collection> {
 	@DataPoint
-	public static final Object[] DATA_POINT = { new Collection(), "<D:collection xmlns:D=\"DAV:\"/>" };
+	public static final Object[] SINGLETON = { Collection.COLLECTION, "<D:collection xmlns:D=\"DAV:\"/>" };
+
+	@Override
+	protected final Collection getSingleton() {
+		return Collection.COLLECTION;
+	}
 }

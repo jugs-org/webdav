@@ -61,7 +61,7 @@ public final class Collection {
 	 */
 	@Deprecated
 	public Collection() {
-		// Has no members.
+		// For unmarshalling only.
 	}
 
 	@Override

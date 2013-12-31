@@ -24,6 +24,7 @@ package net.java.dev.webdav.jaxrs;
 
 import static javax.ws.rs.core.Response.Status.Family.CLIENT_ERROR;
 import static javax.ws.rs.core.Response.Status.Family.INFORMATIONAL;
+import static javax.ws.rs.core.Response.Status.Family.OTHER;
 import static javax.ws.rs.core.Response.Status.Family.REDIRECTION;
 import static javax.ws.rs.core.Response.Status.Family.SERVER_ERROR;
 import static javax.ws.rs.core.Response.Status.Family.SUCCESSFUL;
@@ -106,8 +107,10 @@ public enum ResponseStatus implements StatusType {
 			return REDIRECTION;
 		case 4:
 			return CLIENT_ERROR;
-		default:
+		case 5:
 			return SERVER_ERROR;
+		default:
+			return OTHER;
 		}
 	}
 

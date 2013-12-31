@@ -23,9 +23,15 @@
 package net.java.dev.webdav.jaxrs.xml.conditions;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * WebDAV lock-token-matches-request-uri Precondition XML Element.
+ * 
+ * <p>
+ * This is a singleton. All instances are absolutely identical, hence can be compared using {@code ==} and share one unique hash code. Use
+ * {@link #LOCK_TOKEN_MATCHES_REQUEST_URI} always.
+ * </p>
  * 
  * @author Markus KARG (mkarg@java.net)
  * 
@@ -33,7 +39,32 @@ import javax.xml.bind.annotation.XmlRootElement;
  *      4918 "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
 @XmlRootElement(name = "lock-token-matches-request-uri")
+@XmlType(factoryMethod = "createSingleton")
 public final class LockTokenMatchesRequestUri {
+	/**
+	 * Singleton instance, providing improved performance and the ability to compare by <em>same</em> instance.
+	 * 
+	 * @since 1.2
+	 */
+	public static final LockTokenMatchesRequestUri LOCK_TOKEN_MATCHES_REQUEST_URI = new LockTokenMatchesRequestUri();
+
+	/**
+	 * Singleton factory to be used solely by JAXB.
+	 */
+	@SuppressWarnings("unused")
+	private static final LockTokenMatchesRequestUri createSingleton() {
+		return LOCK_TOKEN_MATCHES_REQUEST_URI;
+	}
+
+	/**
+	 * @deprecated Since 1.2. Use {@link #LOCK_TOKEN_MATCHES_REQUEST_URI} instead to obtain a singleton. In future releases this will have {@code private}
+	 *             visibility.
+	 */
+	@Deprecated
+	public LockTokenMatchesRequestUri() {
+		// For unmarshalling only.
+	}
+
 	@Override
 	public final boolean equals(final Object object) {
 		return object instanceof LockTokenMatchesRequestUri;

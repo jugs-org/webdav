@@ -22,7 +22,7 @@
 
 package net.java.dev.webdav.jaxrs.xml.properties;
 
-import static java.util.Arrays.asList;
+import static java.util.Collections.singleton;
 
 import java.text.ParseException;
 import java.util.Collection;
@@ -109,7 +109,7 @@ public final class CreationDate {
 	protected static final class Adapter extends ConstantsAdapter<CreationDate> {
 		@Override
 		protected final Collection<CreationDate> getConstants() {
-			return asList(CREATIONDATE);
+			return singleton(CREATIONDATE);
 		}
 	}
 }

@@ -22,12 +22,17 @@
 
 package net.java.dev.webdav.jaxrs.xml.properties;
 
+import static java.util.Arrays.asList;
+
 import java.text.ParseException;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import net.java.dev.webdav.jaxrs.ConstantsAdapter;
 import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.elements.Rfc3339DateTimeFormat;
 
@@ -39,17 +44,25 @@ import net.java.dev.webdav.jaxrs.xml.elements.Rfc3339DateTimeFormat;
  * @see <a href="http://www.webdav.org/specs/rfc4918.html#PROPERTY_creationdate">Chapter 15.1 "creationdate Property" of RFC 4918
  *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
+@XmlJavaTypeAdapter(CreationDate.Adapter.class)
 @XmlRootElement(name = "creationdate")
 public final class CreationDate {
+	/**
+	 * Singleton empty instance for use as property name only, providing improved performance and the ability to compare by <em>same</em> instance.
+	 * 
+	 * @since 1.2
+	 */
+	public static final CreationDate CREATIONDATE = new CreationDate();
 
 	private Date dateTime;
 
 	/**
-	 * Creates an empty (thus <em>invalid</em>) instance. Use <em>only</em> to list property name within response to &lt;propname/&gt; request. Not to be used
-	 * for creation of valid instances of this property; use {@link #CreationDate(Date)} instead.
+	 * @deprecated Since 1.2. Use {@link #CREATIONDATE} instead to obtain a singleton empty instance. In future releases this will have {@code private}
+	 *             visibility.
 	 */
+	@Deprecated
 	public CreationDate() {
-		// Keeping defaults by intention.
+		// For unmarshalling only.
 	}
 
 	public CreationDate(final Date dateTime) {
@@ -86,5 +99,17 @@ public final class CreationDate {
 	@Override
 	public final int hashCode() {
 		return this.dateTime == null ? 0 : this.dateTime.hashCode();
+	}
+
+	/**
+	 * Guarantees that any unmarshalled enum constants effectively are the constant Java instances itself, so that {@code ==} can be used form comparison.
+	 * 
+	 * @since 1.2
+	 */
+	protected static final class Adapter extends ConstantsAdapter<CreationDate> {
+		@Override
+		protected final Collection<CreationDate> getConstants() {
+			return asList(CREATIONDATE);
+		}
 	}
 }

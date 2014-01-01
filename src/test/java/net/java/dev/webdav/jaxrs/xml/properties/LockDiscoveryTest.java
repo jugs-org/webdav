@@ -22,17 +22,26 @@
 
 package net.java.dev.webdav.jaxrs.xml.properties;
 
+import static java.lang.String.format;
 import static java.util.Arrays.asList;
 import static java.util.Collections.EMPTY_LIST;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
+
+import java.io.StringReader;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 import net.java.dev.webdav.jaxrs.xml.elements.ActiveLock;
 import net.java.dev.webdav.util.Utilities;
 
 import org.junit.Test;
-import org.junit.experimental.theories.DataPoints;
+import org.junit.experimental.theories.DataPoint;
 
 /**
  * Unit test for {@link LockDiscovery}
@@ -47,13 +56,34 @@ public final class LockDiscoveryTest extends AbstractJaxbCoreFunctionality<LockD
 		new LockDiscovery((ActiveLock[]) null);
 	}
 
-	@DataPoints
-	public static final Object[][] DATA_POINT = { { new LockDiscovery(), "<D:lockdiscovery xmlns:D=\"DAV:\"/>", EMPTY_LIST },
-			{ new LockDiscovery(ACTIVE_LOCK), "<D:lockdiscovery xmlns:D=\"DAV:\"><D:activelock/></D:lockdiscovery>", asList(ACTIVE_LOCK) } };
+	@DataPoint
+	public static final Object[] SINGLETON = { LockDiscovery.LOCKDISCOVERY, "<D:lockdiscovery xmlns:D=\"DAV:\"/>", EMPTY_LIST };
+
+	@DataPoint
+	public static final Object[] ACTIVELOCKS_CONSTRUCTOR = { new LockDiscovery(ACTIVE_LOCK),
+			"<D:lockdiscovery xmlns:D=\"DAV:\"><D:activelock/></D:lockdiscovery>", asList(ACTIVE_LOCK) };
 
 	@Override
 	protected final void assertThatGettersProvideExpectedValues(final LockDiscovery actual, final LockDiscovery expected, final Object[] dataPoint) {
 		assertThat(actual.getActiveLocks(), is(dataPoint[2]));
 		assertThat(expected.getActiveLocks(), is(dataPoint[2]));
+	}
+
+	@XmlRootElement
+	public static class X {
+		public LockDiscovery lockdiscovery;
+	}
+
+	@Test
+	public final void shouldUnmarshalGETCONTENTLANGUAGEConstant() throws JAXBException {
+		// given
+		final String marshalledForm = "<D:lockdiscovery/>";
+
+		// when
+		final LockDiscovery unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
+				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).lockdiscovery;
+
+		// then
+		assertThat(unmarshalledInstance, is(sameInstance(LockDiscovery.LOCKDISCOVERY)));
 	}
 }

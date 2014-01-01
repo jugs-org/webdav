@@ -23,13 +23,17 @@
 package net.java.dev.webdav.jaxrs.xml.properties;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.singleton;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import net.java.dev.webdav.jaxrs.ConstantsAdapter;
 import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.elements.ActiveLock;
 
@@ -41,12 +45,24 @@ import net.java.dev.webdav.jaxrs.xml.elements.ActiveLock;
  * @see <a href="http://www.webdav.org/specs/rfc4918.html#PROPERTY_lockdiscovery">Chapter 15.8 "lockdiscovery Property" of RFC 4918
  *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
+@XmlJavaTypeAdapter(LockDiscovery.Adapter.class)
 @XmlRootElement(name = "lockdiscovery")
 public final class LockDiscovery {
+	/**
+	 * Singleton empty instance for use as property name only, providing improved performance and the ability to compare by <em>same</em> instance.
+	 * 
+	 * @since 1.2
+	 */
+	public static final LockDiscovery LOCKDISCOVERY = new LockDiscovery();
 
 	@XmlElement(name = "activelock")
 	private LinkedList<ActiveLock> activeLocks;
 
+	/**
+	 * @deprecated Since 1.2. Use {@link #LOCKDISCOVERY} instead to obtain a singleton empty instance. In future releases this will have {@code private}
+	 *             visibility.
+	 */
+	@Deprecated
 	public LockDiscovery() {
 		this.activeLocks = new LinkedList<ActiveLock>();
 	}
@@ -76,5 +92,17 @@ public final class LockDiscovery {
 		final LockDiscovery that = (LockDiscovery) other;
 
 		return this.activeLocks.equals(that.activeLocks);
+	}
+
+	/**
+	 * Guarantees that any unmarshalled enum constants effectively are the constant Java instances itself, so that {@code ==} can be used form comparison.
+	 * 
+	 * @since 1.2
+	 */
+	protected static final class Adapter extends ConstantsAdapter<LockDiscovery> {
+		@Override
+		protected final Collection<LockDiscovery> getConstants() {
+			return singleton(LOCKDISCOVERY);
+		}
 	}
 }

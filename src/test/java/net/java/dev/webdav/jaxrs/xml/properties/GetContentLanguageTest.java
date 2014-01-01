@@ -69,7 +69,7 @@ public final class GetContentLanguageTest extends AbstractJaxbCoreFunctionality<
 	}
 
 	@Test
-	public final void shouldUnmarshalCREATIONDATEConstant() throws JAXBException {
+	public final void shouldUnmarshalGETCONTENTLANGUAGEConstant() throws JAXBException {
 		// given
 		final String marshalledForm = "<D:getcontentlanguage/>";
 

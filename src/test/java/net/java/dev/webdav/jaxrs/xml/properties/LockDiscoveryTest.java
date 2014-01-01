@@ -57,7 +57,7 @@ public final class LockDiscoveryTest extends AbstractJaxbCoreFunctionality<LockD
 	}
 
 	@DataPoint
-	public static final Object[] SINGLETON = { LockDiscovery.LOCKDISCOVERY, "<D:lockdiscovery xmlns:D=\"DAV:\"/>", EMPTY_LIST };
+	public static final Object[] LOCKDISCOVERY = { LockDiscovery.LOCKDISCOVERY, "<D:lockdiscovery xmlns:D=\"DAV:\"/>", EMPTY_LIST };
 
 	@DataPoint
 	public static final Object[] ACTIVELOCKS_CONSTRUCTOR = { new LockDiscovery(ACTIVE_LOCK),
@@ -75,7 +75,7 @@ public final class LockDiscoveryTest extends AbstractJaxbCoreFunctionality<LockD
 	}
 
 	@Test
-	public final void shouldUnmarshalGETCONTENTLANGUAGEConstant() throws JAXBException {
+	public final void shouldUnmarshalGETLCOKDISCOVERYConstant() throws JAXBException {
 		// given
 		final String marshalledForm = "<D:lockdiscovery/>";
 

@@ -51,7 +51,7 @@ public final class GetContentTypeTest extends AbstractJaxbCoreFunctionality<GetC
 	}
 
 	@DataPoint
-	public static final Object[] SINGLETON = { GetContentType.GETCONTENTTYPE, "<D:getcontenttype xmlns:D=\"DAV:\"/>", "" };
+	public static final Object[] GETCONTENTTYPE = { GetContentType.GETCONTENTTYPE, "<D:getcontenttype xmlns:D=\"DAV:\"/>", "" };
 
 	@DataPoint
 	public static final Object[] MEDIATYPE_CONSTRUCTOR = { new GetContentType("SomeMediaType"),

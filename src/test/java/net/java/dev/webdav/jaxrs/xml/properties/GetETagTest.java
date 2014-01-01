@@ -51,7 +51,7 @@ public final class GetETagTest extends AbstractJaxbCoreFunctionality<GetETag> {
 	}
 
 	@DataPoint
-	public static final Object[] SINGLETON = { GetETag.GETETAG, "<D:getetag xmlns:D=\"DAV:\"/>", "" };
+	public static final Object[] GETETAG = { GetETag.GETETAG, "<D:getetag xmlns:D=\"DAV:\"/>", "" };
 
 	@DataPoint
 	public static final Object[] ETAG_CONSTRUCTOR = { new GetETag("SomeETag"), "<D:getetag xmlns:D=\"DAV:\">SomeETag</D:getetag>", "SomeETag" };
@@ -68,7 +68,7 @@ public final class GetETagTest extends AbstractJaxbCoreFunctionality<GetETag> {
 	}
 
 	@Test
-	public final void shouldUnmarshalGetETagConstant() throws JAXBException {
+	public final void shouldUnmarshalGETETAGConstant() throws JAXBException {
 		// given
 		final String marshalledForm = "<D:getetag/>";
 

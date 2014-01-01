@@ -57,7 +57,7 @@ public final class ResourceTypeTest extends AbstractJaxbCoreFunctionality<Resour
 	}
 
 	@DataPoint
-	public static final Object[] SINGLETON = { ResourceType.RESOURCETYPE, "<D:resourcetype xmlns:D=\"DAV:\"/>", EMPTY_LIST };
+	public static final Object[] RESOURCETYPE = { ResourceType.RESOURCETYPE, "<D:resourcetype xmlns:D=\"DAV:\"/>", EMPTY_LIST };
 
 	@DataPoint
 	public static final Object[] COLLECTION = { ResourceType.COLLECTION, "<D:resourcetype xmlns:D=\"DAV:\"><D:collection/></D:resourcetype>",

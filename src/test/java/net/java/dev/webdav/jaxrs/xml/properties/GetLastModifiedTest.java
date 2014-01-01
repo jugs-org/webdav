@@ -56,7 +56,7 @@ public final class GetLastModifiedTest extends AbstractJaxbCoreFunctionality<Get
 	}
 
 	@DataPoint
-	public static final Object[] SINGLETON = new Object[] { GetLastModified.GETLASTMODIFIED, "<D:getlastmodified xmlns:D=\"DAV:\"/>", null };
+	public static final Object[] GETLASTMODIFIED = new Object[] { GetLastModified.GETLASTMODIFIED, "<D:getlastmodified xmlns:D=\"DAV:\"/>", null };
 
 	@DataPoint
 	public static final Object[] DATE_CONSTRUCTOR = new Object[] { new GetLastModified(date(2012, 11, 12, 13, 14, 15, 0, "GMT")),
@@ -81,7 +81,7 @@ public final class GetLastModifiedTest extends AbstractJaxbCoreFunctionality<Get
 	}
 
 	@Test
-	public final void shouldUnmarshalGetLastModifiedConstant() throws JAXBException {
+	public final void shouldUnmarshalGETLASTMODIFIEDConstant() throws JAXBException {
 		// given
 		final String marshalledForm = "<D:getlastmodified/>";
 

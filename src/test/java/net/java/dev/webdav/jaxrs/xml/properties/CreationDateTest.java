@@ -56,7 +56,7 @@ public final class CreationDateTest extends AbstractJaxbCoreFunctionality<Creati
 	}
 
 	@DataPoint
-	public static final Object[] SINGLETON = new Object[] { CreationDate.CREATIONDATE, "<D:creationdate xmlns:D=\"DAV:\"/>", null };
+	public static final Object[] CREATIONDATE = new Object[] { CreationDate.CREATIONDATE, "<D:creationdate xmlns:D=\"DAV:\"/>", null };
 
 	@DataPoint
 	public static final Object[] DATE_CONSTRUCTOR = new Object[] { new CreationDate(date(2012, 11, 12, 13, 14, 15, 16, "UTC")),

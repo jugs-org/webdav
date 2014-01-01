@@ -51,7 +51,7 @@ public final class DisplayNameTest extends AbstractJaxbCoreFunctionality<Display
 	}
 
 	@DataPoint
-	public static final Object[] SINGLETON = { DisplayName.DISPLAYNAME, "<D:displayname xmlns:D=\"DAV:\"/>", "" };
+	public static final Object[] DISPLAYNAME = { DisplayName.DISPLAYNAME, "<D:displayname xmlns:D=\"DAV:\"/>", "" };
 
 	@DataPoint
 	public static final Object[] NAME_CONSTRUCTOR = { new DisplayName("SomeName"), "<D:displayname xmlns:D=\"DAV:\">SomeName</D:displayname>", "SomeName" };

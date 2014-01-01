@@ -57,7 +57,7 @@ public final class SupportedLockTest extends AbstractJaxbCoreFunctionality<Suppo
 	}
 
 	@DataPoint
-	public static final Object[] SINGLETON = { SupportedLock.SUPPORTEDLOCK, "<D:supportedlock xmlns:D=\"DAV:\"/>", EMPTY_LIST };
+	public static final Object[] SUPPORTEDLOCK = { SupportedLock.SUPPORTEDLOCK, "<D:supportedlock xmlns:D=\"DAV:\"/>", EMPTY_LIST };
 
 	@DataPoint
 	public static final Object[] LOCKENTRY_CONSTRUCTOR = { new SupportedLock(LOCK_ENTRY), "<D:supportedlock xmlns:D=\"DAV:\"><D:lockentry/></D:supportedlock>",

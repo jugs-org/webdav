@@ -22,15 +22,20 @@
 
 package net.java.dev.webdav.jaxrs.xml.properties;
 
+import static java.lang.String.format;
 import static net.java.dev.webdav.util.DateBuilder.date;
 import static net.java.dev.webdav.util.UnitTestUtilities.assertEffectivelyImmutableDate;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
 
 import java.io.StringReader;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.xml.bind.JAXB;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
@@ -51,7 +56,7 @@ public final class CreationDateTest extends AbstractJaxbCoreFunctionality<Creati
 	}
 
 	@DataPoint
-	public static final Object[] NO_ARGS_CONSTRUCTOR = new Object[] { new CreationDate(), "<D:creationdate xmlns:D=\"DAV:\"/>", null };
+	public static final Object[] SINGLETON = new Object[] { CreationDate.CREATIONDATE, "<D:creationdate xmlns:D=\"DAV:\"/>", null };
 
 	@DataPoint
 	public static final Object[] DATE_CONSTRUCTOR = new Object[] { new CreationDate(date(2012, 11, 12, 13, 14, 15, 16, "UTC")),
@@ -68,5 +73,23 @@ public final class CreationDateTest extends AbstractJaxbCoreFunctionality<Creati
 			IllegalArgumentException, InvocationTargetException {
 		assertEffectivelyImmutableDate(dataPoint[0], "getDateTime");
 		assertEffectivelyImmutableDate(JAXB.unmarshal(new StringReader((String) dataPoint[1]), CreationDate.class), "getDateTime");
+	}
+
+	@XmlRootElement
+	public static class X {
+		public CreationDate creationdate;
+	}
+
+	@Test
+	public final void shouldUnmarshalCREATIONDATEConstant() throws JAXBException {
+		// given
+		final String marshalledForm = "<D:creationdate/>";
+
+		// when
+		final CreationDate unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
+				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).creationdate;
+
+		// then
+		assertThat(unmarshalledInstance, is(sameInstance(CreationDate.CREATIONDATE)));
 	}
 }

@@ -66,4 +66,39 @@ public final class UnitTestUtilities {
 		final Date resultOfSecondCall = (Date) getter.invoke(immutableObject);
 		assertThat(resultOfFirstCall, is(anyOf(immutable(), not(sameInstance(resultOfSecondCall)), nullValue())));
 	}
+
+	/**
+	 * Allows to invoke {@code private} methods.
+	 * 
+	 * @param object
+	 *            The method will be invoked on this instance.
+	 * @param methodName
+	 *            The name of the method to invoke.
+	 * @param parameter
+	 *            The value to pass into the method.
+	 * @throws SecurityException
+	 *             If a security manager, <i>s</i>, is present and any of the following conditions is met:
+	 *             <ul>
+	 *             <li>invocation of {@link SecurityManager#checkMemberAccess s.checkMemberAccess(this, Member.DECLARED)} denies access to the declared method
+	 *             <li>the caller's class loader is not the same as or an ancestor of the class loader for the current class and invocation of
+	 *             {@link SecurityManager#checkPackageAccess s.checkPackageAccess()} denies access to the package of this class
+	 *             </ul>
+	 * @throws NoSuchMethodException
+	 *             if a matching method is not found.
+	 * @throws InvocationTargetException
+	 *             if the underlying method throws an exception.
+	 * @throws IllegalArgumentException
+	 *             if the method is an instance method and the specified object argument is not an instance of the class or interface declaring the underlying
+	 *             method (or of a subclass or implementor thereof); if the number of actual and formal parameters differ; if an unwrapping conversion for
+	 *             primitive arguments fails; or if, after possible unwrapping, a parameter value cannot be converted to the corresponding formal parameter type
+	 *             by a method invocation conversion.
+	 * @throws IllegalAccessException
+	 *             if this {@code Method} object is enforcing Java language access control and the underlying method is inaccessible.
+	 */
+	public static final <T> void invoke(final T object, final String methodName, final Object parameter) throws NoSuchMethodException, SecurityException,
+			IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		final Method method = object.getClass().getDeclaredMethod(methodName, parameter.getClass());
+		method.setAccessible(true);
+		method.invoke(object, parameter);
+	}
 }

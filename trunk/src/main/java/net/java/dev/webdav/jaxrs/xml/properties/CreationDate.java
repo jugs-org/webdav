@@ -83,7 +83,7 @@ public final class CreationDate {
 
 	@SuppressWarnings("unused")
 	private final void setXmlDateTime(final String rfc3339DateTime) throws ParseException {
-		this.dateTime = rfc3339DateTime == null ? null : new Rfc3339DateTimeFormat().parse(rfc3339DateTime);
+		this.dateTime = rfc3339DateTime == null || rfc3339DateTime.isEmpty() ? null : new Rfc3339DateTimeFormat().parse(rfc3339DateTime);
 	}
 
 	@Override

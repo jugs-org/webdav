@@ -86,6 +86,9 @@ public final class Rfc3339DateTimeFormat extends SimpleDateFormat {
 	}
 
 	private final String ignoreTimeOffsetColon(final String text) throws ParseException {
+		if (text == null || text.isEmpty())
+			throw new ParseException("Cannot parse empty text", 0);
+
 		if (text.charAt(text.length() - 1) == 'Z')
 			return text;
 

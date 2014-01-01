@@ -31,6 +31,7 @@ import java.text.ParseException;
 import net.java.dev.webdav.jaxrs.xml.elements.Rfc3339DateTimeFormat;
 import net.java.dev.webdav.jaxrs.xml.properties.CreationDate;
 import net.java.dev.webdav.jaxrs.xml.properties.GetContentLength;
+import net.java.dev.webdav.jaxrs.xml.properties.GetLastModified;
 import net.java.dev.webdav.util.UnitTestUtilities;
 import net.java.dev.webdav.util.Utilities;
 
@@ -63,8 +64,8 @@ public final class Bug32Test {
 	 * treat this like {@code null}.
 	 */
 	@Test
-	public final void shouldSetNullWhenProvidedEmptyString() throws ParseException, NoSuchMethodException, SecurityException, IllegalAccessException,
-			IllegalArgumentException, InvocationTargetException {
+	public final void shouldSetNullWhenProvidedEmptyValueToCreationDate() throws ParseException, NoSuchMethodException, SecurityException,
+			IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		// given
 		final CreationDate creationDate = Utilities.buildInstanceOf(CreationDate.class);
 
@@ -81,8 +82,8 @@ public final class Bug32Test {
 	 * instead, but the case must simply treat this like {@code null}.
 	 */
 	@Test
-	public final void shouldSetNullWhenProvidedEmptyLong() throws ParseException, NoSuchMethodException, SecurityException, IllegalAccessException,
-			IllegalArgumentException, InvocationTargetException {
+	public final void shouldSetNullWhenProvidedEmptyValueToGetContentLength() throws ParseException, NoSuchMethodException, SecurityException,
+			IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		// given
 		final GetContentLength getContentLength = Utilities.buildInstanceOf(GetContentLength.class);
 
@@ -91,5 +92,23 @@ public final class Bug32Test {
 
 		// then
 		assertThat(getContentLength.getContentLength(), is(0L));
+	}
+
+	/**
+	 * JAXB sometimes provides an empty string instead of null when unmarshalling empty elements. In such case, {@link CreationDate#setXmlDateTime} did not
+	 * detect the empty string, but forwarded it to the parser, leading to an exception. Actually no exception must happen instead, but the case must simply
+	 * treat this like {@code null}.
+	 */
+	@Test
+	public final void shouldSetNullWhenProvidedEmptyValueToGetLastModified() throws ParseException, NoSuchMethodException, SecurityException,
+			IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		// given
+		final GetLastModified getLastModified = Utilities.buildInstanceOf(GetLastModified.class);
+
+		// when
+		UnitTestUtilities.invoke(getLastModified, "setXmlValue", "");
+
+		// then
+		assertThat(getLastModified.getDateTime(), is(nullValue()));
 	}
 }

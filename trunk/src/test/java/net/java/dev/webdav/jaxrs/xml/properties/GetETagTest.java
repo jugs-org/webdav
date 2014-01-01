@@ -22,13 +22,22 @@
 
 package net.java.dev.webdav.jaxrs.xml.properties;
 
+import static java.lang.String.format;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
+
+import java.io.StringReader;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 
 import org.junit.Test;
-import org.junit.experimental.theories.DataPoints;
+import org.junit.experimental.theories.DataPoint;
 
 /**
  * Unit test for {@link GetETag}
@@ -41,13 +50,33 @@ public final class GetETagTest extends AbstractJaxbCoreFunctionality<GetETag> {
 		new GetETag(null);
 	}
 
-	@DataPoints
-	public static final Object[][] DATA_POINT = { { new GetETag(), "<D:getetag xmlns:D=\"DAV:\"/>", "" },
-			{ new GetETag("SomeETag"), "<D:getetag xmlns:D=\"DAV:\">SomeETag</D:getetag>", "SomeETag" } };
+	@DataPoint
+	public static final Object[] SINGLETON = { GetETag.GETETAG, "<D:getetag xmlns:D=\"DAV:\"/>", "" };
+
+	@DataPoint
+	public static final Object[] ETAG_CONSTRUCTOR = { new GetETag("SomeETag"), "<D:getetag xmlns:D=\"DAV:\">SomeETag</D:getetag>", "SomeETag" };
 
 	@Override
 	protected final void assertThatGettersProvideExpectedValues(final GetETag actual, final GetETag expected, final Object[] dataPoint) {
 		assertThat(actual.getEntityTag(), is(dataPoint[2]));
 		assertThat(expected.getEntityTag(), is(dataPoint[2]));
+	}
+
+	@XmlRootElement
+	public static class X {
+		public GetETag getetag;
+	}
+
+	@Test
+	public final void shouldUnmarshalGetETagConstant() throws JAXBException {
+		// given
+		final String marshalledForm = "<D:getetag/>";
+
+		// when
+		final GetETag unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
+				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).getetag;
+
+		// then
+		assertThat(unmarshalledInstance, is(sameInstance(GetETag.GETETAG)));
 	}
 }

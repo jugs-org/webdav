@@ -22,13 +22,22 @@
 
 package net.java.dev.webdav.jaxrs.xml.properties;
 
+import static java.lang.String.format;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
+
+import java.io.StringReader;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 
 import org.junit.Test;
-import org.junit.experimental.theories.DataPoints;
+import org.junit.experimental.theories.DataPoint;
 
 /**
  * Unit test for {@link GetContentLanguage}
@@ -41,13 +50,34 @@ public final class GetContentLanguageTest extends AbstractJaxbCoreFunctionality<
 		new GetContentLanguage(null);
 	}
 
-	@DataPoints
-	public static final Object[][] DATA_POINT = { { new GetContentLanguage(), "<D:getcontentlanguage xmlns:D=\"DAV:\"/>", "" },
-			{ new GetContentLanguage("SomeLanguageTag"), "<D:getcontentlanguage xmlns:D=\"DAV:\">SomeLanguageTag</D:getcontentlanguage>", "SomeLanguageTag" } };
+	@DataPoint
+	public static final Object[] SINGLETON = { GetContentLanguage.GETCONTENTLANGUAGE, "<D:getcontentlanguage xmlns:D=\"DAV:\"/>", "" };
+
+	@DataPoint
+	public static final Object[] LANGUAGETAG_CONSTRUCTOR = { new GetContentLanguage("SomeLanguageTag"),
+			"<D:getcontentlanguage xmlns:D=\"DAV:\">SomeLanguageTag</D:getcontentlanguage>", "SomeLanguageTag" };
 
 	@Override
 	protected final void assertThatGettersProvideExpectedValues(final GetContentLanguage actual, final GetContentLanguage expected, final Object[] dataPoint) {
 		assertThat(actual.getLanguageTag(), is(dataPoint[2]));
 		assertThat(expected.getLanguageTag(), is(dataPoint[2]));
+	}
+
+	@XmlRootElement
+	public static class X {
+		public GetContentLanguage getcontentlanguage;
+	}
+
+	@Test
+	public final void shouldUnmarshalCREATIONDATEConstant() throws JAXBException {
+		// given
+		final String marshalledForm = "<D:getcontentlanguage/>";
+
+		// when
+		final GetContentLanguage unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
+				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).getcontentlanguage;
+
+		// then
+		assertThat(unmarshalledInstance, is(sameInstance(GetContentLanguage.GETCONTENTLANGUAGE)));
 	}
 }

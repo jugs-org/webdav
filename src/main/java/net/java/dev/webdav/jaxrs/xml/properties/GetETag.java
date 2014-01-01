@@ -22,9 +22,15 @@
 
 package net.java.dev.webdav.jaxrs.xml.properties;
 
+import static java.util.Collections.singleton;
+
+import java.util.Collection;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import net.java.dev.webdav.jaxrs.ConstantsAdapter;
 import net.java.dev.webdav.jaxrs.NullArgumentException;
 
 /**
@@ -35,16 +41,23 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
  * @see <a href="http://www.webdav.org/specs/rfc4918.html#PROPERTY_getetag">Chapter 15.6 "getetag Property" of RFC 4918
  *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
+@XmlJavaTypeAdapter(GetETag.Adapter.class)
 @XmlRootElement(name = "getetag")
 public final class GetETag {
+	/**
+	 * Singleton empty instance for use as property name only, providing improved performance and the ability to compare by <em>same</em> instance.
+	 * 
+	 * @since 1.2
+	 */
+	public static final GetETag GETETAG = new GetETag();
 
 	@XmlValue
 	private final String entityTag;
 
 	/**
-	 * Creates an empty (thus <em>invalid</em>) instance. Use <em>only</em> to list property name within response to &lt;propname/&gt; request. Not to be used
-	 * for creation of valid instances of this property; use {@link #GetETag(String)} instead.
+	 * @deprecated Since 1.2. Use {@link #GETETAG} instead to obtain a singleton empty instance. In future releases this will have {@code private} visibility.
 	 */
+	@Deprecated
 	public GetETag() {
 		this.entityTag = "";
 	}
@@ -73,5 +86,17 @@ public final class GetETag {
 	@Override
 	public final int hashCode() {
 		return this.entityTag.hashCode();
+	}
+
+	/**
+	 * Guarantees that any unmarshalled enum constants effectively are the constant Java instances itself, so that {@code ==} can be used form comparison.
+	 * 
+	 * @since 1.2
+	 */
+	protected static final class Adapter extends ConstantsAdapter<GetETag> {
+		@Override
+		protected final Collection<GetETag> getConstants() {
+			return singleton(GETETAG);
+		}
 	}
 }

@@ -22,10 +22,18 @@
 
 package net.java.dev.webdav.jaxrs.xml.properties;
 
+import static java.util.Collections.singleton;
+import static javax.xml.bind.annotation.XmlAccessType.NONE;
 import static net.java.dev.webdav.util.Utilities.sameOrEqual;
 
+import java.util.Collection;
+
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import net.java.dev.webdav.jaxrs.ConstantsAdapter;
 
 /**
  * WebDAV getcontentlength Property.
@@ -35,18 +43,36 @@ import javax.xml.bind.annotation.XmlValue;
  * @see <a href="http://www.webdav.org/specs/rfc4918.html#PROPERTY_getcontentlength">Chapter 15.4 "getcontentlength Property" of RFC 4918
  *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
+@XmlAccessorType(NONE)
+@XmlJavaTypeAdapter(GetContentLength.Adapter.class)
 @XmlRootElement(name = "getcontentlength")
 public final class GetContentLength {
+	/**
+	 * Singleton empty instance for use as property name only, providing improved performance and the ability to compare by <em>same</em> instance.
+	 * 
+	 * @since 1.2
+	 */
+	public static final GetContentLength GETCONTENTLENGTH = new GetContentLength();
 
-	@XmlValue
 	private Long contentLength;
 
+	@SuppressWarnings("unused")
+	private final String getXmlValue() {
+		return this.contentLength == null ? null : Long.toString(this.contentLength);
+	}
+
+	@XmlValue
+	private final void setXmlValue(final String xmlValue) {
+		this.contentLength = xmlValue == null || xmlValue.isEmpty() ? null : Long.parseLong(xmlValue);
+	}
+
 	/**
-	 * Creates an empty (thus <em>invalid</em>) instance. Use <em>only</em> to list property name within response to &lt;propname/&gt; request. Not to be used
-	 * for creation of valid instances of this property; use {@link #GetContentLength(long)} instead.
+	 * @deprecated Since 1.2. Use {@link #GETCONTENTLENGTH} instead to obtain a singleton empty instance. In future releases this will have {@code private}
+	 *             visibility.
 	 */
+	@Deprecated
 	public GetContentLength() {
-		// Has no members.
+		// For unmarshalling only
 	}
 
 	public GetContentLength(final long contentLength) {
@@ -79,5 +105,17 @@ public final class GetContentLength {
 	@Override
 	public final int hashCode() {
 		return this.contentLength == null ? 0 : this.contentLength.hashCode();
+	}
+
+	/**
+	 * Guarantees that any unmarshalled enum constants effectively are the constant Java instances itself, so that {@code ==} can be used form comparison.
+	 * 
+	 * @since 1.2
+	 */
+	protected static final class Adapter extends ConstantsAdapter<GetContentLength> {
+		@Override
+		protected final Collection<GetContentLength> getConstants() {
+			return singleton(GETCONTENTLENGTH);
+		}
 	}
 }

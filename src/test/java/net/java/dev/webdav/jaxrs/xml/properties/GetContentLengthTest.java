@@ -22,11 +22,22 @@
 
 package net.java.dev.webdav.jaxrs.xml.properties;
 
+import static java.lang.String.format;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
+
+import java.io.StringReader;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 
-import org.junit.experimental.theories.DataPoints;
+import org.junit.Test;
+import org.junit.experimental.theories.DataPoint;
 
 /**
  * Unit test for {@link GetContentLength}
@@ -34,9 +45,11 @@ import org.junit.experimental.theories.DataPoints;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class GetContentLengthTest extends AbstractJaxbCoreFunctionality<GetContentLength> {
-	@DataPoints
-	public static final Object[][] DATA_POINT = { { new GetContentLength(), "<D:getcontentlength xmlns:D=\"DAV:\"/>", 0L },
-			{ new GetContentLength(123L), "<D:getcontentlength xmlns:D=\"DAV:\">123</D:getcontentlength>", 123L } };
+	@DataPoint
+	public static final Object[] SINGLETON = { GetContentLength.GETCONTENTLENGTH, "<D:getcontentlength xmlns:D=\"DAV:\"/>", 0L };
+
+	@DataPoint
+	public static final Object[] DATA_POINT = { new GetContentLength(123L), "<D:getcontentlength xmlns:D=\"DAV:\">123</D:getcontentlength>", 123L };
 
 	@SuppressWarnings("deprecation")
 	// 'getLanguageTag' is still supported!
@@ -46,5 +59,23 @@ public final class GetContentLengthTest extends AbstractJaxbCoreFunctionality<Ge
 		assertThat(expected.getContentLength(), is(dataPoint[2]));
 		assertThat(actual.getLanguageTag(), is(dataPoint[2]));
 		assertThat(expected.getLanguageTag(), is(dataPoint[2]));
+	}
+
+	@XmlRootElement
+	public static class X {
+		public GetContentLength getcontentlength;
+	}
+
+	@Test
+	public final void shouldUnmarshalGETCONTENTLENGTHConstant() throws JAXBException {
+		// given
+		final String marshalledForm = "<D:getcontentlength/>";
+
+		// when
+		final GetContentLength unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
+				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).getcontentlength;
+
+		// then
+		assertThat(unmarshalledInstance, is(sameInstance(GetContentLength.GETCONTENTLENGTH)));
 	}
 }

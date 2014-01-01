@@ -30,6 +30,7 @@ import java.text.ParseException;
 
 import net.java.dev.webdav.jaxrs.xml.elements.Rfc3339DateTimeFormat;
 import net.java.dev.webdav.jaxrs.xml.properties.CreationDate;
+import net.java.dev.webdav.jaxrs.xml.properties.GetContentLength;
 import net.java.dev.webdav.util.UnitTestUtilities;
 import net.java.dev.webdav.util.Utilities;
 
@@ -68,9 +69,27 @@ public final class Bug32Test {
 		final CreationDate creationDate = Utilities.buildInstanceOf(CreationDate.class);
 
 		// when
-		UnitTestUtilities.invoke(creationDate, "setXmlDateTime", "");
+		UnitTestUtilities.invoke(creationDate, "setXmlValue", "");
 
 		// then
 		assertThat(creationDate.getDateTime(), is(nullValue()));
+	}
+
+	/**
+	 * JAXB sometimes provides an empty string instead of null when unmarshalling empty elements. In such case, {@link GetContentLength#setXmlDateTime} did not
+	 * detect the empty string, but forwarded it to the {@link Long} parser, leading to an exception internally of JAXB. Actually no exception must happen
+	 * instead, but the case must simply treat this like {@code null}.
+	 */
+	@Test
+	public final void shouldSetNullWhenProvidedEmptyLong() throws ParseException, NoSuchMethodException, SecurityException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException {
+		// given
+		final GetContentLength getContentLength = Utilities.buildInstanceOf(GetContentLength.class);
+
+		// when
+		UnitTestUtilities.invoke(getContentLength, "setXmlValue", "");
+
+		// then
+		assertThat(getContentLength.getContentLength(), is(0L));
 	}
 }

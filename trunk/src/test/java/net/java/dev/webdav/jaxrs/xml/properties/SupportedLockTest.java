@@ -22,17 +22,26 @@
 
 package net.java.dev.webdav.jaxrs.xml.properties;
 
+import static java.lang.String.format;
 import static java.util.Arrays.asList;
 import static java.util.Collections.EMPTY_LIST;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
+
+import java.io.StringReader;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 import net.java.dev.webdav.jaxrs.xml.elements.LockEntry;
 import net.java.dev.webdav.util.Utilities;
 
 import org.junit.Test;
-import org.junit.experimental.theories.DataPoints;
+import org.junit.experimental.theories.DataPoint;
 
 /**
  * Unit test for {@link SupportedLock}
@@ -47,13 +56,34 @@ public final class SupportedLockTest extends AbstractJaxbCoreFunctionality<Suppo
 		new SupportedLock((LockEntry[]) null);
 	}
 
-	@DataPoints
-	public static final Object[][] DATA_POINT = { { new SupportedLock(), "<D:supportedlock xmlns:D=\"DAV:\"/>", EMPTY_LIST },
-			{ new SupportedLock(LOCK_ENTRY), "<D:supportedlock xmlns:D=\"DAV:\"><D:lockentry/></D:supportedlock>", asList(LOCK_ENTRY) } };
+	@DataPoint
+	public static final Object[] SINGLETON = { SupportedLock.SUPPORTEDLOCK, "<D:supportedlock xmlns:D=\"DAV:\"/>", EMPTY_LIST };
+
+	@DataPoint
+	public static final Object[] LOCKENTRY_CONSTRUCTOR = { new SupportedLock(LOCK_ENTRY), "<D:supportedlock xmlns:D=\"DAV:\"><D:lockentry/></D:supportedlock>",
+			asList(LOCK_ENTRY) };
 
 	@Override
 	protected final void assertThatGettersProvideExpectedValues(final SupportedLock actual, final SupportedLock expected, final Object[] dataPoint) {
 		assertThat(actual.getLockEntries(), is(dataPoint[2]));
 		assertThat(expected.getLockEntries(), is(dataPoint[2]));
+	}
+
+	@XmlRootElement
+	public static class X {
+		public SupportedLock supportedlock;
+	}
+
+	@Test
+	public final void shouldUnmarshalSUPPORTEDLOCKConstant() throws JAXBException {
+		// given
+		final String marshalledForm = "<D:supportedlock/>";
+
+		// when
+		final SupportedLock unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
+				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).supportedlock;
+
+		// then
+		assertThat(unmarshalledInstance, is(sameInstance(SupportedLock.SUPPORTEDLOCK)));
 	}
 }

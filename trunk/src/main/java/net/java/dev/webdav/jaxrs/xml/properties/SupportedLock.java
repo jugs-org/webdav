@@ -23,13 +23,17 @@
 package net.java.dev.webdav.jaxrs.xml.properties;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.singleton;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import net.java.dev.webdav.jaxrs.ConstantsAdapter;
 import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.elements.LockEntry;
 
@@ -41,12 +45,24 @@ import net.java.dev.webdav.jaxrs.xml.elements.LockEntry;
  * @see <a href="http://www.webdav.org/specs/rfc4918.html#PROPERTY_supportedlock">Chapter 15.10 "supportedlock Property" of RFC 4918
  *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
+@XmlJavaTypeAdapter(SupportedLock.Adapter.class)
 @XmlRootElement(name = "supportedlock")
 public final class SupportedLock {
+	/**
+	 * Singleton empty instance for use as property name only, providing improved performance and the ability to compare by <em>same</em> instance.
+	 * 
+	 * @since 1.2
+	 */
+	public static final SupportedLock SUPPORTEDLOCK = new SupportedLock();
 
 	@XmlElement(name = "lockentry")
 	private LinkedList<LockEntry> lockEntries;
 
+	/**
+	 * @deprecated Since 1.2. Use {@link #SUPPORTEDLOCK} instead to obtain a singleton empty instance. In future releases this will have {@code private}
+	 *             visibility.
+	 */
+	@Deprecated
 	public SupportedLock() {
 		this.lockEntries = new LinkedList<LockEntry>();
 	}
@@ -76,5 +92,17 @@ public final class SupportedLock {
 		final SupportedLock that = (SupportedLock) other;
 
 		return this.lockEntries.equals(that.lockEntries);
+	}
+
+	/**
+	 * Guarantees that any unmarshalled enum constants effectively are the constant Java instances itself, so that {@code ==} can be used form comparison.
+	 * 
+	 * @since 1.2
+	 */
+	protected static final class Adapter extends ConstantsAdapter<SupportedLock> {
+		@Override
+		protected final Collection<SupportedLock> getConstants() {
+			return singleton(SUPPORTEDLOCK);
+		}
 	}
 }

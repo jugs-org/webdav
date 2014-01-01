@@ -22,12 +22,17 @@
 
 package net.java.dev.webdav.jaxrs.xml.properties;
 
+import static java.util.Collections.singleton;
+
 import java.text.ParseException;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import net.java.dev.webdav.jaxrs.ConstantsAdapter;
 import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.elements.Rfc1123DateFormat;
 
@@ -39,17 +44,25 @@ import net.java.dev.webdav.jaxrs.xml.elements.Rfc1123DateFormat;
  * @see <a href="http://www.webdav.org/specs/rfc4918.html#PROPERTY_getlastmodified">Chapter 15.7 "getlastmodified Property" of RFC 4918
  *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
+@XmlJavaTypeAdapter(GetLastModified.Adapter.class)
 @XmlRootElement(name = "getlastmodified")
 public final class GetLastModified {
+	/**
+	 * Singleton empty instance for use as property name only, providing improved performance and the ability to compare by <em>same</em> instance.
+	 * 
+	 * @since 1.2
+	 */
+	public static final GetLastModified GETLASTMODIFIED = new GetLastModified();
 
 	private Date dateTime;
 
 	/**
-	 * Creates an empty (thus <em>invalid</em>) instance. Use <em>only</em> to list property name within response to &lt;propname/&gt; request. Not to be used
-	 * for creation of valid instances of this property; use {@link #GetLastModified(Date)} instead.
+	 * @deprecated Since 1.2. Use {@link #GETLASTMODIFIED} instead to obtain a singleton empty instance. In future releases this will have {@code private}
+	 *             visibility.
 	 */
+	@Deprecated
 	public GetLastModified() {
-		// Keeping defaults by intention.
+		// For unmarshalling only.
 	}
 
 	public GetLastModified(final Date dateTime) {
@@ -64,13 +77,13 @@ public final class GetLastModified {
 	}
 
 	@XmlValue
-	private final String getXmlDateTime() {
+	private final String getXmlValue() {
 		return this.dateTime == null ? null : new Rfc1123DateFormat().format(this.dateTime);
 	}
 
 	@SuppressWarnings("unused")
-	private final void setXmlDateTime(final String rfc1123DateTime) throws ParseException {
-		this.dateTime = rfc1123DateTime == null ? null : new Rfc1123DateFormat().parse(rfc1123DateTime);
+	private final void setXmlValue(final String xmlValue) throws ParseException {
+		this.dateTime = xmlValue == null || xmlValue.isEmpty() ? null : new Rfc1123DateFormat().parse(xmlValue);
 	}
 
 	@Override
@@ -86,5 +99,17 @@ public final class GetLastModified {
 	@Override
 	public final int hashCode() {
 		return this.dateTime == null ? 0 : this.dateTime.hashCode();
+	}
+
+	/**
+	 * Guarantees that any unmarshalled enum constants effectively are the constant Java instances itself, so that {@code ==} can be used form comparison.
+	 * 
+	 * @since 1.2
+	 */
+	protected static final class Adapter extends ConstantsAdapter<GetLastModified> {
+		@Override
+		protected final Collection<GetLastModified> getConstants() {
+			return singleton(GETLASTMODIFIED);
+		}
 	}
 }

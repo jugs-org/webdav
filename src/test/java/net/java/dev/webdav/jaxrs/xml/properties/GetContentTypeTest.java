@@ -22,13 +22,22 @@
 
 package net.java.dev.webdav.jaxrs.xml.properties;
 
+import static java.lang.String.format;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
+
+import java.io.StringReader;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 
 import org.junit.Test;
-import org.junit.experimental.theories.DataPoints;
+import org.junit.experimental.theories.DataPoint;
 
 /**
  * Unit test for {@link GetContentType}
@@ -41,13 +50,34 @@ public final class GetContentTypeTest extends AbstractJaxbCoreFunctionality<GetC
 		new GetContentType(null);
 	}
 
-	@DataPoints
-	public static final Object[][] DATA_POINT = { { new GetContentType(), "<D:getcontenttype xmlns:D=\"DAV:\"/>", "" },
-			{ new GetContentType("SomeMediaType"), "<D:getcontenttype xmlns:D=\"DAV:\">SomeMediaType</D:getcontenttype>", "SomeMediaType" } };
+	@DataPoint
+	public static final Object[] SINGLETON = { GetContentType.GETCONTENTTYPE, "<D:getcontenttype xmlns:D=\"DAV:\"/>", "" };
+
+	@DataPoint
+	public static final Object[] MEDIATYPE_CONSTRUCTOR = { new GetContentType("SomeMediaType"),
+			"<D:getcontenttype xmlns:D=\"DAV:\">SomeMediaType</D:getcontenttype>", "SomeMediaType" };
 
 	@Override
 	protected final void assertThatGettersProvideExpectedValues(final GetContentType actual, final GetContentType expected, final Object[] dataPoint) {
 		assertThat(actual.getMediaType(), is(dataPoint[2]));
 		assertThat(expected.getMediaType(), is(dataPoint[2]));
+	}
+
+	@XmlRootElement
+	public static class X {
+		public GetContentType getcontenttype;
+	}
+
+	@Test
+	public final void shouldUnmarshalGETCONTENTTYPEConstant() throws JAXBException {
+		// given
+		final String marshalledForm = "<D:getcontenttype/>";
+
+		// when
+		final GetContentType unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
+				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).getcontenttype;
+
+		// then
+		assertThat(unmarshalledInstance, is(sameInstance(GetContentType.GETCONTENTTYPE)));
 	}
 }

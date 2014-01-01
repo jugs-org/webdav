@@ -22,17 +22,26 @@
 
 package net.java.dev.webdav.jaxrs.xml.properties;
 
+import static java.lang.String.format;
 import static java.util.Arrays.asList;
 import static java.util.Collections.EMPTY_LIST;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
+
+import java.io.StringReader;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 import net.java.dev.webdav.jaxrs.xml.elements.Collection;
 import net.java.dev.webdav.util.Utilities;
 
 import org.junit.Test;
-import org.junit.experimental.theories.DataPoints;
+import org.junit.experimental.theories.DataPoint;
 
 /**
  * Unit test for {@link ResourceType}
@@ -47,14 +56,51 @@ public final class ResourceTypeTest extends AbstractJaxbCoreFunctionality<Resour
 		new ResourceType((Object[]) null);
 	}
 
-	@DataPoints
-	public static final Object[][] DATA_POINT = { { new ResourceType(), "<D:resourcetype xmlns:D=\"DAV:\"/>", EMPTY_LIST },
-			{ new ResourceType(RESOURCE_TYPE), "<D:resourcetype xmlns:D=\"DAV:\"><D:collection/></D:resourcetype>", asList(RESOURCE_TYPE) },
-			{ ResourceType.COLLECTION, "<D:resourcetype xmlns:D=\"DAV:\"><D:collection/></D:resourcetype>", asList(RESOURCE_TYPE) } };
+	@DataPoint
+	public static final Object[] SINGLETON = { ResourceType.RESOURCETYPE, "<D:resourcetype xmlns:D=\"DAV:\"/>", EMPTY_LIST };
+
+	@DataPoint
+	public static final Object[] COLLECTION = { ResourceType.COLLECTION, "<D:resourcetype xmlns:D=\"DAV:\"><D:collection/></D:resourcetype>",
+			asList(RESOURCE_TYPE) };
+
+	@DataPoint
+	public static final Object[] RESOURCETYPE_CONSTRUCTOR = { new ResourceType(RESOURCE_TYPE),
+			"<D:resourcetype xmlns:D=\"DAV:\"><D:collection/></D:resourcetype>", asList(RESOURCE_TYPE) };
 
 	@Override
 	protected final void assertThatGettersProvideExpectedValues(final ResourceType actual, final ResourceType expected, final Object[] dataPoint) {
 		assertThat(actual.getResourceTypes(), is(dataPoint[2]));
 		assertThat(expected.getResourceTypes(), is(dataPoint[2]));
+	}
+
+	@XmlRootElement
+	public static class X {
+		public ResourceType resourcetype;
+	}
+
+	@Test
+	public final void shouldUnmarshalRESOURCETYPEConstant() throws JAXBException {
+		// given
+		final String marshalledForm = "<D:resourcetype/>";
+
+		// when
+		final ResourceType unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
+				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).resourcetype;
+
+		// then
+		assertThat(unmarshalledInstance, is(sameInstance(ResourceType.RESOURCETYPE)));
+	}
+
+	@Test
+	public final void shouldUnmarshalCOLLECTIONConstant() throws JAXBException {
+		// given
+		final String marshalledForm = "<D:resourcetype><D:collection/></D:resourcetype>";
+
+		// when
+		final ResourceType unmarshalledInstance = ((X) JAXBContext.newInstance(X.class, Collection.class).createUnmarshaller()
+				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).resourcetype;
+
+		// then
+		assertThat(unmarshalledInstance, is(sameInstance(ResourceType.COLLECTION)));
 	}
 }

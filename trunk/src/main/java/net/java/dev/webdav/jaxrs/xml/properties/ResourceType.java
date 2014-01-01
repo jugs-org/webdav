@@ -22,13 +22,16 @@
 
 package net.java.dev.webdav.jaxrs.xml.properties;
 
-import java.util.Arrays;
+import static java.util.Arrays.asList;
+
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import net.java.dev.webdav.jaxrs.ConstantsAdapter;
 import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.elements.Collection;
 
@@ -40,18 +43,26 @@ import net.java.dev.webdav.jaxrs.xml.elements.Collection;
  * @see <a href="http://www.webdav.org/specs/rfc4918.html#PROPERTY_resourcetype">Chapter 15.9 "resourcetype Property" of RFC 4918
  *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
+@XmlJavaTypeAdapter(ResourceType.Adapter.class)
 @XmlRootElement(name = "resourcetype")
 public final class ResourceType {
+	/**
+	 * Singleton empty instance for use as property name only, providing improved performance and the ability to compare by <em>same</em> instance.
+	 * 
+	 * @since 1.2
+	 */
+	public static final ResourceType RESOURCETYPE = new ResourceType();
 
 	@XmlAnyElement(lax = true)
 	private LinkedList<Object> resourceTypes;
 
-	public static final ResourceType COLLECTION = new ResourceType(new Collection());
+	public static final ResourceType COLLECTION = new ResourceType(Collection.COLLECTION);
 
 	/**
-	 * Creates an empty (thus <em>invalid</em>) instance. Use <em>only</em> to list property name within response to &lt;propname/&gt; request. Not to be used
-	 * for creation of valid instances of this property; use {@link #ResourceType(Object...)} instead.
+	 * @deprecated Since 1.2. Use {@link #RESOURCETYPE} instead to obtain a singleton empty instance. In future releases this will have {@code private}
+	 *             visibility.
 	 */
+	@Deprecated
 	public ResourceType() {
 		this.resourceTypes = new LinkedList<Object>();
 	}
@@ -60,7 +71,7 @@ public final class ResourceType {
 		if (resourceTypes == null)
 			throw new NullArgumentException("resourceTypes");
 
-		this.resourceTypes = new LinkedList<Object>(Arrays.asList(resourceTypes));
+		this.resourceTypes = new LinkedList<Object>(asList(resourceTypes));
 	}
 
 	/**
@@ -90,5 +101,17 @@ public final class ResourceType {
 		final ResourceType that = (ResourceType) other;
 
 		return this.resourceTypes.equals(that.resourceTypes);
+	}
+
+	/**
+	 * Guarantees that any unmarshalled enum constants effectively are the constant Java instances itself, so that {@code ==} can be used form comparison.
+	 * 
+	 * @since 1.2
+	 */
+	protected static final class Adapter extends ConstantsAdapter<ResourceType> {
+		@Override
+		protected final java.util.Collection<ResourceType> getConstants() {
+			return asList(RESOURCETYPE, COLLECTION);
+		}
 	}
 }

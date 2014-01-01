@@ -22,13 +22,22 @@
 
 package net.java.dev.webdav.jaxrs.xml.properties;
 
+import static java.lang.String.format;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
+
+import java.io.StringReader;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 
 import org.junit.Test;
-import org.junit.experimental.theories.DataPoints;
+import org.junit.experimental.theories.DataPoint;
 
 /**
  * Unit test for {@link DisplayName}
@@ -41,13 +50,33 @@ public final class DisplayNameTest extends AbstractJaxbCoreFunctionality<Display
 		new DisplayName(null);
 	}
 
-	@DataPoints
-	public static final Object[][] DATA_POINT = { { new DisplayName(), "<D:displayname xmlns:D=\"DAV:\"/>", "" },
-			{ new DisplayName("SomeName"), "<D:displayname xmlns:D=\"DAV:\">SomeName</D:displayname>", "SomeName" } };
+	@DataPoint
+	public static final Object[] SINGLETON = { DisplayName.DISPLAYNAME, "<D:displayname xmlns:D=\"DAV:\"/>", "" };
+
+	@DataPoint
+	public static final Object[] NAME_CONSTRUCTOR = { new DisplayName("SomeName"), "<D:displayname xmlns:D=\"DAV:\">SomeName</D:displayname>", "SomeName" };
 
 	@Override
 	protected final void assertThatGettersProvideExpectedValues(final DisplayName actual, final DisplayName expected, final Object[] dataPoint) {
 		assertThat(actual.getName(), is(dataPoint[2]));
 		assertThat(expected.getName(), is(dataPoint[2]));
+	}
+
+	@XmlRootElement
+	public static class X {
+		public DisplayName displayname;
+	}
+
+	@Test
+	public final void shouldUnmarshalDISPLAYNAMEConstant() throws JAXBException {
+		// given
+		final String marshalledForm = "<D:displayname/>";
+
+		// when
+		final DisplayName unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
+				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).displayname;
+
+		// then
+		assertThat(unmarshalledInstance, is(sameInstance(DisplayName.DISPLAYNAME)));
 	}
 }

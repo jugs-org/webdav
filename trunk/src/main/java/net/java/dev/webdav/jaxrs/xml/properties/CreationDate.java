@@ -77,13 +77,13 @@ public final class CreationDate {
 	}
 
 	@XmlValue
-	private final String getXmlDateTime() {
+	private final String getXmlValue() {
 		return this.dateTime == null ? null : new Rfc3339DateTimeFormat().format(this.dateTime);
 	}
 
 	@SuppressWarnings("unused")
-	private final void setXmlDateTime(final String rfc3339DateTime) throws ParseException {
-		this.dateTime = rfc3339DateTime == null || rfc3339DateTime.isEmpty() ? null : new Rfc3339DateTimeFormat().parse(rfc3339DateTime);
+	private final void setXmlValue(final String xmlValue) throws ParseException {
+		this.dateTime = xmlValue == null || xmlValue.isEmpty() ? null : new Rfc3339DateTimeFormat().parse(xmlValue);
 	}
 
 	@Override

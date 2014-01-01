@@ -2,7 +2,7 @@
  * #%L
  * WebDAV Support for JAX-RS
  * %%
- * Copyright (C) 2008 - 2014 The java.net WebDAV Project
+ * Copyright (C) 2008 - 2013 The java.net WebDAV Project
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -22,9 +22,15 @@
 
 package net.java.dev.webdav.jaxrs.xml.properties;
 
+import static java.util.Collections.singleton;
+
+import java.util.Collection;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import net.java.dev.webdav.jaxrs.ConstantsAdapter;
 import net.java.dev.webdav.jaxrs.NullArgumentException;
 
 /**
@@ -35,16 +41,24 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
  * @see <a href="http://www.webdav.org/specs/rfc4918.html#PROPERTY_displayname">Chapter 15.2 "displayname Property" of RFC 4918
  *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
+@XmlJavaTypeAdapter(DisplayName.Adapter.class)
 @XmlRootElement(name = "displayname")
 public final class DisplayName {
+	/**
+	 * Singleton empty instance for use as property name only, providing improved performance and the ability to compare by <em>same</em> instance.
+	 * 
+	 * @since 1.2
+	 */
+	public static final DisplayName DISPLAYNAME = new DisplayName();
 
 	@XmlValue
 	private final String name;
 
 	/**
-	 * Creates an empty (thus <em>invalid</em>) instance. Use <em>only</em> to list property name within response to &lt;propname/&gt; request. Not to be used
-	 * for creation of valid instances of this property; use {@link #DisplayName(String)} instead.
+	 * @deprecated Since 1.2. Use {@link #DISPLAYNAME} instead to obtain a singleton empty instance. In future releases this will have {@code private}
+	 *             visibility.
 	 */
+	@Deprecated
 	public DisplayName() {
 		this.name = "";
 	}
@@ -73,5 +87,17 @@ public final class DisplayName {
 	@Override
 	public final int hashCode() {
 		return this.name.hashCode();
+	}
+
+	/**
+	 * Guarantees that any unmarshalled enum constants effectively are the constant Java instances itself, so that {@code ==} can be used form comparison.
+	 * 
+	 * @since 1.2
+	 */
+	protected static final class Adapter extends ConstantsAdapter<DisplayName> {
+		@Override
+		protected final Collection<DisplayName> getConstants() {
+			return singleton(DISPLAYNAME);
+		}
 	}
 }

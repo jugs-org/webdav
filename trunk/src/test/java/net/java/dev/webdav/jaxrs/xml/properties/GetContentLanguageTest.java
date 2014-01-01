@@ -51,7 +51,7 @@ public final class GetContentLanguageTest extends AbstractJaxbCoreFunctionality<
 	}
 
 	@DataPoint
-	public static final Object[] SINGLETON = { GetContentLanguage.GETCONTENTLANGUAGE, "<D:getcontentlanguage xmlns:D=\"DAV:\"/>", "" };
+	public static final Object[] GETCONTENTLANGUAGE = { GetContentLanguage.GETCONTENTLANGUAGE, "<D:getcontentlanguage xmlns:D=\"DAV:\"/>", "" };
 
 	@DataPoint
 	public static final Object[] LANGUAGETAG_CONSTRUCTOR = { new GetContentLanguage("SomeLanguageTag"),

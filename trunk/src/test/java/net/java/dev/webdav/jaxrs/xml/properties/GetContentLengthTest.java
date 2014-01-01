@@ -31,7 +31,6 @@ import java.io.StringReader;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
@@ -46,10 +45,10 @@ import org.junit.experimental.theories.DataPoint;
  */
 public final class GetContentLengthTest extends AbstractJaxbCoreFunctionality<GetContentLength> {
 	@DataPoint
-	public static final Object[] SINGLETON = { GetContentLength.GETCONTENTLENGTH, "<D:getcontentlength xmlns:D=\"DAV:\"/>", 0L };
+	public static final Object[] GETCONTENTLENGTH = { GetContentLength.GETCONTENTLENGTH, "<D:getcontentlength xmlns:D=\"DAV:\"/>", 0L };
 
 	@DataPoint
-	public static final Object[] DATA_POINT = { new GetContentLength(123L), "<D:getcontentlength xmlns:D=\"DAV:\">123</D:getcontentlength>", 123L };
+	public static final Object[] LENGTH_CONSTRUCTOR = { new GetContentLength(123L), "<D:getcontentlength xmlns:D=\"DAV:\">123</D:getcontentlength>", 123L };
 
 	@SuppressWarnings("deprecation")
 	// 'getLanguageTag' is still supported!

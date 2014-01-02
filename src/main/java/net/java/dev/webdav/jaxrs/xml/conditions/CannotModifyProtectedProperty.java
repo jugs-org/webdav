@@ -69,6 +69,6 @@ public final class CannotModifyProtectedProperty {
 
 	@Override
 	public final int hashCode() {
-		return 0;
+		return 1;
 	}
 }

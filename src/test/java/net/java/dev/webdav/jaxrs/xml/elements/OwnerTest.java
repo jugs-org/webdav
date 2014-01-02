@@ -54,4 +54,9 @@ public final class OwnerTest extends AbstractJaxbCoreFunctionality<Owner> {
 		assertThat(actual.getAny(), is(dataPoint[2]));
 		assertThat(expected.getAny(), is(dataPoint[2]));
 	}
+
+	@Override
+	protected final Owner getInstance() {
+		return new Owner(ANY);
+	}
 }

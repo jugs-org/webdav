@@ -36,8 +36,8 @@ import org.junit.experimental.theories.DataPoint;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class PropFindTest extends AbstractJaxbCoreFunctionality<PropFind> {
-	private static final PropName PROPNAME = new PropName();
-	private static final AllProp ALLPROP = new AllProp();
+	private static final PropName PROPNAME = PropName.PROPNAME;
+	private static final AllProp ALLPROP = AllProp.ALLPROP;
 	private static final Include INCLUDE = new Include();
 	private static final Prop PROP = new Prop();
 
@@ -80,5 +80,10 @@ public final class PropFindTest extends AbstractJaxbCoreFunctionality<PropFind> 
 		assertThat(expected.getAllProp(), is(dataPoint[3]));
 		assertThat(expected.getInclude(), is(dataPoint[4]));
 		assertThat(expected.getProp(), is(dataPoint[5]));
+	}
+
+	@Override
+	protected final PropFind getInstance() {
+		return new PropFind(ALLPROP);
 	}
 }

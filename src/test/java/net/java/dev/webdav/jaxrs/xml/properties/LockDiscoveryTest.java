@@ -38,6 +38,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 import net.java.dev.webdav.jaxrs.xml.elements.ActiveLock;
+import net.java.dev.webdav.jaxrs.xml.elements.Depth;
+import net.java.dev.webdav.jaxrs.xml.elements.HRef;
+import net.java.dev.webdav.jaxrs.xml.elements.LockRoot;
+import net.java.dev.webdav.jaxrs.xml.elements.LockScope;
+import net.java.dev.webdav.jaxrs.xml.elements.LockToken;
+import net.java.dev.webdav.jaxrs.xml.elements.LockType;
+import net.java.dev.webdav.jaxrs.xml.elements.Owner;
+import net.java.dev.webdav.jaxrs.xml.elements.TimeOut;
 import net.java.dev.webdav.util.Utilities;
 
 import org.junit.Test;
@@ -85,5 +93,11 @@ public final class LockDiscoveryTest extends AbstractJaxbCoreFunctionality<LockD
 
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(LockDiscovery.LOCKDISCOVERY)));
+	}
+
+	@Override
+	protected final LockDiscovery getInstance() {
+		return new LockDiscovery(new ActiveLock(LockScope.SHARED, LockType.WRITE, Depth.ZERO, new Owner(""), TimeOut.INFINITE, new LockToken(new HRef(
+				"http://localhost")), new LockRoot(new HRef("http://localhost"))));
 	}
 }

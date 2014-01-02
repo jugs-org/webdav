@@ -24,6 +24,7 @@ package net.java.dev.webdav.jaxrs.xml.elements;
 
 import static java.util.Collections.singletonList;
 import static java.util.Collections.unmodifiableList;
+import static java.util.Objects.hash;
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 import static net.java.dev.webdav.util.Utilities.append;
 import static net.java.dev.webdav.util.Utilities.notNull;
@@ -83,10 +84,6 @@ public final class Response {
 		this.error = error;
 		this.responseDescription = responseDescription;
 		this.location = location;
-	}
-
-	private Response(final HRef hRef, final Error error, final ResponseDescription responseDescription, final Location location) {
-		this(singletonList(notNull(hRef, "hRef")), null, null, error, responseDescription, location);
 	}
 
 	public Response(final HRef hRef, final Error error, final ResponseDescription responseDescription, final Location location, final PropStat propStat,
@@ -150,5 +147,10 @@ public final class Response {
 		return this.hRefs.equals(that.hRefs) && sameOrEqual(this.status, that.status) && this.propStats.equals(that.propStats)
 				&& sameOrEqual(this.error, that.error) && sameOrEqual(this.responseDescription, that.responseDescription)
 				&& sameOrEqual(this.location, that.location);
+	}
+
+	@Override
+	public final int hashCode() {
+		return hash(this.hRefs, this.status, this.propStats, this.error, this.responseDescription, this.location);
 	}
 }

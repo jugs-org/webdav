@@ -22,6 +22,7 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
+import static java.util.Objects.hash;
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 import static net.java.dev.webdav.util.Utilities.notNull;
 import static net.java.dev.webdav.util.Utilities.sameOrEqual;
@@ -111,5 +112,10 @@ public final class PropFind {
 
 		return sameOrEqual(this.propName, that.propName) && sameOrEqual(this.allProp, that.allProp) && sameOrEqual(this.include, that.include)
 				&& sameOrEqual(this.prop, that.prop);
+	}
+
+	@Override
+	public final int hashCode() {
+		return hash(this.propName, this.allProp, this.include, this.prop);
 	}
 }

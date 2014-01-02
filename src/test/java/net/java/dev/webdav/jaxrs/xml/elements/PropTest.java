@@ -22,11 +22,9 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
+import static java.util.Collections.singletonList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-
-import java.util.Arrays;
-
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 import net.java.dev.webdav.jaxrs.xml.properties.CreationDate;
 
@@ -38,13 +36,19 @@ import org.junit.experimental.theories.DataPoint;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class PropTest extends AbstractJaxbCoreFunctionality<Prop> {
+	private static final CreationDate CREATIONDATE = CreationDate.CREATIONDATE;
+
 	@DataPoint
-	public static final Object[] DATA_POINT = { new Prop(new CreationDate()), "<D:prop xmlns:D=\"DAV:\"><D:creationdate/></D:prop>",
-			Arrays.asList(new CreationDate()) };
+	public static final Object[] DATA_POINT = { new Prop(CREATIONDATE), "<D:prop xmlns:D=\"DAV:\"><D:creationdate/></D:prop>", singletonList(CREATIONDATE) };
 
 	@Override
 	protected final void assertThatGettersProvideExpectedValues(final Prop actual, final Prop expected, final Object[] dataPoint) {
 		assertThat(actual.getProperties(), is(dataPoint[2]));
 		assertThat(expected.getProperties(), is(dataPoint[2]));
+	}
+
+	@Override
+	protected final Prop getInstance() {
+		return new Prop(CREATIONDATE);
 	}
 }

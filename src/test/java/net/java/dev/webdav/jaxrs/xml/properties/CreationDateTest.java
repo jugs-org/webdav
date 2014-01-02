@@ -31,6 +31,7 @@ import static org.junit.Assert.assertThat;
 
 import java.io.StringReader;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
 
 import javax.xml.bind.JAXB;
 import javax.xml.bind.JAXBContext;
@@ -91,5 +92,10 @@ public final class CreationDateTest extends AbstractJaxbCoreFunctionality<Creati
 
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(CreationDate.CREATIONDATE)));
+	}
+
+	@Override
+	protected final CreationDate getInstance() {
+		return new CreationDate(new Date());
 	}
 }

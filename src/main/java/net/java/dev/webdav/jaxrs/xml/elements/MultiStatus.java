@@ -24,6 +24,7 @@ package net.java.dev.webdav.jaxrs.xml.elements;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableList;
+import static java.util.Objects.hash;
 import static net.java.dev.webdav.util.Utilities.sameOrEqual;
 
 import java.util.Collections;
@@ -80,7 +81,7 @@ public final class MultiStatus {
 
 	@Override
 	public final int hashCode() {
-		return this.responses.hashCode() ^ (this.responseDescription == null ? -1 : this.responseDescription.hashCode());
+		return hash(this.responses, this.responseDescription);
 	}
 
 	@Override

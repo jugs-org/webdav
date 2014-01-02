@@ -79,4 +79,9 @@ public final class DisplayNameTest extends AbstractJaxbCoreFunctionality<Display
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(DisplayName.DISPLAYNAME)));
 	}
+
+	@Override
+	protected final DisplayName getInstance() {
+		return new DisplayName("SomeName");
+	}
 }

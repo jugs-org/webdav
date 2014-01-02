@@ -38,6 +38,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 import net.java.dev.webdav.jaxrs.xml.elements.LockEntry;
+import net.java.dev.webdav.jaxrs.xml.elements.LockScope;
+import net.java.dev.webdav.jaxrs.xml.elements.LockType;
 import net.java.dev.webdav.util.Utilities;
 
 import org.junit.Test;
@@ -85,5 +87,10 @@ public final class SupportedLockTest extends AbstractJaxbCoreFunctionality<Suppo
 
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(SupportedLock.SUPPORTEDLOCK)));
+	}
+
+	@Override
+	protected final SupportedLock getInstance() {
+		return new SupportedLock(new LockEntry(LockScope.EXCLUSIVE, LockType.WRITE));
 	}
 }

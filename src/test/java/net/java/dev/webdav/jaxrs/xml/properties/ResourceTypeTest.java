@@ -103,4 +103,9 @@ public final class ResourceTypeTest extends AbstractJaxbCoreFunctionality<Resour
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(ResourceType.COLLECTION)));
 	}
+
+	@Override
+	protected final ResourceType getInstance() {
+		return ResourceType.RESOURCETYPE;
+	}
 }

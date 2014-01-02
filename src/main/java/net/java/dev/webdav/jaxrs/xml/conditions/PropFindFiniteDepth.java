@@ -71,6 +71,6 @@ public final class PropFindFiniteDepth {
 
 	@Override
 	public final int hashCode() {
-		return 0;
+		return 1;
 	}
 }

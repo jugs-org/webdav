@@ -71,6 +71,6 @@ public final class Write {
 
 	@Override
 	public final int hashCode() {
-		return 0;
+		return 1;
 	}
 }

@@ -79,4 +79,8 @@ public final class GetETagTest extends AbstractJaxbCoreFunctionality<GetETag> {
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(GetETag.GETETAG)));
 	}
+	@Override
+	protected final GetETag getInstance() {
+		return new GetETag("ETAG");
+	}
 }

@@ -69,4 +69,9 @@ public final class PropStatTest extends AbstractJaxbCoreFunctionality<PropStat> 
 		assertThat(expected.getError(), is(dataPoint[4]));
 		assertThat(expected.getResponseDescription(), is(dataPoint[5]));
 	}
+
+	@Override
+	protected final PropStat getInstance() {
+		return new PropStat(PROP, STATUS);
+	}
 }

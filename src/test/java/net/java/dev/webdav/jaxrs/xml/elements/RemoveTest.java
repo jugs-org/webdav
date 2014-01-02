@@ -36,8 +36,10 @@ import org.junit.experimental.theories.DataPoint;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class RemoveTest extends AbstractJaxbCoreFunctionality<Remove> {
+	private static final Prop PROP = new Prop();
+
 	@DataPoint
-	public static final Object[] DATA_POINT = { new Remove(new Prop()), "<D:remove xmlns:D=\"DAV:\"><D:prop/></D:remove>", new Prop() };
+	public static final Object[] DATA_POINT = { new Remove(PROP), "<D:remove xmlns:D=\"DAV:\"><D:prop/></D:remove>", PROP };
 
 	@Override
 	protected final void assertThatGettersProvideExpectedValues(final Remove actual, final Remove expected, final Object[] dataPoint) {
@@ -48,5 +50,10 @@ public final class RemoveTest extends AbstractJaxbCoreFunctionality<Remove> {
 	@Test(expected = NullArgumentException.class)
 	public final void constructorDoesNotAcceptNull() {
 		new Remove(null);
+	}
+
+	@Override
+	protected final Remove getInstance() {
+		return new Remove(PROP);
 	}
 }

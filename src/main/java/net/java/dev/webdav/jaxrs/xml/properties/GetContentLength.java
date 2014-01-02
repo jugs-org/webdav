@@ -27,6 +27,7 @@ import static javax.xml.bind.annotation.XmlAccessType.NONE;
 import static net.java.dev.webdav.util.Utilities.sameOrEqual;
 
 import java.util.Collection;
+import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -104,7 +105,7 @@ public final class GetContentLength {
 
 	@Override
 	public final int hashCode() {
-		return this.contentLength == null ? 0 : this.contentLength.hashCode();
+		return Objects.hashCode(this.contentLength);
 	}
 
 	/**

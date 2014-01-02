@@ -52,4 +52,9 @@ public final class LocationTest extends AbstractJaxbCoreFunctionality<Location> 
 		assertThat(actual.getHRef(), is(dataPoint[2]));
 		assertThat(expected.getHRef(), is(dataPoint[2]));
 	}
+
+	@Override
+	protected final Location getInstance() {
+		return new Location(HREF);
+	}
 }

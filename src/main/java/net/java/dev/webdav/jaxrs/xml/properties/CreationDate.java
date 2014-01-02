@@ -28,6 +28,7 @@ import static net.java.dev.webdav.util.Utilities.notNull;
 import java.text.ParseException;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
@@ -95,7 +96,7 @@ public final class CreationDate {
 
 	@Override
 	public final int hashCode() {
-		return this.dateTime == null ? 0 : this.dateTime.hashCode();
+		return Objects.hashCode(this.dateTime);
 	}
 
 	/**

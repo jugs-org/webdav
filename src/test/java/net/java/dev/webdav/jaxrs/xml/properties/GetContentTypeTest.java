@@ -80,4 +80,9 @@ public final class GetContentTypeTest extends AbstractJaxbCoreFunctionality<GetC
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(GetContentType.GETCONTENTTYPE)));
 	}
+
+	@Override
+	protected final GetContentType getInstance() {
+		return new GetContentType("SomeMediaType");
+	}
 }

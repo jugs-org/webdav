@@ -36,8 +36,10 @@ import org.junit.experimental.theories.DataPoint;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class SetTest extends AbstractJaxbCoreFunctionality<Set> {
+	private static final Prop PROP = new Prop();
+
 	@DataPoint
-	public static final Object[] DATA_POINT = { new Set(new Prop()), "<D:set xmlns:D=\"DAV:\"><D:prop/></D:set>", new Prop() };
+	public static final Object[] DATA_POINT = { new Set(PROP), "<D:set xmlns:D=\"DAV:\"><D:prop/></D:set>", PROP };
 
 	@Override
 	protected final void assertThatGettersProvideExpectedValues(final Set actual, final Set expected, final Object[] dataPoint) {
@@ -48,5 +50,10 @@ public final class SetTest extends AbstractJaxbCoreFunctionality<Set> {
 	@Test(expected = NullArgumentException.class)
 	public final void constructorDoesNotAcceptNull() {
 		new Set(null);
+	}
+
+	@Override
+	protected final Set getInstance() {
+		return new Set(PROP);
 	}
 }

@@ -22,6 +22,7 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
+import static java.util.Objects.hash;
 import static net.java.dev.webdav.util.Utilities.notNull;
 import static net.java.dev.webdav.util.Utilities.sameOrEqual;
 
@@ -98,8 +99,7 @@ public final class PropStat {
 
 	@Override
 	public final int hashCode() {
-		return this.prop.hashCode() ^ this.status.hashCode() ^ (this.error == null ? -1 : this.error.hashCode())
-				^ (this.responseDescription == null ? -1 : this.responseDescription.hashCode());
+		return hash(this.prop, this.status, this.error, this.responseDescription);
 	}
 
 	@Override

@@ -59,4 +59,9 @@ public final class LockEntryTest extends AbstractJaxbCoreFunctionality<LockEntry
 		assertThat(expected.getLockScope(), is(dataPoint[2]));
 		assertThat(expected.getLockType(), is(dataPoint[3]));
 	}
+
+	@Override
+	protected final LockEntry getInstance() {
+		return new LockEntry(EXCLUSIVE, WRITE);
+	}
 }

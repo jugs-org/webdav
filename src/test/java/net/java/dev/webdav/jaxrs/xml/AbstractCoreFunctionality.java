@@ -20,27 +20,29 @@
  * #L%
  */
 
-package net.java.dev.webdav.jaxrs.xml.elements;
+package net.java.dev.webdav.jaxrs.xml;
 
-import static net.java.dev.webdav.jaxrs.xml.elements.Depth.INFINITY;
-import static net.java.dev.webdav.jaxrs.xml.elements.Depth.ONE;
-import static net.java.dev.webdav.jaxrs.xml.elements.Depth.ZERO;
-import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
-
-import org.junit.experimental.theories.DataPoints;
+import org.junit.Test;
 
 /**
- * Unit test for {@link Depth}
+ * Abstract unit test for absolute core functionality.
  * 
  * @author Markus KARG (mkarg@java.net)
  */
-public final class DepthTest extends AbstractJaxbCoreFunctionality<Depth> {
-	@DataPoints
-	public static final Object[][] DATA_POINTS = { { ZERO, "<D:depth xmlns:D=\"DAV:\">0</D:depth>" }, { ONE, "<D:depth xmlns:D=\"DAV:\">1</D:depth>" },
-			{ INFINITY, "<D:depth xmlns:D=\"DAV:\">infinity</D:depth>" } };
+public abstract class AbstractCoreFunctionality<T> {
+	@Test
+	public final void shouldProduceHashCode() {
+		// given
+		final T instance = this.getInstance();
 
-	@Override
-	protected final Depth getInstance() {
-		return Depth.INFINITY;
+		// when
+		instance.hashCode();
+
+		// then pass test
 	}
+
+	/**
+	 * @return An instance of the tested class.
+	 */
+	protected abstract T getInstance();
 }

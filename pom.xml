@@ -276,6 +276,7 @@
 							</rules>
 							<excludes>
 								<exclude>**/LockScope$LockScopeAdapter.class</exclude>
+								<exclude>java/util/Objects.class</exclude>
 							</excludes>
 						</configuration>
 					</execution>

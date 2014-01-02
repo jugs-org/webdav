@@ -54,4 +54,9 @@ public final class IncludeTest extends AbstractJaxbCoreFunctionality<Include> {
 		assertThat(actual.getIncludes(), is(dataPoint[2]));
 		assertThat(expected.getIncludes(), is(dataPoint[2]));
 	}
+
+	@Override
+	protected final Include getInstance() {
+		return new Include(CREATION_DATE);
+	}
 }

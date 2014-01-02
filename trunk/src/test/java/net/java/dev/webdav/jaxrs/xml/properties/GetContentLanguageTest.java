@@ -80,4 +80,9 @@ public final class GetContentLanguageTest extends AbstractJaxbCoreFunctionality<
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(GetContentLanguage.GETCONTENTLANGUAGE)));
 	}
+
+	@Override
+	protected final GetContentLanguage getInstance() {
+		return new GetContentLanguage("DE");
+	}
 }

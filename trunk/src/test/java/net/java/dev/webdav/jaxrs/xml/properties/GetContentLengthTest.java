@@ -77,4 +77,9 @@ public final class GetContentLengthTest extends AbstractJaxbCoreFunctionality<Ge
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(GetContentLength.GETCONTENTLENGTH)));
 	}
+
+	@Override
+	protected final GetContentLength getInstance() {
+		return new GetContentLength(123L);
+	}
 }

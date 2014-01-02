@@ -49,6 +49,8 @@ import org.junit.experimental.theories.Theory;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class LockTokenSubmittedTest extends AbstractJaxbCoreFunctionality<LockTokenSubmitted> {
+	private static final HRef HREF = new HRef("x");
+
 	@Test(expected = NullArgumentException.class)
 	public final void constructorDoesNotAcceptNullAsSoleArgument() {
 		new LockTokenSubmitted(null);
@@ -56,17 +58,17 @@ public final class LockTokenSubmittedTest extends AbstractJaxbCoreFunctionality<
 
 	@Test(expected = NullArgumentException.class)
 	public final void constructorDoesNotAcceptNullAsFirstOfTwoArguments() {
-		new LockTokenSubmitted(null, new HRef("x"));
+		new LockTokenSubmitted(null, HREF);
 	}
 
 	@Test(expected = NullArgumentException.class)
 	public final void constructorDoesNotAcceptNullAsFirstOfUnlimitedArguments() {
-		new LockTokenSubmitted(null, new HRef[] { new HRef("x") });
+		new LockTokenSubmitted(null, new HRef[] { HREF });
 	}
 
 	@DataPoints
 	public static final Object[][] DATA_POINTS = new Object[][] {
-			{ new LockTokenSubmitted(new HRef("x")), "<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href></D:lock-token-submitted>" },
+			{ new LockTokenSubmitted(HREF), "<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href></D:lock-token-submitted>" },
 			{ new LockTokenSubmitted(new HRef("x"), new HRef("y")),
 					"<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href></D:lock-token-submitted>" },
 			{ new LockTokenSubmitted(new HRef("x"), new HRef[] { new HRef("y"), new HRef("z") }),
@@ -89,5 +91,10 @@ public final class LockTokenSubmittedTest extends AbstractJaxbCoreFunctionality<
 		final Collection<HRef> resultOfFirstCall = immutableObject.getHRefs();
 		final Collection<HRef> resultOfSecondCall = immutableObject.getHRefs();
 		assertThat(resultOfFirstCall, is(anyOf(immutable(HRef.class), not(sameInstance(resultOfSecondCall)))));
+	}
+
+	@Override
+	protected final LockTokenSubmitted getInstance() {
+		return new LockTokenSubmitted(HREF);
 	}
 }

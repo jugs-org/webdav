@@ -53,7 +53,7 @@ import org.junit.runner.RunWith;
  * @author Markus KARG (mkarg@java.net)
  */
 @RunWith(Theories.class)
-public abstract class AbstractJaxbCoreFunctionality<T> {
+public abstract class AbstractJaxbCoreFunctionality<T> extends AbstractCoreFunctionality<T> {
 
 	public static JAXBContext context;
 
@@ -165,5 +165,10 @@ public abstract class AbstractJaxbCoreFunctionality<T> {
 	 */
 	protected T getSingleton() {
 		return null;
+	}
+
+	@Override
+	protected T getInstance() {
+		return this.getSingleton();
 	}
 }

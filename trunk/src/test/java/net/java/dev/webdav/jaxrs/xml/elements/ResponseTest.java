@@ -112,4 +112,9 @@ public final class ResponseTest extends AbstractJaxbCoreFunctionality<Response> 
 		assertThat(expected.getResponseDescription(), is(dataPoint[6]));
 		assertThat(expected.getLocation(), is(dataPoint[7]));
 	}
+
+	@Override
+	protected final Response getInstance() {
+		return new Response(STATUS, ERROR, RESPONSE_DESCRIPTION, LOCATION, HREF);
+	}
 }

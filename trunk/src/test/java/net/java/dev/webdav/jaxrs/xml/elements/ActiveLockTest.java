@@ -99,4 +99,9 @@ public final class ActiveLockTest extends AbstractJaxbCoreFunctionality<ActiveLo
 		assertThat(expected.getLockToken(), is(dataPoint[7]));
 		assertThat(expected.getLockRoot(), is(dataPoint[8]));
 	}
+
+	@Override
+	protected final ActiveLock getInstance() {
+		return new ActiveLock(LOCK_SCOPE, LOCK_TYPE, DEPTH, null, null, null, LOCK_ROOT);
+	}
 }

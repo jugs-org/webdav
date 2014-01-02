@@ -66,4 +66,9 @@ public final class LockInfoTest extends AbstractJaxbCoreFunctionality<LockInfo> 
 		assertThat(expected.getLockType(), is(dataPoint[3]));
 		assertThat(expected.getOwner(), is(dataPoint[4]));
 	}
+
+	@Override
+	protected final LockInfo getInstance() {
+		return new LockInfo(EXCLUSIVE, WRITE, null);
+	}
 }

@@ -45,7 +45,7 @@ public final class ErrorTest extends AbstractJaxbCoreFunctionality<Error> {
 
 	private static final Object FIRST_ERROR = new Prop();
 
-	private static final Object SECOND_ERROR = new GetContentLanguage();
+	private static final Object SECOND_ERROR = GetContentLanguage.GETCONTENTLANGUAGE;
 
 	@DataPoint
 	public static final Object[] ONE_ERROR = { new Error(FIRST_ERROR), "<D:error xmlns:D=\"DAV:\"><D:prop/></D:error>", asList(FIRST_ERROR) };
@@ -58,5 +58,10 @@ public final class ErrorTest extends AbstractJaxbCoreFunctionality<Error> {
 	protected final void assertThatGettersProvideExpectedValues(final Error actual, final Error expected, final Object[] dataPoint) {
 		assertThat(actual.getErrors(), is(dataPoint[2]));
 		assertThat(expected.getErrors(), is(dataPoint[2]));
+	}
+
+	@Override
+	protected final Error getInstance() {
+		return new Error("ERROR");
 	}
 }

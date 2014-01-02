@@ -71,6 +71,6 @@ public final class NoExternalEntities {
 
 	@Override
 	public final int hashCode() {
-		return 0;
+		return 1;
 	}
 }

@@ -52,7 +52,7 @@ public final class TimeOutTest extends AbstractJaxbCoreFunctionality<TimeOut> {
 	public static final Object[] INFINITE = { TimeOut.INFINITE, "<D:timeout xmlns:D=\"DAV:\">Infinite</D:timeout>", MAX_VALUE, TRUE };
 
 	@DataPoint
-	public static final Object[] SECOND = { new TimeOut(60), "<D:timeout xmlns:D=\"DAV:\">Second-60</D:timeout>", 60L, FALSE };
+	public static final Object[] SECOND = { new TimeOut(60L), "<D:timeout xmlns:D=\"DAV:\">Second-60</D:timeout>", 60L, FALSE };
 
 	@Override
 	protected final void assertThatGettersProvideExpectedValues(final TimeOut actual, final TimeOut expected, final Object[] dataPoint) {
@@ -81,5 +81,10 @@ public final class TimeOutTest extends AbstractJaxbCoreFunctionality<TimeOut> {
 
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(TimeOut.INFINITE)));
+	}
+
+	@Override
+	protected final TimeOut getInstance() {
+		return new TimeOut(90L);
 	}
 }

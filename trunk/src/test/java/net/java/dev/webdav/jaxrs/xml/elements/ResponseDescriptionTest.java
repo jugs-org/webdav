@@ -43,4 +43,9 @@ public final class ResponseDescriptionTest extends AbstractJaxbCoreFunctionality
 		assertThat(actual.getContent(), is(dataPoint[2]));
 		assertThat(expected.getContent(), is(dataPoint[2]));
 	}
+
+	@Override
+	protected final ResponseDescription getInstance() {
+		return new ResponseDescription("some content");
+	}
 }

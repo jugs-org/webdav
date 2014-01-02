@@ -22,6 +22,7 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
+import static java.util.Objects.hash;
 import static net.java.dev.webdav.util.Utilities.notNull;
 import static net.java.dev.webdav.util.Utilities.sameOrEqual;
 
@@ -77,7 +78,7 @@ public final class LockInfo {
 
 	@Override
 	public final int hashCode() {
-		return this.lockScope.hashCode() ^ this.lockType.hashCode() ^ (this.owner == null ? -1 : this.owner.hashCode());
+		return hash(this.lockScope, this.lockType, this.owner);
 	}
 
 	@Override

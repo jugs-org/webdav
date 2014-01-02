@@ -23,6 +23,7 @@
 package net.java.dev.webdav.jaxrs.xml.elements;
 
 import static java.util.Arrays.asList;
+import static java.util.Objects.hash;
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 import static net.java.dev.webdav.util.Utilities.sameOrEqual;
 
@@ -71,7 +72,7 @@ public final class LockScope {
 
 	@Override
 	public final int hashCode() {
-		return (this.shared == null ? -1 : this.shared.hashCode()) ^ (this.exclusive == null ? -1 : this.exclusive.hashCode());
+		return hash(this.shared, this.exclusive);
 	}
 
 	@Override

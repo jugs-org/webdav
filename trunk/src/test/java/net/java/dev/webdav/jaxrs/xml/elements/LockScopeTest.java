@@ -84,4 +84,9 @@ public final class LockScopeTest extends AbstractJaxbCoreFunctionality<LockScope
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(LockScope.SHARED)));
 	}
+
+	@Override
+	protected final LockScope getInstance() {
+		return LockScope.EXCLUSIVE;
+	}
 }

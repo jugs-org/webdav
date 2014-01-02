@@ -73,4 +73,9 @@ public final class HRefTest extends AbstractJaxbCoreFunctionality<HRef> {
 			fail(e.getMessage());
 		}
 	}
+
+	@Override
+	protected final HRef getInstance() {
+		return new HRef(URI_VALUE);
+	}
 }

@@ -70,6 +70,6 @@ public final class Shared {
 
 	@Override
 	public final int hashCode() {
-		return 0;
+		return 1;
 	}
 }

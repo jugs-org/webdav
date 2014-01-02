@@ -74,4 +74,9 @@ public final class NoConflictingLockTest extends AbstractJaxbCoreFunctionality<N
 		final Collection<HRef> resultOfSecondCall = immutableObject.getHRefs();
 		assertThat(resultOfFirstCall, is(anyOf(immutable(HRef.class), not(sameInstance(resultOfSecondCall)))));
 	}
+
+	@Override
+	protected final NoConflictingLock getInstance() {
+		return new NoConflictingLock();
+	}
 }

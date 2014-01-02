@@ -65,4 +65,9 @@ public final class MultiStatusTest extends AbstractJaxbCoreFunctionality<MultiSt
 		assertThat(expected.getResponses(), is(dataPoint[2]));
 		assertThat(expected.getResponseDescription(), is(dataPoint[3]));
 	}
+
+	@Override
+	protected final MultiStatus getInstance() {
+		return new MultiStatus(RESPONSE);
+	}
 }

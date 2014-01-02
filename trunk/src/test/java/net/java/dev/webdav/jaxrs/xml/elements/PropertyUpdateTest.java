@@ -60,4 +60,9 @@ public final class PropertyUpdateTest extends AbstractJaxbCoreFunctionality<Prop
 		assertThat(actual.list(), is(dataPoint[2]));
 		assertThat(expected.list(), is(dataPoint[2]));
 	}
+
+	@Override
+	protected final PropertyUpdate getInstance() {
+		return new PropertyUpdate(SET);
+	}
 }

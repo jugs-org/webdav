@@ -52,4 +52,9 @@ public final class LockRootTest extends AbstractJaxbCoreFunctionality<LockRoot> 
 		assertThat(actual.getHRef(), is(dataPoint[2]));
 		assertThat(expected.getHRef(), is(dataPoint[2]));
 	}
+
+	@Override
+	protected final LockRoot getInstance() {
+		return new LockRoot(HREF);
+	}
 }

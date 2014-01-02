@@ -26,6 +26,8 @@ import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 import static net.java.dev.webdav.util.Utilities.notNull;
 import static net.java.dev.webdav.util.Utilities.sameOrEqual;
 
+import java.util.Objects;
+
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -126,8 +128,7 @@ public final class ActiveLock {
 
 	@Override
 	public final int hashCode() {
-		return this.lockScope.hashCode() ^ this.lockType.hashCode() ^ this.depth.hashCode() ^ (this.owner == null ? -1 : this.owner.hashCode())
-				^ (this.timeOut == null ? -1 : this.timeOut.hashCode()) ^ (this.lockToken == null ? -1 : this.lockToken.hashCode()) ^ this.lockRoot.hashCode();
+		return Objects.hash(this.lockScope, this.lockType, this.depth, this.owner, this.timeOut, this.lockToken, this.lockRoot);
 	}
 
 	@Override

@@ -26,6 +26,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.StatusType;
 
 import net.java.dev.webdav.jaxrs.ResponseStatus;
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
@@ -70,5 +71,10 @@ public final class StatusTest extends AbstractJaxbCoreFunctionality<Status> {
 	@Test(expected = NullPointerException.class)
 	public final void StatusTypeConstructorDoesNotAcceptNull() {
 		new Status((Response.StatusType) null);
+	}
+
+	@Override
+	protected final Status getInstance() {
+		return new Status((StatusType) ResponseStatus.UNPROCESSABLE_ENTITY);
 	}
 }

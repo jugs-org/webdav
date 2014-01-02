@@ -52,4 +52,9 @@ public final class LockTokenTest extends AbstractJaxbCoreFunctionality<LockToken
 		assertThat(actual.getHRef(), is(dataPoint[2]));
 		assertThat(expected.getHRef(), is(dataPoint[2]));
 	}
+
+	@Override
+	protected final LockToken getInstance() {
+		return new LockToken(HREF);
+	}
 }

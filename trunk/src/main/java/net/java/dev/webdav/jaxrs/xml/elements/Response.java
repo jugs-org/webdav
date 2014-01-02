@@ -27,10 +27,11 @@ import static java.util.Collections.unmodifiableList;
 import static java.util.Objects.hash;
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 import static net.java.dev.webdav.util.Utilities.append;
+import static net.java.dev.webdav.util.Utilities.array;
 import static net.java.dev.webdav.util.Utilities.notNull;
-import static net.java.dev.webdav.util.Utilities.sameOrEqual;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -144,9 +145,8 @@ public final class Response {
 
 		final Response that = (Response) o;
 
-		return this.hRefs.equals(that.hRefs) && sameOrEqual(this.status, that.status) && this.propStats.equals(that.propStats)
-				&& sameOrEqual(this.error, that.error) && sameOrEqual(this.responseDescription, that.responseDescription)
-				&& sameOrEqual(this.location, that.location);
+		return Arrays.equals(array(this.hRefs, this.status, this.propStats, this.error, this.responseDescription, this.location),
+				array(that.hRefs, that.status, that.propStats, that.error, that.responseDescription, that.location));
 	}
 
 	@Override

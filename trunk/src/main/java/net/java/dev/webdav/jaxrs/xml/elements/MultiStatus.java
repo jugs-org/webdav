@@ -25,8 +25,9 @@ package net.java.dev.webdav.jaxrs.xml.elements;
 import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableList;
 import static java.util.Objects.hash;
-import static net.java.dev.webdav.util.Utilities.sameOrEqual;
+import static net.java.dev.webdav.util.Utilities.array;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -94,6 +95,6 @@ public final class MultiStatus {
 
 		final MultiStatus that = (MultiStatus) o;
 
-		return this.responses.equals(that.responses) && sameOrEqual(this.responseDescription, that.responseDescription);
+		return Arrays.equals(array(this.responses, this.responseDescription), array(that.responses, that.responseDescription));
 	}
 }

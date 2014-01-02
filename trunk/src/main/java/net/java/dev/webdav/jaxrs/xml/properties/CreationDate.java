@@ -91,7 +91,7 @@ public final class CreationDate {
 
 		final CreationDate that = (CreationDate) other;
 
-		return this.dateTime == null && that.dateTime == null || this.dateTime != null && that.dateTime != null && this.dateTime.equals(that.dateTime);
+		return Objects.equals(this.dateTime, that.dateTime);
 	}
 
 	@Override

@@ -22,11 +22,12 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
+import static java.util.Objects.hash;
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
+import static net.java.dev.webdav.util.Utilities.array;
 import static net.java.dev.webdav.util.Utilities.notNull;
-import static net.java.dev.webdav.util.Utilities.sameOrEqual;
 
-import java.util.Objects;
+import java.util.Arrays;
 
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -128,7 +129,7 @@ public final class ActiveLock {
 
 	@Override
 	public final int hashCode() {
-		return Objects.hash(this.lockScope, this.lockType, this.depth, this.owner, this.timeOut, this.lockToken, this.lockRoot);
+		return hash(this.lockScope, this.lockType, this.depth, this.owner, this.timeOut, this.lockToken, this.lockRoot);
 	}
 
 	@Override
@@ -138,7 +139,7 @@ public final class ActiveLock {
 
 		final ActiveLock that = (ActiveLock) other;
 
-		return this.lockScope == that.lockScope && this.lockType == that.lockType && this.depth == that.depth && sameOrEqual(this.owner, that.owner)
-				&& sameOrEqual(this.timeOut, that.timeOut) && sameOrEqual(this.lockToken, that.lockToken) && sameOrEqual(this.lockRoot, that.lockRoot);
+		return Arrays.equals(array(this.lockScope, this.lockType, this.depth, this.owner, this.timeOut, this.lockToken, this.lockRoot),
+				array(that.lockScope, that.lockType, that.depth, that.owner, that.timeOut, that.lockToken, that.lockRoot));
 	}
 }

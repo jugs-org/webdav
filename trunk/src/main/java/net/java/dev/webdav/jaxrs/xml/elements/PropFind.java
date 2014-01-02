@@ -24,8 +24,10 @@ package net.java.dev.webdav.jaxrs.xml.elements;
 
 import static java.util.Objects.hash;
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
+import static net.java.dev.webdav.util.Utilities.array;
 import static net.java.dev.webdav.util.Utilities.notNull;
-import static net.java.dev.webdav.util.Utilities.sameOrEqual;
+
+import java.util.Arrays;
 
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -110,8 +112,7 @@ public final class PropFind {
 
 		final PropFind that = (PropFind) o;
 
-		return sameOrEqual(this.propName, that.propName) && sameOrEqual(this.allProp, that.allProp) && sameOrEqual(this.include, that.include)
-				&& sameOrEqual(this.prop, that.prop);
+		return Arrays.equals(array(this.propName, this.allProp, this.include, this.prop), array(that.propName, that.allProp, that.include, that.prop));
 	}
 
 	@Override

@@ -24,7 +24,6 @@ package net.java.dev.webdav.jaxrs.xml.properties;
 
 import static java.util.Collections.singleton;
 import static javax.xml.bind.annotation.XmlAccessType.NONE;
-import static net.java.dev.webdav.util.Utilities.sameOrEqual;
 
 import java.util.Collection;
 import java.util.Objects;
@@ -100,7 +99,7 @@ public final class GetContentLength {
 
 		final GetContentLength that = (GetContentLength) other;
 
-		return sameOrEqual(this.contentLength, that.contentLength);
+		return Objects.equals(this.contentLength, that.contentLength);
 	}
 
 	@Override

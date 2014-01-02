@@ -22,16 +22,16 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
-import java.util.Arrays;
-import java.util.Collections;
+import static java.util.Collections.unmodifiableList;
+import static net.java.dev.webdav.util.Utilities.append;
+import static net.java.dev.webdav.util.Utilities.notNull;
+
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import net.java.dev.webdav.jaxrs.NullArgumentException;
 
 /**
  * WebDAV propertyupdate XML Element.
@@ -45,24 +45,19 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
 public final class PropertyUpdate {
 
 	@XmlElements({ @XmlElement(name = "remove", type = Remove.class), @XmlElement(name = "set", type = Set.class) })
-	private LinkedList<RemoveOrSet> removesOrSets;
+	private final List<RemoveOrSet> removesOrSets;
 
 	@SuppressWarnings("unused")
 	private PropertyUpdate() {
-		// For unmarshalling only.
+		this.removesOrSets = new LinkedList<RemoveOrSet>();
 	}
 
 	public PropertyUpdate(final RemoveOrSet removeOrSet, final RemoveOrSet... removesOrSets) {
-		if (removeOrSet == null)
-			throw new NullArgumentException("removeOrSet");
-
-		this.removesOrSets = new LinkedList<RemoveOrSet>(Collections.singletonList(removeOrSet));
-		this.removesOrSets.addAll(Arrays.asList(removesOrSets));
+		this.removesOrSets = append(notNull(removeOrSet, "removeOrSet"), removesOrSets);
 	}
 
-	@SuppressWarnings("unchecked")
 	public final List<RemoveOrSet> list() {
-		return (List<RemoveOrSet>) this.removesOrSets.clone();
+		return unmodifiableList(this.removesOrSets);
 	}
 
 	@Override

@@ -53,13 +53,14 @@ public final class LockScope {
 
 	public static final LockScope EXCLUSIVE = new LockScope(null, Exclusive.EXCLUSIVE);
 
-	private Shared shared;
+	private final Shared shared;
 
-	private Exclusive exclusive;
+	private final Exclusive exclusive;
 
 	// Singleton
 	private LockScope() {
-		// For unmarshalling only.
+		this.shared = null;
+		this.exclusive = null;
 	}
 
 	// Enum

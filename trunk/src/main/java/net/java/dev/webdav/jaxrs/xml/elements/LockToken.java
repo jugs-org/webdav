@@ -22,10 +22,10 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
+import static net.java.dev.webdav.util.Utilities.notNull;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import net.java.dev.webdav.jaxrs.NullArgumentException;
 
 /**
  * WebDAV locktoken XML Element.
@@ -39,18 +39,15 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
 public final class LockToken {
 
 	@XmlElement(name = "href")
-	private HRef hRef;
+	private final HRef hRef;
 
 	@SuppressWarnings("unused")
 	private LockToken() {
-		// For unmarshalling only.
+		this.hRef = null;
 	}
 
 	public LockToken(final HRef hRef) {
-		if (hRef == null)
-			throw new NullArgumentException("hRef");
-
-		this.hRef = hRef;
+		this.hRef = notNull(hRef, "hRef");
 	}
 
 	public final HRef getHRef() {

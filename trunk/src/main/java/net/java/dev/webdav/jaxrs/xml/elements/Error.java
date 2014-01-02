@@ -22,16 +22,15 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
-import static java.util.Arrays.asList;
-import static java.util.Collections.singletonList;
+import static java.util.Collections.unmodifiableList;
+import static net.java.dev.webdav.util.Utilities.append;
+import static net.java.dev.webdav.util.Utilities.notNull;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import net.java.dev.webdav.jaxrs.NullArgumentException;
 
 /**
  * WebDAV error XML Element.
@@ -45,7 +44,7 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
 public final class Error {
 
 	@XmlAnyElement(lax = true)
-	public LinkedList<Object> errors;
+	public final List<Object> errors;
 
 	@SuppressWarnings("unused")
 	private Error() {
@@ -53,16 +52,11 @@ public final class Error {
 	}
 
 	public Error(final Object error, final Object... errors) {
-		if (error == null)
-			throw new NullArgumentException("error");
-
-		this.errors = new LinkedList<Object>(singletonList(error));
-		this.errors.addAll(asList(errors));
+		this.errors = append(notNull(error, "error"), errors);
 	}
 
-	@SuppressWarnings("unchecked")
 	public final List<Object> getErrors() {
-		return (List<Object>) this.errors.clone();
+		return unmodifiableList(this.errors);
 	}
 
 	@Override

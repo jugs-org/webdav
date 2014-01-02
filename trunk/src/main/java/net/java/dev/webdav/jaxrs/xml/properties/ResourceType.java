@@ -23,6 +23,8 @@
 package net.java.dev.webdav.jaxrs.xml.properties;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.unmodifiableList;
+import static net.java.dev.webdav.util.Utilities.notNull;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -32,7 +34,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import net.java.dev.webdav.jaxrs.ConstantsAdapter;
-import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.elements.Collection;
 
 /**
@@ -54,7 +55,7 @@ public final class ResourceType {
 	public static final ResourceType RESOURCETYPE = new ResourceType();
 
 	@XmlAnyElement(lax = true)
-	private LinkedList<Object> resourceTypes;
+	private final List<Object> resourceTypes;
 
 	public static final ResourceType COLLECTION = new ResourceType(Collection.COLLECTION);
 
@@ -68,10 +69,7 @@ public final class ResourceType {
 	}
 
 	public ResourceType(final Object... resourceTypes) {
-		if (resourceTypes == null)
-			throw new NullArgumentException("resourceTypes");
-
-		this.resourceTypes = new LinkedList<Object>(asList(resourceTypes));
+		this.resourceTypes = asList(notNull(resourceTypes, "resourceTypes"));
 	}
 
 	/**
@@ -83,9 +81,8 @@ public final class ResourceType {
 		return this.getResourceTypes();
 	}
 
-	@SuppressWarnings("unchecked")
 	public final List<Object> getResourceTypes() {
-		return (List<Object>) this.resourceTypes.clone();
+		return unmodifiableList(this.resourceTypes);
 	}
 
 	@Override

@@ -24,6 +24,8 @@ package net.java.dev.webdav.jaxrs.xml.properties;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.singleton;
+import static java.util.Collections.unmodifiableList;
+import static net.java.dev.webdav.util.Utilities.notNull;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -34,7 +36,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import net.java.dev.webdav.jaxrs.ConstantsAdapter;
-import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.elements.ActiveLock;
 
 /**
@@ -56,7 +57,7 @@ public final class LockDiscovery {
 	public static final LockDiscovery LOCKDISCOVERY = new LockDiscovery();
 
 	@XmlElement(name = "activelock")
-	private LinkedList<ActiveLock> activeLocks;
+	private final List<ActiveLock> activeLocks;
 
 	/**
 	 * @deprecated Since 1.2. Use {@link #LOCKDISCOVERY} instead to obtain a singleton empty instance. In future releases this will have {@code private}
@@ -68,15 +69,11 @@ public final class LockDiscovery {
 	}
 
 	public LockDiscovery(final ActiveLock... activeLocks) {
-		if (activeLocks == null)
-			throw new NullArgumentException("lockEntries");
-
-		this.activeLocks = new LinkedList<ActiveLock>(asList(activeLocks));
+		this.activeLocks = asList(notNull(activeLocks, "activeLocks"));
 	}
 
-	@SuppressWarnings("unchecked")
 	public final List<ActiveLock> getActiveLocks() {
-		return (List<ActiveLock>) this.activeLocks.clone();
+		return unmodifiableList(this.activeLocks);
 	}
 
 	@Override

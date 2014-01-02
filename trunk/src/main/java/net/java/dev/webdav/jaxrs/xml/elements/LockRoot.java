@@ -22,10 +22,10 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
+import static net.java.dev.webdav.util.Utilities.notNull;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import net.java.dev.webdav.jaxrs.NullArgumentException;
 
 /**
  * WebDAV lockroot XML Element.
@@ -39,18 +39,15 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
 public final class LockRoot {
 
 	@XmlElement(name = "href")
-	private HRef hRef;
+	private final HRef hRef;
 
 	@SuppressWarnings("unused")
 	private LockRoot() {
-		// For unmarshalling only;
+		this.hRef = null;
 	}
 
 	public LockRoot(final HRef hRef) {
-		if (hRef == null)
-			throw new NullArgumentException("hRef");
-
-		this.hRef = hRef;
+		this.hRef = notNull(hRef, "hRef");
 	}
 
 	public final HRef getHRef() {

@@ -59,10 +59,10 @@ public final class LockType {
 	}
 
 	@SuppressWarnings("unused")
-	private Write write;
+	private final Write write;
 
 	private LockType() {
-		// For unmarshalling only.
+		this.write = null;
 	}
 
 	// Enum

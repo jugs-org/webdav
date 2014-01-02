@@ -86,16 +86,16 @@ public final class ResponseTest extends AbstractJaxbCoreFunctionality<Response> 
 
 	@DataPoint
 	public static final Object[] PROPSTATS_VARIANT = {
-			new Response(HREF, ERROR, RESPONSE_DESCRIPTION, LOCATION, PROP_STAT),
-			"<D:response xmlns:D=\"DAV:\"><D:href>http://localhost</D:href><D:propstat><D:prop/><D:status>HTTP/1.1 207 Multi-Status</D:status></D:propstat><D:error><D:prop/></D:error><D:responsedescription>X</D:responsedescription><D:location><D:href>http://localhost</D:href></D:location></D:response>",
-			asList(HREF), null, asList(PROP_STAT), ERROR, RESPONSE_DESCRIPTION, LOCATION };
+			new Response(HREF, ERROR, RESPONSE_DESCRIPTION, LOCATION, PROP_STAT, PROP_STAT, PROP_STAT),
+			"<D:response xmlns:D=\"DAV:\"><D:href>http://localhost</D:href><D:propstat><D:prop/><D:status>HTTP/1.1 207 Multi-Status</D:status></D:propstat><D:propstat><D:prop/><D:status>HTTP/1.1 207 Multi-Status</D:status></D:propstat><D:propstat><D:prop/><D:status>HTTP/1.1 207 Multi-Status</D:status></D:propstat><D:error><D:prop/></D:error><D:responsedescription>X</D:responsedescription><D:location><D:href>http://localhost</D:href></D:location></D:response>",
+			asList(HREF), null, asList(PROP_STAT, PROP_STAT, PROP_STAT), ERROR, RESPONSE_DESCRIPTION, LOCATION };
 
 	@SuppressWarnings("deprecation")
 	@DataPoint
 	public static final Object[] DEPRECATED_PROPSTATS_VARIANT = {
-			new Response(HREF, ERROR, RESPONSE_DESCRIPTION, LOCATION, asList(PROP_STAT)),
-			"<D:response xmlns:D=\"DAV:\"><D:href>http://localhost</D:href><D:propstat><D:prop/><D:status>HTTP/1.1 207 Multi-Status</D:status></D:propstat><D:error><D:prop/></D:error><D:responsedescription>X</D:responsedescription><D:location><D:href>http://localhost</D:href></D:location></D:response>",
-			asList(HREF), null, asList(PROP_STAT), ERROR, RESPONSE_DESCRIPTION, LOCATION };
+			new Response(HREF, ERROR, RESPONSE_DESCRIPTION, LOCATION, asList(PROP_STAT, PROP_STAT, PROP_STAT)),
+			"<D:response xmlns:D=\"DAV:\"><D:href>http://localhost</D:href><D:propstat><D:prop/><D:status>HTTP/1.1 207 Multi-Status</D:status></D:propstat><D:propstat><D:prop/><D:status>HTTP/1.1 207 Multi-Status</D:status></D:propstat><D:propstat><D:prop/><D:status>HTTP/1.1 207 Multi-Status</D:status></D:propstat><D:error><D:prop/></D:error><D:responsedescription>X</D:responsedescription><D:location><D:href>http://localhost</D:href></D:location></D:response>",
+			asList(HREF), null, asList(PROP_STAT, PROP_STAT, PROP_STAT), ERROR, RESPONSE_DESCRIPTION, LOCATION };
 
 	@Override
 	protected final void assertThatGettersProvideExpectedValues(final Response actual, final Response expected, final Object[] dataPoint) {

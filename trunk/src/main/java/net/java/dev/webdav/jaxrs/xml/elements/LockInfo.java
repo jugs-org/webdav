@@ -22,13 +22,12 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
+import static net.java.dev.webdav.util.Utilities.notNull;
 import static net.java.dev.webdav.util.Utilities.sameOrEqual;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
-import net.java.dev.webdav.jaxrs.NullArgumentException;
 
 /**
  * WebDAV lockinfo XML Element.
@@ -43,28 +42,24 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
 public final class LockInfo {
 
 	@XmlElement(name = "lockscope")
-	private LockScope lockScope;
+	private final LockScope lockScope;
 
 	@XmlElement(name = "locktype")
-	private LockType lockType;
+	private final LockType lockType;
 
 	@XmlElement
-	private Owner owner;
+	private final Owner owner;
 
 	@SuppressWarnings("unused")
 	private LockInfo() {
-		// For unmarshalling only.
+		this.lockScope = null;
+		this.lockType = null;
+		this.owner = null;
 	}
 
 	public LockInfo(final LockScope lockScope, final LockType lockType, final Owner owner) {
-		if (lockScope == null)
-			throw new NullArgumentException("lockScope");
-
-		if (lockType == null)
-			throw new NullArgumentException("lockType");
-
-		this.lockScope = lockScope;
-		this.lockType = lockType;
+		this.lockScope = notNull(lockScope, "lockScope");
+		this.lockType = notNull(lockType, "lockType");
 		this.owner = owner;
 	}
 

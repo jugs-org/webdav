@@ -22,9 +22,9 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
-import javax.xml.bind.annotation.XmlElement;
+import static net.java.dev.webdav.util.Utilities.notNull;
 
-import net.java.dev.webdav.jaxrs.NullArgumentException;
+import javax.xml.bind.annotation.XmlElement;
 
 /**
  * Internal superclass of set and remove WebDAV elements.<br>
@@ -39,21 +39,18 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
 public abstract class RemoveOrSet {
 
 	@XmlElement
-	private Prop prop;
+	private final Prop prop;
 
 	public final Prop getProp() {
 		return this.prop;
 	}
 
 	protected RemoveOrSet() {
-		// For unmarshalling only.
+		this.prop = null;
 	}
 
 	public RemoveOrSet(final Prop prop) {
-		if (prop == null)
-			throw new NullArgumentException("prop");
-
-		this.prop = prop;
+		this.prop = notNull(prop, "prop");
 	}
 
 	@Override

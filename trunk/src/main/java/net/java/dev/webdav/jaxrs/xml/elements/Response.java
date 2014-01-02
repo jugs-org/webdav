@@ -22,10 +22,14 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
+import static java.util.Collections.singletonList;
+import static java.util.Collections.unmodifiableList;
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
+import static net.java.dev.webdav.util.Utilities.append;
+import static net.java.dev.webdav.util.Utilities.notNull;
 import static net.java.dev.webdav.util.Utilities.sameOrEqual;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -52,14 +56,14 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
 public final class Response {
 
 	@XmlElement(name = "href")
-	private LinkedList<HRef> hRefs;
+	private final List<HRef> hRefs;
 
-	private Status status;
+	private final Status status;
 
 	@XmlElement(name = "propstat")
-	private LinkedList<PropStat> propStats;
+	private final List<PropStat> propStats;
 
-	private Error error;
+	private final Error error;
 
 	@XmlElement(name = "responsedescription")
 	private ResponseDescription responseDescription;
@@ -68,29 +72,26 @@ public final class Response {
 
 	@SuppressWarnings("unused")
 	private Response() {
-		this.hRefs = new LinkedList<HRef>();
-		this.propStats = new LinkedList<PropStat>();
+		this(new LinkedList<HRef>(), null, new LinkedList<PropStat>(), null, null, null);
 	}
 
-	private Response(final HRef hRef, final Error error, final ResponseDescription responseDescription, final Location location) {
-		if (hRef == null)
-			throw new NullArgumentException("hRef");
-
-		this.hRefs = new LinkedList<HRef>(Collections.singletonList(hRef));
+	private Response(final List<HRef> hRefs, final Status status, final List<PropStat> propStats, final Error error,
+			final ResponseDescription responseDescription, final Location location) {
+		this.hRefs = hRefs;
+		this.status = status;
+		this.propStats = propStats;
 		this.error = error;
 		this.responseDescription = responseDescription;
 		this.location = location;
 	}
 
+	private Response(final HRef hRef, final Error error, final ResponseDescription responseDescription, final Location location) {
+		this(singletonList(notNull(hRef, "hRef")), null, null, error, responseDescription, location);
+	}
+
 	public Response(final HRef hRef, final Error error, final ResponseDescription responseDescription, final Location location, final PropStat propStat,
 			final PropStat... propStats) {
-		this(hRef, error, responseDescription, location);
-
-		if (propStat == null)
-			throw new NullArgumentException("propStat");
-
-		this.propStats = new LinkedList<PropStat>(Collections.singletonList(propStat));
-		this.propStats.addAll(Arrays.asList(propStats));
+		this(singletonList(hRef), null, append(notNull(propStat, "propStat"), propStats), error, responseDescription, location);
 	}
 
 	/**
@@ -101,29 +102,19 @@ public final class Response {
 	@Deprecated
 	public Response(final HRef hRef, final Error error, final ResponseDescription responseDescription, final Location location,
 			final Collection<PropStat> propStats) {
-		this(hRef, error, responseDescription, location);
+		this(singletonList(hRef), null, new ArrayList<PropStat>(notNull(propStats, "propStats")), error, responseDescription, location);
 
-		if (propStats == null || !propStats.iterator().hasNext())
+		if (propStats.isEmpty())
 			throw new NullArgumentException("propStat");
-
-		this.propStats = new LinkedList<PropStat>(propStats);
 	}
 
 	public Response(final Status status, final Error error, final ResponseDescription responseDescription, final Location location, final HRef hRef,
 			final HRef... hRefs) {
-		this(hRef, error, responseDescription, location);
-
-		if (status == null)
-			throw new NullArgumentException("status");
-
-		this.status = status;
-		this.hRefs.addAll(Arrays.asList(hRefs));
-		this.propStats = new LinkedList<PropStat>();
+		this(append(notNull(hRef, "hRef"), hRefs), notNull(status, "status"), Collections.<PropStat> emptyList(), error, responseDescription, location);
 	}
 
-	@SuppressWarnings("unchecked")
 	public final List<HRef> getHRefs() {
-		return (List<HRef>) this.hRefs.clone();
+		return unmodifiableList(this.hRefs);
 	}
 
 	public final Status getStatus() {
@@ -142,9 +133,8 @@ public final class Response {
 		return this.location;
 	}
 
-	@SuppressWarnings("unchecked")
 	public final List<PropStat> getPropStats() {
-		return (List<PropStat>) this.propStats.clone();
+		return unmodifiableList(this.propStats);
 	}
 
 	@Override

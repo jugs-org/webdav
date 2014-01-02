@@ -22,9 +22,11 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
+import static java.util.Arrays.asList;
+import static java.util.Collections.unmodifiableList;
 import static net.java.dev.webdav.util.Utilities.sameOrEqual;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -45,17 +47,18 @@ import javax.xml.bind.annotation.XmlType;
 public final class MultiStatus {
 
 	@XmlElement(name = "response")
-	private LinkedList<Response> responses;
+	private final List<Response> responses;
 
 	@XmlElement(name = "responsedescription")
-	private ResponseDescription responseDescription;
+	private final ResponseDescription responseDescription;
 
 	public MultiStatus() {
 		this.responses = new LinkedList<Response>();
+		this.responseDescription = null;
 	}
 
 	public MultiStatus(final ResponseDescription responseDescription, final Response... responses) {
-		this.responses = responses == null ? new LinkedList<Response>() : new LinkedList<Response>(Arrays.asList(responses));
+		this.responses = responses == null || responses.length == 0 ? Collections.<Response> emptyList() : asList(responses);
 		this.responseDescription = responseDescription;
 	}
 
@@ -67,9 +70,8 @@ public final class MultiStatus {
 		this(responseDescription, (Response[]) null);
 	}
 
-	@SuppressWarnings("unchecked")
 	public final List<Response> getResponses() {
-		return (List<Response>) this.responses.clone();
+		return unmodifiableList(this.responses);
 	}
 
 	public final ResponseDescription getResponseDescription() {

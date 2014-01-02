@@ -47,12 +47,13 @@ public final class PropertyUpdateTest extends AbstractJaxbCoreFunctionality<Prop
 	}
 
 	@DataPoint
-	public static final Object[] REMOVE_VARIANT = { new PropertyUpdate(REMOVE),
+	public static final Object[] SINGLE_UPDATE = { new PropertyUpdate(REMOVE),
 			"<D:propertyupdate xmlns:D=\"DAV:\"><D:remove><D:prop/></D:remove></D:propertyupdate>", asList(REMOVE) };
 
 	@DataPoint
-	public static final Object[] SET_VARIANT = { new PropertyUpdate(SET), "<D:propertyupdate xmlns:D=\"DAV:\"><D:set><D:prop/></D:set></D:propertyupdate>",
-			asList(SET) };
+	public static final Object[] MULTIPLE_UPDATES = { new PropertyUpdate(SET, REMOVE, SET),
+			"<D:propertyupdate xmlns:D=\"DAV:\"><D:set><D:prop/></D:set><D:remove><D:prop/></D:remove><D:set><D:prop/></D:set></D:propertyupdate>",
+			asList(SET, REMOVE, SET) };
 
 	@Override
 	protected final void assertThatGettersProvideExpectedValues(final PropertyUpdate actual, final PropertyUpdate expected, final Object[] dataPoint) {

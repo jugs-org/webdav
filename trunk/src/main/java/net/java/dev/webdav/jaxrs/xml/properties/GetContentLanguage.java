@@ -23,6 +23,7 @@
 package net.java.dev.webdav.jaxrs.xml.properties;
 
 import static java.util.Collections.singleton;
+import static net.java.dev.webdav.util.Utilities.notNull;
 
 import java.util.Collection;
 
@@ -31,7 +32,6 @@ import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import net.java.dev.webdav.jaxrs.ConstantsAdapter;
-import net.java.dev.webdav.jaxrs.NullArgumentException;
 
 /**
  * WebDAV getcontentlanguage Property.
@@ -64,10 +64,7 @@ public final class GetContentLanguage {
 	}
 
 	public GetContentLanguage(final String languageTag) {
-		if (languageTag == null)
-			throw new NullArgumentException("languageTag");
-
-		this.languageTag = languageTag;
+		this.languageTag = notNull(languageTag, "languageTag");
 	}
 
 	public final String getLanguageTag() {

@@ -23,6 +23,7 @@
 package net.java.dev.webdav.jaxrs.xml.properties;
 
 import static java.util.Collections.singleton;
+import static net.java.dev.webdav.util.Utilities.notNull;
 
 import java.util.Collection;
 
@@ -31,7 +32,6 @@ import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import net.java.dev.webdav.jaxrs.ConstantsAdapter;
-import net.java.dev.webdav.jaxrs.NullArgumentException;
 
 /**
  * WebDAV displayname Property.
@@ -64,10 +64,7 @@ public final class DisplayName {
 	}
 
 	public DisplayName(final String name) {
-		if (name == null)
-			throw new NullArgumentException("name");
-
-		this.name = name;
+		this.name = notNull(name, "name");
 	}
 
 	public final String getName() {

@@ -23,8 +23,10 @@
 package net.java.dev.webdav.jaxrs.xml.elements;
 
 import static java.util.Objects.hash;
+import static net.java.dev.webdav.util.Utilities.array;
 import static net.java.dev.webdav.util.Utilities.notNull;
-import static net.java.dev.webdav.util.Utilities.sameOrEqual;
+
+import java.util.Arrays;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -91,6 +93,6 @@ public final class LockInfo {
 
 		final LockInfo that = (LockInfo) other;
 
-		return this.lockScope.equals(that.lockScope) && this.lockType.equals(that.lockType) && sameOrEqual(this.owner, that.owner);
+		return Arrays.equals(array(this.lockScope, this.lockType, this.owner), array(that.lockScope, that.lockType, that.owner));
 	}
 }

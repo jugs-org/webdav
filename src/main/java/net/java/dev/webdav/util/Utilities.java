@@ -40,19 +40,6 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
 public final class Utilities {
 
 	/**
-	 * Prevents {@link NullPointerException} when checking two references for equality where the first reference can be {@code null}.
-	 * 
-	 * @param firstObject
-	 *            If this is not {@code null}, its {@link #equals(Object)} method will get called.
-	 * @param secondObject
-	 *            This will be the sole parameter provided to the first reference's {@link #equals(Object)}.
-	 * @return {@code true} if, and only if, either both references are null or referencing equal objects.
-	 */
-	public static final <T> boolean sameOrEqual(final T firstObject, final T secondObject) {
-		return firstObject == secondObject || firstObject != null && firstObject.equals(secondObject);
-	}
-
-	/**
 	 * Supplies an instance of the specified class.
 	 * 
 	 * @param <T>
@@ -149,5 +136,16 @@ public final class Utilities {
 		result.add(t);
 		result.addAll(asList(ts));
 		return result;
+	}
+
+	/**
+	 * Builds an array from varargs.
+	 * 
+	 * @param ts
+	 *            Will become the content of the array.
+	 * @return An array holding the complete content provided as varargs.
+	 */
+	public static final <T> T[] array(T... ts) {
+		return ts;
 	}
 }

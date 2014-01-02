@@ -41,15 +41,6 @@ import org.junit.Test;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class UtilitiesTest {
-	@Test
-	public final void sameOrEqual() {
-		assertThat(Utilities.sameOrEqual(null, null), is(true));
-		assertThat(Utilities.sameOrEqual("A", "A"), is(true));
-		assertThat(Utilities.sameOrEqual("A", "B"), is(false));
-		assertThat(Utilities.sameOrEqual("A", null), is(false));
-		assertThat(Utilities.sameOrEqual(null, "B"), is(false));
-	}
-
 	private static final class A {
 		// Intentionally left blank.
 	}
@@ -118,5 +109,19 @@ public final class UtilitiesTest {
 	@Test(expected = NullArgumentException.class)
 	public final void shouldPreventNullArgument() {
 		Utilities.notNull(null, "name");
+	}
+
+	@Test
+	public final void shouldBuildArrayFromVarArgs() {
+		// given
+		final String a = "A";
+		final String b = "B";
+		final String c = "C";
+
+		// when
+		final String[] array = Utilities.array(a, b, c);
+
+		// then
+		assertThat(array, is(new String[] { "A", "B", "C" }));
 	}
 }

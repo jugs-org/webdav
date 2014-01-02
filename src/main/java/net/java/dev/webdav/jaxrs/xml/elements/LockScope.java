@@ -25,8 +25,9 @@ package net.java.dev.webdav.jaxrs.xml.elements;
 import static java.util.Arrays.asList;
 import static java.util.Objects.hash;
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
-import static net.java.dev.webdav.util.Utilities.sameOrEqual;
+import static net.java.dev.webdav.util.Utilities.array;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -85,7 +86,7 @@ public final class LockScope {
 
 		final LockScope that = (LockScope) other;
 
-		return sameOrEqual(this.exclusive, that.exclusive) && sameOrEqual(this.shared, that.shared);
+		return Arrays.equals(array(this.exclusive, this.shared), array(that.exclusive, that.shared));
 	}
 
 	/**

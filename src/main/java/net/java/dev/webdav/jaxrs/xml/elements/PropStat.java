@@ -23,8 +23,10 @@
 package net.java.dev.webdav.jaxrs.xml.elements;
 
 import static java.util.Objects.hash;
+import static net.java.dev.webdav.util.Utilities.array;
 import static net.java.dev.webdav.util.Utilities.notNull;
-import static net.java.dev.webdav.util.Utilities.sameOrEqual;
+
+import java.util.Arrays;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -112,7 +114,7 @@ public final class PropStat {
 
 		final PropStat that = (PropStat) o;
 
-		return this.prop.equals(that.prop) && this.status.equals(that.status) && sameOrEqual(this.error, that.error)
-				&& sameOrEqual(this.responseDescription, that.responseDescription);
+		return Arrays.equals(array(this.prop, this.status, this.error, this.responseDescription),
+				array(that.prop, that.status, that.error, that.responseDescription));
 	}
 }

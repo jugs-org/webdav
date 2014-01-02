@@ -48,6 +48,10 @@ public final class ResponseDescription {
 		return this.content;
 	}
 
+	/**
+	 * @deprecated Since 1.2. Construct immutable instance instead.
+	 */
+	@Deprecated
 	public final void setContent(final String content) {
 		this.content = content;
 	}

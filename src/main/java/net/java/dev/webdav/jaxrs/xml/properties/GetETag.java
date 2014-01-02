@@ -23,6 +23,7 @@
 package net.java.dev.webdav.jaxrs.xml.properties;
 
 import static java.util.Collections.singleton;
+import static net.java.dev.webdav.util.Utilities.notNull;
 
 import java.util.Collection;
 
@@ -31,7 +32,6 @@ import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import net.java.dev.webdav.jaxrs.ConstantsAdapter;
-import net.java.dev.webdav.jaxrs.NullArgumentException;
 
 /**
  * WebDAV getetag Property.
@@ -63,10 +63,7 @@ public final class GetETag {
 	}
 
 	public GetETag(final String entityTag) {
-		if (entityTag == null)
-			throw new NullArgumentException("entityTag");
-
-		this.entityTag = entityTag;
+		this.entityTag = notNull(entityTag, "entityTage");
 	}
 
 	public final String getEntityTag() {

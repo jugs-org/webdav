@@ -22,13 +22,12 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
+import static net.java.dev.webdav.util.Utilities.notNull;
 import static net.java.dev.webdav.util.Utilities.sameOrEqual;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
-import net.java.dev.webdav.jaxrs.NullArgumentException;
 
 /**
  * WebDAV propstat XML Element.
@@ -43,31 +42,28 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
 public final class PropStat {
 
 	@XmlElement
-	private Prop prop;
+	private final Prop prop;
 
 	@XmlElement
-	private Status status;
+	private final Status status;
 
 	@XmlElement
-	private Error error;
+	private final Error error;
 
 	@XmlElement(name = "responsedescription")
-	private ResponseDescription responseDescription;
+	private final ResponseDescription responseDescription;
 
 	@SuppressWarnings("unused")
 	private PropStat() {
-		// For unmarshalling only.
+		this.prop = null;
+		this.status = null;
+		this.error = null;
+		this.responseDescription = null;
 	}
 
 	public PropStat(final Prop prop, final Status status, final Error error, final ResponseDescription responseDescription) {
-		if (prop == null)
-			throw new NullArgumentException("prop");
-
-		if (status == null)
-			throw new NullArgumentException("status");
-
-		this.prop = prop;
-		this.status = status;
+		this.prop = notNull(prop, "prop");
+		this.status = notNull(status, "status");
 		this.error = error;
 		this.responseDescription = responseDescription;
 	}

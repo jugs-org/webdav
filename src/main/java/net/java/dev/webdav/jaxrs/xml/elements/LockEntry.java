@@ -22,11 +22,11 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
+import static net.java.dev.webdav.util.Utilities.notNull;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
-import net.java.dev.webdav.jaxrs.NullArgumentException;
 
 /**
  * WebDAV lockentry XML Element.
@@ -41,25 +41,20 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
 public final class LockEntry {
 
 	@XmlElement(name = "lockscope")
-	private LockScope lockScope;
+	private final LockScope lockScope;
 
 	@XmlElement(name = "locktype")
-	private LockType lockType;
+	private final LockType lockType;
 
 	@SuppressWarnings("unused")
 	private LockEntry() {
-		// For unmarshalling only.
+		this.lockScope = null;
+		this.lockType = null;
 	}
 
 	public LockEntry(final LockScope lockScope, final LockType lockType) {
-		if (lockScope == null)
-			throw new NullArgumentException("lockScope");
-
-		if (lockType == null)
-			throw new NullArgumentException("lockType");
-
-		this.lockScope = lockScope;
-		this.lockType = lockType;
+		this.lockScope = notNull(lockScope, "lockScope");
+		this.lockType = notNull(lockType, "lockType");
 	}
 
 	public final LockScope getLockScope() {

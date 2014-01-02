@@ -22,15 +22,16 @@
 
 package net.java.dev.webdav.jaxrs.xml.conditions;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import static java.util.Collections.unmodifiableList;
+import static net.java.dev.webdav.util.Utilities.append;
+import static net.java.dev.webdav.util.Utilities.notNull;
+
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.elements.HRef;
 
 /**
@@ -49,26 +50,15 @@ public final class LockTokenSubmitted {
 
 	@SuppressWarnings("unused")
 	private LockTokenSubmitted() {
-		this.hRefs = new ArrayList<HRef>();
+		this.hRefs = new LinkedList<HRef>();
 	}
 
 	public LockTokenSubmitted(final HRef hRef, final HRef... hRefs) {
-		if (hRef == null)
-			throw new NullArgumentException("hRef");
-
-		this.hRefs = combine(hRef, hRefs);
-	}
-
-	private static final <E> List<E> combine(final E e, final E... es) {
-		@SuppressWarnings("unchecked")
-		final E combined[] = (E[]) new Object[1 + es.length];
-		combined[0] = e;
-		System.arraycopy(es, 0, combined, 1, es.length);
-		return Arrays.asList(combined);
+		this.hRefs = append(notNull(hRef, "hRef"), hRefs);
 	}
 
 	public final List<HRef> getHRefs() {
-		return Collections.unmodifiableList(this.hRefs);
+		return unmodifiableList(this.hRefs);
 	}
 
 	@Override

@@ -44,12 +44,16 @@ import net.java.dev.webdav.jaxrs.ResponseStatus;
 public final class Status {
 
 	@XmlValue
-	protected String statusLine;
+	private String statusLine;
 
 	public final String getStatus() {
 		return this.statusLine;
 	}
 
+	/**
+	 * @deprecated Since 1.2. Construct immutable instance instead.
+	 */
+	@Deprecated
 	public void setStatus(final String status) {
 		this.statusLine = status;
 	}

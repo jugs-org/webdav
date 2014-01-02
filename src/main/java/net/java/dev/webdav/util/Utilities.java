@@ -22,9 +22,15 @@
 
 package net.java.dev.webdav.util;
 
+import static java.util.Arrays.asList;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
+import net.java.dev.webdav.jaxrs.NullArgumentException;
 
 /**
  * Common purpose utilities.
@@ -109,5 +115,39 @@ public final class Utilities {
 		final T[] expandedArray = Arrays.copyOf(firstArray, firstArray.length + secondArray.length);
 		System.arraycopy(secondArray, 0, expandedArray, firstArray.length, secondArray.length);
 		return expandedArray;
+	}
+
+	/**
+	 * Ensures that {@code t} is not {@code null}.
+	 * 
+	 * @param t
+	 *            The argument to check.
+	 * @param name
+	 *            The name of the argument.
+	 * @return {@code t}
+	 * @throws NullArgumentException
+	 *             in case {@code t} is {@code null}.
+	 */
+	public static final <T> T notNull(final T t, final String name) throws NullArgumentException {
+		if (t == null)
+			throw new NullArgumentException(name);
+
+		return t;
+	}
+
+	/**
+	 * Combines {@code t} and {@code ts} into one single list of size {@code 1 + ts.length}.
+	 * 
+	 * @param t
+	 *            Set into the first position of the new list. Must not be {@code null}.
+	 * @param ts
+	 *            Appended starting at position {@code 1} into the new list. Must not be {@code null}.
+	 * @return A new list containing first {@code t} then content of {@code ts}.
+	 */
+	public static final <T> List<T> append(T t, T... ts) {
+		final List<T> result = new ArrayList<T>(1 + ts.length);
+		result.add(t);
+		result.addAll(asList(ts));
+		return result;
 	}
 }

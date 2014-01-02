@@ -23,6 +23,8 @@
 package net.java.dev.webdav.jaxrs.xml.elements;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.unmodifiableList;
+import static net.java.dev.webdav.util.Utilities.notNull;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -30,8 +32,6 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlMixed;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import net.java.dev.webdav.jaxrs.NullArgumentException;
 
 /**
  * WebDAV owner XML Element.
@@ -46,7 +46,7 @@ public final class Owner {
 
 	@XmlMixed
 	@XmlAnyElement(lax = true)
-	private LinkedList<Object> any;
+	private final List<Object> any;
 
 	@SuppressWarnings("unused")
 	private Owner() {
@@ -54,15 +54,11 @@ public final class Owner {
 	}
 
 	public Owner(final Object... any) {
-		if (any == null)
-			throw new NullArgumentException("any");
-
-		this.any = new LinkedList<Object>(asList(any));
+		this.any = asList(notNull(any, "any"));
 	}
 
-	@SuppressWarnings("unchecked")
 	public final List<Object> getAny() {
-		return (List<Object>) this.any.clone();
+		return unmodifiableList(this.any);
 	}
 
 	@Override

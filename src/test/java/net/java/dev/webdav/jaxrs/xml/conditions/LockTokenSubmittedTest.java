@@ -69,8 +69,8 @@ public final class LockTokenSubmittedTest extends AbstractJaxbCoreFunctionality<
 			{ new LockTokenSubmitted(new HRef("x")), "<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href></D:lock-token-submitted>" },
 			{ new LockTokenSubmitted(new HRef("x"), new HRef("y")),
 					"<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href></D:lock-token-submitted>" },
-			{ new LockTokenSubmitted(new HRef("x"), new HRef[] { new HRef("y") }),
-					"<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href></D:lock-token-submitted>" } };
+			{ new LockTokenSubmitted(new HRef("x"), new HRef[] { new HRef("y"), new HRef("z") }),
+					"<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href><D:href>z</D:href></D:lock-token-submitted>" } };
 
 	@Theory
 	public final void hRefsAreSorted(final Object[] dataPoint) {

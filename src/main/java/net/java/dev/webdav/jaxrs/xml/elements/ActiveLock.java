@@ -23,14 +23,13 @@
 package net.java.dev.webdav.jaxrs.xml.elements;
 
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
+import static net.java.dev.webdav.util.Utilities.notNull;
 import static net.java.dev.webdav.util.Utilities.sameOrEqual;
 
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
-import net.java.dev.webdav.jaxrs.NullArgumentException;
 
 /**
  * WebDAV activelock XML Element.
@@ -46,50 +45,44 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
 public final class ActiveLock {
 
 	@XmlElement(name = "lockscope")
-	private LockScope lockScope;
+	private final LockScope lockScope;
 
 	@XmlElement(name = "locktype")
-	private LockType lockType;
+	private final LockType lockType;
 
-	private Depth depth;
+	private final Depth depth;
 
-	private Owner owner;
+	private final Owner owner;
 
 	@XmlElement(name = "timeout")
-	private TimeOut timeOut;
+	private final TimeOut timeOut;
 
 	@XmlElement(name = "locktoken")
-	private LockToken lockToken;
+	private final LockToken lockToken;
 
 	@XmlElement(name = "lockroot")
-	private LockRoot lockRoot;
+	private final LockRoot lockRoot;
 
 	@SuppressWarnings("unused")
 	private ActiveLock() {
-		// For unmarshalling only;
+		this.lockScope = null;
+		this.lockType = null;
+		this.depth = null;
+		this.owner = null;
+		this.timeOut = null;
+		this.lockToken = null;
+		this.lockRoot = null;
 	}
 
 	public ActiveLock(final LockScope lockScope, final LockType lockType, final Depth depth, final Owner owner, final TimeOut timeOut,
 			final LockToken lockToken, final LockRoot lockRoot) {
-		if (lockScope == null)
-			throw new NullArgumentException("lockScope");
-
-		if (lockType == null)
-			throw new NullArgumentException("lockType");
-
-		if (depth == null)
-			throw new NullArgumentException("depth");
-
-		if (lockRoot == null)
-			throw new NullArgumentException("lockRoot");
-
-		this.lockScope = lockScope;
-		this.lockType = lockType;
-		this.depth = depth;
+		this.lockScope = notNull(lockScope, "lockScope");
+		this.lockType = notNull(lockType, "lockType");
+		this.depth = notNull(depth, "depth");
 		this.owner = owner;
 		this.timeOut = timeOut;
 		this.lockToken = lockToken;
-		this.lockRoot = lockRoot;
+		this.lockRoot = notNull(lockRoot, "lockRoot");
 	}
 
 	public final LockScope getLockScope() {

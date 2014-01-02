@@ -22,9 +22,10 @@
 
 package net.java.dev.webdav.jaxrs.xml.conditions;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import static java.util.Arrays.asList;
+import static java.util.Collections.unmodifiableList;
+
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -47,15 +48,15 @@ public final class NoConflictingLock {
 	private final List<HRef> hRefs;
 
 	public NoConflictingLock() {
-		this.hRefs = new ArrayList<HRef>();
+		this.hRefs = new LinkedList<HRef>();
 	}
 
 	public NoConflictingLock(final HRef... hRefs) {
-		this.hRefs = Arrays.asList(hRefs);
+		this.hRefs = asList(hRefs);
 	}
 
 	public final List<HRef> getHRefs() {
-		return Collections.unmodifiableList(this.hRefs);
+		return unmodifiableList(this.hRefs);
 	}
 
 	@Override

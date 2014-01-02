@@ -23,14 +23,13 @@
 package net.java.dev.webdav.jaxrs.xml.elements;
 
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
+import static net.java.dev.webdav.util.Utilities.notNull;
 import static net.java.dev.webdav.util.Utilities.sameOrEqual;
 
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
-import net.java.dev.webdav.jaxrs.NullArgumentException;
 
 /**
  * WebDAV propfind XML Element.
@@ -46,44 +45,42 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
 public final class PropFind {
 
 	@XmlElement(name = "propname")
-	private PropName propName;
+	private final PropName propName;
 
 	@XmlElement(name = "allprop")
-	private AllProp allProp;
+	private final AllProp allProp;
 
-	private Include include;
+	private final Include include;
 
-	private Prop prop;
+	private final Prop prop;
 
 	@SuppressWarnings("unused")
 	private PropFind() {
-		// For unmarshalling only.
+		this(null, null, null, null);
+	}
+
+	private PropFind(final PropName propName, final AllProp allProp, final Include include, final Prop prop) {
+		this.propName = propName;
+		this.allProp = allProp;
+		this.include = include;
+		this.prop = prop;
+
 	}
 
 	public PropFind(final PropName propName) {
-		if (propName == null)
-			throw new NullArgumentException("propName");
-
-		this.propName = propName;
+		this(notNull(propName, "propName"), null, null, null);
 	}
 
 	public PropFind(final AllProp allProp, final Include include) {
-		if (allProp == null)
-			throw new NullArgumentException("allProp");
-
-		this.allProp = allProp;
-		this.include = include;
+		this(null, notNull(allProp, "allProp"), include, null);
 	}
 
 	public PropFind(final AllProp allProp) {
-		this(allProp, null);
+		this(null, notNull(allProp, "allProp"), null, null);
 	}
 
 	public PropFind(final Prop prop) {
-		if (prop == null)
-			throw new NullArgumentException("prop");
-
-		this.prop = prop;
+		this(null, null, null, notNull(prop, "prop"));
 	}
 
 	public final PropName getPropName() {

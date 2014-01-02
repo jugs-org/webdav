@@ -22,7 +22,9 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
-import java.util.Arrays;
+import static java.util.Arrays.asList;
+import static java.util.Collections.unmodifiableList;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,7 +43,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public final class Prop {
 
 	@XmlAnyElement(lax = true)
-	private final LinkedList<Object> properties;
+	private final List<Object> properties;
 
 	@SuppressWarnings("unused")
 	private Prop() {
@@ -50,12 +52,11 @@ public final class Prop {
 	}
 
 	public Prop(final Object... any) {
-		this.properties = new LinkedList<Object>(Arrays.asList(any));
+		this.properties = asList(any);
 	}
 
-	@SuppressWarnings("unchecked")
 	public final List<Object> getProperties() {
-		return (List<Object>) this.properties.clone();
+		return unmodifiableList(this.properties);
 	}
 
 	@Override

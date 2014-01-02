@@ -22,11 +22,16 @@
 
 package net.java.dev.webdav.util;
 
+import static java.util.Arrays.asList;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
+
+import java.util.List;
+
+import net.java.dev.webdav.jaxrs.NullArgumentException;
 
 import org.junit.Test;
 
@@ -85,9 +90,33 @@ public final class UtilitiesTest {
 	}
 
 	@Test
-	public final void append() {
+	public final void shouldAppendArrayToArray() {
+		// given
 		final Integer[] firstArray = new Integer[] { 1, 2, 3 };
 		final Integer[] secondArray = new Integer[] { 4, 5, 6 };
-		assertThat(Utilities.append(firstArray, secondArray), equalTo(new Integer[] { 1, 2, 3, 4, 5, 6 }));
+
+		// when
+		final Integer[] result = Utilities.append(firstArray, secondArray);
+
+		// then
+		assertThat(result, equalTo(new Integer[] { 1, 2, 3, 4, 5, 6 }));
+	}
+
+	@Test
+	public final void shouldAppendArrayToObject() {
+		// given
+		final Integer object = 1;
+		final Integer[] array = new Integer[] { 2, 3, 4 };
+
+		// when
+		final List<Integer> result = Utilities.append(object, array);
+
+		// then
+		assertThat(result, equalTo(asList(1, 2, 3, 4)));
+	}
+
+	@Test(expected = NullArgumentException.class)
+	public final void shouldPreventNullArgument() {
+		Utilities.notNull(null, "name");
 	}
 }

@@ -23,6 +23,7 @@
 package net.java.dev.webdav.jaxrs.xml.properties;
 
 import static java.util.Collections.singleton;
+import static net.java.dev.webdav.util.Utilities.notNull;
 
 import java.text.ParseException;
 import java.util.Collection;
@@ -33,7 +34,6 @@ import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import net.java.dev.webdav.jaxrs.ConstantsAdapter;
-import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.elements.Rfc1123DateFormat;
 
 /**
@@ -66,10 +66,7 @@ public final class GetLastModified {
 	}
 
 	public GetLastModified(final Date dateTime) {
-		if (dateTime == null)
-			throw new NullArgumentException("dateTime");
-
-		this.dateTime = dateTime;
+		this.dateTime = notNull(dateTime, "dateTime");
 	}
 
 	public final Date getDateTime() {

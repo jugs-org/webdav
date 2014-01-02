@@ -22,13 +22,13 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
+import static net.java.dev.webdav.util.Utilities.notNull;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
-
-import net.java.dev.webdav.jaxrs.NullArgumentException;
 
 /**
  * WebDAV href XML Element.
@@ -42,25 +42,19 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
 public final class HRef {
 
 	@XmlValue
-	private String value;
+	private final String value;
 
 	@SuppressWarnings("unused")
 	private HRef() {
-		// For unmarshalling only.
+		this.value = null;
 	}
 
 	public HRef(final URI uri) {
-		if (uri == null)
-			throw new NullArgumentException("uri");
-
-		this.value = uri.toString();
+		this.value = notNull(uri, "uri").toString();
 	}
 
-	public HRef(final String value) {
-		if (value == null)
-			throw new NullArgumentException("uri");
-		
-		this.value = value;
+	public HRef(final String uri) {
+		this.value = notNull(uri, "uri");
 	}
 
 	/**

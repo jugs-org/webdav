@@ -32,6 +32,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import net.java.dev.webdav.util.Utilities;
+
 /**
  * WebDAV propstat XML Element.
  * 
@@ -116,5 +118,10 @@ public final class PropStat {
 
 		return Arrays.equals(array(this.prop, this.status, this.error, this.responseDescription),
 				array(that.prop, that.status, that.error, that.responseDescription));
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.prop, this.status, this.error, this.responseDescription);
 	}
 }

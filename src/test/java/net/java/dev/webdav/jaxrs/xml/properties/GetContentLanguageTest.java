@@ -85,4 +85,9 @@ public final class GetContentLanguageTest extends AbstractJaxbCoreFunctionality<
 	protected final GetContentLanguage getInstance() {
 		return new GetContentLanguage("DE");
 	}
+
+	@Override
+	protected final String getString() {
+		return "GetContentLanguage[DE]";
+	}
 }

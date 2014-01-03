@@ -24,6 +24,8 @@ package net.java.dev.webdav.jaxrs.xml.elements;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import net.java.dev.webdav.util.Utilities;
+
 /**
  * WebDAV set XML Element.
  * 
@@ -45,11 +47,6 @@ public final class Set extends RemoveOrSet {
 	}
 
 	@Override
-	public final String toString() {
-		return String.format("Set (%s)", super.getProp());
-	}
-
-	@Override
 	public final boolean equals(final Object o) {
 		if (this == o)
 			return true;
@@ -58,5 +55,10 @@ public final class Set extends RemoveOrSet {
 			return false;
 
 		return super.equals(o);
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.getProp());
 	}
 }

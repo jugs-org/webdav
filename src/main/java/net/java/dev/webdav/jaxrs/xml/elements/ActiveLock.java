@@ -34,6 +34,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import net.java.dev.webdav.util.Utilities;
+
 /**
  * WebDAV activelock XML Element.
  * 
@@ -141,5 +143,10 @@ public final class ActiveLock {
 
 		return Arrays.equals(array(this.lockScope, this.lockType, this.depth, this.owner, this.timeOut, this.lockToken, this.lockRoot),
 				array(that.lockScope, that.lockType, that.depth, that.owner, that.timeOut, that.lockToken, that.lockRoot));
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.lockScope, this.lockToken, this.depth, this.owner, this.timeOut, this.lockToken, this.lockRoot);
 	}
 }

@@ -104,4 +104,9 @@ public final class ActiveLockTest extends AbstractJaxbCoreFunctionality<ActiveLo
 	protected final ActiveLock getInstance() {
 		return new ActiveLock(LOCK_SCOPE, LOCK_TYPE, DEPTH, null, null, null, LOCK_ROOT);
 	}
+
+	@Override
+	protected final String getString() {
+		return "ActiveLock[LockScope[null, Exclusive[]], null, INFINITY, null, null, null, LockRoot[HRef[http://localhost]]]";
+	}
 }

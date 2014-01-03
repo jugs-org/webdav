@@ -30,6 +30,8 @@ import java.net.URISyntaxException;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 
+import net.java.dev.webdav.util.Utilities;
+
 /**
  * WebDAV href XML Element.
  * 
@@ -106,5 +108,10 @@ public final class HRef {
 	@Override
 	public final int hashCode() {
 		return this.value.hashCode();
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.value);
 	}
 }

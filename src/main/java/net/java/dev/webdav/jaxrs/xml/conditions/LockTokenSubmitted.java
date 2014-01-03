@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import net.java.dev.webdav.jaxrs.xml.elements.HRef;
+import net.java.dev.webdav.util.Utilities;
 
 /**
  * WebDAV lock-token-submitted Precondition XML Element.
@@ -77,5 +78,10 @@ public final class LockTokenSubmitted {
 	@Override
 	public final int hashCode() {
 		return this.hRefs.hashCode();
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.hRefs);
 	}
 }

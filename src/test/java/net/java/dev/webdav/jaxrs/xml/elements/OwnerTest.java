@@ -59,4 +59,9 @@ public final class OwnerTest extends AbstractJaxbCoreFunctionality<Owner> {
 	protected final Owner getInstance() {
 		return new Owner(ANY);
 	}
+
+	@Override
+	protected final String getString() {
+		return "Owner[[ANY]]";
+	}
 }

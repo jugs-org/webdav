@@ -89,4 +89,9 @@ public final class LockScopeTest extends AbstractJaxbCoreFunctionality<LockScope
 	protected final LockScope getInstance() {
 		return LockScope.EXCLUSIVE;
 	}
+
+	@Override
+	protected final String getString() {
+		return "LockScope[null, Exclusive[]]";
+	}
 }

@@ -25,6 +25,8 @@ package net.java.dev.webdav.jaxrs.xml.conditions;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import net.java.dev.webdav.util.Utilities;
+
 /**
  * WebDAV cannot-modify-protected-property Precondition XML Element.
  * 
@@ -70,5 +72,10 @@ public final class CannotModifyProtectedProperty {
 	@Override
 	public final int hashCode() {
 		return 1;
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this);
 	}
 }

@@ -39,4 +39,9 @@ public final class PropNameTest extends AbstractJaxbCoreFunctionality<PropName> 
 	protected final PropName getSingleton() {
 		return PropName.PROPNAME;
 	}
+
+	@Override
+	protected final String getString() {
+		return "PropName[]";
+	}
 }

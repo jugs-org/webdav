@@ -70,4 +70,9 @@ public final class MultiStatusTest extends AbstractJaxbCoreFunctionality<MultiSt
 	protected final MultiStatus getInstance() {
 		return new MultiStatus(RESPONSE);
 	}
+
+	@Override
+	protected final String getString() {
+		return "MultiStatus[[Response[null, [], null, null, null]], null]";
+	}
 }

@@ -31,6 +31,8 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import net.java.dev.webdav.util.Utilities;
+
 /**
  * WebDAV prop XML Element.
  * 
@@ -60,16 +62,6 @@ public final class Prop {
 	}
 
 	@Override
-	public final String toString() {
-		final StringBuilder content = new StringBuilder();
-
-		for (final Object o : this.properties)
-			content.append(o).append(' ');
-
-		return String.format("Prop (%s)", content);
-	}
-
-	@Override
 	public final int hashCode() {
 		return this.properties.hashCode();
 	}
@@ -85,5 +77,10 @@ public final class Prop {
 		final Prop that = (Prop) object;
 
 		return this.properties.equals(that.properties);
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.properties);
 	}
 }

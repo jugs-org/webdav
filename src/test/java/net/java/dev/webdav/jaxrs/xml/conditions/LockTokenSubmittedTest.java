@@ -38,6 +38,7 @@ import javax.xml.bind.JAXB;
 import net.java.dev.webdav.jaxrs.NullArgumentException;
 import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 import net.java.dev.webdav.jaxrs.xml.elements.HRef;
+import net.java.dev.webdav.util.Utilities;
 
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
@@ -96,5 +97,10 @@ public final class LockTokenSubmittedTest extends AbstractJaxbCoreFunctionality<
 	@Override
 	protected final LockTokenSubmitted getInstance() {
 		return new LockTokenSubmitted(HREF);
+	}
+
+	@Override
+	protected final String getString() {
+		return "LockTokenSubmitted[[HRef[x]]]";
 	}
 }

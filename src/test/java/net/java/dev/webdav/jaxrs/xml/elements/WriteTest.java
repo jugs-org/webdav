@@ -39,4 +39,9 @@ public final class WriteTest extends AbstractJaxbCoreFunctionality<Write> {
 	protected final Write getSingleton() {
 		return Write.WRITE;
 	}
+
+	@Override
+	protected final String getString() {
+		return "Write[]";
+	}
 }

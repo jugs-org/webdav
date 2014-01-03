@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import net.java.dev.webdav.jaxrs.ConstantsAdapter;
 import net.java.dev.webdav.jaxrs.xml.elements.ActiveLock;
+import net.java.dev.webdav.util.Utilities;
 
 /**
  * WebDAV lockdiscovery Property.
@@ -101,5 +102,10 @@ public final class LockDiscovery {
 		protected final Collection<LockDiscovery> getConstants() {
 			return singleton(LOCKDISCOVERY);
 		}
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.activeLocks);
 	}
 }

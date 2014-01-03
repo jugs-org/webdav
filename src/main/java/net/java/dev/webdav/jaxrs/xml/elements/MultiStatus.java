@@ -36,6 +36,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import net.java.dev.webdav.util.Utilities;
+
 /**
  * WebDAV multistatus XML Element.
  * 
@@ -96,5 +98,10 @@ public final class MultiStatus {
 		final MultiStatus that = (MultiStatus) o;
 
 		return Arrays.equals(array(this.responses, this.responseDescription), array(that.responses, that.responseDescription));
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.responses, this.responseDescription);
 	}
 }

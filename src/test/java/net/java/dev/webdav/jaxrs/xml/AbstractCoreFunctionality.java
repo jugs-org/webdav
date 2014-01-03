@@ -22,6 +22,9 @@
 
 package net.java.dev.webdav.jaxrs.xml;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
 import org.junit.Test;
 
 /**
@@ -45,4 +48,22 @@ public abstract class AbstractCoreFunctionality<T> {
 	 * @return An instance of the tested class.
 	 */
 	protected abstract T getInstance();
+
+	@Test
+	public final void shouldProduceString() {
+		// given
+		final T instance = this.getInstance();
+
+		// when
+		final String string = instance.toString();
+
+		// then
+		assertThat(string, is(this.getString()));
+	}
+
+	/**
+	 * @return String representation of the tested instance.
+	 * @see #getInstance()
+	 */
+	protected abstract String getString();
 }

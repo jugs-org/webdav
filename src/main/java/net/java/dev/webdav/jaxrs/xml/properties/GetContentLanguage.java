@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import net.java.dev.webdav.jaxrs.ConstantsAdapter;
+import net.java.dev.webdav.util.Utilities;
 
 /**
  * WebDAV getcontentlanguage Property.
@@ -96,5 +97,10 @@ public final class GetContentLanguage {
 		protected final Collection<GetContentLanguage> getConstants() {
 			return singleton(GETCONTENTLANGUAGE);
 		}
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.languageTag);
 	}
 }

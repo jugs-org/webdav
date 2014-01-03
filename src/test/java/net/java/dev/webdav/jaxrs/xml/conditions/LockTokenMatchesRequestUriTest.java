@@ -40,4 +40,9 @@ public final class LockTokenMatchesRequestUriTest extends AbstractJaxbCoreFuncti
 	protected final LockTokenMatchesRequestUri getSingleton() {
 		return LockTokenMatchesRequestUri.LOCK_TOKEN_MATCHES_REQUEST_URI;
 	}
+
+	@Override
+	protected final String getString() {
+		return "LockTokenMatchesRequestUri[]";
+	}
 }

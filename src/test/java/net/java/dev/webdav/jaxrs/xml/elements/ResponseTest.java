@@ -117,4 +117,9 @@ public final class ResponseTest extends AbstractJaxbCoreFunctionality<Response> 
 	protected final Response getInstance() {
 		return new Response(STATUS, ERROR, RESPONSE_DESCRIPTION, LOCATION, HREF);
 	}
+
+	@Override
+	protected final String getString() {
+		return "Response[Status[HTTP/1.1 207 Multi-Status], [], Error[[Prop[[]]]], ResponseDescription[X], Location[HRef[http://localhost]]]";
+	}
 }

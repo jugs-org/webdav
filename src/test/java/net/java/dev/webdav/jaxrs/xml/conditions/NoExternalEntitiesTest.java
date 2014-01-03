@@ -39,4 +39,8 @@ public final class NoExternalEntitiesTest extends AbstractJaxbCoreFunctionality<
 	protected final NoExternalEntities getSingleton() {
 		return NoExternalEntities.NO_EXTERNAL_ENTITIES;
 	}
+	@Override
+	protected final String getString() {
+		return "NoExternalEntities[]";
+	}
 }

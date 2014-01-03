@@ -39,4 +39,9 @@ public final class PropFindFiniteDepthTest extends AbstractJaxbCoreFunctionality
 	protected final PropFindFiniteDepth getSingleton() {
 		return PropFindFiniteDepth.PROPFIND_FINITE_DEPTH;
 	}
+
+	@Override
+	protected final String getString() {
+		return "PropFindFiniteDepth[]";
+	}
 }

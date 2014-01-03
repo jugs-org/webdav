@@ -38,6 +38,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import net.java.dev.webdav.jaxrs.ConstantsAdapter;
 import net.java.dev.webdav.jaxrs.xml.elements.TimeOut.Adapter;
+import net.java.dev.webdav.util.Utilities;
 
 /**
  * WebDAV timeout XML Element.
@@ -121,5 +122,10 @@ public final class TimeOut {
 		protected final Collection<TimeOut> getConstants() {
 			return singleton(INFINITE);
 		}
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.timeType);
 	}
 }

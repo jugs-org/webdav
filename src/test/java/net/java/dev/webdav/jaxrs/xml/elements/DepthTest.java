@@ -43,4 +43,9 @@ public final class DepthTest extends AbstractJaxbCoreFunctionality<Depth> {
 	protected final Depth getInstance() {
 		return Depth.INFINITY;
 	}
+
+	@Override
+	protected final String getString() {
+		return "INFINITY";
+	}
 }

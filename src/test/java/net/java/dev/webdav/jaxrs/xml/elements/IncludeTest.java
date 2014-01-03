@@ -59,4 +59,9 @@ public final class IncludeTest extends AbstractJaxbCoreFunctionality<Include> {
 	protected final Include getInstance() {
 		return new Include(CREATION_DATE);
 	}
+
+	@Override
+	protected final String getString() {
+		return "Include[[CreationDate[null]]]";
+	}
 }

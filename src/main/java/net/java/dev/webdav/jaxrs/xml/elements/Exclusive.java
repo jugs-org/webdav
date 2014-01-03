@@ -25,6 +25,8 @@ package net.java.dev.webdav.jaxrs.xml.elements;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import net.java.dev.webdav.util.Utilities;
+
 /**
  * WebDAV exclusive XML Element.
  * 
@@ -71,5 +73,10 @@ public final class Exclusive {
 	@Override
 	public final int hashCode() {
 		return 1;
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this);
 	}
 }

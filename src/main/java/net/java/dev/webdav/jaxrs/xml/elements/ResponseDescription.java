@@ -30,6 +30,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 
+import net.java.dev.webdav.util.Utilities;
+
 /**
  * WebDAV responsedescription XML Element.
  * 
@@ -82,5 +84,10 @@ public final class ResponseDescription {
 	@Override
 	public final int hashCode() {
 		return this.content.hashCode();
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.content);
 	}
 }

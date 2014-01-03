@@ -47,14 +47,16 @@ import org.junit.experimental.theories.Theory;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class NoConflictingLockTest extends AbstractJaxbCoreFunctionality<NoConflictingLock> {
+	private static final HRef HREF = new HRef("x");
+
 	@DataPoints
 	public static final Object[][] DATA_POINTS = new Object[][] {
 			{ new NoConflictingLock(), "<D:no-conflicting-lock xmlns:D=\"DAV:\"/>" },
-			{ new NoConflictingLock(new HRef("x")), "<D:no-conflicting-lock xmlns:D=\"DAV:\"><D:href>x</D:href></D:no-conflicting-lock>" },
-			{ new NoConflictingLock(new HRef("x"), new HRef("y")),
-					"<D:no-conflicting-lock xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href></D:no-conflicting-lock>" },
-			{ new NoConflictingLock(new HRef[] { new HRef("x"), new HRef("y") }),
-					"<D:no-conflicting-lock xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href></D:no-conflicting-lock>" } };
+			{ new NoConflictingLock(HREF), "<D:no-conflicting-lock xmlns:D=\"DAV:\"><D:href>x</D:href></D:no-conflicting-lock>" },
+			{ new NoConflictingLock(new HRef("x"), new HRef("y"), new HRef("z")),
+					"<D:no-conflicting-lock xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href><D:href>z</D:href></D:no-conflicting-lock>" },
+			{ new NoConflictingLock(new HRef[] { new HRef("x"), new HRef("y"), new HRef("z") }),
+					"<D:no-conflicting-lock xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href><D:href>z</D:href></D:no-conflicting-lock>" } };
 
 	@Theory
 	public final void hRefsAreSorted(final Object[] dataPoint) {
@@ -77,6 +79,11 @@ public final class NoConflictingLockTest extends AbstractJaxbCoreFunctionality<N
 
 	@Override
 	protected final NoConflictingLock getInstance() {
-		return new NoConflictingLock();
+		return new NoConflictingLock(HREF);
+	}
+
+	@Override
+	protected final String getString() {
+		return "NoConflictingLock[[HRef[x]]]";
 	}
 }

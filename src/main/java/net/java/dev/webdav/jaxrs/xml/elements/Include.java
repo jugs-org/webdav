@@ -32,6 +32,8 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import net.java.dev.webdav.util.Utilities;
+
 /**
  * WebDAV include XML Element.
  * 
@@ -75,5 +77,10 @@ public final class Include {
 		final Include that = (Include) other;
 
 		return this.includes.equals(that.includes);
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.includes);
 	}
 }

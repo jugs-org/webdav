@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import net.java.dev.webdav.jaxrs.ConstantsAdapter;
+import net.java.dev.webdav.util.Utilities;
 
 /**
  * WebDAV getcontentlength Property.
@@ -117,5 +118,10 @@ public final class GetContentLength {
 		protected final Collection<GetContentLength> getConstants() {
 			return singleton(GETCONTENTLENGTH);
 		}
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.contentLength);
 	}
 }

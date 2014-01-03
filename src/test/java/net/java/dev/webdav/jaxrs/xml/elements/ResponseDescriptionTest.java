@@ -48,4 +48,9 @@ public final class ResponseDescriptionTest extends AbstractJaxbCoreFunctionality
 	protected final ResponseDescription getInstance() {
 		return new ResponseDescription("some content");
 	}
+
+	@Override
+	protected final String getString() {
+		return "ResponseDescription[some content]";
+	}
 }

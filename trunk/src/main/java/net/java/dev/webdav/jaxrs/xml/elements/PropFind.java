@@ -34,6 +34,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import net.java.dev.webdav.util.Utilities;
+
 /**
  * WebDAV propfind XML Element.
  * 
@@ -118,5 +120,10 @@ public final class PropFind {
 	@Override
 	public final int hashCode() {
 		return hash(this.propName, this.allProp, this.include, this.prop);
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.propName, this.allProp, this.include, this.prop);
 	}
 }

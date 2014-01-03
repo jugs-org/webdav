@@ -27,6 +27,8 @@ import static net.java.dev.webdav.util.Utilities.notNull;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import net.java.dev.webdav.util.Utilities;
+
 /**
  * WebDAV location XML Element.
  * 
@@ -70,5 +72,10 @@ public final class Location {
 		final Location that = (Location) other;
 
 		return this.hRef.equals(that.hRef);
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.hRef);
 	}
 }

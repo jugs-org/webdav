@@ -57,4 +57,9 @@ public final class LockTokenTest extends AbstractJaxbCoreFunctionality<LockToken
 	protected final LockToken getInstance() {
 		return new LockToken(HREF);
 	}
+
+	@Override
+	protected final String getString() {
+		return "LockToken[HRef[http://localhost]]";
+	}
 }

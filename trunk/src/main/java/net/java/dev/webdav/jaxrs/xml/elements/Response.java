@@ -43,6 +43,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import net.java.dev.webdav.jaxrs.NullArgumentException;
+import net.java.dev.webdav.util.Utilities;
 
 /**
  * WebDAV response XML Element.
@@ -152,5 +153,10 @@ public final class Response {
 	@Override
 	public final int hashCode() {
 		return hash(this.hRefs, this.status, this.propStats, this.error, this.responseDescription, this.location);
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.status, this.propStats, this.error, this.responseDescription, this.location);
 	}
 }

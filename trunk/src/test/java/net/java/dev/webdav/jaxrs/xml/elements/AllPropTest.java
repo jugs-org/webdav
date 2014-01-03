@@ -39,4 +39,9 @@ public final class AllPropTest extends AbstractJaxbCoreFunctionality<AllProp> {
 	protected final AllProp getSingleton() {
 		return AllProp.ALLPROP;
 	}
+
+	@Override
+	protected final String getString() {
+		return "AllProp[]";
+	}
 }

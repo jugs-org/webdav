@@ -31,7 +31,6 @@ import static org.junit.Assert.assertThat;
 
 import java.io.StringReader;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Date;
 
 import javax.xml.bind.JAXB;
 import javax.xml.bind.JAXBContext;
@@ -96,6 +95,11 @@ public final class GetLastModifiedTest extends AbstractJaxbCoreFunctionality<Get
 
 	@Override
 	protected final GetLastModified getInstance() {
-		return new GetLastModified(new Date());
+		return new GetLastModified(date(2000, 01, 01, 00, 00, 00, 00, "UTC"));
+	}
+
+	@Override
+	protected final String getString() {
+		return "GetLastModified[Sat Jan 01 01:00:00 CET 2000]";
 	}
 }

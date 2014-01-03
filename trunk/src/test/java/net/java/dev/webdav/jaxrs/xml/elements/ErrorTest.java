@@ -64,4 +64,9 @@ public final class ErrorTest extends AbstractJaxbCoreFunctionality<Error> {
 	protected final Error getInstance() {
 		return new Error("ERROR");
 	}
+
+	@Override
+	protected final String getString() {
+		return "Error[[ERROR]]";
+	}
 }

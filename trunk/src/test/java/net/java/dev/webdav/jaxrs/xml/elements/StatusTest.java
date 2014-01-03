@@ -77,4 +77,9 @@ public final class StatusTest extends AbstractJaxbCoreFunctionality<Status> {
 	protected final Status getInstance() {
 		return new Status((StatusType) ResponseStatus.UNPROCESSABLE_ENTITY);
 	}
+
+	@Override
+	protected final String getString() {
+		return "Status[HTTP/1.1 422 Unprocessable Entity]";
+	}
 }

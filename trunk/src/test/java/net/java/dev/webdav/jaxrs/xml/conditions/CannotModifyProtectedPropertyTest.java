@@ -40,4 +40,9 @@ public final class CannotModifyProtectedPropertyTest extends AbstractJaxbCoreFun
 	protected final CannotModifyProtectedProperty getSingleton() {
 		return CannotModifyProtectedProperty.CANNOT_MODIFY_PROTECTED_PROPERTY;
 	}
+
+	@Override
+	protected final String getString() {
+		return "CannotModifyProtectedProperty[]";
+	}
 }

@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import net.java.dev.webdav.jaxrs.ConstantsAdapter;
+import net.java.dev.webdav.util.Utilities;
 
 /**
  * WebDAV displayname Property.
@@ -96,5 +97,10 @@ public final class DisplayName {
 		protected final Collection<DisplayName> getConstants() {
 			return singleton(DISPLAYNAME);
 		}
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.name);
 	}
 }

@@ -85,4 +85,9 @@ public final class GetContentTypeTest extends AbstractJaxbCoreFunctionality<GetC
 	protected final GetContentType getInstance() {
 		return new GetContentType("SomeMediaType");
 	}
+
+	@Override
+	protected final String getString() {
+		return "GetContentType[SomeMediaType]";
+	}
 }

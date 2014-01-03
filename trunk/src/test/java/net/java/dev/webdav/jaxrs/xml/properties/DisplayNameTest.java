@@ -84,4 +84,9 @@ public final class DisplayNameTest extends AbstractJaxbCoreFunctionality<Display
 	protected final DisplayName getInstance() {
 		return new DisplayName("SomeName");
 	}
+
+	@Override
+	protected final String getString() {
+		return "DisplayName[SomeName]";
+	}
 }

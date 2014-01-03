@@ -93,4 +93,9 @@ public final class SupportedLockTest extends AbstractJaxbCoreFunctionality<Suppo
 	protected final SupportedLock getInstance() {
 		return new SupportedLock(new LockEntry(LockScope.EXCLUSIVE, LockType.WRITE));
 	}
+
+	@Override
+	protected final String getString() {
+		return "SupportedLock[[LockEntry[LockScope[null, Exclusive[]], LockType[Write[]]]]]";
+	}
 }

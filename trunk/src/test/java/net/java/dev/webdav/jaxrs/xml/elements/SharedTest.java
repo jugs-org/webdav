@@ -39,4 +39,9 @@ public final class SharedTest extends AbstractJaxbCoreFunctionality<Shared> {
 	protected final Shared getSingleton() {
 		return Shared.SHARED;
 	}
+
+	@Override
+	protected final String getString() {
+		return "Shared[]";
+	}
 }

@@ -32,6 +32,8 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import net.java.dev.webdav.util.Utilities;
+
 /**
  * WebDAV error XML Element.
  * 
@@ -72,5 +74,10 @@ public final class Error {
 		final Error that = (Error) other;
 
 		return this.errors.equals(that.errors);
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.errors);
 	}
 }

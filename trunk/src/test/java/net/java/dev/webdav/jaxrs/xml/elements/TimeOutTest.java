@@ -87,4 +87,9 @@ public final class TimeOutTest extends AbstractJaxbCoreFunctionality<TimeOut> {
 	protected final TimeOut getInstance() {
 		return new TimeOut(90L);
 	}
+
+	@Override
+	protected final String getString() {
+		return "TimeOut[90]";
+	}
 }

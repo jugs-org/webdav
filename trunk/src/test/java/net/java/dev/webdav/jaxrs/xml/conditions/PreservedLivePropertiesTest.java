@@ -40,4 +40,9 @@ public final class PreservedLivePropertiesTest extends AbstractJaxbCoreFunctiona
 	protected final PreservedLiveProperties getSingleton() {
 		return PreservedLiveProperties.PRESERVED_LIVE_PROPERTIES;
 	}
+
+	@Override
+	protected final String getString() {
+		return "PreservedLiveProperties[]";
+	}
 }

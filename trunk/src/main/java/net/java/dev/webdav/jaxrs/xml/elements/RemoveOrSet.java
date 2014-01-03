@@ -26,6 +26,8 @@ import static net.java.dev.webdav.util.Utilities.notNull;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import net.java.dev.webdav.util.Utilities;
+
 /**
  * Internal superclass of set and remove WebDAV elements.<br>
  * 
@@ -69,5 +71,10 @@ public abstract class RemoveOrSet {
 	@Override
 	public final int hashCode() {
 		return this.prop.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		return Utilities.toString(this, this.prop);
 	}
 }

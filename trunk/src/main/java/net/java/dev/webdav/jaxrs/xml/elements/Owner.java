@@ -33,6 +33,8 @@ import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlMixed;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import net.java.dev.webdav.util.Utilities;
+
 /**
  * WebDAV owner XML Element.
  * 
@@ -74,5 +76,10 @@ public final class Owner {
 		final Owner that = (Owner) other;
 
 		return this.any.equals(that.any);
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.any);
 	}
 }

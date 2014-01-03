@@ -39,4 +39,9 @@ public final class ExclusiveTest extends AbstractJaxbCoreFunctionality<Exclusive
 	protected final Exclusive getSingleton() {
 		return Exclusive.EXCLUSIVE;
 	}
+
+	@Override
+	protected final String getString() {
+		return "Exclusive[]";
+	}
 }

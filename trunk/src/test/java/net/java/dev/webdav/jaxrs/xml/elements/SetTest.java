@@ -56,4 +56,9 @@ public final class SetTest extends AbstractJaxbCoreFunctionality<Set> {
 	protected final Set getInstance() {
 		return new Set(PROP);
 	}
+
+	@Override
+	protected final String getString() {
+		return "Set[Prop[[]]]";
+	}
 }

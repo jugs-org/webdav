@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import net.java.dev.webdav.jaxrs.xml.elements.HRef;
+import net.java.dev.webdav.util.Utilities;
 
 /**
  * WebDAV no-conflicting-lock Precondition XML Element.
@@ -75,5 +76,10 @@ public final class NoConflictingLock {
 	@Override
 	public final int hashCode() {
 		return this.hRefs.hashCode();
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.hRefs);
 	}
 }

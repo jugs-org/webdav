@@ -65,4 +65,9 @@ public final class PropertyUpdateTest extends AbstractJaxbCoreFunctionality<Prop
 	protected final PropertyUpdate getInstance() {
 		return new PropertyUpdate(SET);
 	}
+
+	@Override
+	protected final String getString() {
+		return "PropertyUpdate[[Set[Prop[[]]]]]";
+	}
 }

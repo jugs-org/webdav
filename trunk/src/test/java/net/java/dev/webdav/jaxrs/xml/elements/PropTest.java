@@ -51,4 +51,9 @@ public final class PropTest extends AbstractJaxbCoreFunctionality<Prop> {
 	protected final Prop getInstance() {
 		return new Prop(CREATIONDATE);
 	}
+
+	@Override
+	protected final String getString() {
+		return "Prop[[CreationDate[null]]]";
+	}
 }

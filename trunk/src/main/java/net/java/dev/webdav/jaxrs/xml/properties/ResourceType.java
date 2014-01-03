@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import net.java.dev.webdav.jaxrs.ConstantsAdapter;
 import net.java.dev.webdav.jaxrs.xml.elements.Collection;
+import net.java.dev.webdav.util.Utilities;
 
 /**
  * WebDAV resourcetype Property.
@@ -110,5 +111,10 @@ public final class ResourceType {
 		protected final java.util.Collection<ResourceType> getConstants() {
 			return asList(RESOURCETYPE, COLLECTION);
 		}
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.resourceTypes);
 	}
 }

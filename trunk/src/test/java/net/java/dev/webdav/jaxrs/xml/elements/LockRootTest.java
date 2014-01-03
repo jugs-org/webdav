@@ -57,4 +57,9 @@ public final class LockRootTest extends AbstractJaxbCoreFunctionality<LockRoot> 
 	protected final LockRoot getInstance() {
 		return new LockRoot(HREF);
 	}
+
+	@Override
+	protected final String getString() {
+		return "LockRoot[HRef[http://localhost]]";
+	}
 }

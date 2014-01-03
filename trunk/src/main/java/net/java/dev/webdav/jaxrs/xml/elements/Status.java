@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 
 import net.java.dev.webdav.jaxrs.ResponseStatus;
+import net.java.dev.webdav.util.Utilities;
 
 /**
  * WebDAV status XML Element.
@@ -103,5 +104,10 @@ public final class Status {
 	@Override
 	public final int hashCode() {
 		return this.statusLine.hashCode();
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.statusLine);
 	}
 }

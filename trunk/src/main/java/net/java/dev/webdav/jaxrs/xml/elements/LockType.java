@@ -28,6 +28,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import net.java.dev.webdav.util.Utilities;
+
 /**
  * WebDAV locktype XML Element.
  * 
@@ -78,5 +80,10 @@ public final class LockType {
 	@Override
 	public final int hashCode() {
 		return 1;
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.write);
 	}
 }

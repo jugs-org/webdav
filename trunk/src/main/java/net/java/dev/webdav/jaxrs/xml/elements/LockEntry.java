@@ -32,6 +32,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import net.java.dev.webdav.util.Utilities;
+
 /**
  * WebDAV lockentry XML Element.
  * 
@@ -82,5 +84,10 @@ public final class LockEntry {
 		final LockEntry that = (LockEntry) other;
 
 		return Arrays.equals(array(this.lockScope, this.lockType), array(that.lockScope, that.lockType));
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.lockScope, this.lockType);
 	}
 }

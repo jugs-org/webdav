@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import net.java.dev.webdav.jaxrs.ConstantsAdapter;
 import net.java.dev.webdav.jaxrs.xml.elements.Rfc1123DateFormat;
+import net.java.dev.webdav.util.Utilities;
 
 /**
  * WebDAV getlastmodified Property.
@@ -109,5 +110,10 @@ public final class GetLastModified {
 		protected final Collection<GetLastModified> getConstants() {
 			return singleton(GETLASTMODIFIED);
 		}
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.dateTime);
 	}
 }

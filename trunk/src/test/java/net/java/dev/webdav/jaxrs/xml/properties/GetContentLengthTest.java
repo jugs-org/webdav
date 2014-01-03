@@ -82,4 +82,9 @@ public final class GetContentLengthTest extends AbstractJaxbCoreFunctionality<Ge
 	protected final GetContentLength getInstance() {
 		return new GetContentLength(123L);
 	}
+
+	@Override
+	protected final String getString() {
+		return "GetContentLength[123]";
+	}
 }

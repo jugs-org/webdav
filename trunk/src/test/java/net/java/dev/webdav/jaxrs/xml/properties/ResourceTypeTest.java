@@ -106,6 +106,11 @@ public final class ResourceTypeTest extends AbstractJaxbCoreFunctionality<Resour
 
 	@Override
 	protected final ResourceType getInstance() {
-		return ResourceType.RESOURCETYPE;
+		return ResourceType.COLLECTION;
+	}
+
+	@Override
+	protected final String getString() {
+		return "ResourceType[[Collection[]]]";
 	}
 }

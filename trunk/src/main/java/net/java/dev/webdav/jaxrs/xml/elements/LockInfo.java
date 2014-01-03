@@ -32,6 +32,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import net.java.dev.webdav.util.Utilities;
+
 /**
  * WebDAV lockinfo XML Element.
  * 
@@ -94,5 +96,10 @@ public final class LockInfo {
 		final LockInfo that = (LockInfo) other;
 
 		return Arrays.equals(array(this.lockScope, this.lockType, this.owner), array(that.lockScope, that.lockType, that.owner));
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.lockScope, this.lockType, this.owner);
 	}
 }

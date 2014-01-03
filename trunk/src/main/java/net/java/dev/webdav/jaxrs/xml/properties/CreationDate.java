@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import net.java.dev.webdav.jaxrs.ConstantsAdapter;
 import net.java.dev.webdav.jaxrs.xml.elements.Rfc3339DateTimeFormat;
+import net.java.dev.webdav.util.Utilities;
 
 /**
  * WebDAV creationdate Property.
@@ -109,5 +110,10 @@ public final class CreationDate {
 		protected final Collection<CreationDate> getConstants() {
 			return singleton(CREATIONDATE);
 		}
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.dateTime);
 	}
 }

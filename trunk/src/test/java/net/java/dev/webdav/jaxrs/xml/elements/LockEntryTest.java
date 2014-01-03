@@ -64,4 +64,9 @@ public final class LockEntryTest extends AbstractJaxbCoreFunctionality<LockEntry
 	protected final LockEntry getInstance() {
 		return new LockEntry(EXCLUSIVE, WRITE);
 	}
+
+	@Override
+	protected final String getString() {
+		return "LockEntry[LockScope[null, Exclusive[]], LockType[Write[]]]";
+	}
 }

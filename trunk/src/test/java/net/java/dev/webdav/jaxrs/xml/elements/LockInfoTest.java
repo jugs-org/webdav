@@ -71,4 +71,9 @@ public final class LockInfoTest extends AbstractJaxbCoreFunctionality<LockInfo> 
 	protected final LockInfo getInstance() {
 		return new LockInfo(EXCLUSIVE, WRITE, null);
 	}
+
+	@Override
+	protected final String getString() {
+		return "LockInfo[LockScope[null, Exclusive[]], LockType[Write[]], null]";
+	}
 }

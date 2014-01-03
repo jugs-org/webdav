@@ -74,4 +74,9 @@ public final class PropStatTest extends AbstractJaxbCoreFunctionality<PropStat> 
 	protected final PropStat getInstance() {
 		return new PropStat(PROP, STATUS);
 	}
+
+	@Override
+	protected final String getString() {
+		return "PropStat[Prop[[]], Status[HTTP/1.1 423 Locked], null, null]";
+	}
 }

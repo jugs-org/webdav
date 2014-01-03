@@ -97,7 +97,12 @@ public final class LockDiscoveryTest extends AbstractJaxbCoreFunctionality<LockD
 
 	@Override
 	protected final LockDiscovery getInstance() {
-		return new LockDiscovery(new ActiveLock(LockScope.SHARED, LockType.WRITE, Depth.ZERO, new Owner(""), TimeOut.INFINITE, new LockToken(new HRef(
+		return new LockDiscovery(new ActiveLock(LockScope.SHARED, LockType.WRITE, Depth.ZERO, new Owner(""), new TimeOut(75), new LockToken(new HRef(
 				"http://localhost")), new LockRoot(new HRef("http://localhost"))));
+	}
+
+	@Override
+	protected final String getString() {
+		return "LockDiscovery[[ActiveLock[LockScope[Shared[], null], LockToken[HRef[http://localhost]], ZERO, Owner[[]], TimeOut[75], LockToken[HRef[http://localhost]], LockRoot[HRef[http://localhost]]]]]";
 	}
 }

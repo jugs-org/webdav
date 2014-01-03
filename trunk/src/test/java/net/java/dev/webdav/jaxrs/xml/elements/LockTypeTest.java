@@ -39,4 +39,9 @@ public final class LockTypeTest extends AbstractJaxbCoreFunctionality<LockType> 
 	protected final LockType getSingleton() {
 		return LockType.WRITE;
 	}
+
+	@Override
+	protected final String getString() {
+		return "LockType[Write[]]";
+	}
 }

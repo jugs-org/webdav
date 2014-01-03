@@ -148,4 +148,14 @@ public final class Utilities {
 	public static final <T> T[] array(T... ts) {
 		return ts;
 	}
+	
+	/**
+	 * Default implementation for {@link Object#toString()}. 
+	 * @param object The object for which to produce the string.
+	 * @param members The object's members for which to produce the string.
+	 * @return A string of the form "Classname[memberValue, memberValue, ..., memberValue]";
+	 */
+	public static final String toString(final Object object, final Object... members) {
+		return object.getClass().getSimpleName() + Arrays.toString(members);
+	}
 }

@@ -33,6 +33,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import net.java.dev.webdav.util.Utilities;
+
 /**
  * WebDAV propertyupdate XML Element.
  * 
@@ -61,16 +63,6 @@ public final class PropertyUpdate {
 	}
 
 	@Override
-	public final String toString() {
-		final StringBuilder content = new StringBuilder();
-
-		for (final Object o : this.removesOrSets)
-			content.append(o).append(' ');
-
-		return String.format("PropertyUpdate (%s)", content);
-	}
-
-	@Override
 	public final int hashCode() {
 		return this.removesOrSets.hashCode();
 	}
@@ -86,5 +78,10 @@ public final class PropertyUpdate {
 		final PropertyUpdate that = (PropertyUpdate) o;
 
 		return this.removesOrSets.equals(that.removesOrSets);
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.removesOrSets);
 	}
 }

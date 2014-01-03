@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import net.java.dev.webdav.jaxrs.ConstantsAdapter;
 import net.java.dev.webdav.jaxrs.xml.elements.LockEntry;
+import net.java.dev.webdav.util.Utilities;
 
 /**
  * WebDAV supportedlock Property.
@@ -101,5 +102,10 @@ public final class SupportedLock {
 		protected final Collection<SupportedLock> getConstants() {
 			return singleton(SUPPORTEDLOCK);
 		}
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.lockEntries);
 	}
 }

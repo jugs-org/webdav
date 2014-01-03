@@ -86,4 +86,9 @@ public final class PropFindTest extends AbstractJaxbCoreFunctionality<PropFind> 
 	protected final PropFind getInstance() {
 		return new PropFind(ALLPROP);
 	}
+
+	@Override
+	protected final String getString() {
+		return "PropFind[null, AllProp[], null, null]";
+	}
 }

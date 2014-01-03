@@ -57,4 +57,9 @@ public final class LocationTest extends AbstractJaxbCoreFunctionality<Location> 
 	protected final Location getInstance() {
 		return new Location(HREF);
 	}
+
+	@Override
+	protected final String getString() {
+		return "Location[HRef[http://localhost]]";
+	}
 }

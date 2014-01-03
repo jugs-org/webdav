@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import net.java.dev.webdav.jaxrs.ConstantsAdapter;
+import net.java.dev.webdav.util.Utilities;
 
 /**
  * WebDAV lockscope XML Element.
@@ -99,5 +100,10 @@ public final class LockScope {
 		protected final Collection<LockScope> getConstants() {
 			return asList(SHARED, EXCLUSIVE);
 		}
+	}
+
+	@Override
+	public final String toString() {
+		return Utilities.toString(this, this.shared, this.exclusive);
 	}
 }

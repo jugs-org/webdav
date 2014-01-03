@@ -56,4 +56,9 @@ public final class RemoveTest extends AbstractJaxbCoreFunctionality<Remove> {
 	protected final Remove getInstance() {
 		return new Remove(PROP);
 	}
+
+	@Override
+	protected final String getString() {
+		return "Remove[Prop[[]]]";
+	}
 }

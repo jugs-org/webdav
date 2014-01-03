@@ -40,4 +40,9 @@ public final class CollectionTest extends AbstractJaxbCoreFunctionality<Collecti
 	protected final Collection getSingleton() {
 		return Collection.COLLECTION;
 	}
+
+	@Override
+	protected final String getString() {
+		return "Collection[]";
+	}
 }

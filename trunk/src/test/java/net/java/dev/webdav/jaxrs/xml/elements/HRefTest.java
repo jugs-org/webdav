@@ -78,4 +78,9 @@ public final class HRefTest extends AbstractJaxbCoreFunctionality<HRef> {
 	protected final HRef getInstance() {
 		return new HRef(URI_VALUE);
 	}
+
+	@Override
+	protected final String getString() {
+		return "HRef[http://localhost]";
+	}
 }

@@ -25,24 +25,29 @@ Road Map
 
 * Version 1.2
 
-  * Versioning (DeltaV)
-
+  * Complete internal overhaul to be better prepared for future extensions. Implementation should have less flaws, use less memory, and run faster in most cases. Added some singletons which should be used instead of creating "empty" XML elements. Whenever JAXB unmarshals them, it is guaranteed that == can be used for comparison instead of equals(). Examples are COLLECTION, EXCLUSIVE, WRITE, and some more. Deprecation markers guide the way to optimal usage. API is backwards compatible.
+  
 * Version 1.3
 
-  * Ordered Collections
+  * Support for JAX-RS 2.0
+  * Client Library  
 
 * Version 1.4
 
-  * Searching (SEARCH)
+  * Response Builder / Fluent API
 
 * Version 1.5
 
-  * Binding (BIND)
+  * Versioning (DeltaV)
 
 * Version 1.6
 
-  * Response Builder / Fluent API
+  * Ordered Collections
 
 * Version 1.7
 
-  * Client Library
+  * Searching (SEARCH)
+
+* Version 1.8
+
+  * Binding (BIND)

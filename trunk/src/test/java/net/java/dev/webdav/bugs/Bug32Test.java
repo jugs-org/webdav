@@ -59,9 +59,9 @@ public final class Bug32Test {
 	}
 
 	/**
-	 * JAXB sometimes provides an empty string instead of null when unmarshalling empty elements. In such case, {@link CreationDate#setXmlDateTime} did not
-	 * detect the empty string, but forwarded it to the parser, leading to an exception. Actually no exception must happen instead, but the case must simply
-	 * treat this like {@code null}.
+	 * JAXB sometimes provides an empty string instead of null when unmarshalling empty elements. In such case, {@link CreationDate#setXmlValue} did not detect
+	 * the empty string, but forwarded it to the parser, leading to an exception. Actually no exception must happen instead, but the case must simply treat this
+	 * like {@code null}.
 	 */
 	@Test
 	public final void shouldSetNullWhenProvidedEmptyValueToCreationDate() throws ParseException, NoSuchMethodException, SecurityException,
@@ -77,7 +77,7 @@ public final class Bug32Test {
 	}
 
 	/**
-	 * JAXB sometimes provides an empty string instead of null when unmarshalling empty elements. In such case, {@link GetContentLength#setXmlDateTime} did not
+	 * JAXB sometimes provides an empty string instead of null when unmarshalling empty elements. In such case, {@link GetContentLength#setXmlValue} did not
 	 * detect the empty string, but forwarded it to the {@link Long} parser, leading to an exception internally of JAXB. Actually no exception must happen
 	 * instead, but the case must simply treat this like {@code null}.
 	 */
@@ -95,9 +95,9 @@ public final class Bug32Test {
 	}
 
 	/**
-	 * JAXB sometimes provides an empty string instead of null when unmarshalling empty elements. In such case, {@link CreationDate#setXmlDateTime} did not
-	 * detect the empty string, but forwarded it to the parser, leading to an exception. Actually no exception must happen instead, but the case must simply
-	 * treat this like {@code null}.
+	 * JAXB sometimes provides an empty string instead of null when unmarshalling empty elements. In such case, {@link CreationDate#setXmlValue} did not detect
+	 * the empty string, but forwarded it to the parser, leading to an exception. Actually no exception must happen instead, but the case must simply treat this
+	 * like {@code null}.
 	 */
 	@Test
 	public final void shouldSetNullWhenProvidedEmptyValueToGetLastModified() throws ParseException, NoSuchMethodException, SecurityException,

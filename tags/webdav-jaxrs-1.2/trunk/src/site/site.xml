@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  WebDAV Support for JAX-RS
+  %%
+  Copyright (C) 2008 - 2014 The java.net WebDAV Project
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 3 of the 
+  License, or (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU General Public 
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-3.0.html>.
+  #L%
+  -->
+
+<project name="WebDAV Support for JAX-RS">
+	<version position="left"/>
+
+	<bannerLeft>
+		<name>WebDAV Support for JAX-RS</name>
+		<href>http://webdav-jaxrs.java.net</href>
+	</bannerLeft>
+  
+	<bannerRight>
+		<src>http://ftp.ics.uci.edu/pub/ietf/webdav/webdav-logo.jpg</src>
+		<href>http://www.webdav.org/</href>
+	</bannerRight>
+
+	<body>
+		<links>
+			<item name="WebDAV" href="http://www.webdav.org/" />
+			<item name="JAX-RS" href="http://jsr311.java.net/" />
+			<item name="WebDAV Interoperability Filter" href="http://webdav-interop.java.net" />
+			<item name="WebDAV Address-Book Sample" href="http://webdav-addressbook.java.net" />
+		</links>
+
+		<menu name="WebDAV Support for JAX-RS">
+			<item name="Introduction" href="index.html" />
+			<item name="News" href="news.html" />
+			<item name="Reference Customers" href="referencecustomers.html" />
+			<item name="Features" href="features.html" />
+			<item name="Installation" href="installation.html" />
+			<item name="Configuration" href="configuration.html" />
+			<item name="FAQ" href="faq.html" />
+			<item name="Road Map" href="roadmap.html" />
+		</menu>
+
+		<menu ref="reports" />
+		
+		<breadcrumbs>
+			<item name="The java.net WebDAV Project" href="http://java.net/projects/webdav" />
+		</breadcrumbs>
+	</body>
+</project>

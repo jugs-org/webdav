@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Maven">
+	<version position="left"/>
+
+	<bannerLeft>
+		<name>WebDAV Support for JAX-RS</name>
+		<href>http://webdav.dev.java.net/jaxrs/</href>
+	</bannerLeft>
+  
+	<bannerRight>
+		<src>http://ftp.ics.uci.edu/pub/ietf/webdav/webdav-logo.jpg</src>
+		<href>http://www.webdav.org/</href>
+	</bannerRight>
+
+	<body>
+		<links>
+			<item name="WebDAV" href="http://www.webdav.org/" />
+			<item name="JAX-RS" href="http://jsr311.dev.java.net/" />
+			<item name="Interop" href="http://webdav.dev.java.net/interop/" />
+		</links>
+
+		<menu name="WebDAV Support for JAX-RS">
+			<item name="Introduction" href="index.html" />
+			<item name="News" href="news.html" />
+			<item name="Reference Customers" href="referencecustomers.html" />
+			<item name="Features" href="features.html" />
+			<item name="Installation" href="installation.html" />
+			<item name="Configuration" href="configuration.html" />
+			<item name="FAQ" href="faq.html" />
+			<item name="Road Map" href="roadmap.html" />
+		</menu>
+
+		<menu ref="reports" />
+		
+		<breadcrumbs>
+			<item name="The WebDAV Project" href="http://webdav.dev.java.net/" />
+		</breadcrumbs>
+	</body>
+</project>

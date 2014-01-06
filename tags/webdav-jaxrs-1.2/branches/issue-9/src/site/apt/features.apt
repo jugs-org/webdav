@@ -1,0 +1,9 @@
+Features
+
+* Version 1.1
+
+  * API adjustments according to JAX-RS 1.1 (@OPTIONS and some other items now are deprecated: Use JAX-RS 1.1's replacements instead.).
+
+* Version 1.0
+  
+  * Adds complete WebDAV 1.0 coverage (Methods, Headers, Response Codes, Properties) to any JAX-RS 1.0 implementation.

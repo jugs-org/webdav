@@ -23,13 +23,10 @@ Road Map
 
   This road map is without obligation and can change at any time. If you like to see a particular feature, write to the users mailing list describing your idea. There is no time frame associated with any release version.
 
-* Version 1.2
-
-  * Complete internal overhaul to be better prepared for future extensions. Implementation should have less flaws, use less memory, and run faster in most cases. Added some singletons which should be used instead of creating "empty" XML elements. Whenever JAXB unmarshals them, it is guaranteed that == can be used for comparison instead of equals(). Examples are COLLECTION, EXCLUSIVE, WRITE, and some more. Deprecation markers guide the way to optimal usage. API is backwards compatible.
-  
 * Version 1.3
 
   * Support for JAX-RS 2.0
+
   * Client Library  
 
 * Version 1.4

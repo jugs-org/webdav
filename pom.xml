@@ -9,12 +9,11 @@
 	General Public License for more details. You should have received a copy 
 	of the GNU Lesser General Public License along with webdav-jaxrs. If not, 
 	see <http://www.gnu.org/licenses />. -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.java.dev.webdav</groupId>
 	<artifactId>webdav-jaxrs</artifactId>
-	<version>1.2-SNAPSHOT</version>
+	<version>1.2</version>
 	<name>WebDAV Support for JAX-RS</name>
 	<description>Provides classes for easier implementation of WebDAV based JAX-RS applications.</description>
 	<url>http://webdav-jaxrs.java.net/</url>
@@ -125,9 +124,9 @@
 		</mailingList>
 	</mailingLists>
 	<scm>
-		<connection>scm:svn:https://svn.java.net/svn/webdav-jaxrs~svn/trunk</connection>
-		<developerConnection>scm:svn:https://svn.java.net/svn/webdav-jaxrs~svn/trunk</developerConnection>
-		<url>http://java.net/projects/webdav-jaxrs/sources/svn/show</url>
+		<connection>scm:svn:https://svn.java.net/svn/webdav-jaxrs~svn/tags/webdav-jaxrs-1.2</connection>
+		<developerConnection>scm:svn:https://svn.java.net/svn/webdav-jaxrs~svn/tags/webdav-jaxrs-1.2</developerConnection>
+		<url>http://java.net/projects/webdav-jaxrs/sources/svn/show/tags/webdav-jaxrs-1.2</url>
 	</scm>
 	<dependencies>
 		<dependency>

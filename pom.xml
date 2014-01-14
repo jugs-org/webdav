@@ -14,6 +14,11 @@
 	<groupId>net.java.dev.webdav</groupId>
 	<artifactId>webdav-jaxrs</artifactId>
 	<version>1.3-SNAPSHOT</version>
+	<parent>
+		<groupId>net.java</groupId>
+		<artifactId>jvnet-parent</artifactId>
+		<version>4</version>
+	</parent>
 	<name>WebDAV Support for JAX-RS</name>
 	<description>Provides classes for easier implementation of WebDAV based JAX-RS applications.</description>
 	<url>http://webdav-jaxrs.java.net/</url>
@@ -289,22 +294,8 @@
 			</extension>
 		</extensions>
 	</build>
-	<repositories>
-		<repository>
-			<id>java.net.m2</id>
-			<url>http://download.java.net/maven/2</url>
-		</repository>
-	</repositories>
 	<distributionManagement>
 		<downloadUrl>https://maven.java.net/content/groups/public/net/java/dev/webdav/webdav-jaxrs</downloadUrl>
-		<repository>
-			<id>jvnet-nexus-staging</id>
-			<url>https://maven.java.net/service/local/staging/deploy/maven2</url>
-		</repository>
-		<snapshotRepository>
-			<id>jvnet-nexus-snapshots</id>
-			<url>https://maven.java.net/content/repositories/snapshots</url>
-		</snapshotRepository>
 		<site>
 			<id>java.net</id>
 			<url>dav:https://website.java.net/website/webdav-jaxrs</url>

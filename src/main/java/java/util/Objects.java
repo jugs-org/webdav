@@ -83,27 +83,4 @@ public final class Objects {
 	public static final boolean equals(final Object a, final Object b) {
 		return (a == b) || (a != null && a.equals(b));
 	}
-
-	/**
-	 * Returns {@code true} if the arguments are deeply equal to each other and {@code false} otherwise.
-	 * 
-	 * Two {@code null} values are deeply equal. If both arguments are arrays, the algorithm in {@link Arrays#deepEquals(Object[], Object[]) Arrays.deepEquals}
-	 * is used to determine equality. Otherwise, equality is determined by using the {@link Object#equals equals} method of the first argument.
-	 * 
-	 * @param a
-	 *            an object
-	 * @param b
-	 *            an object to be compared with {@code a} for deep equality
-	 * @return {@code true} if the arguments are deeply equal to each other and {@code false} otherwise
-	 * @see Arrays#deepEquals(Object[], Object[])
-	 * @see Objects#equals(Object, Object)
-	 */
-	public static final boolean deepEquals(final Object a, final Object b) {
-		if (a == b)
-			return true;
-		else if (a == null || b == null)
-			return false;
-		else
-			return Arrays.deepEquals0(a, b);
-	}
 }

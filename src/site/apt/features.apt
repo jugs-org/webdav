@@ -29,12 +29,15 @@ Features
 
 * Version 1.2
 
-  * API improvements: More constants; Unmarshalling always guarantees to produce constants, so == can be used for comparison.
-  * Internal optimizations to reduce processing time and 
+  * API improvements:
+
+    * More constants; Unmarshalling always guarantees to produce constants, so <<<==>>> can be used for comparison.
+
+  * Internal optimizations to reduce processing time 
 
 * Version 1.1
 
-  * API adjustments according to JAX-RS 1.1 (@OPTIONS and some other items now are deprecated: Use JAX-RS 1.1's replacements instead.).
+  * API adjustments according to JAX-RS 1.1 (<<<@OPTIONS>>> and some other items now are deprecated: Use JAX-RS 1.1's replacements instead.).
 
 * Version 1.0
   

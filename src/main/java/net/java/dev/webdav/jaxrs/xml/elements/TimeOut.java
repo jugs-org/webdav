@@ -24,7 +24,6 @@ package net.java.dev.webdav.jaxrs.xml.elements;
 
 import static java.lang.Long.MAX_VALUE;
 import static java.lang.Long.parseLong;
-import static java.lang.Long.valueOf;
 import static java.lang.String.format;
 import static java.util.Collections.singleton;
 import static javax.xml.bind.annotation.XmlAccessType.NONE;
@@ -37,6 +36,7 @@ import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import net.java.dev.webdav.jaxrs.ConstantsAdapter;
+import net.java.dev.webdav.jaxrs.Headers;
 import net.java.dev.webdav.jaxrs.xml.elements.TimeOut.Adapter;
 import net.java.dev.webdav.util.Utilities;
 
@@ -72,7 +72,15 @@ public final class TimeOut {
 
 	@SuppressWarnings("unused")
 	private final void setTimeType(final String timeType) {
-		this.timeType = INFINITE_TOKEN.equals(timeType) ? INFINITE_VALUE : parseLong(timeType.substring(timeType.lastIndexOf('-') + 1));
+		this.timeType = isInfinite(timeType) ? INFINITE_VALUE : parseSecond(timeType);
+	}
+
+	private static boolean isInfinite(final String timeType) {
+		return INFINITE_TOKEN.equals(timeType);
+	}
+
+	private static long parseSecond(final String timeType) {
+		return parseLong(timeType.substring(timeType.lastIndexOf('-') + 1));
 	}
 
 	private TimeOut() {
@@ -109,7 +117,7 @@ public final class TimeOut {
 
 	@Override
 	public final int hashCode() {
-		return valueOf(this.timeType).hashCode();
+		return String.valueOf(this.timeType).hashCode();
 	}
 
 	/**
@@ -127,5 +135,27 @@ public final class TimeOut {
 	@Override
 	public final String toString() {
 		return Utilities.toString(this, this.timeType);
+	}
+
+	/**
+	 * Factory method creating {@link TimeOut} instances from {@code String} value representations (e. g. as used in HTTP {@link Headers#TIMEOUT} header).
+	 * Guarantees that {@link #INFINITE} singleton is returned for {@code "Infinite"} string, hence allowing to compare for infinity using {@code ==}
+	 * comparison.
+	 * <p>
+	 * Example:<br/>
+	 * <code>
+	 * TimeOut to = TimeOut.valueOf("Infinite");<br/>
+	 * if (to == Timeout.INFINITE) { ... }<br/>
+	 * </code>
+	 * </p>
+	 * 
+	 * @param timeType
+	 *            Either {@code Second-n} (where {@code n} is the length of the timeout) or {@code Infinite}.
+	 * @return An instance of {@link TimeOut} with the length taken from the {@code timeOutHeader} string. Instance is guaranteed to be {@link #INFINITE} in
+	 *         case {@code timeOutHeader} is {@code "Infinity"}.
+	 * @since 1.2.1
+	 */
+	public static final TimeOut valueOf(final String timeType) {
+		return isInfinite(timeType) ? INFINITE : new TimeOut(parseSecond(timeType));
 	}
 }

@@ -21,6 +21,10 @@
 ~~~
 News
 
+* (TBD) Version 1.2.1
+
+  * <<<TimeOut>>> can be used directly as type for <<<@HeaderParam>>> thanks to new <<<TimeOut.valueOf(String)>>> method. This simplifies handling of timeout values a lot, as the same instance can simple be compared by == to the <<<TimeOut.INFINITY>>> constant, or returned as part of a <<<LOCK>>> response. 
+
 * 2014-01-06 Version 1.2
 
   <<Note:>> Due to technical problems version 1.2 found in Maven Central is broken. Please instead use the version number <<1.2-1>> to depend on version 1.2.

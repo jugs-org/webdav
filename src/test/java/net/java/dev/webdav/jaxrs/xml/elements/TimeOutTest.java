@@ -92,4 +92,28 @@ public final class TimeOutTest extends AbstractJaxbCoreFunctionality<TimeOut> {
 	protected final String getString() {
 		return "TimeOut[90]";
 	}
+
+	@Test
+	public final void shouldParseINFINITEConstanct() {
+		// given
+		final String timeType = "Infinite";
+
+		// when
+		final TimeOut timeOut = TimeOut.valueOf(timeType);
+
+		// then
+		assertThat(timeOut, is(sameInstance(TimeOut.INFINITE)));
+	}
+
+	@Test
+	public final void shouldParseSeconds() {
+		// given
+		final String timeType = "Second-1234567890";
+
+		// when
+		final TimeOut timeOut = TimeOut.valueOf(timeType);
+
+		// then
+		assertThat(timeOut.getSeconds(), is(1234567890L));
+	}
 }

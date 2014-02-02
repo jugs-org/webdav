@@ -13,7 +13,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.java.dev.webdav</groupId>
 	<artifactId>webdav-jaxrs</artifactId>
-	<version>1.2.1</version>
+	<version>1.3-SNAPSHOT</version>
 	<parent>
 		<groupId>net.java</groupId>
 		<artifactId>jvnet-parent</artifactId>
@@ -129,9 +129,9 @@
 		</mailingList>
 	</mailingLists>
 	<scm>
-		<connection>scm:svn:https://svn.java.net/svn/webdav-jaxrs~svn/tags/webdav-jaxrs-1.2.1</connection>
-		<developerConnection>scm:svn:https://svn.java.net/svn/webdav-jaxrs~svn/tags/webdav-jaxrs-1.2.1</developerConnection>
-		<url>http://java.net/projects/webdav-jaxrs/sources/svn/show/tags/webdav-jaxrs-1.2.1</url>
+		<connection>scm:svn:https://svn.java.net/svn/webdav-jaxrs~svn/trunk</connection>
+		<developerConnection>scm:svn:https://svn.java.net/svn/webdav-jaxrs~svn/trunk</developerConnection>
+		<url>http://java.net/projects/webdav-jaxrs/sources/svn/show</url>
 	</scm>
 	<dependencies>
 		<dependency>

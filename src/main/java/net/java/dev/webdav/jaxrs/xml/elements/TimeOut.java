@@ -27,6 +27,8 @@ import static java.lang.Long.parseLong;
 import static java.lang.String.format;
 import static java.util.Collections.singleton;
 import static javax.xml.bind.annotation.XmlAccessType.NONE;
+import static net.java.dev.webdav.jaxrs.Headers.TIMEOUT_INFINITE;
+import static net.java.dev.webdav.jaxrs.Headers.TIMEOUT_SECOND;
 
 import java.util.Collection;
 
@@ -54,9 +56,9 @@ import net.java.dev.webdav.util.Utilities;
 public final class TimeOut {
 	private static final long INFINITE_VALUE = MAX_VALUE;
 
-	private static final String INFINITE_TOKEN = "Infinite";
+	private static final String INFINITE_TOKEN = TIMEOUT_INFINITE;
 
-	private static final String SECOND_TOKEN = "Second-%d";
+	private static final String SECOND_TOKEN = TIMEOUT_SECOND + "%d";
 
 	public static final TimeOut INFINITE = new TimeOut();
 

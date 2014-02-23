@@ -39,7 +39,7 @@ import org.junit.runner.RunWith;
  * @author Markus KARG (mkarg@java.net)
  */
 @RunWith(Theories.class)
-public final class Intuitiveness {
+public final class IntuitivenessTest {
 	@SuppressWarnings("deprecation")
 	@DataPoints
 	public static final Class<?>[] DATA_POINTS = { COPY.class, LOCK.class, MKCOL.class, MOVE.class, OPTIONS.class, PROPFIND.class, PROPPATCH.class,

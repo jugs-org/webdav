@@ -20,10 +20,10 @@
  * #L%
  */
 
-package net.java.dev.webdav.jaxrs.xml;
+package net.java.dev.webdav.jaxrs;
 
 import static net.java.dev.webdav.util.ElementOf.elementOf;
-import static org.hamcrest.core.Is.is;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;

@@ -22,8 +22,14 @@
 
 package net.java.dev.webdav.jaxrs.xml.elements;
 
+import static net.java.dev.webdav.jaxrs.Headers.DEPTH_0;
+import static net.java.dev.webdav.jaxrs.Headers.DEPTH_1;
+import static net.java.dev.webdav.jaxrs.Headers.DEPTH_INFINITY;
+
 import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import net.java.dev.webdav.jaxrs.Headers;
 
 /**
  * WebDAV depth XML Element.
@@ -35,12 +41,43 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public enum Depth {
-	@XmlEnumValue("0")
+	@XmlEnumValue(DEPTH_0)
 	ZERO,
 
-	@XmlEnumValue("1")
+	@XmlEnumValue(DEPTH_1)
 	ONE,
 
-	@XmlEnumValue("infinity")
-	INFINITY
+	@XmlEnumValue(DEPTH_INFINITY)
+	INFINITY;
+
+	/**
+	 * Factory method creating {@link Depth} instances from {@code String} value representations (e. g. as used in HTTP {@link Headers#DEPTH} header).
+	 * Guarantees that enums are returned for {@code "0"}, {@code "1"} and {@code "infinity"} strings, hence allowing to compare using {@code ==} comparison.
+	 * <p>
+	 * Example:<br/>
+	 * <code>
+	 * Depth d = Depth.fromString("infinity");<br/>
+	 * if (d == Depth.INFINITY) { ... }<br/>
+	 * </code>
+	 * </p>
+	 * 
+	 * @param depth
+	 *            Either {@code "0"}, {@code "1"} or {@code "infinity"}.
+	 * @return An enum of {@link Depth} produced from the provided string. Instance is guaranteed to be either {@link #ZERO}, {@link #ONE} or {@link #INFINITY}.
+	 * @throws IllegalArgumentException
+	 *             in case an invalid string value is passed in.
+	 * @since 1.3
+	 */
+	public static final Depth fromString(final String depth) {
+		switch (depth) {
+		case DEPTH_0:
+			return ZERO;
+		case DEPTH_1:
+			return ONE;
+		case DEPTH_INFINITY:
+			return INFINITY;
+		default:
+			throw new IllegalArgumentException();
+		}
+	}
 }

@@ -28,8 +28,8 @@ import static net.java.dev.webdav.jaxrs.xml.elements.LockType.WRITE;
 import static net.java.dev.webdav.jaxrs.xml.elements.TimeOut.INFINITE;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import net.java.dev.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import net.java.dev.webdav.jaxrs.NullArgumentException;
-import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 import net.java.dev.webdav.util.Utilities;
 
 import org.junit.Test;

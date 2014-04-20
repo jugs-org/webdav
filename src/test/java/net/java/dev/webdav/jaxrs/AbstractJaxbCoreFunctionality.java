@@ -20,7 +20,7 @@
  * #L%
  */
 
-package net.java.dev.webdav.jaxrs.xml;
+package net.java.dev.webdav.jaxrs;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.sameInstance;
@@ -37,6 +37,9 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+
+import net.java.dev.webdav.jaxrs.WebDavJAXBContextBuilder;
+import net.java.dev.webdav.jaxrs.xml.AbstractCoreFunctionality;
 
 import org.junit.BeforeClass;
 import org.junit.experimental.theories.Theories;

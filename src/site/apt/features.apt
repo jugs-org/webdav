@@ -21,6 +21,20 @@
 ~~~
 Features
 
+* Version 2.0
+
+  * Supports JAX-RS 2.0
+
+  * Supports auto discovery: No more need to implement <<<Application>>> interface. WebDAV is enabled by default.
+
+  * Supports configuration properties: No more need to instantiate <<<WebDavContextResolver>>>. Custom extensions can be registered simply by using a configuration property.
+
+  * <<<WebDavContextResolver>>> is deprecated. Use the <<<WebDAV>>> feature instead.
+
+  * Supports <<<text/xml>>> document type in addition to the default <<<application/xml>>> type.
+
+  * <<<Depth>>> can be used directly as type for <<<@HeaderParam>>> thanks to new <<<Depth.fromString(String)>>> method. This simplifies handling of depth values a lot, as the same instance can simple be compared by == to the <<<Depth>>> enumeration constants, or returned as part of a <<<LOCK>>> response. 
+
 * Version 1.2.1
 
   * API improvements:

@@ -107,4 +107,15 @@
 			</answer>
 		</faq>
 	</part>
+
+	<part id="usage">
+		<title>Compilation, Linking and Packaging</title>
+
+		<faq id="why-dropped-webdavcontextresolver">
+			<question>WebDavContextResolver is missing!</question>
+			<answer>
+				<p>WebDavContextResolver existed solely as a technical means to configure custom extensions, as JAX-RS 1.x did not provide a standard solution for configuration. Since JAX-RS 2.0 there is such a standard way: Configuration properties. Hence, the need for this ugly class vanished. In fact, getting rid of WebDavContextResolver was the major driver for supporting JAX-RS 2.0. We see release 2 as a complete new product and do not feel an obligation for further being fully backwards compatible, as all the nice features of JAX-RS 2.0 mandate a major rewrite of any application anyways. For those not wanting to do so, using JAX-RS 2.0 simply makes no sense. These people can simply stay with release 1.x, as there is nothing in release 2.x that is useful without recompilation.</p>
+			</answer>
+		</faq>
+	</part>
 </faqs>

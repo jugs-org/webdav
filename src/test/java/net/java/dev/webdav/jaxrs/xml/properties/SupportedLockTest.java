@@ -35,8 +35,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import net.java.dev.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import net.java.dev.webdav.jaxrs.NullArgumentException;
-import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 import net.java.dev.webdav.jaxrs.xml.elements.LockEntry;
 import net.java.dev.webdav.jaxrs.xml.elements.LockScope;
 import net.java.dev.webdav.jaxrs.xml.elements.LockType;

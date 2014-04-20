@@ -30,8 +30,8 @@ import static org.junit.Assert.assertThat;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import net.java.dev.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import net.java.dev.webdav.jaxrs.NullArgumentException;
-import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoint;

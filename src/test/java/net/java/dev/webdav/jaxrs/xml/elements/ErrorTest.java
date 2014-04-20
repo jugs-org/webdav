@@ -25,8 +25,8 @@ package net.java.dev.webdav.jaxrs.xml.elements;
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import net.java.dev.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import net.java.dev.webdav.jaxrs.NullArgumentException;
-import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 import net.java.dev.webdav.jaxrs.xml.properties.GetContentLanguage;
 
 import org.junit.Test;

@@ -25,9 +25,13 @@ package net.java.dev.webdav.jaxrs.xml.elements;
 import static net.java.dev.webdav.jaxrs.xml.elements.Depth.INFINITY;
 import static net.java.dev.webdav.jaxrs.xml.elements.Depth.ONE;
 import static net.java.dev.webdav.jaxrs.xml.elements.Depth.ZERO;
-import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.sameInstance;
+import static org.junit.Assert.assertThat;
+import net.java.dev.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 
 import org.junit.experimental.theories.DataPoints;
+import org.junit.experimental.theories.Theory;
 
 /**
  * Unit test for {@link Depth}
@@ -36,8 +40,8 @@ import org.junit.experimental.theories.DataPoints;
  */
 public final class DepthTest extends AbstractJaxbCoreFunctionality<Depth> {
 	@DataPoints
-	public static final Object[][] DATA_POINTS = { { ZERO, "<D:depth xmlns:D=\"DAV:\">0</D:depth>" }, { ONE, "<D:depth xmlns:D=\"DAV:\">1</D:depth>" },
-			{ INFINITY, "<D:depth xmlns:D=\"DAV:\">infinity</D:depth>" } };
+	public static final Object[][] DATA_POINTS = { { ZERO, "<D:depth xmlns:D=\"DAV:\">0</D:depth>", "0" },
+			{ ONE, "<D:depth xmlns:D=\"DAV:\">1</D:depth>", "1" }, { INFINITY, "<D:depth xmlns:D=\"DAV:\">infinity</D:depth>", "infinity" } };
 
 	@Override
 	protected final Depth getInstance() {
@@ -47,5 +51,18 @@ public final class DepthTest extends AbstractJaxbCoreFunctionality<Depth> {
 	@Override
 	protected final String getString() {
 		return "INFINITY";
+	}
+
+	@Theory
+	public final void shouldParseEnum(final Object[] dataPoint) {
+		// given
+		final String depthHeaderValue = (String) dataPoint[2];
+
+		// when
+		final Depth depth = Depth.fromString(depthHeaderValue);
+
+		// then
+		final Depth expectedDepth = (Depth) dataPoint[0];
+		assertThat(depth, is(sameInstance(expectedDepth)));
 	}
 }

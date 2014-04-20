@@ -21,6 +21,18 @@
 ~~~
 News
 
+* Version 2.0
+
+  * Support for JAX-RS 2.0
+
+    Enabling WebDAV and configuring custom extensions is totally simplified: Thanks to auto discovery, there is no more need to write an implementation of the <<<Application>>> interface.
+    
+    <<Note:>> The API of version 2.x is purposely slightly incompatible with version 1.x: As the main driver for version 2.0 was support for the new and vastly simplified JAX-RS 2.0 API, we deprecated <<<WebDavContextResolver>>>, as still using that class in applications foils the sole idea of that simplified API. Instead use the new <<<WebDAV>>> feature.
+    
+  * Several minor improvements.
+  
+  * Several bug fixes.
+
 * 2014-02-02 Version 1.2.1
 
   * Several minor improvements. 

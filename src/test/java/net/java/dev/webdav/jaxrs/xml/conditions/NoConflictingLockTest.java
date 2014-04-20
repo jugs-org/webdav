@@ -35,7 +35,7 @@ import java.util.List;
 
 import javax.xml.bind.JAXB;
 
-import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
+import net.java.dev.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import net.java.dev.webdav.jaxrs.xml.elements.HRef;
 
 import org.junit.experimental.theories.DataPoints;

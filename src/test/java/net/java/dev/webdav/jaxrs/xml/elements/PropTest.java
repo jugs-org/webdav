@@ -25,7 +25,7 @@ package net.java.dev.webdav.jaxrs.xml.elements;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
+import net.java.dev.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import net.java.dev.webdav.jaxrs.xml.properties.CreationDate;
 
 import org.junit.experimental.theories.DataPoint;

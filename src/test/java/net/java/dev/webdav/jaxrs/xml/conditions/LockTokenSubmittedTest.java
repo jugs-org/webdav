@@ -35,8 +35,8 @@ import java.util.List;
 
 import javax.xml.bind.JAXB;
 
+import net.java.dev.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import net.java.dev.webdav.jaxrs.NullArgumentException;
-import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
 import net.java.dev.webdav.jaxrs.xml.elements.HRef;
 import net.java.dev.webdav.util.Utilities;
 

@@ -33,7 +33,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
+import net.java.dev.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoint;

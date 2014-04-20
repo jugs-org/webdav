@@ -20,11 +20,19 @@
  * #L%
  */
 
-package net.java.dev.webdav.jaxrs.xml;
+package net.java.dev.webdav.jaxrs;
+
+import static net.java.dev.webdav.util.ElementOf.elementOf;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsInstanceOf.instanceOf;
+import static org.hamcrest.core.IsNot.not;
+import static org.junit.Assert.assertThat;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import net.java.dev.webdav.jaxrs.WebDavJAXBContextBuilder;
 import net.java.dev.webdav.jaxrs.xml.conditions.CannotModifyProtectedProperty;
 import net.java.dev.webdav.jaxrs.xml.conditions.LockTokenMatchesRequestUri;
 import net.java.dev.webdav.jaxrs.xml.conditions.LockTokenSubmitted;
@@ -72,38 +80,64 @@ import net.java.dev.webdav.jaxrs.xml.properties.GetLastModified;
 import net.java.dev.webdav.jaxrs.xml.properties.LockDiscovery;
 import net.java.dev.webdav.jaxrs.xml.properties.ResourceType;
 import net.java.dev.webdav.jaxrs.xml.properties.SupportedLock;
-import net.java.dev.webdav.util.Utilities;
+
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.theories.DataPoints;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.runner.RunWith;
 
 /**
- * Provides support for custom extensions to WebDAV, like custom Properties and XML Elements.<br>
- * 
- * WebDAV allows custom extensions for XML Elements and Properties. To enable JAX-RS to deal with these, each of them must be implemented as a JAXB class and
- * registered by passing it to the constructor of this factory.
+ * Unit test for {@link WebDavJAXBContextBuilder}
  * 
  * @author Markus KARG (mkarg@java.net)
- * 
- * @see <a href="http://www.webdav.org/specs/rfc4918.html#xml-extensibility">Chapter 17 "XML Extensibility in DAV" of RFC 2616
- *      "Hypertext Transfer Protocol -- HTTP/1.1"</a>
  */
-final class WebDavJAXBContextBuilder {
+@RunWith(Theories.class)
+public final class WebDavJAXBContextBuilderTest {
+	private static JAXBContext context;
 
-	/**
-	 * Builds a JAXB context for WebDAV.
-	 * 
-	 * @param auxiliaryClasses
-	 *            Optional set of custom XML elements which shall get part of the context.
-	 * @throws JAXBException
-	 *             If JAXB cannot create the context.
-	 */
-	public static final JAXBContext build(final Class<?>... auxiliaryClasses) throws JAXBException {
-		final Class<?>[] webDavClasses = new Class<?>[] { ActiveLock.class, AllProp.class, CannotModifyProtectedProperty.class, Collection.class,
-				CreationDate.class, Depth.class, DisplayName.class, Error.class, Exclusive.class, GetContentLanguage.class, GetContentLength.class,
-				GetContentType.class, GetETag.class, GetLastModified.class, HRef.class, Include.class, Location.class, LockDiscovery.class, LockEntry.class,
-				LockInfo.class, LockRoot.class, LockScope.class, LockToken.class, LockTokenMatchesRequestUri.class, LockTokenSubmitted.class, LockType.class,
-				MultiStatus.class, NoConflictingLock.class, NoExternalEntities.class, Owner.class, PreservedLiveProperties.class, Prop.class,
-				PropertyUpdate.class, PropFind.class, PropFindFiniteDepth.class, PropName.class, PropStat.class, Remove.class, ResourceType.class,
-				Response.class, ResponseDescription.class, Set.class, Shared.class, Status.class, SupportedLock.class, TimeOut.class, Write.class };
-		final Class<?>[] allClasses = Utilities.append(webDavClasses, auxiliaryClasses);
-		return JAXBContext.newInstance(allClasses);
+	@BeforeClass
+	public static final void setUp() throws JAXBException {
+		context = WebDavJAXBContextBuilder.build();
+	}
+
+	@DataPoints
+	public static final Class<?>[] DATA_POINTS = new Class<?>[] { ActiveLock.class, AllProp.class, CannotModifyProtectedProperty.class, Collection.class,
+			CreationDate.class, Depth.class, DisplayName.class, Error.class, Exclusive.class, GetContentLanguage.class, GetContentLength.class,
+			GetContentType.class, GetETag.class, GetLastModified.class, HRef.class, Include.class, Location.class, LockDiscovery.class, LockEntry.class,
+			LockInfo.class, LockRoot.class, LockScope.class, LockToken.class, LockTokenMatchesRequestUri.class, LockTokenSubmitted.class, LockType.class,
+			MultiStatus.class, NoConflictingLock.class, NoExternalEntities.class, Owner.class, PreservedLiveProperties.class, Prop.class, PropertyUpdate.class,
+			PropFind.class, PropFindFiniteDepth.class, PropName.class, PropStat.class, Remove.class, ResourceType.class, Response.class,
+			ResponseDescription.class, Set.class, Shared.class, Status.class, SupportedLock.class, TimeOut.class, Write.class };
+
+	@Test
+	public final void createsJAXBContext() {
+		assertThat(context, instanceOf(JAXBContext.class));
+	}
+
+	@Theory
+	public final void containsWebDavClasses(final Class<?> webDavElement) {
+		assertThat(webDavElement, is(elementOf(context)));
+	}
+
+	@XmlRootElement
+	private static final class CustomClass {
+		// Intentionally left blank.
+	}
+
+	@Test
+	public final void containsCustomClass() throws JAXBException {
+		assertThat(CustomClass.class, is(elementOf(WebDavJAXBContextBuilder.build(CustomClass.class))));
+	}
+
+	@XmlRootElement
+	private static final class UnboundClass {
+		// Intentionally left blank.
+	}
+
+	@Test
+	public final void doesNotContainUnboundClasses() {
+		assertThat(UnboundClass.class, is(not(elementOf(context))));
 	}
 }

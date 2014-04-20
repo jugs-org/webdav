@@ -37,7 +37,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
+import net.java.dev.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoint;
@@ -94,7 +94,7 @@ public final class TimeOutTest extends AbstractJaxbCoreFunctionality<TimeOut> {
 	}
 
 	@Test
-	public final void shouldParseINFINITEConstanct() {
+	public final void shouldParseINFINITEConstant() {
 		// given
 		final String timeType = "Infinite";
 

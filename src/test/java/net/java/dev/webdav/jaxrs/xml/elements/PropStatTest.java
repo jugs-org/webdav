@@ -28,7 +28,7 @@ import static org.junit.Assert.assertThat;
 
 import javax.ws.rs.core.Response.StatusType;
 
-import net.java.dev.webdav.jaxrs.xml.AbstractJaxbCoreFunctionality;
+import net.java.dev.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 
 import org.junit.experimental.theories.DataPoint;
 

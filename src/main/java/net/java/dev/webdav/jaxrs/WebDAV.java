@@ -61,11 +61,11 @@ public final class WebDAV implements Feature {
 				for (final Class<?> customExtensionClass : customExtensionClasses)
 					LOGGER.fine("Using WebDAV custom extension class " + customExtensionClass);
 			context.register(new WebDavContextResolver(customExtensionClasses.toArray(new Class<?>[customExtensionClasses.size()])), ENTITY_CODER);
-			LOGGER.info("Enabled WebDAV");
+			LOGGER.info("Enabled WebDAV Support for JAX-RS");
 			return true;
 		} catch (final JAXBException e) {
 			LOGGER.throwing(WebDAV.class.getName(), "configure()", e);
-			LOGGER.severe("Disabled WebDAV due to configuration failure: " + e.getMessage());
+			LOGGER.severe("Disabled WebDAV Support for JAX-RS due to configuration failure: " + e.getMessage());
 			e.printStackTrace();
 			return false;
 		}

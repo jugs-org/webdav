@@ -39,6 +39,30 @@ public interface Headers {
 	 *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
 	 */
 	public static final String DAV = "DAV";
+	
+	/**
+	 * WebDAV DAV Header Value for compliance class 1.
+	 * 
+	 * @see <a href="http://www.webdav.org/specs/rfc4918.html#HEADER_DAV">Chapter 10.1 "DAV Header" of RFC 4918
+	 *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+	 */
+	public static final String DAV_1 = "1";
+	
+	/**
+	 * WebDAV DAV Header Value for compliance class 2.
+	 * 
+	 * @see <a href="http://www.webdav.org/specs/rfc4918.html#HEADER_DAV">Chapter 10.1 "DAV Header" of RFC 4918
+	 *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+	 */
+	public static final String DAV_2 = "2";
+	
+	/**
+	 * WebDAV DAV Header Value for compliance class 3.
+	 * 
+	 * @see <a href="http://www.webdav.org/specs/rfc4918.html#HEADER_DAV">Chapter 10.1 "DAV Header" of RFC 4918
+	 *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
+	 */
+	public static final String DAV_3 = "3";
 
 	/**
 	 * WebDAV Depth Header

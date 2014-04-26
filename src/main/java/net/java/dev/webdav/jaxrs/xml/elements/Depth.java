@@ -66,7 +66,7 @@ public enum Depth {
 	 * @return An enum of {@link Depth} produced from the provided string. Instance is guaranteed to be either {@link #ZERO}, {@link #ONE} or {@link #INFINITY}.
 	 * @throws IllegalArgumentException
 	 *             in case an invalid string value is passed in.
-	 * @since 1.3
+	 * @since 2.0
 	 */
 	public static final Depth fromString(final String depth) {
 		switch (depth) {

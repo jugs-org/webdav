@@ -1,0 +1,15 @@
+= Installation
+
+== Installation using Maven 2
+
+WebDAV Support for JAX-RS is available from Maven Central, so it can be used by simply adding this dependency for version 2.0:
+  
+	<dependency>
+		<groupId>org.jugs.webdav</groupId>
+		<artifactId>webdav-jaxrs</artifactId>
+		<version>2.0</version>
+	</dependency>
+
+== Manual Installation
+
+Download http://search.maven.org/remotecontent?filepath=org/jugs/webdav/webdav-jaxrs[webdav-jaxrs-2.0.jar] (or newer version) and add it to your project's classpath.

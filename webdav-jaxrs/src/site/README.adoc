@@ -6,7 +6,7 @@ It was transfered from the Doxia (APT) format into ASCIIDOC because the format c
 * link:asciidoc/introduction.adoc[Introduction]
 * link:../../../CHANGELOG.md[News]
 * link:asciidoc/referencecustomers.adoc[Reference Customers]
-* Features
+* link:asciidoc/features.adoc[Features]
 * Installation
 * Configuration
 * FAQ

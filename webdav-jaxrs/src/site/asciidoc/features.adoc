@@ -1,0 +1,29 @@
+= Features
+
+== Version 2.0
+
+* Supports JAX-RS 2.0
+* Supports auto discovery: No more need to implement `Application` interface. WebDAV is enabled by default.
+* Supports configuration properties: No more need to instantiate `WebDavContextResolver`. Custom extensions can be registered simply by using a configuration property.
+* `WebDavContextResolver` is deprecated. Use the `WebDAV` feature instead.
+* Supports `text/xml` document type in addition to the default `application/xml` type.
+* `Depth` can be used directly as type for `@HeaderParam` thanks to new `Depth.fromString(String)` method. This simplifies handling of depth values a lot, as the same instance can simple be compared by == to the `Depth` enumeration constants, or returned as part of a `LOCK` response.
+
+== Version 1.2.1
+
+* API improvements:
+** `TimeOut` can be used directly as type for `@HeaderParam` thanks to new `TimeOut.valueOf(String)` method. This simplifies handling of timeout values a lot, as the same instance can simple be compared by == to the `TimeOut.INFINITY` constant, or returned as part of a `LOCK` response.
+
+== Version 1.2
+
+* API improvements:
+*** More constants; Unmarshalling always guarantees to produce constants, so `==` can be used for comparison.
+* Internal optimizations to reduce processing time
+
+== Version 1.1
+
+* API adjustments according to JAX-RS 1.1 (`@OPTIONS` and some other items now are deprecated: Use JAX-RS 1.1's replacements instead.).
+
+== Version 1.0
+  
+* Adds complete WebDAV 1.0 coverage (Methods, Headers, Response Codes, Properties) to any JAX-RS 1.0 implementation.

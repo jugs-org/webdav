@@ -1,0 +1,4 @@
+= Reference Users
+
+* EADS (vendor of Airbus etc.)
+  image:../resources/images/EADS_A_4c_small.JPG[EADS Logo]

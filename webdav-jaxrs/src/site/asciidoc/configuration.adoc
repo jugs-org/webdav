@@ -1,0 +1,72 @@
+= Prerequisites
+
+* Java 7
+
+_WebDAV Support for JAX-RS_ is using Java 7 language features on purpose, as it implements a specification-compliant extension to JAX-RS 2.0, which in turn is an integral part of Java EE 7. Java EE 7 mandates the use of Java SE 7.
+Developers having the need to stick with Java 6 MUST stick with release 1.x of _WebDAV Support for JAX-RS_ as it is the last one supporting JAX-RS 1.x, which was an integral part of Java EE 6 which mandated Java 6. There will **never** be a back port of 2.x to Java 6.
+
+== Configuration
+
+=== Configuring using Automatic Discovery
+
+Some JAX-RS containers support configuration by automatic discovery. In these containers, enabling WebDAV and custom extensions is pretty simple and implies only few (possible none at all) source code.
+  
+=== Enabling WebDAV using Automatic Discovery
+
+Putting the `webdav-jaxrs` library on the classpath of an application automatically enables _WebDAV Support for JAX-RS_ as long as the JAX-RS container supports the _Automatic Discovery_ optional feature of the JAX-RS specification. _No_ additional configuration or source code is needed as long as custom extensions are not wanted.
+    
+=== Registering Optional Custom Extensions using Automatic Discovery
+
+Applications providing custom extensions to the WebDAV protocol need to register these JAXB `XmlRootElements` so <
+_WebDAV Support for JAX-RS_ can use them. This is as simple as providing a `List<Class<?>>` referencing all the extension classes to the JAX-RS configuration parameter `net.java.dev.webdav.jaxrs.WebDAV.CUSTOM_EXTENSIONS`. While the JAX-RS specification _mandates_ that all JAX-RS containers MUST be able to accept configuration properties provided by `javax.ws.rs.core.Application.getProperties()` (see <manual configuration> below), some containers also support several <proprietary> ways to configure properties. As all those non-programmatic configuration solutions are _non-portable_, these are not covered here in further depth. A _portable_ and more _concise_ approach is to wrap the custom extension as a custom `@Provider`.
+    
+
+	@Provider
+	public MyCustomExtension implements javax.ws.rs.core.Feature {
+		@Override
+		public boolean configure(javax.ws.rs.core.FeatureContext featureContext) {
+			featureContext.property(net.java.dev.webdav.jaxrs.WebDAV.CUSTOM_EXTENSIONS, Arrays.asList(MyFirstXmlRootElement.class, MySecondXmlRootElement.class));
+		}
+	}
+
+
+**Note:** Depending on the order of processing, some JAX-RS containers might decide to invoke the custom feature <after> WebDAV, in which case WebDAV will not "see" them. Unfortunately the JAX-RS 2.0 specification does not provide a vendor-independent solution to that problem. If this happens, either the JAX-RS containers's manual is to be referred for a vendor-specific ordering solution, or <manual> configuration is to be provided instead (hence, implementing the `javax.ws.rs.core.Application` interface).
+
+=== Manual Configuration without Automatic Discovery
+
+Some JAX-RS containers do _not_ provide support for Automatic Discovery. In such containers, enabling WebDAV and custom extensions implies writing some straightforward Java code.
+  
+=== Enabling WebDAV using Manual Coding
+  
+Manually enabling JAX-RS is only needed if Automatic Discovery is _not_ supported or not wanted by the application author. In that case, WebDAV is to be enabled by implementing the `getClasses()` optional method of the `javax.ws.rs.core.Application` interface to tell the JAX-RS container that WebDAV shall get used.
+    
+	@Override
+	public Set<Class<?>> getClasses() {
+		return new HashSet<>(Arrays.asList(WebDAV.class, MyJaxRsRootResource.class));
+	}
+
+=== Registering Optional Custom Extensions using Manual Coding
+
+If an application wants to use custom WebDAV XML extensions (like its own properties) these must be JAXB `XmlRootElement`s and have to get registered with the WebDAV feature's `net.java.dev.webdav.jaxrs.WebDAV.CUSTOM_EXTENSIONS` configuration property.
+
+	@Override
+	public Map<String, Object> getProperties() {
+		return Collections.<String, Object> singletonMap(net.java.dev.webdav.jaxrs.WebDAV.CUSTOM_EXTENSIONS, Arrays.asList(MyFirstXmlRootElement.class, MySecondXmlRootElement.class));
+	}
+
+Here is an example how a custom extension can look like:
+
+	@XmlRootElement(name = "Win32LastAccessTime", namespace = "urn:schemas-microsoft-com:")
+	public class Win32LastAccessTime {
+
+		@XmlValue
+		private String content;
+
+		/**
+		 * @return Client specific string which is not to be further parsed, according to Microsoft's documentation.
+		 * @see <a href="http://msdn.microsoft.com/en-us/library/cc250144(PROT.10).aspx">Chapter 2.2.10.8 "Z:Win32LastAccessTime Property" of MS-WDVME "Web Distributed Authoring and Versioning (WebDAV) Protocol: Microsoft Extensions"</a>
+		 */
+		public String getContent() {
+			return this.content;
+		}
+	}

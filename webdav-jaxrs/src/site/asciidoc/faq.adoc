@@ -1,0 +1,93 @@
+= Frequently Asked Questions
+
+== General
+
+=== Q: What is "WebDAV Support for JAX-RS"?
+
+**A**:
+WebDAV Support for JAX-RS" is a library containing support for WebDAV **ontop of JAX-RS**. It helps you building WebDAV-enabled applications, but it is only a set of building bricks, not a complete server product. It's still up to you to build a product using this bricks.
+
+=== Q: What will "WebDAV Support for JAX-RS" will do for me?
+
+**A**:
+Implementing the WebDAV protocol is a lot of work: Lots of different XML elements, HTTP headers and method names have to be known to your code.
+This all is provided ready-to-use by our library, and more.
+
+=== Q: Are "Milton" and "Jackrabbit" competitors to "WebDAV Support for JAX-RS"?
+
+**A**:
+No, not really. While all product employ WebDAV, those two serve different purposes.
+
+=== Q: What is the difference to "Milton"?
+
+**A**:
+"Milton" is a **Servlet** implementing the WebDAV protocol, while our library is a **JAX-RS extension**.
+Using milton you can attach a WebDAV frontend to a backend which implements a particular backend binding API.
+Using our library you can write RESTful WebServices utilizing the WebDAV protocol, without being bound to a particular backend binding API.
+Please see the Servlet specification for the intention and details of the Servlet API.
+
+=== Q: What is the difference to "Jackrabbit"?
+
+**A**:
+"Jackrabbit" is an implementation of the **JCR API** using WebDAV, while our library is a **JAX-RS extension** providing WebDAV abilities to your JAX-RS application.
+Please see the JCR specification for the intention and details of the JCR API.
+
+=== Q: Is "WebDAV Support for JAX-RS" part of "Jersey"?
+
+**A**:
+It started as part of "Jersey", but meanwhile it is independent in both ways, technically **and** organizational.
+
+=== Q: Does "WebDAV Support for JAX-RS" depend on "Jersey" or other JAX-RS implementations?
+
+**A**:
+As it is an extension to JAX-RS, it needs **some** JAX-RS implementation to be used.
+But there is no **particular** product needed, you can choose **any**.
+
+=== Q: What is the history of this project?
+
+**A**:
+The founder of this project, mailto:mkarg@java.net[Markus KARG] (http://www.headcrashing.eu[Head Crashing Informatics]), researched on methods to access any information as files, even if those are stored in databases or hidden behind proprietary APIs.
+He found out that many popular operatings systems contain (while being rather unknown) WebDAV-filesystems, so his thesis was that wrapping any information by WebDAV would allow any operating system to handle it generically just like files and folders, i. e. without any particular client software needed.
+http://www.ietf.org/rfc/rfc2518.txt"[WebDAV] has two benefits compared to other protocols like SMB/CIFS and NFS:
+It was developed with the latency of the web in mind, and it is not only free (like in "Freeware") but really open (in the sense of community governed; here: http://www.ietf.org[IETF]).
+As he closely attended the development of the JAX-RS standard, he implemented WebDAV ontop of JAX-RS (long before it became released as JAX-RS 1.0) and donated it later to the public as part of Sun's "Jersey" product (the reference implementation of JAX-RS 1.0).
+The benefit of using JAX-RS as the basis was manifold, but the main issues were that it was independent of a particular product, and it was easier (and cleaner) to extend than writing a Servlet.
+
+To guarantee that his work could be used not only by Jersey users but also ontop of any other JAX-RS implementation, he later forked his work, and published it as "WebDAV Support for JAX-RS" on http://www.java.net[java.net].
+
+Few months later, key user Daniel MANZKE had the idea to spin-off and further develop the Microsoft-patches as a standalone project (http://webdav-interop.java.net/[WebDAV Interoperability Filter]), so "The java.net WebDAV Project" was born as a common umbrella for both.
+Since then, "WebDAV Support for JAX-RS" is a sub-project of "The java.net WebDAV Project", and still is governed by Markus and Daniel.
+
+To better align future direction of the WebDAV extension, in 2011 Markus became part of the http://jcp.org/en/jsr/detail?id=339[JAX-RS expert group (JSR 339 at JCP.org)] developing JAX-RS 2.0.
+
+
+== Installation and Configuration
+
+=== Q: Where can I find "WebDAV Support for JAX-RS"?
+
+**A**:
+Please see the chapter about link:installation.adoc[installation].
+
+=== Q: How do I install WebDAV Support for JAX-RS?
+
+**A**:
+Please see the chapter about link:installation.adoc[installation].
+
+=== Q: How do I configure WebDAV Support for JAX-RS?
+
+**A**:
+Please see the chapter about link:installation.adoc[installation].
+
+
+== Compilation, Linking and Packaging
+
+=== Q: WebDavContextResolver is missing!
+
+**A**:
+WebDavContextResolver existed solely as a technical means to configure custom extensions, as JAX-RS 1.x did not provide a standard solution for configuration.
+Since JAX-RS 2.0 there is such a standard way: Configuration properties.
+Hence, the need for this ugly class vanished.
+In fact, getting rid of WebDavContextResolver was the major driver for supporting JAX-RS 2.0.
+We see release 2 as a complete new product and do not feel an obligation for further being fully backwards compatible, as all the nice features of JAX-RS 2.0 mandate a major rewrite of any application anyways.
+For those not wanting to do so, using JAX-RS 2.0 simply makes no sense.
+These people can simply stay with release 1.x, as there is nothing in release 2.x that is useful without recompilation.

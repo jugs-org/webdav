@@ -9,7 +9,7 @@ It was transfered from the Doxia (APT) format into ASCIIDOC because the format c
 * link:asciidoc/features.adoc[Features]
 * link:asciidoc/installation.adoc[Installation]
 * link:asciidoc/configuration.adoc[Configuration]
-* FAQ
+* link:asciidoc/faq.adoc[FAQ]
 * link:asciidoc/roadmap.adoc[Road Map]
 
 

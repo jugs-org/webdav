@@ -9,11 +9,10 @@ This project is a reanimation of [webdav-jaxrs](https://gitlab.com/headcrashing/
 
 ## More Infos
 
-* Documentation: [webdav-jaxrs](webdav-jaxrs/src/site/README.adoc)
+* Documentation: [webdav-jaxrs](webdav-jaxrs/src/site/README.adoc) with [FAQ](webdav-jaxrs/src/site/asciidoc/faq.adoc)
 * Release Notes: [CHANGELOG](CHANGELOG.md)
 * Build and Release Infos: [Releases](src/doc/README.adoc)
 
 ---
 May 2022,
 Oli B.
-

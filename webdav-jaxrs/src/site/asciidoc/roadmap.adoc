@@ -9,6 +9,7 @@ This road map is without obligation and can change at any time. If you like to s
 * Version 2.1
 
   ** Client Library
+  ** update to Jakarta
 
 * Version 2.2
 

@@ -19,11 +19,11 @@
 package org.jugs.webdav.fileserver.grizzly;
 
 import java.io.IOException;
+import java.net.URI;
 
 import javax.ws.rs.ext.RuntimeDelegate;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerFactoryConfigurationError;
 
+import com.sun.grizzly.http.SelectorThread;
 import org.jugs.webdav.fileserver.FileServerApplication;
 import net.java.dev.webdav.interop.WindowsRedirectorPatchProperty;
 import net.java.dev.webdav.interop.grizzly.WindowsRedirectorPatchResourceAdapter;
@@ -33,13 +33,18 @@ import com.sun.jersey.api.container.grizzly.GrizzlyServerFactory;
 
 public final class GrizzlyStarter {
 
-	public static final void main(final String[] args) throws IOException, InterruptedException, IllegalArgumentException, TransformerConfigurationException, TransformerFactoryConfigurationError {
+	public static void main(final String[] args) throws IOException {
+		start(URI.create("http://localhost:80/filesystem"));
+	}
+
+	static void start(URI uri) throws IOException {
 		FileServerApplication app = new FileServerApplication();
 		app.registerEntity(WindowsRedirectorPatchProperty.class);
-		
+
 		System.out.println("Creating Endpoint");
 		Adapter adapter = RuntimeDelegate.getInstance().createEndpoint(app, Adapter.class);
-		GrizzlyServerFactory.create("http://localhost:80/filesystem", new WindowsRedirectorPatchResourceAdapter(adapter));
-		System.out.println("Jersey app started"); 
-	}	
+		GrizzlyServerFactory.create(uri, new WindowsRedirectorPatchResourceAdapter(adapter));
+		System.out.println("Jersey app started: " + uri);
+	}
+
 }

@@ -21,10 +21,13 @@ package org.jugs.webdav.fileserver;
 import com.github.sardine.DavResource;
 import com.github.sardine.Sardine;
 import com.github.sardine.SardineFactory;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import patterntesting.runtime.junit.NetworkTester;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -36,19 +39,28 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author oboehm
  * @since 02.06.22
  */
-class FileServerStarterTest {
+public class FileServerStarterTest {
 
     private static final Logger log = Logger.getLogger(FileServerStarter.class.getName());
 
     @BeforeAll
-    static void startFileServer() throws IOException, InterruptedException {
+    static void startFileServer() throws InterruptedException, IOException {
         FileServerStarter.main(new String[0]);
     }
 
     @Test
+    public void pingPort() {
+        NetworkTester.assertOnline("localhost", 80);
+    }
+
+    @Test
     public void testListRoot() throws IOException {
+        checkWebDAV(URI.create("http://localhost/fileserver"));
+    }
+
+    public static void checkWebDAV(URI uri) throws IOException {
         Sardine sardine = SardineFactory.begin();
-        List<DavResource> resources = sardine.list("http://localhost/fileserver");
+        List<DavResource> resources = sardine.list(uri.toString());
         assertFalse(resources.isEmpty());
         for (DavResource res : resources) {
             log.info("res = " + res);

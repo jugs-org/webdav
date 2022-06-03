@@ -64,12 +64,6 @@
 			<timezone>1</timezone>
 		</contributor>	
 	</contributors>
-	<scm>
-		<connection>scm:svn:https://webdav.dev.java.net/svn/webdav</connection>
-		<developerConnection>scm:svn:https://webdav.dev.java.net/svn/webdav</developerConnection>
-		<tag>HEAD</tag>
-		<url>https://webdav.dev.java.net/source/browse/webdav</url>
-	</scm>
 	<dependencies>
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
@@ -102,16 +96,21 @@
 			<artifactId>jaxrs</artifactId>
 			<version>[1.0,2.0)</version>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>net.java.dev.webdav</groupId>-->
-<!--			<artifactId>interop</artifactId>-->
-<!--			<version>0.5.1-SNAPSHOT</version>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>org.jugs.webdav</groupId>
+			<artifactId>webdav-jaxrs</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>net.java.dev.webdav</groupId>
 			<artifactId>webdav-interop</artifactId>
 			<version>0.4</version>
+			<!--<version>0.5.1-SNAPSHOT</version>-->
 			<exclusions>
+				<exclusion>
+					<groupId>net.java.dev.webdav</groupId>
+					<artifactId>webdav-jaxrs</artifactId>
+				</exclusion>
 				<exclusion>
 					<groupId>javax.ws.rs</groupId>
 					<artifactId>jsr311-api</artifactId>
@@ -122,7 +121,6 @@
 			<groupId>com.sun.grizzly</groupId>
 			<artifactId>grizzly-servlet-webserver</artifactId>
 			<version>1.9.65</version>
-<!--			<scope>provided</scope>-->
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>

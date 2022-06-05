@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* fileserver example added as new module
 * transfered documentation for Doxia format (.apt) to Mark Down (.md) and ASCIIDOC (.adoc)
 
 

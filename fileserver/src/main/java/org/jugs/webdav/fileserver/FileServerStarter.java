@@ -22,18 +22,18 @@ import java.io.IOException;
 
 import javax.ws.rs.ext.RuntimeDelegate;
 
-import net.java.dev.webdav.interop.WindowsRedirectorPatchProperty;
-import net.java.dev.webdav.interop.WindowsRedirectorPatchResource;
+//import net.java.dev.webdav.interop.WindowsRedirectorPatchProperty;
+//import net.java.dev.webdav.interop.WindowsRedirectorPatchResource;
 
 import com.sun.grizzly.tcp.Adapter;
 import com.sun.jersey.api.container.grizzly.GrizzlyServerFactory;
 
 public final class FileServerStarter {
 
-	public static final void main(final String[] args) throws IOException, InterruptedException {
+	public static void main(final String[] args) throws IOException {
 		FileServerApplication app = new FileServerApplication();
-		app.registerService(WindowsRedirectorPatchResource.class);
-		app.registerEntity(WindowsRedirectorPatchProperty.class);
+		//app.registerService(WindowsRedirectorPatchResource.class);
+		//app.registerEntity(WindowsRedirectorPatchProperty.class);
 		
 		System.out.println("Creating Endpoint");
 		Adapter adapter = RuntimeDelegate.getInstance().createEndpoint(app, Adapter.class);

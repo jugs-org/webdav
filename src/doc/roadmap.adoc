@@ -1,0 +1,25 @@
+= Road Map
+
+This road map will replace the old one from link:../../webdav-jaxrs/[webdav-jaxrs].
+It is without obligation and can change at any time.
+If you like to see a particular feature, create an issue describing your idea.
+There is no time frame associated with any release version.
+
+* Version 2.0 and before
+
+  ** Support for JAX-RS 2.0
+  ** see link:../../CHANGELOG.md[changelog]
+  
+* Version 2.1
+
+  ** continue with inventory of webdav projects and samples received from mailto:mkarg@java.net[Markus KARG]
+  ** add fileserver sample as Maven module
+
+* Version 2.2
+
+  ** continue with inventory and add more modules (e.g. webdav-interop)
+
+* Version 2.x
+
+  ** update to Jakarta
+  ** ... (depends on you)

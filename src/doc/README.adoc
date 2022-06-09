@@ -32,6 +32,6 @@ This is a little checklist for the next release:
   select "Staging Repositories" on https://s01.oss.sonatype.org/[s01.oss.sonatype.org], press "Refresh" and then "Close" and "Release".
 . update link:../../CHANGELOG.md[CHANGELOG]
 . checkin the pom.xml (if not already done), label the sources, e.g. with "webdav-2.0" and push it (`git push --tags`)
-. merge the release branch to master and develop branch
+. merge the release branch to main and develop branch
 . change to develop branch and start next SNAPSHOT
 . after a few days: check webdav with http://search.maven.org/#search%7Cga%7C1%7Cwebdav[search.maven.org]

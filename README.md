@@ -1,6 +1,6 @@
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.jugs.webdav/webdav/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.jugs.webdav/webdav)
+# WebDAV Support for JAX-RS   ![Logo](src/doc/images/webdav-logo.png)
 
-# WebDAV Support for JAX-RS
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.jugs.webdav/webdav/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.jugs.webdav/webdav)
 
 ## webdav-jaxrs reloaded
 

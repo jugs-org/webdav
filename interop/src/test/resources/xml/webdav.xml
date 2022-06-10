@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<multistatus xmlns="DAV:">
+	<response>
+		<href>http://192.168.30.80:80/filesystem
+		</href>
+		<propstat>
+			<prop>
+				<creationdate>2009-02-02T17:39:24.781Z
+				</creationdate>
+				<getlastmodified>Mon, 02 Feb 2009 17:39:24 GMT</getlastmodified>
+				<resourcetype>
+					<collection />
+				</resourcetype>
+			</prop>
+			<status>HTTP/1.1 200 OK</status>
+		</propstat>
+	</response>
+</multistatus>

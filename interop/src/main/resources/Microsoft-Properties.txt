@@ -1,0 +1,19 @@
+urn:schemas-microsoft-com:Win32CreationTime
+urn:schemas-microsoft-com:Win32LastAccessTime
+urn:schemas-microsoft-com:Win32LastModifiedTime
+urn:schemas-microsoft-com:Win32FileAttributes
+
+<ns1:Win32CreationTime>Sat, 08 Nov 2008 18:41:38 GMT</ns1:Win32CreationTime>
+<ns1:Win32LastAccessTime>Sat, 08 Nov 2008 18:41:38 GMT</ns1:Win32LastAccessTime>
+<ns1:Win32LastModifiedTime>Sat, 08 Nov 2008 18:41:38 GMT</ns1:Win32LastModifiedTime>
+<ns1:Win32FileAttributes>00000010</ns1:Win32FileAttributes>
+
+Some Windows XP machines may not allow you successfully create a Web Folder. If you are unable to install Web Folders using the instructions above, complete the following steps to fix the problem:
+
+Click on the "Start" menu in the lower left corner, and select "Run..."
+Type in "webfldrs.msi" and click the "OK" button.
+Click on the "Select reinstall mode" button.
+Select *ALL* of the checkboxes *except* for the second one ("Reinstall only if file is missing").
+Click on the "OK" button.
+Click on the "Reinstall" button.
+After the reinstallation is complete, reboot your computer.

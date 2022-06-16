@@ -20,7 +20,7 @@
 		<artifactId>webdav</artifactId>
 		<version>2.2-SNAPSHOT</version>
 	</parent>
-	<artifactId>interop</artifactId>
+	<artifactId>webdav-interop</artifactId>
 	<name>Microsoft Interop for WebDAV Support</name>
 	<description>A project which focus on a solution for interoperability issues of WebDAV clients.</description>
 	<developers>

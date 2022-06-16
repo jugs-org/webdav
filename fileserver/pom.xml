@@ -100,11 +100,11 @@
 			<artifactId>webdav-jaxrs</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>net.java.dev.webdav</groupId>-->
-<!--			<artifactId>webdav-interop</artifactId>-->
-<!--			<version>0.4</version>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>org.jugs.webdav</groupId>
+			<artifactId>webdav-interop</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>com.sun.grizzly</groupId>
 			<artifactId>grizzly-servlet-webserver</artifactId>

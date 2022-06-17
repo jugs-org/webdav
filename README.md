@@ -10,7 +10,7 @@ This project is a reanimation of [webdav-jaxrs](https://gitlab.com/headcrashing/
 
 Since 2.1 some webdav projects and samples received from [Markus Karg](http://www.headcrashing.eu) were reanimated and added as Maven module:
 
-* [webdav-jaxrs](webdav-jaxrs/src/site/README.adoc) (since 2.0)
+* [webdav-jaxrs](webdav-jaxrs/README.md) (since 2.0)
 * [fileserver](fileserver/README.md) (since 2.1)
 
 

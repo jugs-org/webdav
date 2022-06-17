@@ -36,7 +36,7 @@ To access the backend, simply write Java code.
 Use JDBC, JPA, File API, proprietary API... whatever you like.
 There are no real limits like in "ready to use" servers (e. g. Milton) due to this.
 This approach is fully flexible, but certainly implies more to learn.
-So to simplify your start, check out the {{{http://webdav-addressbook.java.net}WebDAV Address-Book Example}} and read the (short!) source code.
+So to simplify your start, check out the http://webdav-addressbook.java.net[WebDAV Address-Book Example] and read the (short!) source code.
 Note that some WebDAV clients are rather buggy...
 That's why we also provide "WebDAV Interoperability Filter".
 It cannot fix your local client, but it prevents changes in your service.
@@ -57,13 +57,13 @@ This is applied by the mentioned example, too.
 
 There is no mailing list availabe.
 But you can discuss your request or question as https://github.com/jugs-org/webdav/issues[issue] on GitHub.
-If you need commercial support ask the main sponsor, http://www.headcrashing.euH[ead Crashing Informatics].
+If you need commercial support ask the main sponsor, http://www.headcrashing.eu[Head Crashing Informatics].
   
 == Building Bricks
 
 This project is providing the following building bricks:
   
-* http://webdav-jaxrs.java.net[The JAX-RS Extension]
+* https://github.com/jugs-org/webdav/tree/develop/webdav-jaxrs[The JAX-RS Extension]
 
 ** This is the work horse. Use this to rather easily wrap any back end data as WebDAV information. It is an extension to JAX-RS and is not dependent of any particular JAX-RS engine.
   
@@ -86,7 +86,7 @@ This project is providing the following building bricks:
    The records are presented to WebDAV clients as ".adr" files, which in fact are XML data streams.
    The example is fully functional, which means, a client can read and write, create, delete and even search for addresses.
 
-* http://webdav-fileserver.java.net[The File Server Example]
+* https://github.com/jugs-org/webdav/tree/develop/fileserver[The File Server Example]
   
 ** Another example provided by one of our users.
    It wraps a physical file system as a WebDAV resource, allowing turn any local file system into a remote file system.

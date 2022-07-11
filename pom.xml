@@ -45,7 +45,7 @@
 
     <modules>
         <module>webdav-jaxrs</module>
-        <module>interop</module>
+        <module>webdav-interop</module>
         <module>fileserver</module>
     </modules>
 

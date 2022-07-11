@@ -12,6 +12,7 @@ Since 2.1 some webdav projects and samples received from [Markus Karg](http://ww
 
 * [webdav-jaxrs](webdav-jaxrs/README.md) (since 2.0)
 * [fileserver](fileserver/README.md) (since 2.1)
+* [webdav-interop](webdav-interop/README.md) (since 2.2)
 
 
 ## More Infos
@@ -21,5 +22,5 @@ Since 2.1 some webdav projects and samples received from [Markus Karg](http://ww
 * Build and Release Infos: [Releases](src/doc/README.adoc)
 
 ---
-May 2022,
+July 2022,
 Oli B.

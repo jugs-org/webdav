@@ -57,6 +57,16 @@
 			</roles>
 			<timezone>1</timezone>
 		</contributor>
+		<contributor>
+			<name>Oliver Boehm</name>
+			<email>ob@jugs.org</email>
+			<organization>Java User Group Stuttgart</organization>
+			<organizationUrl>http://www.jugs.org</organizationUrl>
+			<url>http://www.aosd.de</url>
+			<roles>
+				<role>archaeologist</role>
+			</roles>
+		</contributor>
 	</contributors>
 	<dependencies>
 		<dependency>

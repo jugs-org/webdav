@@ -29,7 +29,7 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.CharArrayWriter;
 
 /**
- * This test class has the same functionality as {@link XslTransformer} but
+ * This test class has the same functionality as old XslTransformer class but
  * as unit test.
  *
  * @author oboehm

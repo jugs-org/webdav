@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-* interop added as new module
+* [webdav-interop](webdav-interop/README.md) added as new module
 
 
 ## [2.1] - 2022-06-09

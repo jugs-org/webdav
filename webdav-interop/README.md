@@ -16,4 +16,4 @@ If WebDAV is not recognised on Windows put it in the classpath.
 
 ## More Information
 
-see [WebDAV Support for JAX-RS](src/site/README.adoc)
+see [WebDAV Support for JAX-RS](../webdav-jaxrs/src/site/README.adoc)

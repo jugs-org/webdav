@@ -35,6 +35,7 @@ import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.util.Date;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
@@ -58,6 +59,9 @@ import org.jugs.webdav.fileserver.FileServerApplication;
 
 
 public class FileResource extends AbstractResource{
+
+	private final static Logger logger = Logger.getLogger(FileResource.class.getName());
+
 	public FileResource(File resource, String url) {
 		super(resource, url);
 	}
@@ -135,7 +139,7 @@ public class FileResource extends AbstractResource{
 	}
 	
 	@Override
-	public javax.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) throws URISyntaxException{
+	public javax.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) {
 		logger.finer("File - propfind(..) " + uriInfo.getRequestUri() + " depth - "+depth+" = URL: "+url);
 
 		Date lastModified = new Date(resource.lastModified());

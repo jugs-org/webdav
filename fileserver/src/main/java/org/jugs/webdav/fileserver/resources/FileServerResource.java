@@ -32,6 +32,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.core.HttpHeaders;
@@ -57,6 +58,9 @@ import org.jugs.webdav.fileserver.FileServerApplication;
 
 @Path(FileServerApplication.RESOURCE_NAME)
 public class FileServerResource extends AbstractResource {
+
+	private final static Logger logger = Logger.getLogger(FileServerResource.class.getName());
+
 	public static String davFolder = System.getProperty("path", "./");
 
 	public FileServerResource() {
@@ -65,7 +69,7 @@ public class FileServerResource extends AbstractResource {
 	}
 
 	@Override
-	public javax.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) throws URISyntaxException, IOException {
+	public javax.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) throws IOException {
 		URI uri = uriInfo.getRequestUri();
 
 		logger.finer("FileSystem - propfind(..) " + uri + " depth - " + depth);

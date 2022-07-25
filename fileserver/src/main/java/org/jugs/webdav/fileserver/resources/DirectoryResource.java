@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.UriInfo;
@@ -56,6 +57,8 @@ import org.jugs.webdav.fileserver.FileServerApplication;
 
 
 public class DirectoryResource extends AbstractResource {
+
+	private final static Logger logger = Logger.getLogger(DirectoryResource.class.getName());
 	public DirectoryResource(File resource, String url) {
 		super(resource, url);
 	}
@@ -96,7 +99,7 @@ public class DirectoryResource extends AbstractResource {
 	}
 	
 	@Override
-	public javax.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) throws URISyntaxException, IOException{
+	public javax.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) throws IOException{
 		logger.finer("Directory - propfind(..) " + uriInfo.getRequestUri() + " depth - "+depth+" = URL: "+url);
 		if(!resource.exists()){
 			return javax.ws.rs.core.Response.status(404).build();

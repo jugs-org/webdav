@@ -26,6 +26,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.util.logging.Logger;
 
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.ResponseBuilder;
@@ -34,6 +35,9 @@ import net.java.dev.webdav.jaxrs.methods.MKCOL;
 
 
 public class UnknownResource extends AbstractResource {
+
+	private final static Logger logger = Logger.getLogger(UnknownResource.class.getName());
+
 	public UnknownResource(File resource, String url) {
 		super(resource, url);
 	}
@@ -55,7 +59,7 @@ public class UnknownResource extends AbstractResource {
 	}
 	
 	@Override
-	public javax.ws.rs.core.Response put(final UriInfo uriInfo, final InputStream entityStream, final long contentLength) throws IOException, URISyntaxException {
+	public javax.ws.rs.core.Response put(final UriInfo uriInfo, final InputStream entityStream, final long contentLength) throws IOException {
 		logger.finer("PUT: " + url);
 		/*
 		 * Workaround for Jersey issue #154 (see

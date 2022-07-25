@@ -34,7 +34,7 @@ import javax.ws.rs.ext.Providers;
 
 
 public abstract class AbstractResource implements WebDavResource{
-	protected final static Logger logger = Logger.getLogger(WebDavResource.class.getName());
+	private final static Logger logger = Logger.getLogger(WebDavResource.class.getName());
 	protected String url;
 	protected File resource;
 	

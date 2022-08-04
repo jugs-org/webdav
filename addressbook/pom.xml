@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	Copyright 2008, 2009 Daniel MANZKE
+	Copyright 2008, 2009 Markus KARG
 
 	This file is part of webdav-jaxrs.
 
@@ -25,14 +25,14 @@
 		<artifactId>webdav</artifactId>
 		<version>2.3-SNAPSHOT</version>
 	</parent>
-	<artifactId>fileserver</artifactId>
-	<name>FileServer based on WebDAV Support</name>
-	<description>FileServer application based on WebDAV Support for JAX-RS.</description>
+	<artifactId>addressbook</artifactId>
+	<name>WebDAV Support for JAX-RS Address-Book Sample</name>
+	<description>Sample for WebDAV Support for JAX-RS: JPA based address-book.</description>
 	<developers>
 		<developer>
-			<id>daniel_manzke</id>
-			<email>daniel.manzke@googlemail.com</email>
-			<url>https://www.xing.com/profile/Daniel_Manzke</url>
+			<id>mkarg</id>
+			<email>mkarg@users.dev.java.net</email>
+			<url>http://wiki.java.net/bin/view/People/MarkusKarg</url>
 			<organization>The java.net WebDAV Project</organization>
 			<organizationUrl>http://webdav.dev.java.net</organizationUrl>
 			<roles>
@@ -41,27 +41,26 @@
 			</roles>
 			<timezone>1</timezone>
 			<properties>
-				<picUrl>https://www.xing.com/img/users/8/d/2/e054f8ad2.6432019.jpg</picUrl>
+				<picUrl>http://weblogs.java.net/images/people/markus_karg.jpg</picUrl>
 			</properties>
 		</developer>
 	</developers>
 	<contributors>
 		<contributor>
-			<name>Markus KARG</name>
-			<organization>The java.net WebDAV Project</organization>
+			<name>Daniel MANZKE</name>
 			<roles>
-				<role>peer:webdav-jaxrs</role>
+				<role>thinker</role>
+				<role>tester</role>
 			</roles>
 			<timezone>1</timezone>
-		</contributor>	
+		</contributor>
 		<contributor>
-			<name>Julian RESCHKE</name>
-			<organization>greenbytes</organization>
+			<name>Paul SANDOZ</name>
+			<organization>Sun Microsystems</organization>
 			<roles>
-				<role>peer:webdav</role>
+				<role>peer:jersey</role>
 			</roles>
-			<timezone>1</timezone>
-		</contributor>	
+		</contributor>
 	</contributors>
 	<dependencies>
 		<dependency>
@@ -69,6 +68,22 @@
 			<artifactId>jersey-server</artifactId>
 			<version>1.1.5</version>
 		</dependency>
+		<dependency>
+			<groupId>com.sun.grizzly</groupId>
+			<artifactId>grizzly-servlet-webserver</artifactId>
+			<version>1.9.65</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>eclipselink</artifactId>
+			<version>2.6.9</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+			<version>[1.0,1.1)</version>		
+		</dependency>		
 		<dependency>
 			<groupId>javax.ws.rs</groupId>
 			<artifactId>jsr311-api</artifactId>
@@ -90,20 +105,29 @@
 			<version>2.3.1</version>
 		</dependency>
 		<dependency>
-			<groupId>org.jugs.webdav</groupId>
-			<artifactId>webdav-jaxrs</artifactId>
-			<version>${project.version}</version>
+			<groupId>net.java.dev.webdav</groupId>
+			<artifactId>jaxrs</artifactId>
+			<version>1.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.ws.rs</groupId>
+					<artifactId>jsr311-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.jugs.webdav</groupId>-->
+<!--			<artifactId>webdav-jaxrs</artifactId>-->
+<!--			<version>${project.version}</version>-->
+<!--		</dependency>-->
+		<!-- JDBC -->
 		<dependency>
-			<groupId>org.jugs.webdav</groupId>
-			<artifactId>webdav-interop</artifactId>
-			<version>${project.version}</version>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>2.1.214</version>
+			<scope>runtime</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.sun.grizzly</groupId>
-			<artifactId>grizzly-servlet-webserver</artifactId>
-			<version>1.9.65</version>
-		</dependency>
+		<!-- Test Libs -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
@@ -126,6 +150,12 @@
 			<groupId>com.github.lookfirst</groupId>
 			<artifactId>sardine</artifactId>
 			<version>5.10</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>5.8.1</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -156,7 +186,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<mainClass>org.jugs.webdav.fileserver.FileServerStarter</mainClass>
+					<mainClass>net.java.dev.webdav.samples.jaxrs.addressbook.Main</mainClass>
 				</configuration>
 			</plugin>
 			<plugin>

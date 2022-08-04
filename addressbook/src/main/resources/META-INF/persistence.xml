@@ -1,0 +1,16 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+	<persistence-unit name="AddressBook">
+		<provider> org.eclipse.persistence.internal.jpa.EntityManagerFactoryProvider</provider>
+<!--		<class>net.java.dev.webdav.samples.jaxrs.addressbook.Contact</class>-->
+		<class>net.java.dev.webdav.jaxrsaddressbook.Contact</class>
+		<properties>
+			<property name="eclipselink.jdbc.driver" value="org.h2.Driver" />
+			<property name="eclipselink.jdbc.url" value="jdbc:h2:mem:test" />
+			<property name="eclipselink.jdbc.user" value="DBA" />
+			<property name="eclipselink.jdbc.password" value="sql" />
+			<property name="eclipselink.ddl-generation" value="create-tables"/>			
+			<property name="eclipselink.ddl-generation.output-mode" value="database"/>			
+			<property name="eclipselink.logging.level" value="WARNING" />
+		</properties>
+	</persistence-unit>
+</persistence>

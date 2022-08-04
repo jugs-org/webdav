@@ -16,12 +16,11 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with webdav-jaxrs.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.jugs.webdav.fileserver;
+package net.java.dev.webdav.jaxrsaddressbook;
 
 import com.github.sardine.DavResource;
 import com.github.sardine.Sardine;
 import com.github.sardine.SardineFactory;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import patterntesting.runtime.junit.NetworkTester;
@@ -34,18 +33,18 @@ import java.util.logging.Logger;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit-Test fuer {@link FileServerStarter} ...
+ * Unit-Test fuer {@link Main}.
  *
  * @author oboehm
- * @since 02.06.22
+ * @since 04.08.22
  */
-public class FileServerStarterTest {
+class MainTest {
 
-    private static final Logger log = Logger.getLogger(FileServerStarterTest.class.getName());
+    private static final Logger log = Logger.getLogger(MainTest.class.getName());
 
     @BeforeAll
     static void startFileServer() throws IOException {
-        FileServerStarter.main(new String[0]);
+        Main.main(new String[0]);
     }
 
     @Test
@@ -55,7 +54,7 @@ public class FileServerStarterTest {
 
     @Test
     public void testListRoot() throws IOException {
-        checkWebDAV(URI.create("http://localhost/fileserver"));
+        checkWebDAV(URI.create("http://localhost/addressbook"));
     }
 
     public static void checkWebDAV(URI uri) throws IOException {

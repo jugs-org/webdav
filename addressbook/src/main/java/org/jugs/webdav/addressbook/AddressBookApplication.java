@@ -17,7 +17,7 @@
  * along with webdav-jaxrs.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.java.dev.webdav.jaxrsaddressbook;
+package org.jugs.webdav.addressbook;
 
 import java.util.Arrays;
 import java.util.HashSet;

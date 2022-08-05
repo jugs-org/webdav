@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with webdav-jaxrs.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.java.dev.webdav.jaxrsaddressbook;
+package org.jugs.webdav.addressbook;
 
 import com.github.sardine.DavResource;
 import com.github.sardine.Sardine;

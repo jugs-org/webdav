@@ -15,7 +15,7 @@
  *
  * (c)reated 04.08.22 by oboehm
  */
-package net.java.dev.webdav.jaxrsaddressbook;
+package org.jugs.webdav.addressbook;
 
 import org.junit.jupiter.api.Test;
 

@@ -5,20 +5,6 @@ It is without obligation and can change at any time.
 If you like to see a particular feature, create an issue describing your idea.
 There is no time frame associated with any release version.
 
-* Version 2.1 and before
-
-  ** Support for JAX-RS 2.0
-  ** link:../../fileserver/README.md[fileserver] sample added as Maven module
-  ** see link:../../CHANGELOG.md[changelog]
-
-* Version 2.2
-
-  ** continue with inventory of webdav projects and samples received from mailto:mkarg@java.net[Markus KARG]
-  ** add module link:../../webdav-interop/README.md[webdav-interop]
-
-* Version 2.3
-
-  ** add jaxrsaddressbook sample as Maven module
 
 * Version 3.x
 

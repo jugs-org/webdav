@@ -8,7 +8,7 @@
 
 # set up some constants
 URL=https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/
-VERSION=2.2
+VERSION=2.3
 options="gpg:sign-and-deploy-file -Durl=$URL -DrepositoryId=sonatype-nexus-staging"
 
 # passphrase is needed for signing
@@ -44,3 +44,4 @@ deploy_pom_for webdav
 deploy_jar_for webdav-jaxrs webdav-jaxrs
 deploy_jar_for webdav-interop webdav-interop
 deploy_jar_for fileserver fileserver
+deploy_jar_for addressbook addressbook

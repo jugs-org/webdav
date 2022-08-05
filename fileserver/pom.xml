@@ -32,7 +32,7 @@
 		<developer>
 			<id>daniel_manzke</id>
 			<email>daniel.manzke@googlemail.com</email>
-			<url>https://www.xing.com/profile/Daniel_Manzke</url>
+			<url>https://github.com/manzke</url>
 			<organization>The java.net WebDAV Project</organization>
 			<organizationUrl>http://webdav.dev.java.net</organizationUrl>
 			<roles>
@@ -41,7 +41,7 @@
 			</roles>
 			<timezone>1</timezone>
 			<properties>
-				<picUrl>https://www.xing.com/img/users/8/d/2/e054f8ad2.6432019.jpg</picUrl>
+				<picUrl>https://avatars.githubusercontent.com/u/339804</picUrl>
 			</properties>
 		</developer>
 	</developers>
@@ -61,7 +61,17 @@
 				<role>peer:webdav</role>
 			</roles>
 			<timezone>1</timezone>
-		</contributor>	
+		</contributor>
+		<contributor>
+			<name>Oliver Boehm</name>
+			<email>ob@jugs.org</email>
+			<organization>Java User Group Stuttgart</organization>
+			<organizationUrl>http://www.jugs.org</organizationUrl>
+			<url>http://www.aosd.de</url>
+			<roles>
+				<role>archaeologist</role>
+			</roles>
+		</contributor>
 	</contributors>
 	<dependencies>
 		<dependency>

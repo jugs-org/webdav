@@ -19,9 +19,9 @@
 package org.jugs.webdav.fileserver.resources;
 
 import static javax.ws.rs.core.HttpHeaders.CONTENT_LENGTH;
-import static net.java.dev.webdav.jaxrs.Headers.DEPTH;
-import static net.java.dev.webdav.jaxrs.Headers.DESTINATION;
-import static net.java.dev.webdav.jaxrs.Headers.OVERWRITE;
+import static org.jugs.webdav.jaxrs.Headers.DEPTH;
+import static org.jugs.webdav.jaxrs.Headers.DESTINATION;
+import static org.jugs.webdav.jaxrs.Headers.OVERWRITE;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,12 +40,12 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.Providers;
 
-import net.java.dev.webdav.jaxrs.methods.COPY;
-import net.java.dev.webdav.jaxrs.methods.MKCOL;
-import net.java.dev.webdav.jaxrs.methods.MOVE;
-import net.java.dev.webdav.jaxrs.methods.OPTIONS;
-import net.java.dev.webdav.jaxrs.methods.PROPFIND;
-import net.java.dev.webdav.jaxrs.methods.PROPPATCH;
+import org.jugs.webdav.jaxrs.methods.COPY;
+import org.jugs.webdav.jaxrs.methods.MKCOL;
+import org.jugs.webdav.jaxrs.methods.MOVE;
+import org.jugs.webdav.jaxrs.methods.OPTIONS;
+import org.jugs.webdav.jaxrs.methods.PROPFIND;
+import org.jugs.webdav.jaxrs.methods.PROPPATCH;
 
 public interface WebDavResource {
 	@GET

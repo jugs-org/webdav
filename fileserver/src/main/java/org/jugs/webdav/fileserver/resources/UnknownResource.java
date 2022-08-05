@@ -18,7 +18,7 @@
  */
 package org.jugs.webdav.fileserver.resources;
 
-import static net.java.dev.webdav.jaxrs.Headers.DAV;
+import static org.jugs.webdav.jaxrs.Headers.DAV;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -31,7 +31,7 @@ import java.util.logging.Logger;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
-import net.java.dev.webdav.jaxrs.methods.MKCOL;
+import org.jugs.webdav.jaxrs.methods.MKCOL;
 
 
 public class UnknownResource extends AbstractResource {

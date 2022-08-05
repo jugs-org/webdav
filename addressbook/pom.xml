@@ -115,11 +115,11 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.jugs.webdav</groupId>-->
-<!--			<artifactId>webdav-jaxrs</artifactId>-->
-<!--			<version>${project.version}</version>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>org.jugs.webdav</groupId>
+			<artifactId>webdav-jaxrs</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		<!-- JDBC -->
 		<dependency>
 			<groupId>com.h2database</groupId>

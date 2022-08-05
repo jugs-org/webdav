@@ -20,8 +20,8 @@ package org.jugs.webdav.fileserver.resources;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_XML_TYPE;
 import static javax.ws.rs.core.Response.Status.OK;
-import static net.java.dev.webdav.jaxrs.Headers.DAV;
-import static net.java.dev.webdav.jaxrs.xml.properties.ResourceType.COLLECTION;
+import static org.jugs.webdav.jaxrs.Headers.DAV;
+import static org.jugs.webdav.jaxrs.xml.properties.ResourceType.COLLECTION;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,15 +44,15 @@ import javax.ws.rs.ext.MessageBodyReader;
 import javax.ws.rs.ext.Providers;
 
 import org.jugs.webdav.fileserver.tools.PropStatBuilderExt;
-import net.java.dev.webdav.jaxrs.xml.elements.HRef;
-import net.java.dev.webdav.jaxrs.xml.elements.MultiStatus;
-import net.java.dev.webdav.jaxrs.xml.elements.Prop;
-import net.java.dev.webdav.jaxrs.xml.elements.PropFind;
-import net.java.dev.webdav.jaxrs.xml.elements.PropStat;
-import net.java.dev.webdav.jaxrs.xml.elements.Response;
-import net.java.dev.webdav.jaxrs.xml.elements.Status;
-import net.java.dev.webdav.jaxrs.xml.properties.CreationDate;
-import net.java.dev.webdav.jaxrs.xml.properties.GetLastModified;
+import org.jugs.webdav.jaxrs.xml.elements.HRef;
+import org.jugs.webdav.jaxrs.xml.elements.MultiStatus;
+import org.jugs.webdav.jaxrs.xml.elements.Prop;
+import org.jugs.webdav.jaxrs.xml.elements.PropFind;
+import org.jugs.webdav.jaxrs.xml.elements.PropStat;
+import org.jugs.webdav.jaxrs.xml.elements.Response;
+import org.jugs.webdav.jaxrs.xml.elements.Status;
+import org.jugs.webdav.jaxrs.xml.properties.CreationDate;
+import org.jugs.webdav.jaxrs.xml.properties.GetLastModified;
 import org.jugs.webdav.fileserver.FileServerApplication;
 
 

@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * [addressbook](addressbook/README.html) addes as new module
+* fileserver switched to org.jugs.webdav:webdav-jaxrs as base lib
 
 
 ## [2.2] - 2022-07-12

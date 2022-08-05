@@ -24,14 +24,14 @@ import java.util.Set;
 
 import javax.ws.rs.core.Response.Status;
 
-import net.java.dev.webdav.jaxrs.xml.elements.Prop;
-import net.java.dev.webdav.jaxrs.xml.elements.PropStat;
-import net.java.dev.webdav.jaxrs.xml.properties.CreationDate;
-import net.java.dev.webdav.jaxrs.xml.properties.DisplayName;
-import net.java.dev.webdav.jaxrs.xml.properties.GetContentLength;
-import net.java.dev.webdav.jaxrs.xml.properties.GetContentType;
-import net.java.dev.webdav.jaxrs.xml.properties.GetLastModified;
-import net.java.dev.webdav.jaxrs.xml.properties.ResourceType;
+import org.jugs.webdav.jaxrs.xml.elements.Prop;
+import org.jugs.webdav.jaxrs.xml.elements.PropStat;
+import org.jugs.webdav.jaxrs.xml.properties.CreationDate;
+import org.jugs.webdav.jaxrs.xml.properties.DisplayName;
+import org.jugs.webdav.jaxrs.xml.properties.GetContentLength;
+import org.jugs.webdav.jaxrs.xml.properties.GetContentType;
+import org.jugs.webdav.jaxrs.xml.properties.GetLastModified;
+import org.jugs.webdav.jaxrs.xml.properties.ResourceType;
 
 import org.w3c.dom.Element;
 
@@ -119,7 +119,7 @@ public class PropStatBuilder {
 			}	
 		}
 		
-		PropStat stat = new PropStat(notFound, new net.java.dev.webdav.jaxrs.xml.elements.Status(Status.NOT_FOUND));
+		PropStat stat = new PropStat(notFound, new org.jugs.webdav.jaxrs.xml.elements.Status(Status.NOT_FOUND));
 		
 		return stat;
 	}
@@ -131,7 +131,7 @@ public class PropStatBuilder {
 	}
 	
 	public PropStat build(){
-		PropStat stat = new PropStat(properties, new net.java.dev.webdav.jaxrs.xml.elements.Status(status));
+		PropStat stat = new PropStat(properties, new org.jugs.webdav.jaxrs.xml.elements.Status(status));
 		
 		return stat;
 	}

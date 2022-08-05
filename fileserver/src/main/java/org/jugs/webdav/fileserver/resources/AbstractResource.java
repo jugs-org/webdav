@@ -18,7 +18,7 @@
  */
 package org.jugs.webdav.fileserver.resources;
 
-import static net.java.dev.webdav.jaxrs.Headers.DAV;
+import static org.jugs.webdav.jaxrs.Headers.DAV;
 
 import java.io.File;
 import java.io.IOException;

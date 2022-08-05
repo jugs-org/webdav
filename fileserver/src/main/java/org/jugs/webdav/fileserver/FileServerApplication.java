@@ -27,7 +27,7 @@ import javax.ws.rs.core.Application;
 import javax.xml.bind.JAXBException;
 
 import org.jugs.webdav.fileserver.resources.FileServerResource;
-import net.java.dev.webdav.jaxrs.xml.WebDavContextResolver;
+import org.jugs.webdav.jaxrs.xml.WebDavContextResolver;
 
 
 

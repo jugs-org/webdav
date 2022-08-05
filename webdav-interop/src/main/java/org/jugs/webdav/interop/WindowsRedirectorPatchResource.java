@@ -18,12 +18,12 @@
  */
 package org.jugs.webdav.interop;
 
-import static net.java.dev.webdav.jaxrs.Headers.DAV;
+import static org.jugs.webdav.jaxrs.Headers.DAV;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
-import net.java.dev.webdav.jaxrs.methods.OPTIONS;
+import org.jugs.webdav.jaxrs.methods.OPTIONS;
 
 /**
  * This class represents a JAX-RS resource with only the OPTIONS-Method which 

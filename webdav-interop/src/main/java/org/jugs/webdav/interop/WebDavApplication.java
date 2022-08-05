@@ -26,7 +26,7 @@ import java.util.logging.Logger;
 import javax.ws.rs.core.Application;
 import javax.xml.bind.JAXBException;
 
-import net.java.dev.webdav.jaxrs.xml.WebDavContextResolver;
+import org.jugs.webdav.jaxrs.xml.WebDavContextResolver;
 
 
 

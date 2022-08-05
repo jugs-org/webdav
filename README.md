@@ -13,6 +13,7 @@ Since 2.1 some webdav projects and samples received from [Markus Karg](http://ww
 * [webdav-jaxrs](webdav-jaxrs/README.md) (since 2.0)
 * [fileserver](fileserver/README.md) (since 2.1)
 * [webdav-interop](webdav-interop/README.md) (since 2.2)
+* [addressbook](addressbook/README.html) (since 2.3)
 
 
 ## More Infos

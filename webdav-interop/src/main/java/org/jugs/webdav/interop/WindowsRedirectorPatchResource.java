@@ -23,7 +23,7 @@ import static org.jugs.webdav.jaxrs.Headers.DAV;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
-import org.jugs.webdav.jaxrs.methods.OPTIONS;
+import javax.ws.rs.OPTIONS;
 
 /**
  * This class represents a JAX-RS resource with only the OPTIONS-Method which 

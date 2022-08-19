@@ -23,6 +23,8 @@ Note that JPA knowledge and a database system is needed to run the example.
 * In META-INF/persistence.xml configure database access.
 * The JDBC driver configured in that file must be found on the classpath.
 
+As example an in-memory database (H2) is configured as default.
+
 Run the example as follows:
 
     mvn compile exec:java
@@ -30,6 +32,8 @@ Run the example as follows:
 Using a WebDAV client, visit http://localhost:80/addressbook
 
 ### Notes
+
+#### Windows
 
 This sample was tested using the Microsoft WebDAV-Mini-Redirector of Windows XP Home SP 3.
 If you also want to use this particular client, please note that it contains lots of bugs (see http://greenbytes.de/tech/webdav/webdav-redirector-list.html).
@@ -48,3 +52,9 @@ The following sequence was tested and worked well:
 
 To repeat this sample, you need the file x.adr or similar.
 It is found in the folder [src/test/resources](src/test/resources).
+
+#### Mac
+
+To test it with MacOS open Finder and select "Connect to Server..." (command-K).
+Type in the URL and connect as guest.
+Normally the addressbook will be mounted as `/Volumes/addressbook`.

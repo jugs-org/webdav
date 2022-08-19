@@ -125,7 +125,6 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<version>2.1.214</version>
-			<scope>runtime</scope>
 		</dependency>
 		<!-- Test Libs -->
 		<dependency>
@@ -186,7 +185,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<mainClass>net.java.dev.webdav.samples.jaxrs.addressbook.Main</mainClass>
+					<mainClass>org.jugs.webdav.addressbook.Main</mainClass>
 				</configuration>
 			</plugin>
 			<plugin>

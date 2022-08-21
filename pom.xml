@@ -50,4 +50,14 @@
         <module>addressbook</module>
     </modules>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>1.9.5</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
 </project>

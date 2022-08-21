@@ -22,6 +22,7 @@ import com.github.sardine.DavResource;
 import com.github.sardine.Sardine;
 import com.github.sardine.SardineFactory;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import patterntesting.runtime.junit.NetworkTester;
 
@@ -41,6 +42,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class MainTest {
 
     private static final Logger log = Logger.getLogger(MainTest.class.getName());
+    private static final URI TEST_URI = URI.create("http://localhost/addressbook");
+    private static final Sardine SARDINE = SardineFactory.begin();
 
     @BeforeAll
     static void startFileServer() throws IOException {
@@ -54,16 +57,22 @@ class MainTest {
 
     @Test
     public void testListRoot() throws IOException {
-        checkWebDAV(URI.create("http://localhost/addressbook"));
+        checkWebDAV(TEST_URI);
     }
 
     public static void checkWebDAV(URI uri) throws IOException {
-        Sardine sardine = SardineFactory.begin();
-        List<DavResource> resources = sardine.list(uri.toString());
+        List<DavResource> resources = SARDINE.list(uri.toString());
         assertFalse(resources.isEmpty());
         for (DavResource res : resources) {
             log.info("res = " + res);
         }
+    }
+
+    //@Test
+    public void testLock() throws IOException {
+        String s = SARDINE.lock(TEST_URI + "/test.adr");
+        assertNotNull(s);
+        log.info("s = '" + s + "'");
     }
 
 }

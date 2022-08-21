@@ -33,7 +33,7 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import net.java.dev.webdav.jaxrs.NullArgumentException;
+import org.jugs.webdav.jaxrs.NullArgumentException;
 
 /**
  * Simple contact JPA entity.<br>
@@ -46,7 +46,7 @@ import net.java.dev.webdav.jaxrs.NullArgumentException;
 @NamedQueries( { @NamedQuery(name = "ListContacts", query = "SELECT c FROM Contact c"),
 		@NamedQuery(name = "FindContactByMatchCode", query = "SELECT c FROM Contact c WHERE c.matchCode = ?1"),
 		@NamedQuery(name = "DeleteContactByMatchCode", query = "DELETE FROM Contact c WHERE c.matchCode = ?1") })
-public final class Contact {
+public class Contact {
 
 	@Id
 	@GeneratedValue

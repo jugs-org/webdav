@@ -21,7 +21,7 @@ package org.jugs.webdav.addressbook;
 
 import static javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR;
 import static javax.ws.rs.core.Response.Status.NOT_FOUND;
-import static net.java.dev.webdav.jaxrs.ResponseStatus.LOCKED;
+import static org.jugs.webdav.jaxrs.ResponseStatus.LOCKED;
 
 import javax.persistence.NoResultException;
 import javax.persistence.OptimisticLockException;

@@ -27,17 +27,29 @@ import javax.ws.rs.ext.RuntimeDelegate;
 
 import com.sun.grizzly.tcp.Adapter;
 import com.sun.jersey.api.container.grizzly.GrizzlyServerFactory;
+import org.jugs.webdav.interop.WindowsRedirectorPatchProperty;
+import org.jugs.webdav.interop.WindowsRedirectorPatchResource;
 
 public final class FileServerStarter {
 
+	/**
+	 * Starts the FileServer application.
+	 *
+	 * @param args if given the first arg is the port
+	 * @throws IOException in case of problems
+	 */
 	public static void main(final String[] args) throws IOException {
 		FileServerApplication app = new FileServerApplication();
-		//app.registerService(WindowsRedirectorPatchResource.class);
-		//app.registerEntity(WindowsRedirectorPatchProperty.class);
+		app.registerService(WindowsRedirectorPatchResource.class);
+		app.registerEntity(WindowsRedirectorPatchProperty.class);
 		
 		System.out.println("Creating Endpoint");
 		Adapter adapter = RuntimeDelegate.getInstance().createEndpoint(app, Adapter.class);
-		GrizzlyServerFactory.create("http://localhost:80/", adapter);
-		System.out.println("Jersey app started"); 
+		int port = 80;
+		if (args.length > 0) {
+			port = Integer.parseInt(args[0]);
+		}
+		GrizzlyServerFactory.create("http://localhost:" + port + "/", adapter);
+		System.out.println("Jersey app started (port " + port + ")");
 	}	
 }

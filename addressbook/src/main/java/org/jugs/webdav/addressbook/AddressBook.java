@@ -24,14 +24,8 @@ import static javax.ws.rs.core.Response.Status.FORBIDDEN;
 import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 import static javax.ws.rs.core.Response.Status.OK;
 import static javax.ws.rs.core.Response.Status.PRECONDITION_FAILED;
-import static net.java.dev.webdav.jaxrs.Headers.DAV;
-import static net.java.dev.webdav.jaxrs.Headers.DEPTH;
-import static net.java.dev.webdav.jaxrs.Headers.DEPTH_0;
-import static net.java.dev.webdav.jaxrs.Headers.DEPTH_INFINITY;
-import static net.java.dev.webdav.jaxrs.Headers.DESTINATION;
-import static net.java.dev.webdav.jaxrs.Headers.OVERWRITE;
-import static net.java.dev.webdav.jaxrs.Headers.OVERWRITE_FALSE;
-import static net.java.dev.webdav.jaxrs.xml.properties.ResourceType.COLLECTION;
+import static org.jugs.webdav.jaxrs.Headers.*;
+import static org.jugs.webdav.jaxrs.xml.properties.ResourceType.COLLECTION;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -64,23 +58,26 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.Providers;
 
-import net.java.dev.webdav.jaxrs.methods.COPY;
-import net.java.dev.webdav.jaxrs.methods.MOVE;
-import net.java.dev.webdav.jaxrs.methods.OPTIONS;
-import net.java.dev.webdav.jaxrs.methods.PROPFIND;
-import net.java.dev.webdav.jaxrs.methods.PROPPATCH;
-import net.java.dev.webdav.jaxrs.xml.elements.HRef;
-import net.java.dev.webdav.jaxrs.xml.elements.MultiStatus;
-import net.java.dev.webdav.jaxrs.xml.elements.Prop;
-import net.java.dev.webdav.jaxrs.xml.elements.PropStat;
-import net.java.dev.webdav.jaxrs.xml.elements.PropertyUpdate;
-import net.java.dev.webdav.jaxrs.xml.elements.Response;
-import net.java.dev.webdav.jaxrs.xml.elements.Status;
-import net.java.dev.webdav.jaxrs.xml.properties.CreationDate;
-import net.java.dev.webdav.jaxrs.xml.properties.DisplayName;
-import net.java.dev.webdav.jaxrs.xml.properties.GetContentLength;
-import net.java.dev.webdav.jaxrs.xml.properties.GetContentType;
-import net.java.dev.webdav.jaxrs.xml.properties.GetLastModified;
+import org.jugs.webdav.jaxrs.methods.COPY;
+import org.jugs.webdav.jaxrs.methods.MOVE;
+import org.jugs.webdav.jaxrs.methods.OPTIONS;
+import org.jugs.webdav.jaxrs.methods.PROPFIND;
+import org.jugs.webdav.jaxrs.methods.PROPPATCH;
+import org.jugs.webdav.jaxrs.xml.elements.HRef;
+import org.jugs.webdav.jaxrs.xml.elements.MultiStatus;
+import org.jugs.webdav.jaxrs.xml.elements.Prop;
+import org.jugs.webdav.jaxrs.xml.elements.PropStat;
+import org.jugs.webdav.jaxrs.xml.elements.PropertyUpdate;
+import org.jugs.webdav.jaxrs.xml.elements.Response;
+import org.jugs.webdav.jaxrs.xml.elements.Status;
+import org.jugs.webdav.jaxrs.xml.properties.CreationDate;
+import org.jugs.webdav.jaxrs.xml.properties.DisplayName;
+import org.jugs.webdav.jaxrs.xml.properties.GetContentLength;
+import org.jugs.webdav.jaxrs.xml.properties.GetContentType;
+import org.jugs.webdav.jaxrs.xml.properties.GetLastModified;
+import org.jugs.webdav.jaxrs.methods.LOCK;
+import org.jugs.webdav.jaxrs.xml.elements.*;
+import org.jugs.webdav.jaxrs.xml.properties.LockDiscovery;
 
 /**
  * Sole JAX-RS Resource of JPA Address Book Sample. 
@@ -286,6 +283,19 @@ public final class AddressBook {
 
 		t.commit();
 	}
+
+//	@LOCK
+//	@Path("{filename}.adr")
+//	public javax.ws.rs.core.Response lock(@PathParam("filename") final String matchCode, @Context final UriInfo uriInfo) {
+//		LockDiscovery lockDiscovery =
+//			new LockDiscovery(new ActiveLock(LockScope.SHARED, LockType.WRITE, Depth.ZERO, new Owner(""), new TimeOut(75), new LockToken(new org.jugs.webdav.jaxrs.xml.elements.HRef(
+//				"http://localhost")), new LockRoot(new org.jugs.webdav.jaxrs.xml.elements.HRef("http://localhost"))));
+//		org.jugs.webdav.jaxrs.xml.elements.Prop prop = new org.jugs.webdav.jaxrs.xml.elements.Prop(lockDiscovery);
+//		return javax.ws.rs.core.Response.ok(prop)
+//				.header(DAV, "1")
+//				.header(LOCK_TOKEN, "1")
+//				.build();
+//	}
 
 	private final EntityManager em() {
 		return this.emf.createEntityManager();

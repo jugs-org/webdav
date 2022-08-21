@@ -19,12 +19,12 @@
 
 package org.jugs.webdav.addressbook;
 
-import static net.java.dev.webdav.jaxrs.Headers.DAV;
+import static org.jugs.webdav.jaxrs.Headers.DAV;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
-import net.java.dev.webdav.jaxrs.methods.OPTIONS;
+import org.jugs.webdav.jaxrs.methods.OPTIONS;
 
 /**
  * JAX-RS resource which is working around a bug in the Microsoft

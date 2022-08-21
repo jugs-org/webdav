@@ -42,20 +42,22 @@ import static org.junit.jupiter.api.Assertions.*;
 public class FileServerStarterTest {
 
     private static final Logger log = Logger.getLogger(FileServerStarterTest.class.getName());
+    public static final URI TEST_URI = URI.create("http://localhost:8001/fileserver");
+    private static final int TEST_PORT = TEST_URI.getPort();
 
     @BeforeAll
     static void startFileServer() throws IOException {
-        FileServerStarter.main(new String[0]);
+        FileServerStarter.main(new String[]{Integer.toString(TEST_PORT)});
     }
 
     @Test
     public void pingPort() {
-        NetworkTester.assertOnline("localhost", 80);
+        NetworkTester.assertOnline("localhost", TEST_PORT);
     }
 
     @Test
     public void testListRoot() throws IOException {
-        checkWebDAV(URI.create("http://localhost/fileserver"));
+        checkWebDAV(TEST_URI);
     }
 
     public static void checkWebDAV(URI uri) throws IOException {

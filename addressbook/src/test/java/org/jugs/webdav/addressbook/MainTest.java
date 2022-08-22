@@ -42,17 +42,17 @@ import static org.junit.jupiter.api.Assertions.*;
 class MainTest {
 
     private static final Logger log = Logger.getLogger(MainTest.class.getName());
-    private static final URI TEST_URI = URI.create("http://localhost/addressbook");
+    private static final URI TEST_URI = URI.create("http://localhost:8002/addressbook");
     private static final Sardine SARDINE = SardineFactory.begin();
 
     @BeforeAll
     static void startFileServer() throws IOException {
-        Main.main(new String[0]);
+        Main.main(new String[] {Integer.toString(TEST_URI.getPort())});
     }
 
     @Test
     public void pingPort() {
-        NetworkTester.assertOnline("localhost", 80);
+        NetworkTester.assertOnline(TEST_URI.getHost(), TEST_URI.getPort());
     }
 
     @Test
@@ -68,7 +68,7 @@ class MainTest {
         }
     }
 
-    //@Test
+    @Test
     public void testLock() throws IOException {
         String s = SARDINE.lock(TEST_URI + "/test.adr");
         assertNotNull(s);

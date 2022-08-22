@@ -52,7 +52,7 @@ public class FileServerStarterTest {
 
     @Test
     public void pingPort() {
-        NetworkTester.assertOnline("localhost", TEST_PORT);
+        NetworkTester.assertOnline(TEST_URI.getHost(), TEST_PORT);
     }
 
     @Test

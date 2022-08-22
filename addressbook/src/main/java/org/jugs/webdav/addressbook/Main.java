@@ -36,7 +36,11 @@ public final class Main {
 	public static final void main(final String[] args) throws IOException {
 		AddressBookApplication app = new AddressBookApplication();
 		Adapter adapter = RuntimeDelegate.getInstance().createEndpoint(app, Adapter.class);
-		GrizzlyServerFactory.create("http://localhost:80/", adapter);
+		int port = 80;
+		if (args.length > 0) {
+			port = Integer.parseInt(args[0]);
+		}
+		GrizzlyServerFactory.create("http://localhost:" + port + "/", adapter);
 		System.out.println("Sample Server running... Kill process to stop.");
 		//GrizzlyServerFactory.create("http://localhost:80/", RuntimeDelegate.getInstance().createEndpoint(new AddressBookApplication(), Adapter.class));
 	}

@@ -284,18 +284,18 @@ public final class AddressBook {
 		t.commit();
 	}
 
-//	@LOCK
-//	@Path("{filename}.adr")
-//	public javax.ws.rs.core.Response lock(@PathParam("filename") final String matchCode, @Context final UriInfo uriInfo) {
-//		LockDiscovery lockDiscovery =
-//			new LockDiscovery(new ActiveLock(LockScope.SHARED, LockType.WRITE, Depth.ZERO, new Owner(""), new TimeOut(75), new LockToken(new org.jugs.webdav.jaxrs.xml.elements.HRef(
-//				"http://localhost")), new LockRoot(new org.jugs.webdav.jaxrs.xml.elements.HRef("http://localhost"))));
-//		org.jugs.webdav.jaxrs.xml.elements.Prop prop = new org.jugs.webdav.jaxrs.xml.elements.Prop(lockDiscovery);
-//		return javax.ws.rs.core.Response.ok(prop)
-//				.header(DAV, "1")
-//				.header(LOCK_TOKEN, "1")
-//				.build();
-//	}
+	@LOCK
+	@Path("{filename}.adr")
+	public javax.ws.rs.core.Response lock(@PathParam("filename") final String matchCode, @Context final UriInfo uriInfo) {
+		LockDiscovery lockDiscovery =
+			new LockDiscovery(new ActiveLock(LockScope.SHARED, LockType.WRITE, Depth.ZERO, new Owner(""), new TimeOut(75), new LockToken(new HRef(
+				"http://localhost")), new LockRoot(new org.jugs.webdav.jaxrs.xml.elements.HRef("http://localhost"))));
+		Prop prop = new Prop(lockDiscovery);
+		return javax.ws.rs.core.Response.ok(prop)
+				.header(DAV, "1")
+				.header(LOCK_TOKEN, "1")
+				.build();
+	}
 
 	private final EntityManager em() {
 		return this.emf.createEntityManager();

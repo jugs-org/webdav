@@ -18,11 +18,16 @@
  */
 package org.jugs.webdav.fileserver.resources;
 
+import org.jugs.webdav.jaxrs.xml.elements.*;
+import org.jugs.webdav.jaxrs.xml.properties.LockDiscovery;
+
 import static org.jugs.webdav.jaxrs.Headers.DAV;
+import static org.jugs.webdav.jaxrs.Headers.LOCK_TOKEN;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.logging.Logger;
 
@@ -65,7 +70,7 @@ public abstract class AbstractResource implements WebDavResource{
 	}
 	
 	@Override
-	public javax.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) throws URISyntaxException, IOException {
+	public javax.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) throws IOException {
 		logger.finer("Abstract - propfind(..) - "+uriInfo.getRequestUri());
 		return javax.ws.rs.core.Response.status(404).build();
 	}
@@ -103,7 +108,7 @@ public abstract class AbstractResource implements WebDavResource{
 		 * builder.header("Allow","");
 		 * OPTIONS, GET, HEAD, DELETE, PROPPATCH, COPY, MOVE, LOCK, UNLOCK, PROPFIND, PUT
 		 */
-		builder.header("Allow","OPTIONS,GET,HEAD,DELETE,PROPPATCH,PROPFIND,COPY,MOVE,PUT,MKCOL");
+		builder.header("Allow","OPTIONS,GET,HEAD,DELETE,PROPPATCH,PROPFIND,COPY,MOVE,PUT,MKCOL,LOCK");
 		
 		builder.header("MS-Author-Via", "DAV");
 		
@@ -129,5 +134,19 @@ public abstract class AbstractResource implements WebDavResource{
 			return new UnknownResource(newResource, newUrl);
 		}
 	}
+
+	@Override
+	public Object lock(UriInfo uriInfo) {
+		URI uri = uriInfo.getRequestUri();
+		logger.info(String.format("Lock for %s required.", uri));
+		LockDiscovery lockDiscovery =
+				new LockDiscovery(new ActiveLock(LockScope.SHARED, LockType.WRITE, Depth.ZERO, new Owner(""), new TimeOut(75), new LockToken(new HRef(
+						uri)), new LockRoot(new HRef(uri))));
+		Prop prop = new Prop(lockDiscovery);
+		return javax.ws.rs.core.Response.ok(prop)
+				.header(DAV, "1")
+				.build();
+	}
+
 }
 

@@ -40,12 +40,7 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.Providers;
 
-import org.jugs.webdav.jaxrs.methods.COPY;
-import org.jugs.webdav.jaxrs.methods.MKCOL;
-import org.jugs.webdav.jaxrs.methods.MOVE;
-import org.jugs.webdav.jaxrs.methods.OPTIONS;
-import org.jugs.webdav.jaxrs.methods.PROPFIND;
-import org.jugs.webdav.jaxrs.methods.PROPPATCH;
+import org.jugs.webdav.jaxrs.methods.*;
 
 public interface WebDavResource {
 	@GET
@@ -90,7 +85,12 @@ public interface WebDavResource {
 
 	@Path("{resource}")
 	Object findResource(@PathParam("resource") final String res);
-	
+
+	@LOCK
+	default Object lock(@Context final UriInfo uriInfo) {
+		throw new UnsupportedOperationException("not yet implemented");
+	}
+
 	@OPTIONS
 	javax.ws.rs.core.Response options();
 

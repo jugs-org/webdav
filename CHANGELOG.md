@@ -9,11 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * dependency to old `net.java.dev.webdav` dependency completely removed
+* examples extended with lock support
 
 
 ## [2.3] - 2022-08-05
 
-* [addressbook](addressbook/README.html) addes as new module
+* [addressbook](addressbook/README.md) added as new module
 * fileserver switched to org.jugs.webdav:webdav-jaxrs as base lib
 
 

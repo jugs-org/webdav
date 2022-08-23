@@ -44,6 +44,7 @@ public class FileServerStarterTest {
     private static final Logger log = Logger.getLogger(FileServerStarterTest.class.getName());
     public static final URI TEST_URI = URI.create("http://localhost:8001/fileserver");
     private static final int TEST_PORT = TEST_URI.getPort();
+    private static final Sardine SARDINE = SardineFactory.begin();
 
     @BeforeAll
     static void startFileServer() throws IOException {
@@ -61,12 +62,18 @@ public class FileServerStarterTest {
     }
 
     public static void checkWebDAV(URI uri) throws IOException {
-        Sardine sardine = SardineFactory.begin();
-        List<DavResource> resources = sardine.list(uri.toString());
+        List<DavResource> resources = SARDINE.list(uri.toString());
         assertFalse(resources.isEmpty());
         for (DavResource res : resources) {
             log.info("res = " + res);
         }
+    }
+
+    @Test
+    public void testLock() throws IOException {
+        String s = SARDINE.lock(TEST_URI + "/hello.world");
+        assertNotNull(s);
+        log.info("s = '" + s + "'");
     }
 
 }

@@ -24,12 +24,13 @@ import com.github.sardine.SardineFactory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.slf4j.LoggerFactory;
 import patterntesting.runtime.junit.NetworkTester;
 
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,7 +42,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class FileServerStarterTest {
 
-    private static final Logger log = Logger.getLogger(FileServerStarterTest.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(FileServerStarterTest.class.getName());
     public static final URI TEST_URI = URI.create("http://localhost:8001/fileserver");
     private static final int TEST_PORT = TEST_URI.getPort();
     private static final Sardine SARDINE = SardineFactory.begin();

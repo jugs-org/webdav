@@ -27,7 +27,8 @@ import static javax.ws.rs.Priorities.ENTITY_CODER;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.core.Feature;
 import javax.ws.rs.core.FeatureContext;
@@ -43,7 +44,7 @@ import javax.xml.bind.JAXBException;
  */
 @Provider
 public final class WebDAV implements Feature {
-	private static final Logger LOGGER = Logger.getLogger(WebDAV.class.getName());
+	private static final Logger LOGGER = LoggerFactory.getLogger(WebDAV.class);
 
 	/**
 	 * To register WebDAV custom extensions (e. g. to support vendor specific properties) a {@code List<Class<?>>} can be provided by this configuration
@@ -52,31 +53,29 @@ public final class WebDAV implements Feature {
 	public static final String CUSTOM_EXTENSIONS = WebDAV.class.getName() + ".CUSTOM_EXTENSIONS";
 
 	@Override
-	public final boolean configure(final FeatureContext context) {
+	public boolean configure(final FeatureContext context) {
 		try {
 			final Collection<Class<?>> customExtensionClasses = buildCustomExtensionClasses(context.getConfiguration().getProperty(CUSTOM_EXTENSIONS));
 			if (customExtensionClasses.isEmpty())
-				LOGGER.fine("Using no WebDAV custom extension classes");
+				LOGGER.debug("Using no WebDAV custom extension classes");
 			else
 				for (final Class<?> customExtensionClass : customExtensionClasses)
-					LOGGER.fine("Using WebDAV custom extension class " + customExtensionClass);
+					LOGGER.debug("Using WebDAV custom extension class " + customExtensionClass);
 			context.register(new WebDavContextResolver(customExtensionClasses.toArray(new Class<?>[customExtensionClasses.size()])), ENTITY_CODER);
 			LOGGER.info("Enabled WebDAV Support for JAX-RS");
 			return true;
 		} catch (final JAXBException e) {
-			LOGGER.throwing(WebDAV.class.getName(), "configure()", e);
-			LOGGER.severe("Disabled WebDAV Support for JAX-RS due to configuration failure: " + e.getMessage());
-			e.printStackTrace();
+			LOGGER.error("Disabled WebDAV Support for JAX-RS due to configuration failure: ", e);
 			return false;
 		}
 	}
 
-	private final Collection<Class<?>> buildCustomExtensionClasses(final Object customExtensionsProperty) {
+	private Collection<Class<?>> buildCustomExtensionClasses(final Object customExtensionsProperty) {
 		if (customExtensionsProperty == null)
 			return Collections.emptyList();
 
 		if (!(customExtensionsProperty instanceof Collection<?>)) {
-			LOGGER.warning("Ignoring WebDAV custom extensions since provided property value is not of expected type Collection<Class<?>>: "
+			LOGGER.warn("Ignoring WebDAV custom extensions since provided property value is not of expected type Collection<Class<?>>: "
 					+ customExtensionsProperty);
 			return Collections.emptyList();
 		}
@@ -87,7 +86,7 @@ public final class WebDAV implements Feature {
 			if (object instanceof Class<?>)
 				customExtensionClasses.add((Class<?>) object);
 			else
-				LOGGER.warning("Ignoring WebDAV custom extension since provided property value is not of expected type Class<?>: " + object);
+				LOGGER.warn("Ignoring WebDAV custom extension since provided property value is not of expected type Class<?>: " + object);
 
 		return customExtensionClasses;
 	}

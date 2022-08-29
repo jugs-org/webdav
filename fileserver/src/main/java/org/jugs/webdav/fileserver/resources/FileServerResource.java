@@ -28,11 +28,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.core.HttpHeaders;
@@ -54,12 +53,13 @@ import org.jugs.webdav.jaxrs.xml.properties.GetContentLength;
 import org.jugs.webdav.jaxrs.xml.properties.GetContentType;
 import org.jugs.webdav.jaxrs.xml.properties.GetLastModified;
 import org.jugs.webdav.fileserver.FileServerApplication;
+import org.slf4j.LoggerFactory;
 
 
 @Path(FileServerApplication.RESOURCE_NAME)
 public class FileServerResource extends AbstractResource {
 
-	private final static Logger logger = Logger.getLogger(FileServerResource.class.getName());
+	private final static Logger logger = LoggerFactory.getLogger(FileServerResource.class);
 
 	public static String davFolder = System.getProperty("path", "./");
 
@@ -72,7 +72,7 @@ public class FileServerResource extends AbstractResource {
 	public javax.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) throws IOException {
 		URI uri = uriInfo.getRequestUri();
 
-		logger.finer("FileSystem - propfind(..) " + uri + " depth - " + depth);
+		logger.trace("FileSystem - propfind(..) " + uri + " depth - " + depth);
 		System.out.println(uriInfo.getRequestUri().getHost());
 		System.out.println(uriInfo.getBaseUri().toString());
 		Prop prop = null;
@@ -126,7 +126,7 @@ public class FileServerResource extends AbstractResource {
 	
 	@Override
 	public javax.ws.rs.core.Response options(){
-		logger.finer("FileSystem - options(..)");
+		logger.trace("FileSystem - options(..)");
 		ResponseBuilder builder = javax.ws.rs.core.Response.ok();//noContent();
 		builder.header(DAV, "1");
 		/*

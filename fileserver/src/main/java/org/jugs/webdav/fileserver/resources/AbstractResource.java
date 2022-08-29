@@ -29,7 +29,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.UriInfo;
@@ -39,7 +40,7 @@ import javax.ws.rs.ext.Providers;
 
 
 public abstract class AbstractResource implements WebDavResource{
-	private final static Logger logger = Logger.getLogger(WebDavResource.class.getName());
+	private final static Logger logger = LoggerFactory.getLogger(WebDavResource.class);
 	protected String url;
 	protected File resource;
 	
@@ -53,55 +54,55 @@ public abstract class AbstractResource implements WebDavResource{
 	
 	@Override
 	public javax.ws.rs.core.Response get(){
-		logger.finer("Abstract - get(..)");
+		logger.trace("Abstract - get(..)");
 		return javax.ws.rs.core.Response.status(404).build();
 	}
 	
 	@Override
-	public javax.ws.rs.core.Response put(UriInfo uriInfo, final InputStream entityStream, final long contentLength) throws IOException, URISyntaxException{
-		logger.finer("Abstract - put(..)");
+	public javax.ws.rs.core.Response put(UriInfo uriInfo, final InputStream entityStream, final long contentLength) throws IOException {
+		logger.trace("Abstract - put(..)");
 		return javax.ws.rs.core.Response.status(501).build();
 	}
 	
 	@Override
 	public javax.ws.rs.core.Response mkcol(){
-		logger.finer("Abstract - mkcol(..)");
+		logger.trace("Abstract - mkcol(..)");
 		return javax.ws.rs.core.Response.status(404).build();
 	}
 	
 	@Override
 	public javax.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) throws IOException {
-		logger.finer("Abstract - propfind(..) - "+uriInfo.getRequestUri());
+		logger.trace("Abstract - propfind(..) - "+uriInfo.getRequestUri());
 		return javax.ws.rs.core.Response.status(404).build();
 	}
 	
 	@Override
 	public javax.ws.rs.core.Response proppatch(){
-		logger.finer("Abstract - proppatch(..)");
+		logger.trace("Abstract - proppatch(..)");
 		return javax.ws.rs.core.Response.status(404).build();
 	}
 	
 	@Override
 	public javax.ws.rs.core.Response copy(){
-		logger.finer("Abstract - copy(..)");
+		logger.trace("Abstract - copy(..)");
 		return javax.ws.rs.core.Response.status(404).build();
 	}
 	
 	@Override
 	public javax.ws.rs.core.Response move(UriInfo uriInfo, String overwriteStr, String destination) throws URISyntaxException{
-		logger.finer("Abstract - move(..)");
+		logger.trace("Abstract - move(..)");
 		return javax.ws.rs.core.Response.status(404).build();
 	}
 	
 	@Override
 	public javax.ws.rs.core.Response delete(){
-		logger.finer("Abstract - delete(..)");
+		logger.trace("Abstract - delete(..)");
 		return javax.ws.rs.core.Response.status(404).build();
 	}
 	
 	@Override
 	public javax.ws.rs.core.Response options(){
-		logger.finer("Abstract - options(..)");
+		logger.trace("Abstract - options(..)");
 		ResponseBuilder builder = javax.ws.rs.core.Response.ok();//noContent();
 		builder.header(DAV, "1");
 		/*
@@ -117,17 +118,17 @@ public abstract class AbstractResource implements WebDavResource{
 	
 	@Override
 	public Object findResource(final String res){
-		logger.finer("Abstract - findResource(..) - "+res);
+		logger.trace("Abstract - findResource(..) - "+res);
 		String path = resource.getPath()+File.separator+res;
 		File newResource = new File(path);
 		String newUrl = url+"/"+res;
 		
 		if(newResource.exists()){
 			if(newResource.isDirectory()){
-				logger.finer("Abstract - findResource(..) - isDirectory");
+				logger.trace("Abstract - findResource(..) - isDirectory");
 				return new DirectoryResource(newResource, newUrl);
 			}else{
-				logger.finer("Abstract - findResource(..) - isFile");
+				logger.trace("Abstract - findResource(..) - isFile");
 				return new FileResource(newResource, newUrl);
 			}
 		}else{

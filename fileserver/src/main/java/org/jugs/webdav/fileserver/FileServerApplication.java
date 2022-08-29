@@ -21,14 +21,14 @@ package org.jugs.webdav.fileserver;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import javax.ws.rs.core.Application;
 import javax.xml.bind.JAXBException;
 
 import org.jugs.webdav.fileserver.resources.FileServerResource;
 import org.jugs.webdav.jaxrs.xml.WebDavContextResolver;
-
+import org.slf4j.LoggerFactory;
 
 
 public class FileServerApplication extends Application {
@@ -37,11 +37,11 @@ public class FileServerApplication extends Application {
 	protected Set<Class<?>> entityClasses = new HashSet<Class<?>>();
 	protected Set<Class<?>> serviceClasses = new HashSet<Class<?>>();
 
-	private static final Logger logger = Logger.getLogger(FileServerApplication.class.getName());
+	private static final Logger logger = LoggerFactory.getLogger(FileServerApplication.class.getName());
 
 	public FileServerApplication() {
 		registerService(FileServerResource.class);
-		logger.fine("FileServerApplication is instantiated.");
+		logger.debug("FileServerApplication is instantiated.");
 	}
 	
 	public void registerEntity(Class<?>... additionalClasses){
@@ -62,7 +62,7 @@ public class FileServerApplication extends Application {
 		try {
 			return new HashSet<Object>(Arrays.asList(new WebDavContextResolver(entityClasses.toArray(new Class[entityClasses.size()]))));
 		} catch (final JAXBException e) {
-			logger.severe(e.toString());
+			logger.error("no singletons:", e);
 			e.printStackTrace();
 			System.out.println("Fuck!!!!!!");
 			return null;

@@ -8,8 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* SLF4J added as logging layer before java.util.logging
 * dependency to old `net.java.dev.webdav` dependency completely removed
-* examples extended with lock support
+* examples extended with (beginning) lock support
 
 
 ## [2.3] - 2022-08-05

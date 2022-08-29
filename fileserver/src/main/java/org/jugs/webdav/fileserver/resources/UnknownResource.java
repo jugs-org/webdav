@@ -26,17 +26,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.jugs.webdav.jaxrs.methods.MKCOL;
+import org.slf4j.LoggerFactory;
 
 
 public class UnknownResource extends AbstractResource {
 
-	private final static Logger logger = Logger.getLogger(UnknownResource.class.getName());
+	private final static Logger logger = LoggerFactory.getLogger(UnknownResource.class);
 
 	public UnknownResource(File resource, String url) {
 		super(resource, url);
@@ -44,7 +45,7 @@ public class UnknownResource extends AbstractResource {
 	
 	@MKCOL
 	public javax.ws.rs.core.Response mkcol(){
-		logger.finer("mkcol(..folder..) - "+url);
+		logger.trace("mkcol(..folder..) - "+url);
 					
 		if(resource.exists()){
 			return javax.ws.rs.core.Response.status(405).build();
@@ -60,7 +61,7 @@ public class UnknownResource extends AbstractResource {
 	
 	@Override
 	public javax.ws.rs.core.Response put(final UriInfo uriInfo, final InputStream entityStream, final long contentLength) throws IOException {
-		logger.finer("PUT: " + url);
+		logger.trace("PUT: " + url);
 		/*
 		 * Workaround for Jersey issue #154 (see
 		 * https://jersey.dev.java.net/issues/show_bug.cgi?id=154): Jersey will
@@ -84,13 +85,13 @@ public class UnknownResource extends AbstractResource {
 		 * End of #154 workaround
 		 */
 
-		logger.finer(String.format("STORED: %s", resource.getName()));
+		logger.trace(String.format("STORED: %s", resource.getName()));
 		return javax.ws.rs.core.Response.created(uriInfo.getRequestUriBuilder().path(url).build()).build();
 	}
 	
 	@Override
 	public javax.ws.rs.core.Response options(){
-		logger.finer("UnkownResource - options(..)");
+		logger.trace("UnkownResource - options(..)");
 		ResponseBuilder builder = javax.ws.rs.core.Response.ok();//noContent();
 		builder.header(DAV, "1");
 		/*

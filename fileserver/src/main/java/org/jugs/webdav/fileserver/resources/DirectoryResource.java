@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.UriInfo;
@@ -54,25 +54,26 @@ import org.jugs.webdav.jaxrs.xml.elements.Status;
 import org.jugs.webdav.jaxrs.xml.properties.CreationDate;
 import org.jugs.webdav.jaxrs.xml.properties.GetLastModified;
 import org.jugs.webdav.fileserver.FileServerApplication;
+import org.slf4j.LoggerFactory;
 
 
 public class DirectoryResource extends AbstractResource {
 
-	private final static Logger logger = Logger.getLogger(DirectoryResource.class.getName());
+	private final static Logger logger = LoggerFactory.getLogger(DirectoryResource.class.getName());
 	public DirectoryResource(File resource, String url) {
 		super(resource, url);
 	}
 	
 	@Override
 	public javax.ws.rs.core.Response move(final UriInfo uriInfo, String overwriteStr, String destination) throws URISyntaxException {
-		logger.finer("Directory - move(.."+overwriteStr+".."+destination+"..)");
+		logger.trace("Directory - move(.."+overwriteStr+".."+destination+"..)");
 		URI uri = uriInfo.getBaseUri();
 		String host = uri.getScheme()+"://"+uri.getHost()+"/"+ FileServerApplication.RESOURCE_NAME+"/";
 		String originalDestination = destination;
 		try {
 			destination = URLDecoder.decode(destination, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			logger.log(Level.SEVERE, e.getMessage(), e);
+			logger.error("'{}' does not support UTF-8", destination, e);
 		}
 		destination = destination.replace(host, "");
 		
@@ -100,7 +101,7 @@ public class DirectoryResource extends AbstractResource {
 	
 	@Override
 	public javax.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) throws IOException{
-		logger.finer("Directory - propfind(..) " + uriInfo.getRequestUri() + " depth - "+depth+" = URL: "+url);
+		logger.trace("Directory - propfind(..) " + uriInfo.getRequestUri() + " depth - "+depth+" = URL: "+url);
 		if(!resource.exists()){
 			return javax.ws.rs.core.Response.status(404).build();
 		}
@@ -129,7 +130,7 @@ public class DirectoryResource extends AbstractResource {
 		if(resource != null && resource.isDirectory()){
 			File[] files = resource.listFiles();
 			List<Response> responses = new ArrayList<Response>();
-			if(davResource != null) responses.add(davResource);
+			responses.add(davResource);
 			for (File file : files) {
 				Response davFile;
 
@@ -171,13 +172,13 @@ public class DirectoryResource extends AbstractResource {
 	
 	@Override
 	public javax.ws.rs.core.Response proppatch() {
-		logger.finer("Directory - proppatch(..)");
+		logger.trace("Directory - proppatch(..)");
 		return super.proppatch();
 	}
 	
 	@Override
 	public javax.ws.rs.core.Response options(){
-		logger.finer("Directory - options(..)");
+		logger.trace("Directory - options(..)");
 		ResponseBuilder builder = javax.ws.rs.core.Response.ok();//noContent();
 		builder.header(DAV, "1");
 		/*

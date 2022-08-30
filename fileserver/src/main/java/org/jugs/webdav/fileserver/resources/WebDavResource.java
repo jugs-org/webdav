@@ -27,20 +27,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.HeaderParam;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.Providers;
 
 import org.jugs.webdav.jaxrs.methods.*;
+import org.jugs.webdav.jaxrs.methods.OPTIONS;
 
 public interface WebDavResource {
 	@GET
@@ -50,9 +44,18 @@ public interface WebDavResource {
 	@PUT
 	@Consumes("application/octet-stream")
 	javax.ws.rs.core.Response put(@Context final UriInfo uriInfo,
-			final InputStream entityStream,
-			@HeaderParam(CONTENT_LENGTH) final long contentLength)
+								  final InputStream entityStream,
+								  @HeaderParam(CONTENT_LENGTH) final long contentLength)
 			throws IOException, URISyntaxException;
+
+	@POST
+	@Consumes("application/octet-stream")
+	default javax.ws.rs.core.Response post(@Context final UriInfo uriInfo,
+								  final InputStream entityStream,
+								  @HeaderParam(CONTENT_LENGTH) final long contentLength)
+			throws IOException, URISyntaxException {
+		throw new UnsupportedOperationException("not yet implemented");
+	}
 
 	@MKCOL
 	javax.ws.rs.core.Response mkcol();
@@ -91,7 +94,12 @@ public interface WebDavResource {
 		throw new UnsupportedOperationException("not yet implemented");
 	}
 
-	@OPTIONS
+	@UNLOCK
+	default Object unlock(@Context final UriInfo uriInfo) {
+		throw new UnsupportedOperationException("not yet implemented");
+	}
+
+	@javax.ws.rs.OPTIONS
 	javax.ws.rs.core.Response options();
 
 }

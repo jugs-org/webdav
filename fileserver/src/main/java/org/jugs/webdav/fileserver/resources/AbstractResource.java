@@ -109,7 +109,7 @@ public abstract class AbstractResource implements WebDavResource{
 		 * builder.header("Allow","");
 		 * OPTIONS, GET, HEAD, DELETE, PROPPATCH, COPY, MOVE, LOCK, UNLOCK, PROPFIND, PUT
 		 */
-		builder.header("Allow","OPTIONS,GET,HEAD,DELETE,PROPPATCH,PROPFIND,COPY,MOVE,PUT,MKCOL,LOCK");
+		builder.header("Allow","OPTIONS,GET,HEAD,POST,DELETE,PROPPATCH,PROPFIND,COPY,MOVE,PUT,MKCOL,LOCK,UNLOCK");
 		
 		builder.header("MS-Author-Via", "DAV");
 		

@@ -21,16 +21,18 @@ package org.jugs.webdav.interop;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import javax.ws.rs.core.Application;
 import javax.xml.bind.JAXBException;
 
 import org.jugs.webdav.jaxrs.xml.WebDavContextResolver;
-
+import org.slf4j.LoggerFactory;
 
 
 public class WebDavApplication extends Application {
+
+	private static final Logger logger = LoggerFactory.getLogger(WebDavApplication.class);
 	protected Set<Class<?>> entityClasses = new HashSet<Class<?>>();
 	protected Set<Class<?>> serviceClasses = new HashSet<Class<?>>();
 
@@ -58,7 +60,7 @@ public class WebDavApplication extends Application {
 		try {
 			return new HashSet<Object>(Arrays.asList(new WebDavContextResolver(entityClasses.toArray(new Class[entityClasses.size()]))));
 		} catch (final JAXBException e) {
-			Logger.getLogger(WebDavApplication.class.getName()).severe(e.toString());
+			logger.error("No singletons: ", e);
 			return null;
 		}
 	}

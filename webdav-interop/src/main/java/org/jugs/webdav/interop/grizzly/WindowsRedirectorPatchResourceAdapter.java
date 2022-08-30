@@ -22,7 +22,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 import java.io.CharArrayWriter;
 import java.io.StringReader;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import javax.xml.transform.Source;
 import javax.xml.transform.Templates;
@@ -40,11 +40,10 @@ import com.sun.grizzly.tcp.Request;
 import com.sun.grizzly.tcp.Response;
 import com.sun.grizzly.tcp.ResponseFilter;
 import com.sun.grizzly.util.buf.ByteChunk;
+import org.slf4j.LoggerFactory;
 
-@SuppressWarnings("unchecked")
 public class WindowsRedirectorPatchResourceAdapter implements Adapter {
-	private Logger logger = Logger
-			.getLogger(WindowsRedirectorPatchResourceAdapter.class.getName());
+	private static final Logger logger = LoggerFactory.getLogger(WindowsRedirectorPatchResourceAdapter.class);
 	private Adapter original;
 	private Templates templates;
 
@@ -66,9 +65,9 @@ public class WindowsRedirectorPatchResourceAdapter implements Adapter {
 	public void afterService(Request request, Response response)
 			throws Exception {
 		System.out.println("after service(..) - called");
-		logger.finer("after service(..) - called");
+		logger.trace("after service(..) - called");
 		original.afterService(request, response);
-		logger.finer("after service(..) - processed");
+		logger.trace("after service(..) - processed");
 		System.out.println("after service(..) - processed");
 	}
 
@@ -78,29 +77,29 @@ public class WindowsRedirectorPatchResourceAdapter implements Adapter {
 	@Override
 	public void service(Request request, Response response) throws Exception {
 		System.out.println("service");
-		logger.finer("service(..) - called");
+		logger.trace("service(..) - called");
 
 		final String agent = request.getHeader("user-agent");
-		logger.fine("doFilter(..) - user-agent: " + agent);
+		logger.debug("doFilter(..) - user-agent: " + agent);
 		
 		final boolean isMini = agent != null && agent.contains("MiniRedir");
 		if (isMini) {
 			final HttpMethod method = HttpMethod.method(request.method()
 					.toString());
-			logger.fine("doFilter(..) - method: " + method);
+			logger.debug("doFilter(..) - method: " + method);
 			System.out.println("method: "+method);
 			
 			switch (method) {
 			case OPTIONS:
-				logger.fine("doFilter(..) - OPTIONS");
+				logger.debug("doFilter(..) - OPTIONS");
 
 				final String uri = request.requestURI().toString();
 				final boolean isRoot = uri.equals("/");
 				logger
-						.fine("doFilter(..) - URI: " + uri + " isRoot? "
+						.debug("doFilter(..) - URI: " + uri + " isRoot? "
 								+ isRoot);
 				if (isRoot) {
-					logger.fine("doFilter(..) - procssing isRoot");
+					logger.debug("doFilter(..) - procssing isRoot");
 					// if root, options, MiniRedir
 					// return noContent, "DAV" = "1", "MS-Author-Via" = "DAV"
 					response.setStatus(SC_NO_CONTENT);
@@ -113,7 +112,7 @@ public class WindowsRedirectorPatchResourceAdapter implements Adapter {
 
 			case PROPFIND:
 				System.out.println("propfind");
-				logger.fine("doFilter(..) - PROPFIND");
+				logger.debug("doFilter(..) - PROPFIND");
 				response.addResponseFilter(new ResponseFilter() {
 					private StringBuilder builder;
 					@Override
@@ -121,7 +120,7 @@ public class WindowsRedirectorPatchResourceAdapter implements Adapter {
 						System.out.println("filter");
 						StringReader sr = new StringReader(bytes.toString());
 						Source xmlSource = new StreamSource(sr);
-						System.out.println("original: "+bytes.toString());
+						System.out.println("original: "+bytes);
 						System.out.println("original-length: "+bytes.getLength());
 						try {
 							final Transformer transformer = templates
@@ -132,30 +131,30 @@ public class WindowsRedirectorPatchResourceAdapter implements Adapter {
 							bytes.recycle();
 							
 							byte[] transformedBytes = caw.toString().getBytes();
-							System.out.println("transformed: "+caw.toString());
+							System.out.println("transformed: "+caw);
 							System.out.println("transformed-length: "+caw.size());
 							bytes.setBytes(transformedBytes, 0, transformedBytes.length);
 						} catch (Exception ex) {
-							logger.log(Level.SEVERE,"Error while transforming the XML with XSLT.");
+							logger.error("Error while transforming the XML with XSLT:", ex);
 						} 						
 					}
 				});
-				logger.finest("service(..) - delegating service request");
+				logger.trace("service(..) - delegating service request");
 				original.service(request, response);
-				logger.finest("service(..) - get response back");
+				logger.trace("service(..) - get response back");
 
 				break;
 
 			default:
-				logger.finest("service(..) - delegating service request");
+				logger.trace("service(..) - delegating service request");
 				original.service(request, response);
-				logger.finest("service(..) - get response back");
+				logger.trace("service(..) - get response back");
 				break;
 			}
 		}else{
-			logger.finest("service(..) - delegating service request");
+			logger.trace("service(..) - delegating service request");
 			original.service(request, response);
-			logger.finest("service(..) - get response back");
+			logger.trace("service(..) - get response back");
 		}
 	}
 }

@@ -24,7 +24,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -45,8 +46,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 public class WindowsRedirectorPatchResourceFilter implements Filter {
-	private static final Logger logger = Logger
-			.getLogger(WindowsRedirectorPatchResourceFilter.class.getName());
+	private static final Logger logger = LoggerFactory.getLogger(WindowsRedirectorPatchResourceFilter.class);
 	private ServletContext context;
 	@Override
 	public void destroy() {
@@ -67,29 +67,29 @@ public class WindowsRedirectorPatchResourceFilter implements Filter {
 			return;
 		}
 
-		logger.finer("doFilter(..) - called");
+		logger.trace("doFilter(..) - called");
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
 		HttpServletResponse response = (HttpServletResponse) servletResponse;
 
 		final String agent = request.getHeader("user-agent");
-		logger.fine("doFilter(..) - user-agent: " + agent);
+		logger.debug("doFilter(..) - user-agent: " + agent);
 
 		final boolean isMini = agent != null && agent.contains("MiniRedir");
 		if (isMini) {
 			final HttpMethod method = HttpMethod.method(request.getMethod());
-			logger.fine("doFilter(..) - method: " + method + " - original: "+request.getMethod());
+			logger.debug("doFilter(..) - method: " + method + " - original: "+request.getMethod());
 
 			switch (method) {
 			case OPTIONS:
-				logger.fine("doFilter(..) - OPTIONS");
+				logger.debug("doFilter(..) - OPTIONS");
 
 				final String uri = request.getRequestURI();
 				final boolean isRoot = uri.equals("/");
 				logger
-						.fine("doFilter(..) - URI: " + uri + " isRoot? "
+						.debug("doFilter(..) - URI: " + uri + " isRoot? "
 								+ isRoot);
 				if (isRoot) {
-					logger.fine("doFilter(..) - procssing isRoot");
+					logger.debug("doFilter(..) - procssing isRoot");
 					// if root, options, MiniRedir
 					// return noContent, "DAV" = "1", "MS-Author-Via" = "DAV"
 					response.setStatus(SC_NO_CONTENT);
@@ -101,12 +101,12 @@ public class WindowsRedirectorPatchResourceFilter implements Filter {
 				break;
 
 			case PROPFIND:
-				logger.fine("doFilter(..) - PROPFIND");
+				logger.debug("doFilter(..) - PROPFIND");
 				HttpServletResponseWrapper responseWrapper = new HttpServletResponseWrapper(response);
 				//if the resource will not be found, there is no xml to process!!
-				logger.finest("doFilter(..) - delegating service request");
+				logger.trace("doFilter(..) - delegating service request");
 				chain.doFilter(servletRequest, responseWrapper);
-				logger.finest("doFilter(..) - get response back");
+				logger.trace("doFilter(..) - get response back");
 
 				String responseMsg = responseWrapper.toString();
 				if(responseMsg.length() > 0){
@@ -135,16 +135,16 @@ public class WindowsRedirectorPatchResourceFilter implements Filter {
 				break;
 
 			default:
-				logger.finest("doFilter(..) - delegating service request");
+				logger.trace("doFilter(..) - delegating service request");
 				chain.doFilter(servletRequest, servletResponse);
-				logger.finest("doFilter(..) - get response back");
+				logger.trace("doFilter(..) - get response back");
 
 				break;
 			}
 		}else{
-			logger.finest("doFilter(..) - delegating service request");
+			logger.trace("doFilter(..) - delegating service request");
 			chain.doFilter(servletRequest, servletResponse);
-			logger.finest("doFilter(..) - get response back");
+			logger.trace("doFilter(..) - get response back");
 		}
 	}
 

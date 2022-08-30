@@ -52,8 +52,7 @@ public interface WebDavResource {
 	@Consumes("application/octet-stream")
 	default javax.ws.rs.core.Response post(@Context final UriInfo uriInfo,
 								  final InputStream entityStream,
-								  @HeaderParam(CONTENT_LENGTH) final long contentLength)
-			throws IOException, URISyntaxException {
+								  @HeaderParam(CONTENT_LENGTH) final long contentLength) {
 		throw new UnsupportedOperationException("not yet implemented");
 	}
 
@@ -90,12 +89,10 @@ public interface WebDavResource {
 	Object findResource(@PathParam("resource") final String res);
 
 	@LOCK
-	default Object lock(@Context final UriInfo uriInfo) {
-		throw new UnsupportedOperationException("not yet implemented");
-	}
+	Object lock(@Context final UriInfo uriInfo);
 
 	@UNLOCK
-	default Object unlock(@Context final UriInfo uriInfo) {
+	default javax.ws.rs.core.Response unlock(@Context final UriInfo uriInfo, String token) {
 		throw new UnsupportedOperationException("not yet implemented");
 	}
 

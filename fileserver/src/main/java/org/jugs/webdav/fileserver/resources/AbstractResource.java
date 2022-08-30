@@ -149,5 +149,11 @@ public abstract class AbstractResource implements WebDavResource{
 				.build();
 	}
 
+	@Override
+	public javax.ws.rs.core.Response unlock(UriInfo uriInfo, String token) {
+		logger.info("unlock({}, '{}' is ignored.", uriInfo.getRequestUri(), token);
+		return javax.ws.rs.core.Response.serverError().status(501).header(DAV, "1").build();
+	}
+
 }
 

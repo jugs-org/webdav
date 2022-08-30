@@ -21,6 +21,7 @@ package org.jugs.webdav.fileserver;
 import com.github.sardine.DavResource;
 import com.github.sardine.Sardine;
 import com.github.sardine.SardineFactory;
+import com.github.sardine.impl.SardineException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -32,6 +33,7 @@ import java.net.URI;
 import java.util.List;
 import org.slf4j.Logger;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -75,6 +77,16 @@ public class FileServerStarterTest {
         String s = SARDINE.lock(TEST_URI + "/hello.world");
         assertNotNull(s);
         log.info("s = '" + s + "'");
+    }
+
+    @Test
+    public void testUnlock() throws IOException {
+        try {
+            SARDINE.unlock(TEST_URI + "/hello.world", "test-token");
+        } catch (SardineException mayhappen) {
+            assertNotEquals(500, mayhappen.getStatusCode(), mayhappen.getLocalizedMessage());
+            log.info("Response:", mayhappen);
+        }
     }
 
 }

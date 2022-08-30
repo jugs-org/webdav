@@ -24,12 +24,13 @@ import com.github.sardine.SardineFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.slf4j.LoggerFactory;
 import patterntesting.runtime.junit.NetworkTester;
 
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,7 +42,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class MainTest {
 
-    private static final Logger log = Logger.getLogger(MainTest.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(MainTest.class);
     private static final URI TEST_URI = URI.create("http://localhost:8002/addressbook");
     private static final Sardine SARDINE = SardineFactory.begin();
 
@@ -64,7 +65,7 @@ class MainTest {
         List<DavResource> resources = SARDINE.list(uri.toString());
         assertFalse(resources.isEmpty());
         for (DavResource res : resources) {
-            log.info("res = " + res);
+            log.info("res = {}", res);
         }
     }
 
@@ -72,7 +73,7 @@ class MainTest {
     public void testLock() throws IOException {
         String s = SARDINE.lock(TEST_URI + "/test.adr");
         assertNotNull(s);
-        log.info("s = '" + s + "'");
+        log.info("s = '{}'", s);
     }
 
 }

@@ -22,12 +22,13 @@ package org.jugs.webdav.addressbook;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import javax.ws.rs.core.Application;
 import javax.xml.bind.JAXBException;
 
 import org.jugs.webdav.jaxrs.xml.WebDavContextResolver;
+import org.slf4j.LoggerFactory;
 
 /**
  * Sole JAX-RS Application of JPA Address Book Sample.
@@ -36,19 +37,21 @@ import org.jugs.webdav.jaxrs.xml.WebDavContextResolver;
  */
 public final class AddressBookApplication extends Application {
 
-	@SuppressWarnings("unchecked")
+	private static final Logger logger = LoggerFactory.getLogger(AddressBookApplication.class);
+
 	@Override
-	public final Set<Class<?>> getClasses() {
-		return new HashSet<Class<?>>(Arrays.asList(AddressBook.class, MicrosoftRedirectorPatch1.class));
+	public Set<Class<?>> getClasses() {
+		return new HashSet<>(Arrays.asList(AddressBook.class, MicrosoftRedirectorPatch1.class));
 	}
 
 	@Override
 	public Set<Object> getSingletons() {
 		try {
-			return new HashSet<Object>(Arrays.asList(new WebDavContextResolver(MicrosoftRedirectorPatch2.class, Win32LastAccessTime.class),
-					new PersistenceExceptionMapper()));
+			return new HashSet<>(
+					Arrays.asList(new WebDavContextResolver(MicrosoftRedirectorPatch2.class, Win32LastAccessTime.class),
+							new PersistenceExceptionMapper()));
 		} catch (final JAXBException e) {
-			Logger.getLogger(AddressBookApplication.class.getName()).severe(e.toString());
+			logger.error("No singletons:", e);
 			return null;
 		}
 	}

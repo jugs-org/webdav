@@ -164,7 +164,7 @@ public class WindowsRedirectorPatchResourceFilter implements Filter {
 			this.templates = TransformerFactory.newInstance().newTemplates(
 					new StreamSource(getClass().getClassLoader()
 							.getResourceAsStream(param)));
-		} catch (final TransformerConfigurationException e) {
+		} catch (TransformerConfigurationException e) {
 			throw new ServletException(e);
 		} catch (final TransformerFactoryConfigurationError e) {
 			throw new ServletException(e);

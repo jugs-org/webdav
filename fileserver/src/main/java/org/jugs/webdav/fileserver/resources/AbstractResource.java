@@ -18,6 +18,10 @@
  */
 package org.jugs.webdav.fileserver.resources;
 
+import com.sun.jersey.api.core.HttpRequestContext;
+import com.sun.jersey.api.core.HttpResponseContext;
+import com.sun.jersey.server.impl.application.WebApplicationContext;
+import com.sun.jersey.spi.container.ContainerResponse;
 import org.jugs.webdav.jaxrs.xml.elements.*;
 import org.jugs.webdav.jaxrs.xml.properties.LockDiscovery;
 
@@ -60,7 +64,7 @@ public abstract class AbstractResource implements WebDavResource{
 	
 	@Override
 	public javax.ws.rs.core.Response put(UriInfo uriInfo, final InputStream entityStream, final long contentLength) throws IOException {
-		logger.trace("Abstract - put(..)");
+		logRequest(uriInfo);
 		return javax.ws.rs.core.Response.status(501).build();
 	}
 	
@@ -72,7 +76,7 @@ public abstract class AbstractResource implements WebDavResource{
 	
 	@Override
 	public javax.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) throws IOException {
-		logger.trace("Abstract - propfind(..) - "+uriInfo.getRequestUri());
+		logRequest(uriInfo);
 		return javax.ws.rs.core.Response.status(404).build();
 	}
 	
@@ -90,7 +94,7 @@ public abstract class AbstractResource implements WebDavResource{
 	
 	@Override
 	public javax.ws.rs.core.Response move(UriInfo uriInfo, String overwriteStr, String destination) throws URISyntaxException{
-		logger.trace("Abstract - move(..)");
+		logRequest(uriInfo);
 		return javax.ws.rs.core.Response.status(404).build();
 	}
 	
@@ -138,8 +142,8 @@ public abstract class AbstractResource implements WebDavResource{
 
 	@Override
 	public Object lock(UriInfo uriInfo) {
+		logRequest(uriInfo);
 		URI uri = uriInfo.getRequestUri();
-		logger.info(String.format("Lock for %s required.", uri));
 		LockDiscovery lockDiscovery =
 				new LockDiscovery(new ActiveLock(LockScope.SHARED, LockType.WRITE, Depth.ZERO, new Owner(""), new TimeOut(75), new LockToken(new HRef(
 						uri)), new LockRoot(new HRef(uri))));
@@ -151,9 +155,26 @@ public abstract class AbstractResource implements WebDavResource{
 
 	@Override
 	public javax.ws.rs.core.Response unlock(UriInfo uriInfo, String token) {
+		logRequest(uriInfo);
 		logger.info("unlock({}, '{}' is ignored.", uriInfo.getRequestUri(), token);
 		return javax.ws.rs.core.Response.serverError().status(501).header(DAV, "1").build();
 	}
 
-}
+	protected static void logRequest(UriInfo info) {
+		if (info instanceof WebApplicationContext) {
+			logRequest((WebApplicationContext) info);
+		} else {
+			logger.info("{}", info.getRequestUri());
+		}
+	}
 
+	// inspired by access-log from Tomcat
+	private static void logRequest(WebApplicationContext ctx) {
+		HttpRequestContext req = ctx.getRequest();
+		HttpResponseContext resp = ctx.getResponse();
+		logger.info("\"{} {}\" {} {} Content-Type=\"{}\" accept={} user-agent=\"{}\"",
+				req.getMethod(), req.getPath(), resp.getStatus(), req.getHeaderValue("content-length"),
+				req.getMediaType(), req.getAcceptableMediaTypes(), req.getHeaderValue("user-agent"));
+	}
+
+}

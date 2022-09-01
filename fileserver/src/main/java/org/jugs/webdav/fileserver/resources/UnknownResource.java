@@ -61,7 +61,7 @@ public class UnknownResource extends AbstractResource {
 	
 	@Override
 	public javax.ws.rs.core.Response put(final UriInfo uriInfo, final InputStream entityStream, final long contentLength) throws IOException {
-		logger.trace("PUT: " + url);
+		logRequest(uriInfo);
 		/*
 		 * Workaround for Jersey issue #154 (see
 		 * https://jersey.dev.java.net/issues/show_bug.cgi?id=154): Jersey will

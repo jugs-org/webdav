@@ -66,7 +66,7 @@ public class DirectoryResource extends AbstractResource {
 	
 	@Override
 	public javax.ws.rs.core.Response move(final UriInfo uriInfo, String overwriteStr, String destination) throws URISyntaxException {
-		logger.trace("Directory - move(.."+overwriteStr+".."+destination+"..)");
+		logRequest(uriInfo);
 		URI uri = uriInfo.getBaseUri();
 		String host = uri.getScheme()+"://"+uri.getHost()+"/"+ FileServerApplication.RESOURCE_NAME+"/";
 		String originalDestination = destination;
@@ -101,7 +101,7 @@ public class DirectoryResource extends AbstractResource {
 	
 	@Override
 	public javax.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) throws IOException{
-		logger.trace("Directory - propfind(..) " + uriInfo.getRequestUri() + " depth - "+depth+" = URL: "+url);
+		logRequest(uriInfo);
 		if(!resource.exists()){
 			return javax.ws.rs.core.Response.status(404).build();
 		}

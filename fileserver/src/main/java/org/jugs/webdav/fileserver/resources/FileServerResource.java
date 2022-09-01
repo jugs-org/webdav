@@ -73,8 +73,6 @@ public class FileServerResource extends AbstractResource {
 		URI uri = uriInfo.getRequestUri();
 
 		logger.trace("FileSystem - propfind(..) " + uri + " depth - " + depth);
-		System.out.println(uriInfo.getRequestUri().getHost());
-		System.out.println(uriInfo.getBaseUri().toString());
 		Prop prop = null;
 		if(contentLength > 0){
 			final MessageBodyReader<PropFind> reader = providers.getMessageBodyReader(PropFind.class, PropFind.class, new Annotation[0], APPLICATION_XML_TYPE);

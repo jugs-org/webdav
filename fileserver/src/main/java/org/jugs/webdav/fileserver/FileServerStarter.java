@@ -22,15 +22,18 @@ import java.io.IOException;
 
 import javax.ws.rs.ext.RuntimeDelegate;
 
-//import net.java.dev.webdav.interop.WindowsRedirectorPatchProperty;
-//import net.java.dev.webdav.interop.WindowsRedirectorPatchResource;
-
+import com.sun.grizzly.http.SelectorThread;
 import com.sun.grizzly.tcp.Adapter;
 import com.sun.jersey.api.container.grizzly.GrizzlyServerFactory;
+import org.jugs.webdav.fileserver.tools.LogFilter;
 import org.jugs.webdav.interop.WindowsRedirectorPatchProperty;
 import org.jugs.webdav.interop.WindowsRedirectorPatchResource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class FileServerStarter {
+
+	private static final Logger log = LoggerFactory.getLogger(FileServerStarter.class);
 
 	/**
 	 * Starts the FileServer application.
@@ -49,7 +52,9 @@ public final class FileServerStarter {
 		if (args.length > 0) {
 			port = Integer.parseInt(args[0]);
 		}
-		GrizzlyServerFactory.create("http://localhost:" + port + "/", adapter);
+		SelectorThread server = GrizzlyServerFactory.create("http://localhost:" + port + "/", adapter);
+		log.info("{} started with port {}.", server, server.getPort());
+		//server.getProtocolChain().addFilter(new LogFilter());
 		System.out.println("Jersey app started (port " + port + ")");
 	}	
 }

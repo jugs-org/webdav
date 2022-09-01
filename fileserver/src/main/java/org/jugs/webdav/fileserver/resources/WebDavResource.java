@@ -92,9 +92,7 @@ public interface WebDavResource {
 	Object lock(@Context final UriInfo uriInfo);
 
 	@UNLOCK
-	default javax.ws.rs.core.Response unlock(@Context final UriInfo uriInfo, String token) {
-		throw new UnsupportedOperationException("not yet implemented");
-	}
+	javax.ws.rs.core.Response unlock(@Context final UriInfo uriInfo, String token);
 
 	@javax.ws.rs.OPTIONS
 	javax.ws.rs.core.Response options();

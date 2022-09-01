@@ -100,7 +100,7 @@ public class FileResource extends AbstractResource{
 	
 	@Override
 	public javax.ws.rs.core.Response move(final UriInfo uriInfo, String overwriteStr, String destination) throws URISyntaxException {
-		logger.trace("File - move(.."+overwriteStr+".."+destination+"..)");
+		logRequest(uriInfo);
 		URI uri = uriInfo.getBaseUri();
 		String host = uri.getScheme()+"://"+uri.getHost()+"/"+ FileServerApplication.RESOURCE_NAME+"/";
 		String originalDestination = destination;
@@ -141,7 +141,7 @@ public class FileResource extends AbstractResource{
 	
 	@Override
 	public javax.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) {
-		logger.trace("File - propfind(..) " + uriInfo.getRequestUri() + " depth - "+depth+" = URL: "+url);
+		logRequest(uriInfo);
 
 		Date lastModified = new Date(resource.lastModified());
 		Response davFile = new Response(new HRef(uriInfo.getRequestUri()), null, null, null, new PropStat(new Prop(
@@ -155,7 +155,7 @@ public class FileResource extends AbstractResource{
 
 	@Override
 	public javax.ws.rs.core.Response put(final UriInfo uriInfo, final InputStream entityStream, final long contentLength) throws IOException {
-		logger.trace("File - put(..) " + url);
+		logRequest(uriInfo);
 		/*
 		 * Workaround for Jersey issue #154 (see
 		 * https://jersey.dev.java.net/issues/show_bug.cgi?id=154): Jersey will

@@ -42,6 +42,7 @@ class FileServerResourceTest {
         assertNotNull(response);
         MultivaluedMap<String, Object> headers = response.getMetadata();
         assertContains(headers, "Allow", "LOCK");
+        assertContains(headers, "DAV", "2");
     }
 
     private void assertContains(MultivaluedMap<String, Object> headers, String key, String expected) {

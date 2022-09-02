@@ -107,7 +107,7 @@ public abstract class AbstractResource implements WebDavResource{
 	public javax.ws.rs.core.Response options(){
 		logger.trace("Abstract - options(..)");
 		ResponseBuilder builder = javax.ws.rs.core.Response.ok();//noContent();
-		builder.header(DAV, "1");
+		builder.header(DAV, "1,2,3");
 		/*
 		 * builder.header("Allow","");
 		 * OPTIONS, GET, HEAD, DELETE, PROPPATCH, COPY, MOVE, LOCK, UNLOCK, PROPFIND, PUT

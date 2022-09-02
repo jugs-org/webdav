@@ -28,6 +28,7 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import org.slf4j.Logger;
 
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
@@ -46,19 +47,22 @@ public class UnknownResource extends AbstractResource {
 	@MKCOL
 	public javax.ws.rs.core.Response mkcol(){
 		logger.trace("mkcol(..folder..) - "+url);
-					
+		return logResponse("MKCOL", doMkcol());
+	}
+
+	private Response doMkcol() {
 		if(resource.exists()){
-			return javax.ws.rs.core.Response.status(405).build();
+			return Response.status(405).build();
 		}else{
 			boolean created = resource.mkdirs();
 			if(created){
-				return javax.ws.rs.core.Response.status(201).build();	
+				return Response.status(201).build();
 			}else{
-				return javax.ws.rs.core.Response.status(403).build();
+				return Response.status(403).build();
 			}
 		}
 	}
-	
+
 	@Override
 	public javax.ws.rs.core.Response put(final UriInfo uriInfo, final InputStream entityStream, final long contentLength) throws IOException {
 		logRequest(uriInfo);
@@ -74,7 +78,7 @@ public class UnknownResource extends AbstractResource {
 
 		BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(resource));
 		
-		int b = -1;
+		int b;
 		while((b = entityStream.read()) != -1){
 			out.write(b);
 		}
@@ -86,7 +90,7 @@ public class UnknownResource extends AbstractResource {
 		 */
 
 		logger.trace(String.format("STORED: %s", resource.getName()));
-		return javax.ws.rs.core.Response.created(uriInfo.getRequestUriBuilder().path(url).build()).build();
+		return logResponse("PUT", javax.ws.rs.core.Response.created(uriInfo.getRequestUriBuilder().path(url).build()).build());
 	}
 	
 	@Override

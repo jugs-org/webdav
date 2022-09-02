@@ -70,9 +70,9 @@ public class FileServerResource extends AbstractResource {
 
 	@Override
 	public javax.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) throws IOException {
+		logRequest(uriInfo);
 		URI uri = uriInfo.getRequestUri();
 
-		logger.trace("FileSystem - propfind(..) " + uri + " depth - " + depth);
 		Prop prop = null;
 		if(contentLength > 0){
 			final MessageBodyReader<PropFind> reader = providers.getMessageBodyReader(PropFind.class, PropFind.class, new Annotation[0], APPLICATION_XML_TYPE);
@@ -90,13 +90,18 @@ public class FileServerResource extends AbstractResource {
 				new PropStat(new Prop(new CreationDate(lastModified),
 						new GetLastModified(lastModified), COLLECTION), new Status(OK)));
 
+		return logResponse("PROPFIND", propfind(uriInfo, depth, folder));
+	}
+
+	private javax.ws.rs.core.Response propfind(UriInfo uriInfo, int depth, Response folder) {
+		Date lastModified;
 		if (depth == 0) {
 			return javax.ws.rs.core.Response.ok(new MultiStatus(folder))
 					.build();
 		}
 
 		File[] files = resource.listFiles();
-		List<Response> responses = new ArrayList<Response>();
+		List<Response> responses = new ArrayList<>();
 		responses.add(folder);
 		for (File file : files) {
 			Response davFile;
@@ -121,7 +126,7 @@ public class FileServerResource extends AbstractResource {
 
 		return javax.ws.rs.core.Response.ok(st).build();
 	}
-	
+
 	@Override
 	public javax.ws.rs.core.Response options(){
 		logger.trace("FileSystem - options(..)");
@@ -135,6 +140,6 @@ public class FileServerResource extends AbstractResource {
 		
 		builder.header("MS-Author-Via", "DAV");
 		
-		return builder.build();
+		return logResponse("OPTIONS", builder.build());
 	}
 }

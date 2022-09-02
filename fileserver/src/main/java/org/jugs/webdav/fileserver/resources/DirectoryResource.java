@@ -80,7 +80,12 @@ public class DirectoryResource extends AbstractResource {
 		String root = FileServerResource.davFolder;
 		File destFile = new File(root+File.separator+destination);
 		boolean overwrite = overwriteStr.equalsIgnoreCase("T");
-		
+
+		return logResponse("MOVE", move(originalDestination, destFile, overwrite));
+	}
+
+	private javax.ws.rs.core.Response move(String originalDestination, File destFile, boolean overwrite)
+			throws URISyntaxException {
 		if(destFile.equals(resource)){
 			return javax.ws.rs.core.Response.status(403).build();
 		}else{
@@ -98,12 +103,12 @@ public class DirectoryResource extends AbstractResource {
 			return javax.ws.rs.core.Response.status(409).build();
 		}
 	}
-	
+
 	@Override
 	public javax.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) throws IOException{
 		logRequest(uriInfo);
 		if(!resource.exists()){
-			return javax.ws.rs.core.Response.status(404).build();
+			return logResponse("PROPFIND", javax.ws.rs.core.Response.status(404).build());
 		}
 
 		Prop prop = null;
@@ -122,14 +127,19 @@ public class DirectoryResource extends AbstractResource {
 				null,
 				new PropStat(new Prop(new CreationDate(lastModified), new GetLastModified(lastModified), COLLECTION), new Status(OK)));
 
+		return logResponse("PROPFIND", propfild(uriInfo, depth, prop, davResource));
+	}
+
+	private javax.ws.rs.core.Response propfild(UriInfo uriInfo, int depth, Prop prop, Response davResource) {
+		Date lastModified;
 		if (depth == 0) {
 			return javax.ws.rs.core.Response.ok(new MultiStatus(davResource))
 					.build();
 		}
-		
+
 		if(resource != null && resource.isDirectory()){
 			File[] files = resource.listFiles();
-			List<Response> responses = new ArrayList<Response>();
+			List<Response> responses = new ArrayList<>();
 			responses.add(davResource);
 			for (File file : files) {
 				Response davFile;
@@ -138,13 +148,13 @@ public class DirectoryResource extends AbstractResource {
 				String fileName = file.getName();
 				PropStatBuilderExt props = new PropStatBuilderExt();
 				props.lastModified(lastModified).creationDate(lastModified).displayName(fileName).status(OK);
-				
+
 				if (file.isDirectory()) {
 					props.isCollection();
 				} else {
 					props.isResource(file.length(), "application/octet-stream");
 				}
-				
+
 				PropStat found = props.build();
 				PropStat notFound = null;
 				if(prop != null){
@@ -157,25 +167,19 @@ public class DirectoryResource extends AbstractResource {
 					davFile = new Response(new HRef(uriInfo.getRequestUriBuilder().path(fileName).build()), null, null, null, found, notFound);
 				else
 					davFile = new Response(new HRef(uriInfo.getRequestUriBuilder().path(fileName).build()), null, null, null, found);
-				
+
 				responses.add(davFile);
 			}
 
 			MultiStatus st = new MultiStatus(responses
 					.toArray(new Response[responses.size()]));
-			
+
 			return javax.ws.rs.core.Response.ok(st).build();
-		}	
-		
+		}
+
 		return javax.ws.rs.core.Response.noContent().build();
 	}
-	
-	@Override
-	public javax.ws.rs.core.Response proppatch() {
-		logger.trace("Directory - proppatch(..)");
-		return super.proppatch();
-	}
-	
+
 	@Override
 	public javax.ws.rs.core.Response options(){
 		logger.trace("Directory - options(..)");
@@ -189,6 +193,6 @@ public class DirectoryResource extends AbstractResource {
 		
 		builder.header("MS-Author-Via", "DAV");
 		
-		return builder.build();
+		return logResponse("OPTIONS", builder.build());
 	}
 }

@@ -36,12 +36,16 @@ import org.jugs.webdav.jaxrs.xml.properties.GetContentType;
 import org.jugs.webdav.jaxrs.xml.properties.GetLastModified;
 import org.jugs.webdav.jaxrs.xml.properties.ResourceType;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 
 public class PropStatBuilderExt {
-	private List<Object> properties;
+
+	private static final Logger log = LoggerFactory.getLogger(PropStatBuilderExt.class);
+	private final List<Object> properties;
 	private Status status;
-	private Set<String> names;
+	private final Set<String> names;
 
 	public PropStatBuilderExt() {
 		properties = new LinkedList<Object>();
@@ -133,7 +137,7 @@ public class PropStatBuilderExt {
 	
 	public PropStat notFound(Prop allprops){
 		boolean empty = true;
-		List<Object> notFound = new ArrayList<Object>();
+		List<Object> notFound = new ArrayList<>();
 		for(Object prop : allprops.getProperties()){
 			if(prop instanceof Element){
 				Element element = (Element)prop;
@@ -144,7 +148,7 @@ public class PropStatBuilderExt {
 					empty = false;
 				}
 			}else{
-				System.out.println("notfound-object - transformed into: "+prop.getClass().getSimpleName());
+				log.debug("notfound-object - transformed into: {}", prop.getClass().getSimpleName());
 			}
 		}
 		
@@ -167,8 +171,7 @@ public class PropStatBuilderExt {
 	public PropStat build(){
 		Object[] objects = properties.toArray(new Object[properties.size()]);
 		Prop prop = new Prop(objects);
-		PropStat stat = new PropStat(prop, new org.jugs.webdav.jaxrs.xml.elements.Status(status));
-		
-		return stat;
+		return new PropStat(prop, new org.jugs.webdav.jaxrs.xml.elements.Status(status));
 	}
+
 }

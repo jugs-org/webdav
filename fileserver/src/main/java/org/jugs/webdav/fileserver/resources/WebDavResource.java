@@ -30,6 +30,7 @@ import java.net.URISyntaxException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.Providers;
 
@@ -89,7 +90,7 @@ public interface WebDavResource {
 	Object findResource(@PathParam("resource") final String res);
 
 	@LOCK
-	Object lock(@Context final UriInfo uriInfo);
+	Response lock(@Context final UriInfo uriInfo);
 
 	@UNLOCK
 	javax.ws.rs.core.Response unlock(@Context final UriInfo uriInfo, String token);

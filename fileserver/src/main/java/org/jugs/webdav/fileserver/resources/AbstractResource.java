@@ -37,6 +37,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.ext.Providers;
@@ -59,49 +61,49 @@ public abstract class AbstractResource implements WebDavResource{
 	@Override
 	public javax.ws.rs.core.Response get(){
 		logger.trace("Abstract - get(..)");
-		return javax.ws.rs.core.Response.status(404).build();
+		return logResponse("GET", javax.ws.rs.core.Response.status(404).build());
 	}
 	
 	@Override
 	public javax.ws.rs.core.Response put(UriInfo uriInfo, final InputStream entityStream, final long contentLength) throws IOException {
 		logRequest(uriInfo);
-		return javax.ws.rs.core.Response.status(501).build();
+		return logResponse("PUT", javax.ws.rs.core.Response.status(501).build());
 	}
 	
 	@Override
 	public javax.ws.rs.core.Response mkcol(){
 		logger.trace("Abstract - mkcol(..)");
-		return javax.ws.rs.core.Response.status(404).build();
+		return logResponse("MKCOL", javax.ws.rs.core.Response.status(404).build());
 	}
 	
 	@Override
 	public javax.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) throws IOException {
 		logRequest(uriInfo);
-		return javax.ws.rs.core.Response.status(404).build();
+		return logResponse("PROPFIND", javax.ws.rs.core.Response.status(404).build());
 	}
 	
 	@Override
 	public javax.ws.rs.core.Response proppatch(){
 		logger.trace("Abstract - proppatch(..)");
-		return javax.ws.rs.core.Response.status(404).build();
+		return logResponse("PROPPATCH", javax.ws.rs.core.Response.status(404).build());
 	}
 	
 	@Override
 	public javax.ws.rs.core.Response copy(){
 		logger.trace("Abstract - copy(..)");
-		return javax.ws.rs.core.Response.status(404).build();
+		return logResponse("COPY", javax.ws.rs.core.Response.status(404).build());
 	}
 	
 	@Override
 	public javax.ws.rs.core.Response move(UriInfo uriInfo, String overwriteStr, String destination) throws URISyntaxException{
 		logRequest(uriInfo);
-		return javax.ws.rs.core.Response.status(404).build();
+		return logResponse("MOVE", javax.ws.rs.core.Response.status(404).build());
 	}
 	
 	@Override
 	public javax.ws.rs.core.Response delete(){
 		logger.trace("Abstract - delete(..)");
-		return javax.ws.rs.core.Response.status(404).build();
+		return logResponse("DELETE", javax.ws.rs.core.Response.status(404).build());
 	}
 	
 	@Override
@@ -117,7 +119,7 @@ public abstract class AbstractResource implements WebDavResource{
 		
 		builder.header("MS-Author-Via", "DAV");
 		
-		return builder.build();
+		return logResponse("OPTIONS", builder.build());
 	}
 	
 	@Override
@@ -141,30 +143,30 @@ public abstract class AbstractResource implements WebDavResource{
 	}
 
 	@Override
-	public Object lock(UriInfo uriInfo) {
+	public Response lock(UriInfo uriInfo) {
 		logRequest(uriInfo);
 		URI uri = uriInfo.getRequestUri();
 		LockDiscovery lockDiscovery =
 				new LockDiscovery(new ActiveLock(LockScope.SHARED, LockType.WRITE, Depth.ZERO, new Owner(""), new TimeOut(75), new LockToken(new HRef(
 						uri)), new LockRoot(new HRef(uri))));
 		Prop prop = new Prop(lockDiscovery);
-		return javax.ws.rs.core.Response.ok(prop)
+		return logResponse("LOCK", javax.ws.rs.core.Response.ok(prop)
 				.header(DAV, "1")
-				.build();
+				.build());
 	}
 
 	@Override
 	public javax.ws.rs.core.Response unlock(UriInfo uriInfo, String token) {
 		logRequest(uriInfo);
 		logger.info("unlock({}, '{}' is ignored.", uriInfo.getRequestUri(), token);
-		return javax.ws.rs.core.Response.serverError().status(501).header(DAV, "1").build();
+		return logResponse("UNLOCK", javax.ws.rs.core.Response.serverError().status(501).header(DAV, "1").build());
 	}
 
 	protected static void logRequest(UriInfo info) {
 		if (info instanceof WebApplicationContext) {
 			logRequest((WebApplicationContext) info);
 		} else {
-			logger.info("{}", info.getRequestUri());
+			logger.info("<- {}", info.getRequestUri());
 		}
 	}
 
@@ -172,9 +174,25 @@ public abstract class AbstractResource implements WebDavResource{
 	private static void logRequest(WebApplicationContext ctx) {
 		HttpRequestContext req = ctx.getRequest();
 		HttpResponseContext resp = ctx.getResponse();
-		logger.info("\"{} {}\" {} {} Content-Type=\"{}\" accept={} user-agent=\"{}\"",
+		logger.info("<- \"{} {}\" {} {} Content-Type=\"{}\" accept={} user-agent=\"{}\"",
 				req.getMethod(), req.getPath(), resp.getStatus(), req.getHeaderValue("content-length"),
 				req.getMediaType(), req.getAcceptableMediaTypes(), req.getHeaderValue("user-agent"));
+		logHeaders(req.getRequestHeaders());
+	}
+
+	protected static Response logResponse(String method, Response resp) {
+		logger.info("-> \"{}\" {}: {}", method, resp.getStatus(), resp.getEntity());
+		logHeaders(resp.getMetadata());
+		return resp;
+	}
+
+	private static void logHeaders(MultivaluedMap<String, ?> headers) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("Headers:");
+			for (String key : headers.keySet()) {
+				logger.debug("\t{}={}", key, headers.get(key));
+			}
+		}
 	}
 
 }

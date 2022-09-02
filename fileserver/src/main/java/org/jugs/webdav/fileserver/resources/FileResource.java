@@ -85,7 +85,7 @@ public class FileResource extends AbstractResource{
 			builder.header("Last-Modified", new Rfc1123DateFormat().format(new Date(resource.lastModified())));
 			builder.header("Content-Length", resource.length());
 
-			return builder.entity(in).build();
+			return logResponse("GET", builder.entity(in).build());
 		}
 	}
 	
@@ -114,7 +114,12 @@ public class FileResource extends AbstractResource{
 		String root = FileServerResource.davFolder;
 		File destFile = new File(root+File.separator+destination);
 		boolean overwrite = overwriteStr.equalsIgnoreCase("T");
-		
+
+		return logResponse("MOVE", move(originalDestination, destFile, overwrite));
+	}
+
+	private javax.ws.rs.core.Response move(String originalDestination, File destFile, boolean overwrite)
+			throws URISyntaxException {
 		if(destFile.equals(resource)){
 			return javax.ws.rs.core.Response.status(403).build();
 		}else{
@@ -132,13 +137,7 @@ public class FileResource extends AbstractResource{
 			return javax.ws.rs.core.Response.status(409).build();
 		}
 	}
-	
-	@Override
-	public javax.ws.rs.core.Response proppatch() {
-		logger.trace("File - proppatch(..)");
-		return super.proppatch();
-	}
-	
+
 	@Override
 	public javax.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) {
 		logRequest(uriInfo);
@@ -149,7 +148,7 @@ public class FileResource extends AbstractResource{
 
 		MultiStatus st = new MultiStatus(davFile);
 
-		return javax.ws.rs.core.Response.ok(st).build();
+		return logResponse("PROPFIND", javax.ws.rs.core.Response.ok(st).build());
 	}
 	
 
@@ -168,7 +167,7 @@ public class FileResource extends AbstractResource{
 
 		BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(resource));
 		
-		int b = -1;
+		int b;
 		while((b = entityStream.read()) != -1){
 			out.write(b);
 		}
@@ -180,7 +179,7 @@ public class FileResource extends AbstractResource{
 		 */
 
 		logger.trace(String.format("STORED: %s", resource.getName()));
-		return javax.ws.rs.core.Response.created(uriInfo.getRequestUriBuilder().path(url).build()).build();
+		return logResponse("PUT", javax.ws.rs.core.Response.created(uriInfo.getRequestUriBuilder().path(url).build()).build());
 	}
 	
 	@Override
@@ -196,6 +195,6 @@ public class FileResource extends AbstractResource{
 		
 		builder.header("MS-Author-Via", "DAV");
 		
-		return builder.build();
+		return logResponse("OPTIONS", builder.build());
 	}
 }

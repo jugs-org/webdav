@@ -155,8 +155,7 @@ public abstract class AbstractResource implements WebDavResource{
 	@Override
 	public javax.ws.rs.core.Response unlock(UriInfo uriInfo, String token) {
 		logRequest(uriInfo);
-		logger.info("unlock({}, '{}' is ignored.", uriInfo.getRequestUri(), token);
-		return logResponse("UNLOCK", javax.ws.rs.core.Response.serverError().status(501).header(DAV, "1").build());
+		return logResponse("UNLOCK", Response.noContent().header(DAV, "1").build());
 	}
 
 	protected static void logRequest(UriInfo info) {

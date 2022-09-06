@@ -21,6 +21,7 @@ package org.jugs.webdav.fileserver;
 import com.github.sardine.DavResource;
 import com.github.sardine.Sardine;
 import com.github.sardine.SardineFactory;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.client.HttpResponseException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -28,8 +29,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import patterntesting.runtime.junit.NetworkTester;
 
+import javax.ws.rs.core.MediaType;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.List;
 
@@ -85,6 +89,23 @@ public class FileServerStarterTest {
     }
 
     @Test
+    public void testGet() throws IOException {
+        List<DavResource> resources = SARDINE.propfind(TEST_URI + "/", 1, new HashSet<>());
+        assertFalse(resources.isEmpty());
+        for (DavResource rsc : resources) {
+            if (rsc.getContentType().contains("dir")) {
+                continue;
+            }
+            try (InputStream istream = SARDINE.get(rsc.getHref().toString())) {
+                assertNotNull(istream);
+                byte[] data = IOUtils.toByteArray(istream);
+                log.info("{} bytes read from {}.", data.length, rsc);
+                assertEquals(rsc.getContentLength(), data.length);
+            }
+        }
+    }
+
+    @Test
     public void testPropfind404() throws IOException {
         try {
             SARDINE.propfind(TEST_URI + "/nirwana", 0, new HashSet<>());
@@ -92,6 +113,13 @@ public class FileServerStarterTest {
         } catch (HttpResponseException expected) {
             assertEquals(404, expected.getStatusCode());
         }
+    }
+
+    //@Test
+    public void testPut() throws IOException {
+        URI resource = URI.create(TEST_URI + "/test-put.txt");
+        byte[] content = "put, put, put, gaaack".getBytes(StandardCharsets.UTF_8);
+        SARDINE.put(resource.toString(), content, MediaType.TEXT_XML);
     }
 
 }

@@ -56,8 +56,8 @@ public abstract class AbstractResource implements WebDavResource{
 	}
 	
 	@Override
-	public javax.ws.rs.core.Response get(){
-		logger.trace("Abstract - get(..)");
+	public javax.ws.rs.core.Response get() {
+		logger.info("<- \"GET {}\"", resource);
 		return logResponse("GET", javax.ws.rs.core.Response.status(404).build());
 	}
 	

@@ -18,45 +18,29 @@
  */
 package org.jugs.webdav.fileserver.resources;
 
-import static javax.ws.rs.core.Response.Status.OK;
-import static org.jugs.webdav.jaxrs.Headers.DAV;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLDecoder;
-import java.util.Date;
-import java.util.logging.Level;
-import org.slf4j.Logger;
-
-import javax.ws.rs.GET;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.core.Response.ResponseBuilder;
-import javax.ws.rs.ext.Providers;
-
-import org.jugs.webdav.jaxrs.xml.elements.HRef;
-import org.jugs.webdav.jaxrs.xml.elements.MultiStatus;
-import org.jugs.webdav.jaxrs.xml.elements.Prop;
-import org.jugs.webdav.jaxrs.xml.elements.PropStat;
-import org.jugs.webdav.jaxrs.xml.elements.Response;
-import org.jugs.webdav.jaxrs.xml.elements.Rfc1123DateFormat;
-import org.jugs.webdav.jaxrs.xml.elements.Status;
+import org.jugs.webdav.fileserver.FileServerApplication;
+import org.jugs.webdav.jaxrs.xml.elements.*;
 import org.jugs.webdav.jaxrs.xml.properties.CreationDate;
 import org.jugs.webdav.jaxrs.xml.properties.GetContentLength;
 import org.jugs.webdav.jaxrs.xml.properties.GetContentType;
 import org.jugs.webdav.jaxrs.xml.properties.GetLastModified;
-import org.jugs.webdav.fileserver.FileServerApplication;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.Response.ResponseBuilder;
+import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.ext.Providers;
+import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLDecoder;
+import java.util.Date;
+
+import static javax.ws.rs.core.Response.Status.OK;
+import static org.jugs.webdav.jaxrs.Headers.DAV;
 
 
 public class FileResource extends AbstractResource{
@@ -71,7 +55,7 @@ public class FileResource extends AbstractResource{
 	@GET
 	@Produces("application/octet-stream")
 	public javax.ws.rs.core.Response get() {
-		logger.trace("File - get(..) " + url);
+		logger.info("<- \"GET {}\"", resource);
 		if(!resource.exists()){
 			return javax.ws.rs.core.Response.status(404).build();
 		}else{

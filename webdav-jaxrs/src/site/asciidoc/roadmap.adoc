@@ -1,6 +1,7 @@
-= Road Map
+= Historical Road Map
 
-This road map is without obligation and can change at any time. If you like to see a particular feature, write to the users mailing list describing your idea. There is no time frame associated with any release version.
+This road map was without obligation and could change at any time.
+It is now outdated (see new link:../../../../src/doc/roadmap.adoc[road map]).
 
 * Version 2.0
 

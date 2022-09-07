@@ -13,7 +13,7 @@ Since 2.1 some webdav projects and samples received from [Markus Karg](http://ww
 * [webdav-jaxrs](webdav-jaxrs/README.md) (since 2.0)
 * [fileserver](fileserver/README.md) (since 2.1)
 * [webdav-interop](webdav-interop/README.md) (since 2.2)
-* [addressbook](addressbook/README.html) (since 2.3)
+* [addressbook](addressbook/README.md) (since 2.3)
 
 
 ## More Infos
@@ -21,7 +21,8 @@ Since 2.1 some webdav projects and samples received from [Markus Karg](http://ww
 * Documentation: [webdav-jaxrs](webdav-jaxrs/src/site/README.adoc) with [FAQ](webdav-jaxrs/src/site/asciidoc/faq.adoc)
 * Release Notes: [CHANGELOG](CHANGELOG.md) (with a look into the [future](src/doc/roadmap.adoc))
 * Build and Release Infos: [Releases](src/doc/README.adoc)
+* WebDAV Resources: [RFC4918](http://webdav.org/specs/rfc4918.html) and other [resources](http://webdav.org/)
 
 ---
-July 2022,
+September 2022,
 Oli B.

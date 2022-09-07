@@ -19,12 +19,11 @@
 
 package org.jugs.webdav.addressbook;
 
-import static org.jugs.webdav.jaxrs.Headers.DAV;
-
+import javax.ws.rs.OPTIONS;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
-import org.jugs.webdav.jaxrs.methods.OPTIONS;
+import static org.jugs.webdav.jaxrs.Headers.DAV;
 
 /**
  * JAX-RS resource which is working around a bug in the Microsoft
@@ -40,7 +39,7 @@ import org.jugs.webdav.jaxrs.methods.OPTIONS;
 public final class MicrosoftRedirectorPatch1 {
 
 	@OPTIONS
-	public final Response options() {
+	public Response options() {
 		return Response.noContent().header(DAV, "1").build();
 	}
 

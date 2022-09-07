@@ -117,10 +117,10 @@ public class DirectoryResource extends AbstractResource {
 				null,
 				new PropStat(new Prop(new CreationDate(lastModified), new GetLastModified(lastModified), COLLECTION), new Status(OK)));
 
-		return logResponse("PROPFIND", propfild(uriInfo, depth, prop, davResource));
+		return logResponse("PROPFIND", propfind(uriInfo, depth, prop, davResource));
 	}
 
-	private javax.ws.rs.core.Response propfild(UriInfo uriInfo, int depth, Prop prop, Response davResource) {
+	private javax.ws.rs.core.Response propfind(UriInfo uriInfo, int depth, Prop prop, Response davResource) {
 		Date lastModified;
 		if (depth == 0) {
 			return javax.ws.rs.core.Response.ok(new MultiStatus(davResource))

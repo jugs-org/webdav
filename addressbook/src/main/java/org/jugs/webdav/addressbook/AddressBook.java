@@ -19,65 +19,29 @@
 
 package org.jugs.webdav.addressbook;
 
-import static javax.ws.rs.core.HttpHeaders.CONTENT_LENGTH;
-import static javax.ws.rs.core.Response.Status.FORBIDDEN;
-import static javax.ws.rs.core.Response.Status.NOT_FOUND;
-import static javax.ws.rs.core.Response.Status.OK;
-import static javax.ws.rs.core.Response.Status.PRECONDITION_FAILED;
-import static org.jugs.webdav.jaxrs.Headers.*;
-import static org.jugs.webdav.jaxrs.xml.properties.ResourceType.COLLECTION;
+import org.jugs.webdav.jaxrs.methods.*;
+import org.jugs.webdav.jaxrs.xml.elements.*;
+import org.jugs.webdav.jaxrs.xml.properties.*;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.annotation.Annotation;
-import java.net.URI;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.NoResultException;
-import javax.persistence.Persistence;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
-import javax.ws.rs.HeaderParam;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
+import javax.persistence.*;
+import javax.ws.rs.OPTIONS;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.Providers;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.annotation.Annotation;
+import java.net.URI;
+import java.util.Collection;
+import java.util.*;
 
-import org.jugs.webdav.jaxrs.methods.COPY;
-import org.jugs.webdav.jaxrs.methods.MOVE;
-import org.jugs.webdav.jaxrs.methods.OPTIONS;
-import org.jugs.webdav.jaxrs.methods.PROPFIND;
-import org.jugs.webdav.jaxrs.methods.PROPPATCH;
-import org.jugs.webdav.jaxrs.xml.elements.HRef;
-import org.jugs.webdav.jaxrs.xml.elements.MultiStatus;
-import org.jugs.webdav.jaxrs.xml.elements.Prop;
-import org.jugs.webdav.jaxrs.xml.elements.PropStat;
-import org.jugs.webdav.jaxrs.xml.elements.PropertyUpdate;
-import org.jugs.webdav.jaxrs.xml.elements.Response;
-import org.jugs.webdav.jaxrs.xml.elements.Status;
-import org.jugs.webdav.jaxrs.xml.properties.CreationDate;
-import org.jugs.webdav.jaxrs.xml.properties.DisplayName;
-import org.jugs.webdav.jaxrs.xml.properties.GetContentLength;
-import org.jugs.webdav.jaxrs.xml.properties.GetContentType;
-import org.jugs.webdav.jaxrs.xml.properties.GetLastModified;
-import org.jugs.webdav.jaxrs.methods.LOCK;
-import org.jugs.webdav.jaxrs.xml.elements.*;
-import org.jugs.webdav.jaxrs.xml.properties.LockDiscovery;
+import static javax.ws.rs.core.HttpHeaders.CONTENT_LENGTH;
+import static javax.ws.rs.core.Response.Status.*;
+import static org.jugs.webdav.jaxrs.Headers.*;
+import static org.jugs.webdav.jaxrs.xml.properties.ResourceType.COLLECTION;
 
 /**
  * Sole JAX-RS Resource of JPA Address Book Sample. 

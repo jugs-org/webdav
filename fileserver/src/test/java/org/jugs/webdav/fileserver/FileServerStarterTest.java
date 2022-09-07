@@ -29,11 +29,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import patterntesting.runtime.junit.NetworkTester;
 
-import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.List;
 
@@ -113,13 +111,6 @@ public class FileServerStarterTest {
         } catch (HttpResponseException expected) {
             assertEquals(404, expected.getStatusCode());
         }
-    }
-
-    //@Test
-    public void testPut() throws IOException {
-        URI resource = URI.create(TEST_URI + "/test-put.txt");
-        byte[] content = "put, put, put, gaaack".getBytes(StandardCharsets.UTF_8);
-        SARDINE.put(resource.toString(), content, MediaType.TEXT_XML);
     }
 
 }

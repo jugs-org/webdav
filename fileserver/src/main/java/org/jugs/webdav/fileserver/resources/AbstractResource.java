@@ -166,6 +166,10 @@ public abstract class AbstractResource implements WebDavResource{
 		}
 	}
 
+	protected static void logRequest(String method, String context) {
+		logger.info("<- \"{} {}\"", method, context);
+	}
+
 	// inspired by access-log from Tomcat
 	private static void logRequest(WebApplicationContext ctx) {
 		HttpRequestContext req = ctx.getRequest();

@@ -55,7 +55,7 @@ public class FileResource extends AbstractResource{
 	@GET
 	@Produces("application/octet-stream")
 	public javax.ws.rs.core.Response get() {
-		logger.info("<- \"GET {}\"", resource);
+		logRequest("GET", url);
 		if(!resource.exists()){
 			return javax.ws.rs.core.Response.status(404).build();
 		}else{
@@ -75,9 +75,10 @@ public class FileResource extends AbstractResource{
 	
 	@Override
 	public javax.ws.rs.core.Response delete() {
+		logRequest("DELETE", url);
 		boolean deleted = resource.delete();
 		if(deleted){
-			return javax.ws.rs.core.Response.noContent().build();
+			return logResponse("DELETE", javax.ws.rs.core.Response.noContent().build());
 		}
 		return super.delete();
 	}

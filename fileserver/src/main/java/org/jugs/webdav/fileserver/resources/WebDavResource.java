@@ -18,14 +18,7 @@
  */
 package org.jugs.webdav.fileserver.resources;
 
-import static javax.ws.rs.core.HttpHeaders.CONTENT_LENGTH;
-import static org.jugs.webdav.jaxrs.Headers.DEPTH;
-import static org.jugs.webdav.jaxrs.Headers.DESTINATION;
-import static org.jugs.webdav.jaxrs.Headers.OVERWRITE;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URISyntaxException;
+import org.jugs.webdav.jaxrs.methods.*;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -33,9 +26,12 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.Providers;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
 
-import org.jugs.webdav.jaxrs.methods.*;
-import org.jugs.webdav.jaxrs.methods.OPTIONS;
+import static javax.ws.rs.core.HttpHeaders.CONTENT_LENGTH;
+import static org.jugs.webdav.jaxrs.Headers.*;
 
 public interface WebDavResource {
 	@GET

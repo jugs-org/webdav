@@ -40,7 +40,6 @@ import java.net.URLDecoder;
 import java.util.Date;
 
 import static javax.ws.rs.core.Response.Status.OK;
-import static org.jugs.webdav.jaxrs.Headers.DAV;
 
 
 public class FileResource extends AbstractResource{
@@ -170,16 +169,12 @@ public class FileResource extends AbstractResource{
 	@Override
 	public javax.ws.rs.core.Response options(){
 		logger.trace("File - options(..)");
-		ResponseBuilder builder = javax.ws.rs.core.Response.ok();//noContent();
-		builder.header(DAV, "1");
+		ResponseBuilder builder = withDavHeader(javax.ws.rs.core.Response.ok());//noContent();
 		/*
 		 * builder.header("Allow","");
 		 * OPTIONS, GET, HEAD, DELETE, PROPPATCH, COPY, MOVE, LOCK, UNLOCK, PROPFIND, PUT
 		 */
 		builder.header("Allow","OPTIONS,GET,MOVE,PUT,PROPPATCH,PROPFIND");
-		
-		builder.header("MS-Author-Via", "DAV");
-		
 		return logResponse("OPTIONS", builder.build());
 	}
 }

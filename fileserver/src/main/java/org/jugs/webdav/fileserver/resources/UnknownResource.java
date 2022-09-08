@@ -18,22 +18,14 @@
  */
 package org.jugs.webdav.fileserver.resources;
 
-import static org.jugs.webdav.jaxrs.Headers.DAV;
-
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URISyntaxException;
+import org.jugs.webdav.jaxrs.methods.MKCOL;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.ResponseBuilder;
-
-import org.jugs.webdav.jaxrs.methods.MKCOL;
-import org.slf4j.LoggerFactory;
+import javax.ws.rs.core.UriInfo;
+import java.io.*;
 
 
 public class UnknownResource extends AbstractResource {
@@ -96,16 +88,12 @@ public class UnknownResource extends AbstractResource {
 	@Override
 	public javax.ws.rs.core.Response options(){
 		logger.trace("UnkownResource - options(..)");
-		ResponseBuilder builder = javax.ws.rs.core.Response.ok();//noContent();
-		builder.header(DAV, "1");
+		ResponseBuilder builder = withDavHeader(javax.ws.rs.core.Response.ok());//noContent();
 		/*
 		 * builder.header("Allow","");
 		 * OPTIONS, GET, HEAD, DELETE, PROPPATCH, COPY, MOVE, LOCK, UNLOCK, PROPFIND, PUT
 		 */
 		builder.header("Allow","OPTIONS,MKCOL,PUT");
-		
-		builder.header("MS-Author-Via", "DAV");
-		
 		return builder.build();
 	}
 }

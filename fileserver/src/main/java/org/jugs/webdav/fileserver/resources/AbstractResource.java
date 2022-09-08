@@ -106,19 +106,21 @@ public abstract class AbstractResource implements WebDavResource{
 	@Override
 	public javax.ws.rs.core.Response options(){
 		logger.trace("Abstract - options(..)");
-		ResponseBuilder builder = javax.ws.rs.core.Response.ok();//noContent();
-		builder.header(DAV, "1,2,3");
+		ResponseBuilder builder = withDavHeader(javax.ws.rs.core.Response.ok());//noContent();
 		/*
 		 * builder.header("Allow","");
 		 * OPTIONS, GET, HEAD, DELETE, PROPPATCH, COPY, MOVE, LOCK, UNLOCK, PROPFIND, PUT
 		 */
 		builder.header("Allow","OPTIONS,GET,HEAD,POST,DELETE,PROPPATCH,PROPFIND,COPY,MOVE,PUT,MKCOL,LOCK,UNLOCK");
-		
-		builder.header("MS-Author-Via", "DAV");
-		
 		return logResponse("OPTIONS", builder.build());
 	}
-	
+
+	protected ResponseBuilder withDavHeader(ResponseBuilder builder) {
+		builder.header(DAV, "1,2,3");
+		builder.header("MS-Author-Via", "DAV");
+		return builder;
+	}
+
 	@Override
 	public Object findResource(final String res){
 		logger.trace("Abstract - findResource(..) - "+res);
@@ -147,15 +149,14 @@ public abstract class AbstractResource implements WebDavResource{
 				new LockDiscovery(new ActiveLock(LockScope.SHARED, LockType.WRITE, Depth.ZERO, new Owner(""), new TimeOut(75), new LockToken(new HRef(
 						uri)), new LockRoot(new HRef(uri))));
 		Prop prop = new Prop(lockDiscovery);
-		return logResponse("LOCK", javax.ws.rs.core.Response.ok(prop)
-				.header(DAV, "1")
-				.build());
+		ResponseBuilder builder = withDavHeader(Response.ok(prop));
+		return logResponse("LOCK", builder.build());
 	}
 
 	@Override
 	public javax.ws.rs.core.Response unlock(UriInfo uriInfo, String token) {
 		logRequest(uriInfo);
-		return logResponse("UNLOCK", Response.noContent().header(DAV, "1").build());
+		return logResponse("UNLOCK", withDavHeader(Response.noContent()).build());
 	}
 
 	protected static void logRequest(UriInfo info) {

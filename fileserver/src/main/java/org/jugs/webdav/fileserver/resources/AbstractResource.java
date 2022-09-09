@@ -168,14 +168,14 @@ public abstract class AbstractResource implements WebDavResource{
 	}
 
 	protected static void logRequest(String method, String context) {
-		logger.info("<- \"{} {}\"", method, context);
+		logger.debug("<- \"{} {}\"", method, context);
 	}
 
 	// inspired by access-log from Tomcat
 	private static void logRequest(WebApplicationContext ctx) {
 		HttpRequestContext req = ctx.getRequest();
 		HttpResponseContext resp = ctx.getResponse();
-		logger.info("<- \"{} {}\" {} {} Content-Type=\"{}\" accept={} user-agent=\"{}\"",
+		logger.debug("<- \"{} {}\" {} {} Content-Type=\"{}\" accept={} user-agent=\"{}\"",
 				req.getMethod(), req.getPath(), resp.getStatus(), req.getHeaderValue("content-length"),
 				req.getMediaType(), req.getAcceptableMediaTypes(), req.getHeaderValue("user-agent"));
 		logHeaders(req.getRequestHeaders());
@@ -188,10 +188,10 @@ public abstract class AbstractResource implements WebDavResource{
 	}
 
 	private static void logHeaders(MultivaluedMap<String, ?> headers) {
-		if (logger.isDebugEnabled()) {
-			logger.debug("Headers:");
+		if (logger.isTraceEnabled()) {
+			logger.trace("Headers:");
 			for (String key : headers.keySet()) {
-				logger.debug("\t{}={}", key, headers.get(key));
+				logger.trace("\t{}={}", key, headers.get(key));
 			}
 		}
 	}

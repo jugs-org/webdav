@@ -21,14 +21,11 @@
  */
 package org.jugs.webdav.jaxrs;
 
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.sameInstance;
-import static org.junit.Assert.assertThat;
-
-import org.jugs.webdav.jaxrs.Dav;
 import org.junit.Test;
+
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 /**
  * Unit test for {@link Dav} class.
@@ -36,8 +33,9 @@ import org.junit.Test;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class DavTest {
+
 	@Test
-	public final void shouldParseClassOne() {
+	public void shouldParseClassOne() {
 		// given
 		final String davHeaderValue = "1";
 
@@ -49,7 +47,7 @@ public final class DavTest {
 	}
 
 	@Test
-	public final void shouldParseClassOneTwo() {
+	public void shouldParseClassOneTwo() {
 		// given
 		final String davHeaderValue = "1, 2";
 
@@ -61,7 +59,7 @@ public final class DavTest {
 	}
 
 	@Test
-	public final void shouldParseClassOneTwoThree() {
+	public void shouldParseClassOneTwoThree() {
 		// given
 		final String davHeaderValue = "1, 2, 3";
 
@@ -73,7 +71,7 @@ public final class DavTest {
 	}
 
 	@Test
-	public final void shouldParseClassOneThree() {
+	public void shouldParseClassOneThree() {
 		// given
 		final String davHeaderValue = "1, 3";
 
@@ -85,7 +83,7 @@ public final class DavTest {
 	}
 
 	@Test
-	public final void shouldParseTokensAndUrls() {
+	public void shouldParseTokensAndUrls() {
 		// given
 		final String davHeaderValue = "SomeToken, SomeOtherToken, schema://host:port/path";
 
@@ -97,7 +95,7 @@ public final class DavTest {
 	}
 
 	@Test
-	public final void shouldTreatUnorderedClassesAsEqualToOrderedClasses() {
+	public void shouldTreatUnorderedClassesAsEqualToOrderedClasses() {
 		// given
 		final String orderedClasses = "1, 2, 3";
 		final String unorderedClasses = "2, 3, 1";
@@ -121,7 +119,7 @@ public final class DavTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public final void shouldEnsureClassThreeAlsoContainsClassOne() {
+	public void shouldEnsureClassThreeAlsoContainsClassOne() {
 		// given
 		final String davHeaderValue = "3";
 
@@ -130,7 +128,7 @@ public final class DavTest {
 	}
 
 	@Test
-	public final void shouldFindClassInClasses() {
+	public void shouldFindClassInClasses() {
 		// given
 		final Dav dav = new Dav("A", "B", "C");
 
@@ -142,7 +140,7 @@ public final class DavTest {
 	}
 
 	@Test
-	public final void shouldProduceCommaSeparatedString() {
+	public void shouldProduceCommaSeparatedString() {
 		// given
 		final Dav dav = new Dav("A", "B", "C");
 
@@ -154,7 +152,7 @@ public final class DavTest {
 	}
 
 	@Test
-	public final void shouldProduceEmptyStringForEmptyClasses() {
+	public void shouldProduceEmptyStringForEmptyClasses() {
 		// given
 		final Dav dav = new Dav();
 
@@ -166,7 +164,7 @@ public final class DavTest {
 	}
 
 	@Test
-	public final void shouldNotBeEqualToOtherClass() {
+	public void shouldNotBeEqualToOtherClass() {
 		// given
 		final Dav dav = new Dav();
 
@@ -176,4 +174,10 @@ public final class DavTest {
 		// then
 		assertThat(isEqualToOtherClass, is(false));
 	}
+
+	@Test
+	public void testToString() {
+		assertEquals("1, 2, 3", Dav.ONE_TWO_THREE.toString());
+	}
+
 }

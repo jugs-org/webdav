@@ -57,7 +57,7 @@ public final class AddressBook {
 
 	@OPTIONS
 	public final javax.ws.rs.core.Response options() {
-		return javax.ws.rs.core.Response.noContent().header(DAV, "1").build();
+		return javax.ws.rs.core.Response.noContent().header(DAV, "1,2,3").build();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -256,7 +256,7 @@ public final class AddressBook {
 				"http://localhost")), new LockRoot(new org.jugs.webdav.jaxrs.xml.elements.HRef("http://localhost"))));
 		Prop prop = new Prop(lockDiscovery);
 		return javax.ws.rs.core.Response.ok(prop)
-				.header(DAV, "1")
+				.header(DAV, "1,2,3")
 				.header(LOCK_TOKEN, "1")
 				.build();
 	}

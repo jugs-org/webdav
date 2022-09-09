@@ -40,7 +40,7 @@ public final class MicrosoftRedirectorPatch1 {
 
 	@OPTIONS
 	public Response options() {
-		return Response.noContent().header(DAV, "1").build();
+		return Response.noContent().header(DAV, "1,2,3").build();
 	}
 
 }

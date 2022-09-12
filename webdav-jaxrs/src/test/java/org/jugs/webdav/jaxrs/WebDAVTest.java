@@ -27,7 +27,7 @@ import static javax.ws.rs.Priorities.ENTITY_CODER;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jugs.webdav.jaxrs.WebDAV;
 import org.jugs.webdav.jaxrs.WebDavContextResolver;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
 /**

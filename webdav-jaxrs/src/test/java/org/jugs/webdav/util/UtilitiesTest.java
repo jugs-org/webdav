@@ -22,19 +22,18 @@
 
 package org.jugs.webdav.util;
 
+import org.jugs.webdav.jaxrs.NullArgumentException;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
 import static java.util.Arrays.asList;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static org.hamcrest.core.IsNull.nullValue;
-import static org.junit.Assert.assertThat;
-
-import java.util.List;
-
-import org.jugs.webdav.jaxrs.NullArgumentException;
-
-import org.jugs.webdav.util.Utilities;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit test for {@link Utilities}
@@ -107,9 +106,9 @@ public final class UtilitiesTest {
 		assertThat(result, equalTo(asList(1, 2, 3, 4)));
 	}
 
-	@Test(expected = NullArgumentException.class)
+	@Test
 	public final void shouldPreventNullArgument() {
-		Utilities.notNull(null, "name");
+		assertThrows(NullArgumentException.class, () -> Utilities.notNull(null, "name"));
 	}
 
 	@Test

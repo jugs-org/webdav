@@ -22,27 +22,23 @@
 
 package org.jugs.webdav.jaxrs.xml.conditions;
 
-import static org.hamcrest.CoreMatchers.anyOf;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.junit.Assert.assertThat;
+import org.hamcrest.CoreMatchers;
+import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
+import org.jugs.webdav.jaxrs.ImmutableCollection;
+import org.jugs.webdav.jaxrs.NullArgumentException;
+import org.jugs.webdav.jaxrs.xml.elements.HRef;
+import org.junit.experimental.theories.DataPoints;
+import org.junit.experimental.theories.Theory;
+import org.junit.jupiter.api.Test;
 
+import javax.xml.bind.JAXB;
 import java.io.StringReader;
 import java.util.Collection;
 import java.util.List;
 
-import javax.xml.bind.JAXB;
-
-import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-import org.hamcrest.CoreMatchers;
-import org.jugs.webdav.jaxrs.ImmutableCollection;
-import org.jugs.webdav.jaxrs.NullArgumentException;
-import org.jugs.webdav.jaxrs.xml.elements.HRef;
-
-import org.junit.Test;
-import org.junit.experimental.theories.DataPoints;
-import org.junit.experimental.theories.Theory;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit test for {@link LockTokenSubmitted}
@@ -52,19 +48,19 @@ import org.junit.experimental.theories.Theory;
 public final class LockTokenSubmittedTest extends AbstractJaxbCoreFunctionality<LockTokenSubmitted> {
 	private static final HRef HREF = new HRef("x");
 
-	@Test(expected = NullArgumentException.class)
-	public final void constructorDoesNotAcceptNullAsSoleArgument() {
-		new LockTokenSubmitted(null);
+	@Test
+	void constructorDoesNotAcceptNullAsSoleArgument() {
+		assertThrows(NullArgumentException.class, () -> new LockTokenSubmitted(null));
 	}
 
-	@Test(expected = NullArgumentException.class)
-	public final void constructorDoesNotAcceptNullAsFirstOfTwoArguments() {
-		new LockTokenSubmitted(null, HREF);
+	@Test
+	void constructorDoesNotAcceptNullAsFirstOfTwoArguments() {
+		assertThrows(NullArgumentException.class, () -> new LockTokenSubmitted(null, HREF));
 	}
 
-	@Test(expected = NullArgumentException.class)
+	@Test
 	public final void constructorDoesNotAcceptNullAsFirstOfUnlimitedArguments() {
-		new LockTokenSubmitted(null, new HRef[] { HREF });
+		assertThrows(NullArgumentException.class, () -> new LockTokenSubmitted(null, new HRef[] { HREF }));
 	}
 
 	@DataPoints

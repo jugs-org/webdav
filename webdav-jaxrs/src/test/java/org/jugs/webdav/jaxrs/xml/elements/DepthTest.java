@@ -27,7 +27,7 @@ import static org.jugs.webdav.jaxrs.xml.elements.Depth.ONE;
 import static org.jugs.webdav.jaxrs.xml.elements.Depth.ZERO;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 
 import org.junit.experimental.theories.DataPoints;

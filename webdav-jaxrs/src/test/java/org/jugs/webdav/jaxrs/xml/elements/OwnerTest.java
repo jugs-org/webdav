@@ -22,15 +22,16 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
+import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
+import org.jugs.webdav.jaxrs.NullArgumentException;
+import org.junit.experimental.theories.DataPoints;
+import org.junit.jupiter.api.Test;
+
 import static java.util.Arrays.asList;
 import static java.util.Collections.EMPTY_LIST;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-import org.jugs.webdav.jaxrs.NullArgumentException;
-
-import org.junit.Test;
-import org.junit.experimental.theories.DataPoints;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit test for {@link Owner}
@@ -44,9 +45,9 @@ public final class OwnerTest extends AbstractJaxbCoreFunctionality<Owner> {
 	public static final Object[][] DATA_POINTS = { { new Owner(), "<D:owner xmlns:D=\"DAV:\"/>", EMPTY_LIST },
 			{ new Owner(ANY), "<D:owner xmlns:D=\"DAV:\">ANY</D:owner>", asList(ANY) } };
 
-	@Test(expected = NullArgumentException.class)
+	@Test
 	public final void constructorDoesNotAcceptNullAsLockEntries() {
-		new Owner((Object[]) null);
+		assertThrows(NullArgumentException.class, () -> new Owner((Object[]) null));
 	}
 
 	@Override

@@ -22,17 +22,15 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
+import org.jugs.webdav.jaxrs.ResponseStatus;
+import org.junit.experimental.theories.DataPoints;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.StatusType;
 
-import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-import org.jugs.webdav.jaxrs.ResponseStatus;
-
-import org.junit.Test;
-import org.junit.experimental.theories.DataPoints;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Unit test for {@link Status}
@@ -54,23 +52,6 @@ public final class StatusTest extends AbstractJaxbCoreFunctionality<Status> {
 	protected void assertThatGettersProvideExpectedValues(final Status actual, final Status expected, final Object[] dataPoint) {
 		assertThat(actual.getStatus(), is(dataPoint[2]));
 		assertThat(expected.getStatus(), is(dataPoint[2]));
-	}
-
-	@SuppressWarnings("deprecation")
-	@Test(expected = NullPointerException.class)
-	public final void responseStatusConstructorDoesNotAcceptNull() {
-		new Status((ResponseStatus) null);
-	}
-
-	@SuppressWarnings("deprecation")
-	@Test(expected = NullPointerException.class)
-	public final void statusConstructorDoesNotAcceptNull() {
-		new Status((Response.Status) null);
-	}
-
-	@Test(expected = NullPointerException.class)
-	public final void StatusTypeConstructorDoesNotAcceptNull() {
-		new Status((Response.StatusType) null);
 	}
 
 	@Override

@@ -21,21 +21,21 @@
  */
 package org.jugs.webdav.bugs;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
-
-import java.lang.reflect.InvocationTargetException;
-import java.text.ParseException;
-
 import org.jugs.webdav.jaxrs.xml.elements.Rfc3339DateTimeFormat;
 import org.jugs.webdav.jaxrs.xml.properties.CreationDate;
 import org.jugs.webdav.jaxrs.xml.properties.GetContentLength;
 import org.jugs.webdav.jaxrs.xml.properties.GetLastModified;
 import org.jugs.webdav.util.UnitTestUtilities;
 import org.jugs.webdav.util.Utilities;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import java.lang.reflect.InvocationTargetException;
+import java.text.ParseException;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Detects recurrence of bug <a href="https://java.net/jira/browse/WEBDAV_JAXRS-32">#32</a>.
@@ -47,24 +47,20 @@ public final class Bug32Test {
 	 * The parser incorrectly threw unchecked {@link RuntimeException}, which JAXB cannot handle. Instead, a declared {@link ParseException} is to be thrown,
 	 * which JAXB can handle.
 	 */
-	@Test(expected = ParseException.class)
-	public final void shouldThrowParseExceptionForEmptyString() throws ParseException {
-		// given
+	@Test
+	void shouldThrowParseExceptionForEmptyString() throws ParseException {
 		final Rfc3339DateTimeFormat parser = new Rfc3339DateTimeFormat();
-
-		// when
-		parser.parse("");
-
-		// then throws checked ParseException
+		assertThrows(ParseException.class, () -> parser.parse(""));
 	}
 
 	/**
-	 * JAXB sometimes provides an empty string instead of null when unmarshalling empty elements. In such case, {@link CreationDate#setXmlValue} did not detect
+	 * JAXB sometimes provides an empty string instead of null when unmarshalling empty elements. In such case,
+	 * the setXmlValue method in {@link CreationDate} did not detect
 	 * the empty string, but forwarded it to the parser, leading to an exception. Actually no exception must happen instead, but the case must simply treat this
 	 * like {@code null}.
 	 */
 	@Test
-	public final void shouldSetNullWhenProvidedEmptyValueToCreationDate() throws ParseException, NoSuchMethodException, SecurityException,
+	void shouldSetNullWhenProvidedEmptyValueToCreationDate() throws ParseException, NoSuchMethodException, SecurityException,
 			IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		// given
 		final CreationDate creationDate = Utilities.buildInstanceOf(CreationDate.class);
@@ -77,12 +73,13 @@ public final class Bug32Test {
 	}
 
 	/**
-	 * JAXB sometimes provides an empty string instead of null when unmarshalling empty elements. In such case, {@link GetContentLength#setXmlValue} did not
+	 * JAXB sometimes provides an empty string instead of null when unmarshalling empty elements. In such case,
+	 * the setXmlValue method in {@link GetContentLength} did not
 	 * detect the empty string, but forwarded it to the {@link Long} parser, leading to an exception internally of JAXB. Actually no exception must happen
 	 * instead, but the case must simply treat this like {@code null}.
 	 */
 	@Test
-	public final void shouldSetNullWhenProvidedEmptyValueToGetContentLength() throws ParseException, NoSuchMethodException, SecurityException,
+	void shouldSetNullWhenProvidedEmptyValueToGetContentLength() throws ParseException, NoSuchMethodException, SecurityException,
 			IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		// given
 		final GetContentLength getContentLength = Utilities.buildInstanceOf(GetContentLength.class);
@@ -95,12 +92,13 @@ public final class Bug32Test {
 	}
 
 	/**
-	 * JAXB sometimes provides an empty string instead of null when unmarshalling empty elements. In such case, {@link CreationDate#setXmlValue} did not detect
+	 * JAXB sometimes provides an empty string instead of null when unmarshalling empty elements. In such case,
+	 * the setXmlValue method in {@link CreationDate} did not detect
 	 * the empty string, but forwarded it to the parser, leading to an exception. Actually no exception must happen instead, but the case must simply treat this
 	 * like {@code null}.
 	 */
 	@Test
-	public final void shouldSetNullWhenProvidedEmptyValueToGetLastModified() throws ParseException, NoSuchMethodException, SecurityException,
+	void shouldSetNullWhenProvidedEmptyValueToGetLastModified() throws ParseException, NoSuchMethodException, SecurityException,
 			IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		// given
 		final GetLastModified getLastModified = Utilities.buildInstanceOf(GetLastModified.class);

@@ -22,15 +22,16 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static java.util.Arrays.asList;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
 import org.jugs.webdav.jaxrs.xml.properties.GetContentLanguage;
-
-import org.junit.Test;
 import org.junit.experimental.theories.DataPoint;
+import org.junit.jupiter.api.Test;
+
+import static java.util.Arrays.asList;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit test for {@link Error}
@@ -38,9 +39,9 @@ import org.junit.experimental.theories.DataPoint;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class ErrorTest extends AbstractJaxbCoreFunctionality<Error> {
-	@Test(expected = NullArgumentException.class)
+	@Test
 	public final void constructorDoesNotAcceptNullError() {
-		new Error(null);
+		assertThrows(NullArgumentException.class, () -> new Error(null));
 	}
 
 	private static final Object FIRST_ERROR = new Prop();

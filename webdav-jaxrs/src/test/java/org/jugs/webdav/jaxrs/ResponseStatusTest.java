@@ -31,7 +31,7 @@ import static org.jugs.webdav.jaxrs.ResponseStatus.LOCKED;
 import static org.jugs.webdav.jaxrs.ResponseStatus.MULTI_STATUS;
 import static org.jugs.webdav.jaxrs.ResponseStatus.UNPROCESSABLE_ENTITY;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import javax.ws.rs.core.Response.Status.Family;
 

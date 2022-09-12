@@ -23,7 +23,7 @@
 package org.jugs.webdav.jaxrs.xml.elements;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 
 import org.junit.experimental.theories.DataPoint;

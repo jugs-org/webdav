@@ -22,18 +22,19 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
+import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
+import org.jugs.webdav.jaxrs.NullArgumentException;
+import org.jugs.webdav.util.Utilities;
+import org.junit.experimental.theories.DataPoint;
+import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.jugs.webdav.jaxrs.xml.elements.Depth.INFINITY;
 import static org.jugs.webdav.jaxrs.xml.elements.LockScope.EXCLUSIVE;
 import static org.jugs.webdav.jaxrs.xml.elements.LockType.WRITE;
 import static org.jugs.webdav.jaxrs.xml.elements.TimeOut.INFINITE;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-import org.jugs.webdav.jaxrs.NullArgumentException;
-import org.jugs.webdav.util.Utilities;
-
-import org.junit.Test;
-import org.junit.experimental.theories.DataPoint;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit test for {@link ActiveLock}
@@ -50,24 +51,24 @@ public final class ActiveLockTest extends AbstractJaxbCoreFunctionality<ActiveLo
 	private static final LockToken LOCK_TOKEN = new LockToken(HREF);
 	private static final LockRoot LOCK_ROOT = new LockRoot(HREF);
 
-	@Test(expected = NullArgumentException.class)
-	public final void constructorDoesNotAcceptNullLockScope() {
-		new ActiveLock(null, LOCK_TYPE, DEPTH, OWNER, TIMEOUT, LOCK_TOKEN, LOCK_ROOT);
+	@Test
+	void constructorDoesNotAcceptNullLockScope() {
+		assertThrows(NullArgumentException.class, () -> new ActiveLock(null, LOCK_TYPE, DEPTH, OWNER, TIMEOUT, LOCK_TOKEN, LOCK_ROOT));
 	}
 
-	@Test(expected = NullArgumentException.class)
-	public final void constructorDoesNotAcceptNullLockType() {
-		new ActiveLock(LOCK_SCOPE, null, DEPTH, OWNER, TIMEOUT, LOCK_TOKEN, LOCK_ROOT);
+	@Test
+	void constructorDoesNotAcceptNullLockType() {
+		assertThrows(NullArgumentException.class, () -> new ActiveLock(LOCK_SCOPE, null, DEPTH, OWNER, TIMEOUT, LOCK_TOKEN, LOCK_ROOT));
 	}
 
-	@Test(expected = NullArgumentException.class)
-	public final void constructorDoesNotAcceptNullDepth() {
-		new ActiveLock(LOCK_SCOPE, LOCK_TYPE, null, OWNER, TIMEOUT, LOCK_TOKEN, LOCK_ROOT);
+	@Test
+	void constructorDoesNotAcceptNullDepth() {
+		assertThrows(NullArgumentException.class, () -> new ActiveLock(LOCK_SCOPE, LOCK_TYPE, null, OWNER, TIMEOUT, LOCK_TOKEN, LOCK_ROOT));
 	}
 
-	@Test(expected = NullArgumentException.class)
+	@Test
 	public final void constructorDoesNotAcceptNullLockRoot() {
-		new ActiveLock(LOCK_SCOPE, LOCK_TYPE, DEPTH, OWNER, TIMEOUT, LOCK_TOKEN, null);
+		assertThrows(NullArgumentException.class, () -> new ActiveLock(LOCK_SCOPE, LOCK_TYPE, DEPTH, OWNER, TIMEOUT, LOCK_TOKEN, null));
 	}
 
 	@DataPoint

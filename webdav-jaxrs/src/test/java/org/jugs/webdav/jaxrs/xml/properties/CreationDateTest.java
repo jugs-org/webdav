@@ -22,27 +22,26 @@
 
 package org.jugs.webdav.jaxrs.xml.properties;
 
-import static java.lang.String.format;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.junit.Assert.assertThat;
-
-import java.io.StringReader;
-import java.lang.reflect.InvocationTargetException;
+import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
+import org.jugs.webdav.jaxrs.NullArgumentException;
+import org.jugs.webdav.util.DateBuilder;
+import org.jugs.webdav.util.UnitTestUtilities;
+import org.junit.experimental.theories.DataPoint;
+import org.junit.experimental.theories.Theory;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXB;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.StringReader;
+import java.lang.reflect.InvocationTargetException;
 
-import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-import org.jugs.webdav.jaxrs.NullArgumentException;
-
-import org.jugs.webdav.util.DateBuilder;
-import org.jugs.webdav.util.UnitTestUtilities;
-import org.junit.Test;
-import org.junit.experimental.theories.DataPoint;
-import org.junit.experimental.theories.Theory;
+import static java.lang.String.format;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.sameInstance;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit test for {@link CreationDate}
@@ -50,9 +49,10 @@ import org.junit.experimental.theories.Theory;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class CreationDateTest extends AbstractJaxbCoreFunctionality<CreationDate> {
-	@Test(expected = NullArgumentException.class)
-	public final void constructorDoesNotAcceptNull() {
-		new CreationDate(null);
+
+	@Test
+	void constructorDoesNotAcceptNull() {
+		assertThrows(NullArgumentException.class, () -> new CreationDate(null));
 	}
 
 	@DataPoint

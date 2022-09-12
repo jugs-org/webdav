@@ -22,34 +22,25 @@
 
 package org.jugs.webdav.jaxrs.xml.properties;
 
+import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
+import org.jugs.webdav.jaxrs.NullArgumentException;
+import org.jugs.webdav.jaxrs.xml.elements.*;
+import org.jugs.webdav.util.Utilities;
+import org.junit.experimental.theories.DataPoint;
+import org.junit.jupiter.api.Test;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.StringReader;
+
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
 import static java.util.Collections.EMPTY_LIST;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.junit.Assert.assertThat;
-
-import java.io.StringReader;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.annotation.XmlRootElement;
-
-import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-import org.jugs.webdav.jaxrs.NullArgumentException;
-import org.jugs.webdav.jaxrs.xml.elements.ActiveLock;
-import org.jugs.webdav.jaxrs.xml.elements.Depth;
-import org.jugs.webdav.jaxrs.xml.elements.HRef;
-import org.jugs.webdav.jaxrs.xml.elements.LockRoot;
-import org.jugs.webdav.jaxrs.xml.elements.LockScope;
-import org.jugs.webdav.jaxrs.xml.elements.LockToken;
-import org.jugs.webdav.jaxrs.xml.elements.LockType;
-import org.jugs.webdav.jaxrs.xml.elements.Owner;
-import org.jugs.webdav.jaxrs.xml.elements.TimeOut;
-import org.jugs.webdav.util.Utilities;
-
-import org.junit.Test;
-import org.junit.experimental.theories.DataPoint;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit test for {@link LockDiscovery}
@@ -59,9 +50,9 @@ import org.junit.experimental.theories.DataPoint;
 public final class LockDiscoveryTest extends AbstractJaxbCoreFunctionality<LockDiscovery> {
 	private static ActiveLock ACTIVE_LOCK = Utilities.buildInstanceOf(ActiveLock.class);
 
-	@Test(expected = NullArgumentException.class)
-	public final void constructorDoesNotAcceptNullAsLockEntries() {
-		new LockDiscovery((ActiveLock[]) null);
+	@Test
+	void constructorDoesNotAcceptNullAsLockEntries() {
+		assertThrows(NullArgumentException.class, () -> new LockDiscovery((ActiveLock[]) null));
 	}
 
 	@DataPoint

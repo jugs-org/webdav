@@ -23,9 +23,9 @@
 package org.jugs.webdav.jaxrs.xml;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Abstract unit test for absolute core functionality.

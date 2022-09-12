@@ -22,18 +22,19 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import org.jugs.webdav.util.DateBuilder;
+import org.junit.experimental.theories.DataPoints;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 
 import java.text.ParseException;
 import java.util.Date;
 
-import org.jugs.webdav.util.DateBuilder;
-import org.junit.Test;
-import org.junit.experimental.theories.DataPoints;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit test for {@link Rfc3339DateTimeFormat}
@@ -65,8 +66,8 @@ public final class Rfc3339DateTimeFormatTest {
 		assertThat(actual, is(expected));
 	}
 
-	@Test(expected = ParseException.class)
-	public final void parsingFailsDueToMissingColonInOffset() throws ParseException {
-		new Rfc3339DateTimeFormat().parse("2012-11-12T13:14:15.167+1200");
+	@Test
+	void parsingFailsDueToMissingColonInOffset() {
+		assertThrows(ParseException.class, () -> new Rfc3339DateTimeFormat().parse("2012-11-12T13:14:15.167+1200"));
 	}
 }

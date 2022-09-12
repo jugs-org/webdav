@@ -22,13 +22,14 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
-
-import org.junit.Test;
 import org.junit.experimental.theories.DataPoint;
+import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit test for {@link Include}
@@ -36,9 +37,9 @@ import org.junit.experimental.theories.DataPoint;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class LockTokenTest extends AbstractJaxbCoreFunctionality<LockToken> {
-	@Test(expected = NullArgumentException.class)
-	public final void constructorDoesNotAcceptNullURI() {
-		new LockToken((HRef) null);
+	@Test
+	void constructorDoesNotAcceptNullURI() {
+		assertThrows(NullArgumentException.class, () -> new LockToken((HRef) null));
 	}
 
 	private static HRef HREF = new HRef("http://localhost");

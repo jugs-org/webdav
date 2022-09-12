@@ -22,26 +22,25 @@
 
 package org.jugs.webdav.jaxrs.xml.properties;
 
+import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
+import org.jugs.webdav.jaxrs.NullArgumentException;
+import org.jugs.webdav.jaxrs.xml.elements.Collection;
+import org.jugs.webdav.util.Utilities;
+import org.junit.experimental.theories.DataPoint;
+import org.junit.jupiter.api.Test;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.StringReader;
+
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
 import static java.util.Collections.EMPTY_LIST;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.junit.Assert.assertThat;
-
-import java.io.StringReader;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.annotation.XmlRootElement;
-
-import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-import org.jugs.webdav.jaxrs.NullArgumentException;
-import org.jugs.webdav.jaxrs.xml.elements.Collection;
-import org.jugs.webdav.util.Utilities;
-
-import org.junit.Test;
-import org.junit.experimental.theories.DataPoint;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit test for {@link ResourceType}
@@ -51,9 +50,9 @@ import org.junit.experimental.theories.DataPoint;
 public final class ResourceTypeTest extends AbstractJaxbCoreFunctionality<ResourceType> {
 	private static Collection RESOURCE_TYPE = Utilities.buildInstanceOf(Collection.class);
 
-	@Test(expected = NullArgumentException.class)
-	public final void constructorDoesNotAcceptNullAsLockEntries() {
-		new ResourceType((Object[]) null);
+	@Test
+	void constructorDoesNotAcceptNullAsLockEntries() {
+		assertThrows(NullArgumentException.class, () -> new ResourceType((Object[]) null));
 	}
 
 	@DataPoint

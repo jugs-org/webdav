@@ -22,21 +22,20 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static java.util.Arrays.asList;
-import static java.util.Collections.EMPTY_LIST;
-import static org.jugs.webdav.jaxrs.ResponseStatus.MULTI_STATUS;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
-import java.util.LinkedList;
-
-import javax.ws.rs.core.Response.StatusType;
-
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
-
-import org.junit.Test;
 import org.junit.experimental.theories.DataPoint;
+import org.junit.jupiter.api.Test;
+
+import javax.ws.rs.core.Response.StatusType;
+import java.util.LinkedList;
+
+import static java.util.Arrays.asList;
+import static java.util.Collections.EMPTY_LIST;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.jugs.webdav.jaxrs.ResponseStatus.MULTI_STATUS;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit test for {@link Response}
@@ -51,31 +50,31 @@ public final class ResponseTest extends AbstractJaxbCoreFunctionality<Response> 
 	private static final Location LOCATION = new Location(HREF);
 	private static final PropStat PROP_STAT = new PropStat(new Prop(), STATUS);
 
-	@Test(expected = NullArgumentException.class)
-	public final void constructorShouldNotAcceptNullHRef() {
-		new Response(STATUS, ERROR, RESPONSE_DESCRIPTION, LOCATION, null);
+	@Test
+	void constructorShouldNotAcceptNullHRef() {
+		assertThrows(NullArgumentException.class, () -> new Response(STATUS, ERROR, RESPONSE_DESCRIPTION, LOCATION, null));
 	}
 
-	@Test(expected = NullArgumentException.class)
-	public final void constructorShouldNotAcceptNullStatus() {
-		new Response(null, ERROR, RESPONSE_DESCRIPTION, LOCATION, HREF);
+	@Test
+	void constructorShouldNotAcceptNullStatus() {
+		assertThrows(NullArgumentException.class, () -> new Response(null, ERROR, RESPONSE_DESCRIPTION, LOCATION, HREF));
 	}
 
-	@Test(expected = NullArgumentException.class)
-	public final void constructorShouldNotAcceptNullPropStats() {
-		new Response(HREF, ERROR, RESPONSE_DESCRIPTION, LOCATION, (PropStat) null);
+	@Test
+	void constructorShouldNotAcceptNullPropStats() {
+		assertThrows(NullArgumentException.class, () -> new Response(HREF, ERROR, RESPONSE_DESCRIPTION, LOCATION, (PropStat) null));
 	}
 
 	@SuppressWarnings("deprecation")
-	@Test(expected = NullArgumentException.class)
+	@Test
 	public final void constructorShouldNotAcceptNullPropStatCollection() {
-		new Response(HREF, ERROR, RESPONSE_DESCRIPTION, LOCATION, (java.util.Collection<PropStat>) null);
+		assertThrows(NullArgumentException.class, () -> new Response(HREF, ERROR, RESPONSE_DESCRIPTION, LOCATION, (java.util.Collection<PropStat>) null));
 	}
 
 	@SuppressWarnings("deprecation")
-	@Test(expected = NullArgumentException.class)
+	@Test
 	public final void constructorShouldNotAcceptEmptyPropStatCollection() {
-		new Response(HREF, ERROR, RESPONSE_DESCRIPTION, LOCATION, new LinkedList<PropStat>());
+		assertThrows(NullArgumentException.class, () -> new Response(HREF, ERROR, RESPONSE_DESCRIPTION, LOCATION, new LinkedList<PropStat>()));
 	}
 
 	@DataPoint

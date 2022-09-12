@@ -22,15 +22,16 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static org.jugs.webdav.jaxrs.xml.elements.LockScope.EXCLUSIVE;
-import static org.jugs.webdav.jaxrs.xml.elements.LockType.WRITE;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
-
-import org.junit.Test;
 import org.junit.experimental.theories.DataPoint;
+import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.jugs.webdav.jaxrs.xml.elements.LockScope.EXCLUSIVE;
+import static org.jugs.webdav.jaxrs.xml.elements.LockType.WRITE;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit test for {@link Include}
@@ -38,14 +39,14 @@ import org.junit.experimental.theories.DataPoint;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class LockInfoTest extends AbstractJaxbCoreFunctionality<LockInfo> {
-	@Test(expected = NullArgumentException.class)
+	@Test
 	public final void constructorDoesNotAcceptNullLockScope() {
-		new LockInfo(null, WRITE, null);
+		assertThrows(NullArgumentException.class, () -> new LockInfo(null, WRITE, null));
 	}
 
-	@Test(expected = NullArgumentException.class)
+	@Test
 	public final void constructorDoesNotAcceptNullLockType() {
-		new LockInfo(EXCLUSIVE, null, null);
+		assertThrows(NullArgumentException.class, () -> new LockInfo(EXCLUSIVE, null, null));
 	}
 
 	@DataPoint

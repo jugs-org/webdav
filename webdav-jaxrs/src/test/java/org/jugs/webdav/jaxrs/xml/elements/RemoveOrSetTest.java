@@ -22,13 +22,12 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 import org.jugs.webdav.jaxrs.NullArgumentException;
+import org.junit.jupiter.api.Test;
 
-import org.jugs.webdav.jaxrs.xml.elements.Prop;
-import org.jugs.webdav.jaxrs.xml.elements.RemoveOrSet;
-import org.junit.Test;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit test for {@link RemoveOrSet}
@@ -48,8 +47,8 @@ public final class RemoveOrSetTest {
 		assertThat(removeOrSet.getProp(), is(new Prop()));
 	}
 
-	@Test(expected = NullArgumentException.class)
+	@Test
 	public final void nullArgumentException() throws NullArgumentException {
-		new RemoveOrSetSubclass(null);
+		assertThrows(NullArgumentException.class, () -> new RemoveOrSetSubclass(null));
 	}
 }

@@ -22,20 +22,20 @@
 
 package org.jugs.webdav.util;
 
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsInstanceOf.instanceOf;
-import static org.hamcrest.core.StringStartsWith.startsWith;
-import static org.junit.Assert.assertThat;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.hamcrest.StringDescription;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.StringDescription;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsInstanceOf.instanceOf;
+import static org.hamcrest.core.StringStartsWith.startsWith;
 
 /**
  * Unit test for {@link ElementOf}
@@ -45,7 +45,7 @@ import org.junit.Test;
 public final class ElementOfTest {
 	private static JAXBContext context;
 
-	@BeforeClass
+	@BeforeAll
 	public static final void setUp() throws JAXBException {
 		context = JAXBContext.newInstance(ContainedMockElement.class);
 	}

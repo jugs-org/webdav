@@ -22,15 +22,15 @@
 
 package org.jugs.webdav.util;
 
-import static java.util.Calendar.MILLISECOND;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-import org.junit.Test;
+import static java.util.Calendar.MILLISECOND;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Unit test for {@link DateBuilder}
@@ -39,7 +39,7 @@ import org.junit.Test;
  */
 public final class DateBuilderTest {
 	@Test
-	public final void date() {
+	void date() {
 		final Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Berlin"));
 		calendar.set(2012, 11 - 1 /* Months count starts with zero! */, 12, 13, 14, 15);
 		calendar.set(MILLISECOND, 16);

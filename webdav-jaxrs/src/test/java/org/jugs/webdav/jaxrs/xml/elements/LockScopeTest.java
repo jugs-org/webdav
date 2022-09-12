@@ -25,7 +25,7 @@ package org.jugs.webdav.jaxrs.xml.elements;
 import static java.lang.String.format;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.StringReader;
 
@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.experimental.theories.DataPoint;
 
 /**

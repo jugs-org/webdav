@@ -22,13 +22,14 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
-
-import org.junit.Test;
 import org.junit.experimental.theories.DataPoint;
+import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit test for {@link Remove}
@@ -47,9 +48,9 @@ public final class RemoveTest extends AbstractJaxbCoreFunctionality<Remove> {
 		assertThat(expected.getProp(), is(dataPoint[2]));
 	}
 
-	@Test(expected = NullArgumentException.class)
+	@Test
 	public final void constructorDoesNotAcceptNull() {
-		new Remove(null);
+		assertThrows(NullArgumentException.class, () -> new Remove(null));
 	}
 
 	@Override

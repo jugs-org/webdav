@@ -22,19 +22,19 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static java.net.URI.create;
-import static junit.framework.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
+import org.jugs.webdav.jaxrs.NullArgumentException;
+import org.junit.experimental.theories.DataPoint;
+import org.junit.jupiter.api.Test;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-import org.jugs.webdav.jaxrs.NullArgumentException;
-
-import org.junit.Test;
-import org.junit.experimental.theories.DataPoint;
+import static java.net.URI.create;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Unit test for {@link HRef}
@@ -42,19 +42,20 @@ import org.junit.experimental.theories.DataPoint;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class HRefTest extends AbstractJaxbCoreFunctionality<HRef> {
-	@Test(expected = NullArgumentException.class)
-	public final void constructorDoesNotAcceptNullURI() {
-		new HRef((URI) null);
+
+	@Test
+	void constructorDoesNotAcceptNullURI() {
+		assertThrows(NullArgumentException.class, () -> new HRef((URI) null));
 	}
 
-	@Test(expected = NullArgumentException.class)
-	public final void constructorDoesNotAcceptNullString() {
-		new HRef((String) null);
+	@Test
+	void constructorDoesNotAcceptNullString() {
+		assertThrows(NullArgumentException.class, () -> new HRef((String) null));
 	}
 
-	private static String STRING_VALUE = "http://localhost";
+	private static final String STRING_VALUE = "http://localhost";
 
-	private static URI URI_VALUE = create(STRING_VALUE);
+	private static final URI URI_VALUE = create(STRING_VALUE);
 
 	@DataPoint
 	public static final Object[] CASE_URI_CONSTRUCTOR = { new HRef(STRING_VALUE), "<D:href xmlns:D=\"DAV:\">http://localhost</D:href>", URI_VALUE, STRING_VALUE };

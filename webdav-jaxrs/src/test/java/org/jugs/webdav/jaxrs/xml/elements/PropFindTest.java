@@ -22,13 +22,14 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
-
-import org.junit.Test;
 import org.junit.experimental.theories.DataPoint;
+import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit test for {@link PropFind}
@@ -41,19 +42,19 @@ public final class PropFindTest extends AbstractJaxbCoreFunctionality<PropFind> 
 	private static final Include INCLUDE = new Include();
 	private static final Prop PROP = new Prop();
 
-	@Test(expected = NullArgumentException.class)
-	public final void constructorDoesNotAcceptNullPropName() {
-		new PropFind((PropName) null);
+	@Test
+	void constructorDoesNotAcceptNullPropName() {
+		assertThrows(NullArgumentException.class, () -> new PropFind((PropName) null));
 	}
 
-	@Test(expected = NullArgumentException.class)
-	public final void constructorDoesNotAcceptNullAllProp() {
-		new PropFind((AllProp) null);
+	@Test
+	void constructorDoesNotAcceptNullAllProp() {
+		assertThrows(NullArgumentException.class, () -> new PropFind((AllProp) null));
 	}
 
-	@Test(expected = NullArgumentException.class)
+	@Test
 	public final void constructorDoesNotAcceptNullProp() {
-		new PropFind((Prop) null);
+		assertThrows(NullArgumentException.class, () -> new PropFind((Prop) null));
 	}
 
 	@DataPoint

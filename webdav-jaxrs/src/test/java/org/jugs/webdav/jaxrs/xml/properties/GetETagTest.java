@@ -22,22 +22,21 @@
 
 package org.jugs.webdav.jaxrs.xml.properties;
 
-import static java.lang.String.format;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.junit.Assert.assertThat;
-
-import java.io.StringReader;
+import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
+import org.jugs.webdav.jaxrs.NullArgumentException;
+import org.junit.experimental.theories.DataPoint;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.StringReader;
 
-import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-import org.jugs.webdav.jaxrs.NullArgumentException;
-
-import org.junit.Test;
-import org.junit.experimental.theories.DataPoint;
+import static java.lang.String.format;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.sameInstance;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit test for {@link GetETag}
@@ -45,9 +44,10 @@ import org.junit.experimental.theories.DataPoint;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class GetETagTest extends AbstractJaxbCoreFunctionality<GetETag> {
-	@Test(expected = NullArgumentException.class)
-	public final void constructorDoesNotAcceptNullAsName() {
-		new GetETag(null);
+
+	@Test
+	void constructorDoesNotAcceptNullAsName() {
+		assertThrows(NullArgumentException.class, () -> new GetETag(null));
 	}
 
 	@DataPoint

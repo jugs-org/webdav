@@ -21,11 +21,12 @@
  */
 package org.jugs.webdav.jaxrs;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertThrows;
 
 /**
  * Unit test for {@link Dav} class.
@@ -109,22 +110,16 @@ public final class DavTest {
 		assertThat(unorderedResult.hashCode(), is(equalTo(orderedResult.hashCode())));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public final void shouldEnsureClassTwoAlsoContainsClassOne() {
-		// given
-		final String davHeaderValue = "2";
-
-		// when
-		new Dav(davHeaderValue);
+	@Test
+	void shouldEnsureClassTwoAlsoContainsClassOne() {
+		String davHeaderValue = "2";
+		assertThrows(IllegalArgumentException.class, () -> new Dav(davHeaderValue));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void shouldEnsureClassThreeAlsoContainsClassOne() {
-		// given
-		final String davHeaderValue = "3";
-
-		// when
-		new Dav(davHeaderValue);
+	@Test
+	void shouldEnsureClassThreeAlsoContainsClassOne() {
+		String davHeaderValue = "3";
+		assertThrows(IllegalArgumentException.class, () -> new Dav(davHeaderValue));
 	}
 
 	@Test

@@ -22,13 +22,14 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
-
-import org.junit.Test;
 import org.junit.experimental.theories.DataPoint;
+import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit test for {@link Include}
@@ -36,19 +37,19 @@ import org.junit.experimental.theories.DataPoint;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class LockRootTest extends AbstractJaxbCoreFunctionality<LockRoot> {
-	@Test(expected = NullArgumentException.class)
-	public final void constructorDoesNotAcceptNullURI() {
-		new LockRoot((HRef) null);
+	@Test
+	void constructorDoesNotAcceptNullURI() {
+		assertThrows(NullArgumentException.class, () -> new LockRoot(null));
 	}
 
-	private static HRef HREF = new HRef("http://localhost");
+	private static final HRef HREF = new HRef("http://localhost");
 
 	@DataPoint
 	public static final Object[] SINGLE_VALUE_CONSTRUCTOR = { new LockRoot(HREF),
 			"<D:lockroot xmlns:D=\"DAV:\"><D:href>http://localhost</D:href></D:lockroot>", HREF };
 
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final LockRoot actual, final LockRoot expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final LockRoot actual, final LockRoot expected, final Object[] dataPoint) {
 		assertThat(actual.getHRef(), is(dataPoint[2]));
 		assertThat(expected.getHRef(), is(dataPoint[2]));
 	}

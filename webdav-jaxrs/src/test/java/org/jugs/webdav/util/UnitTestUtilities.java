@@ -25,16 +25,12 @@ package org.jugs.webdav.util;
 import org.hamcrest.CoreMatchers;
 import org.jugs.webdav.jaxrs.ImmutableDate;
 
-import static org.hamcrest.CoreMatchers.anyOf;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.junit.Assert.assertThat;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Date;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Utilities for unit tests.
@@ -82,7 +78,7 @@ public final class UnitTestUtilities {
 	 * @throws SecurityException
 	 *             If a security manager, <i>s</i>, is present and any of the following conditions is met:
 	 *             <ul>
-	 *             <li>invocation of {@link SecurityManager#checkMemberAccess s.checkMemberAccess(this, Member.DECLARED)} denies access to the declared method
+	 *             <li>invocation of {@link SecurityManager}'s check method denies access to the declared method
 	 *             <li>the caller's class loader is not the same as or an ancestor of the class loader for the current class and invocation of
 	 *             {@link SecurityManager#checkPackageAccess s.checkPackageAccess()} denies access to the package of this class
 	 *             </ul>

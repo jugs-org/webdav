@@ -37,9 +37,9 @@ import static org.jugs.webdav.jaxrs.Headers.TIMEOUT;
 import static org.jugs.webdav.jaxrs.Headers.TIMEOUT_INFINITE;
 import static org.jugs.webdav.jaxrs.Headers.TIMEOUT_SECOND;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests WebDAV headers.

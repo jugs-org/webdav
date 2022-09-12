@@ -22,12 +22,11 @@
 
 package org.jugs.webdav.jaxrs;
 
+import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
-import static org.junit.Assert.assertThat;
-
-import org.jugs.webdav.jaxrs.NullArgumentException;
-import org.junit.Test;
 
 /**
  * Tests NullArgumentException.
@@ -36,12 +35,12 @@ import org.junit.Test;
  */
 public final class NullArgumentExceptionTest {
 	@Test
-	public final void extendsIllegalArgumentException() {
+	void extendsIllegalArgumentException() {
 		assertThat(new NullArgumentException("x"), is(instanceOf(IllegalArgumentException.class)));
 	}
 
 	@Test
-	public final void constructorProducesDesiredMessage() {
+	void constructorProducesDesiredMessage() {
 		assertThat(new NullArgumentException("x").getMessage(), is("Argument 'x' must not be null."));
 	}
 }

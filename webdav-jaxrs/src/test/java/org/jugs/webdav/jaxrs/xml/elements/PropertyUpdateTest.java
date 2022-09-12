@@ -22,14 +22,15 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static java.util.Arrays.asList;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
-
-import org.junit.Test;
 import org.junit.experimental.theories.DataPoint;
+import org.junit.jupiter.api.Test;
+
+import static java.util.Arrays.asList;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit test for {@link PropertyUpdate}
@@ -41,9 +42,9 @@ public final class PropertyUpdateTest extends AbstractJaxbCoreFunctionality<Prop
 	private static final Remove REMOVE = new Remove(PROP);
 	private static final Set SET = new Set(PROP);
 
-	@Test(expected = NullArgumentException.class)
-	public final void constructorDoesNotAcceptNull() {
-		new PropertyUpdate((RemoveOrSet) null);
+	@Test
+	void constructorDoesNotAcceptNull() {
+		assertThrows(NullArgumentException.class, () -> new PropertyUpdate((RemoveOrSet) null));
 	}
 
 	@DataPoint

@@ -28,6 +28,8 @@ import org.jugs.webdav.util.Utilities;
 import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
+import javax.xml.bind.JAXBException;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.jugs.webdav.jaxrs.xml.elements.Depth.INFINITY;
@@ -67,7 +69,7 @@ public final class ActiveLockTest extends AbstractJaxbCoreFunctionality<ActiveLo
 	}
 
 	@Test
-	public final void constructorDoesNotAcceptNullLockRoot() {
+	void constructorDoesNotAcceptNullLockRoot() {
 		assertThrows(NullArgumentException.class, () -> new ActiveLock(LOCK_SCOPE, LOCK_TYPE, DEPTH, OWNER, TIMEOUT, LOCK_TOKEN, null));
 	}
 
@@ -83,8 +85,30 @@ public final class ActiveLockTest extends AbstractJaxbCoreFunctionality<ActiveLo
 			"<D:activelock xmlns:D=\"DAV:\"><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype><D:depth>infinity</D:depth><D:lockroot><D:href>http://localhost</D:href></D:lockroot></D:activelock>",
 			LOCK_SCOPE, LOCK_TYPE, DEPTH, null, null, null, LOCK_ROOT };
 
+	@Test
+	void marshallingAll() throws JAXBException {
+		Object[] obj = new Object[] { ALL_PARAMS[0], ALL_PARAMS[1] };
+		marshalling(obj);
+	}
+
+	@Test
+	void unmarshallingAll() throws JAXBException {
+		unmarshalling(ALL_PARAMS);
+	}
+
+	@Test
+	void marshallingMinimum() throws JAXBException {
+		Object[] obj = new Object[] { MINIMUM_PARAMS[0], MINIMUM_PARAMS[1] };
+		marshalling(obj);
+	}
+
+	@Test
+	void unmarshallingMinimum() throws JAXBException {
+		marshalling(MINIMUM_PARAMS);
+	}
+
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final ActiveLock actual, final ActiveLock expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final ActiveLock actual, final ActiveLock expected, final Object[] dataPoint) {
 		assertThat(actual.getLockScope(), is(dataPoint[2]));
 		assertThat(actual.getLockType(), is(dataPoint[3]));
 		assertThat(actual.getDepth(), is(dataPoint[4]));
@@ -102,12 +126,12 @@ public final class ActiveLockTest extends AbstractJaxbCoreFunctionality<ActiveLo
 	}
 
 	@Override
-	protected final ActiveLock getInstance() {
+	protected ActiveLock getInstance() {
 		return new ActiveLock(LOCK_SCOPE, LOCK_TYPE, DEPTH, null, null, null, LOCK_ROOT);
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "ActiveLock[LockScope[null, Exclusive[]], null, INFINITY, null, null, null, LockRoot[HRef[http://localhost]]]";
 	}
 }

@@ -22,28 +22,26 @@
 
 package org.jugs.webdav.jaxrs;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.xmlmatchers.XmlMatchers.isEquivalentTo;
-import static org.xmlmatchers.transform.XmlConverters.the;
-
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.Writer;
+import org.jugs.webdav.jaxrs.xml.AbstractCoreFunctionality;
+import org.junit.BeforeClass;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.runner.RunWith;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.Writer;
 
-import org.jugs.webdav.jaxrs.xml.AbstractCoreFunctionality;
-
-import org.junit.BeforeClass;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.sameInstance;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.xmlmatchers.XmlMatchers.isEquivalentTo;
+import static org.xmlmatchers.transform.XmlConverters.the;
 
 /**
  * Abstract unit test for elements.
@@ -64,7 +62,7 @@ public abstract class AbstractJaxbCoreFunctionality<T> extends AbstractCoreFunct
 	public static Unmarshaller unmarshaller;
 
 	@BeforeClass
-	public static final void setUpContext() throws JAXBException {
+	public static void setUpContext() throws JAXBException {
 		context = WebDavJAXBContextBuilder.build();
 		marshaller = context.createMarshaller();
 		unmarshaller = context.createUnmarshaller();
@@ -72,7 +70,7 @@ public abstract class AbstractJaxbCoreFunctionality<T> extends AbstractCoreFunct
 
 	@SuppressWarnings("unchecked")
 	@Theory
-	public final void marshalling(final Object[] dataPoint) throws JAXBException {
+	public void marshalling(final Object[] dataPoint) throws JAXBException {
 		final T unmarshalledRepresentation = (T) dataPoint[0];
 		final Writer writer = new StringWriter();
 		marshaller.marshal(unmarshalledRepresentation, writer);
@@ -96,7 +94,7 @@ public abstract class AbstractJaxbCoreFunctionality<T> extends AbstractCoreFunct
 			this.runSingletonTests(actual, singleton);
 	}
 
-	private final void runSingletonTests(final T actual, final T singleton) {
+	private void runSingletonTests(final T actual, final T singleton) {
 		this.shouldUnmarshalToSingletonInstance(actual, singleton);
 		this.shouldReturnSingletonHashCodeForAnyInstance(actual, singleton);
 	}
@@ -124,7 +122,7 @@ public abstract class AbstractJaxbCoreFunctionality<T> extends AbstractCoreFunct
 	 * @param expected
 	 *            The singleton instance.
 	 */
-	private final void shouldUnmarshalToSingletonInstance(final T actual, final T expected) {
+	private void shouldUnmarshalToSingletonInstance(final T actual, final T expected) {
 		// given
 		final T singletonInstance = expected;
 		final T unmarshalledInstance = actual;
@@ -145,7 +143,7 @@ public abstract class AbstractJaxbCoreFunctionality<T> extends AbstractCoreFunct
 	 * @param expected
 	 *            The singleton instance.
 	 */
-	private final void shouldReturnSingletonHashCodeForAnyInstance(final T actual, final T expected) {
+	private void shouldReturnSingletonHashCodeForAnyInstance(final T actual, final T expected) {
 		// given
 		final T singletonInstance = expected;
 		final T unmarshalledInstance = actual;

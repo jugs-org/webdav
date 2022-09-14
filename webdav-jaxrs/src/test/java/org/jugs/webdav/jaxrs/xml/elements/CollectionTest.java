@@ -25,6 +25,9 @@ package org.jugs.webdav.jaxrs.xml.elements;
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 
 import org.junit.experimental.theories.DataPoint;
+import org.junit.jupiter.api.Test;
+
+import javax.xml.bind.JAXBException;
 
 /**
  * Unit test for {@link Collection}
@@ -36,13 +39,23 @@ public final class CollectionTest extends AbstractJaxbCoreFunctionality<Collecti
 	@DataPoint
 	public static final Object[] SINGLETON = { Collection.COLLECTION, "<D:collection xmlns:D=\"DAV:\"/>" };
 
+	@Test
+	void testMarshalling() throws JAXBException {
+		marshalling(SINGLETON);
+	}
+
+	@Test
+	void testUnmarshalling() throws JAXBException {
+		unmarshalling(SINGLETON);
+	}
+
 	@Override
-	protected final Collection getSingleton() {
+	protected Collection getSingleton() {
 		return Collection.COLLECTION;
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "Collection[]";
 	}
 }

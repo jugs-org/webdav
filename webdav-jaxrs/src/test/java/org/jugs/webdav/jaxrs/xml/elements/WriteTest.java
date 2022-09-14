@@ -25,6 +25,9 @@ package org.jugs.webdav.jaxrs.xml.elements;
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 
 import org.junit.experimental.theories.DataPoint;
+import org.junit.jupiter.api.Test;
+
+import javax.xml.bind.JAXBException;
 
 /**
  * Unit test for {@link Write}
@@ -32,16 +35,27 @@ import org.junit.experimental.theories.DataPoint;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class WriteTest extends AbstractJaxbCoreFunctionality<Write> {
+
 	@DataPoint
 	public static final Object[] SINGLETON = { Write.WRITE, "<D:write xmlns:D=\"DAV:\"/>" };
 
+	@Test
+	void testMarshalling() throws JAXBException {
+		marshalling(SINGLETON);
+	}
+
+	@Test
+	void testUnmarshalling() throws JAXBException {
+		unmarshalling(SINGLETON);
+	}
+
 	@Override
-	protected final Write getSingleton() {
+	protected Write getSingleton() {
 		return Write.WRITE;
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "Write[]";
 	}
 }

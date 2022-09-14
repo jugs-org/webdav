@@ -25,6 +25,9 @@ package org.jugs.webdav.jaxrs.xml.elements;
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 
 import org.junit.experimental.theories.DataPoint;
+import org.junit.jupiter.api.Test;
+
+import javax.xml.bind.JAXBException;
 
 /**
  * Unit test for {@link Exclusive}
@@ -32,16 +35,29 @@ import org.junit.experimental.theories.DataPoint;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class ExclusiveTest extends AbstractJaxbCoreFunctionality<Exclusive> {
+
 	@DataPoint
 	public static final Object[] SINGLETON = { Exclusive.EXCLUSIVE, "<D:exclusive xmlns:D=\"DAV:\"/>" };
 
+
+	@Test
+	void testMarshalling() throws JAXBException {
+		marshalling(SINGLETON);
+	}
+
+	@Test
+	void testUnmarshalling() throws JAXBException {
+		unmarshalling(SINGLETON);
+	}
+
 	@Override
-	protected final Exclusive getSingleton() {
+	protected Exclusive getSingleton() {
 		return Exclusive.EXCLUSIVE;
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "Exclusive[]";
 	}
+
 }

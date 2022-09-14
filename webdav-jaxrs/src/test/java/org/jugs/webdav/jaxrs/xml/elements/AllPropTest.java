@@ -23,8 +23,10 @@
 package org.jugs.webdav.jaxrs.xml.elements;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-
 import org.junit.experimental.theories.DataPoint;
+import org.junit.jupiter.api.Test;
+
+import javax.xml.bind.JAXBException;
 
 /**
  * Unit test for {@link AllProp}
@@ -35,13 +37,24 @@ public final class AllPropTest extends AbstractJaxbCoreFunctionality<AllProp> {
 	@DataPoint
 	public static final Object[] SINGLETON = { AllProp.ALLPROP, "<D:allprop xmlns:D=\"DAV:\"/>" };
 
+	@Test
+	void testMarshalling() throws JAXBException {
+		marshalling(SINGLETON);
+	}
+
+	@Test
+	void testUnmarshalling() throws JAXBException {
+		unmarshalling(SINGLETON);
+	}
+
 	@Override
-	protected final AllProp getSingleton() {
+	protected AllProp getSingleton() {
 		return AllProp.ALLPROP;
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "AllProp[]";
 	}
+
 }

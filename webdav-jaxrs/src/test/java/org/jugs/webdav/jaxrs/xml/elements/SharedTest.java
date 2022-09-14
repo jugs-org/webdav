@@ -25,6 +25,9 @@ package org.jugs.webdav.jaxrs.xml.elements;
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 
 import org.junit.experimental.theories.DataPoint;
+import org.junit.jupiter.api.Test;
+
+import javax.xml.bind.JAXBException;
 
 /**
  * Unit test for {@link Shared}
@@ -32,16 +35,28 @@ import org.junit.experimental.theories.DataPoint;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class SharedTest extends AbstractJaxbCoreFunctionality<Shared> {
+
 	@DataPoint
 	public static final Object[] SINGLETON = { Shared.SHARED, "<D:shared xmlns:D=\"DAV:\"/>" };
 
+	@Test
+	void testMarshalling() throws JAXBException {
+		marshalling(SINGLETON);
+	}
+
+	@Test
+	void testUnmarshalling() throws JAXBException {
+		unmarshalling(SINGLETON);
+	}
+
 	@Override
-	protected final Shared getSingleton() {
+	protected Shared getSingleton() {
 		return Shared.SHARED;
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "Shared[]";
 	}
+
 }

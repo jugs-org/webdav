@@ -22,16 +22,17 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static org.jugs.webdav.jaxrs.xml.elements.Depth.INFINITY;
-import static org.jugs.webdav.jaxrs.xml.elements.Depth.ONE;
-import static org.jugs.webdav.jaxrs.xml.elements.Depth.ZERO;
+import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
+import org.junit.experimental.theories.DataPoints;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import javax.xml.bind.JAXBException;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.hamcrest.MatcherAssert.assertThat;
-import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-
-import org.junit.experimental.theories.DataPoints;
-import org.junit.experimental.theories.Theory;
+import static org.jugs.webdav.jaxrs.xml.elements.Depth.*;
 
 /**
  * Unit test for {@link Depth}
@@ -39,30 +40,48 @@ import org.junit.experimental.theories.Theory;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class DepthTest extends AbstractJaxbCoreFunctionality<Depth> {
+
 	@DataPoints
 	public static final Object[][] DATA_POINTS = { { ZERO, "<D:depth xmlns:D=\"DAV:\">0</D:depth>", "0" },
 			{ ONE, "<D:depth xmlns:D=\"DAV:\">1</D:depth>", "1" }, { INFINITY, "<D:depth xmlns:D=\"DAV:\">infinity</D:depth>", "infinity" } };
 
+
+	@ParameterizedTest(name = "depth {0}")
+	@ValueSource(ints = {0, 1, 2})
+	void testMarshalling(int depth) throws JAXBException {
+		marshalling(DATA_POINTS[depth]);
+	}
+
+	@ParameterizedTest(name = "depth {0}")
+	@ValueSource(ints = {0, 1, 2})
+	void testUnmarshalling(int depth) throws JAXBException {
+		unmarshalling(DATA_POINTS[depth]);
+	}
+
 	@Override
-	protected final Depth getInstance() {
+	protected Depth getInstance() {
 		return Depth.INFINITY;
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "INFINITY";
 	}
 
-	@Theory
-	public final void shouldParseEnum(final Object[] dataPoint) {
+	@ParameterizedTest(name = "depth {0}")
+	@ValueSource(ints = {0, 1, 2})
+	void testShouldParseEnum(int depth) {
+		shouldParseEnum(DATA_POINTS[depth]);
+	}
+
+	private void shouldParseEnum(final Object[] dataPoint) {
 		// given
-		final String depthHeaderValue = (String) dataPoint[2];
-
+		String depthHeaderValue = (String) dataPoint[2];
 		// when
-		final Depth depth = Depth.fromString(depthHeaderValue);
-
+		Depth depth = Depth.fromString(depthHeaderValue);
 		// then
-		final Depth expectedDepth = (Depth) dataPoint[0];
+		Depth expectedDepth = (Depth) dataPoint[0];
 		assertThat(depth, is(sameInstance(expectedDepth)));
 	}
+
 }

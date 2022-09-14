@@ -28,6 +28,8 @@ import org.jugs.webdav.jaxrs.xml.properties.GetContentLanguage;
 import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
+import javax.xml.bind.JAXBException;
+
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -39,8 +41,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class ErrorTest extends AbstractJaxbCoreFunctionality<Error> {
+
 	@Test
-	public final void constructorDoesNotAcceptNullError() {
+	public void constructorDoesNotAcceptNullError() {
 		assertThrows(NullArgumentException.class, () -> new Error(null));
 	}
 
@@ -55,19 +58,40 @@ public final class ErrorTest extends AbstractJaxbCoreFunctionality<Error> {
 	public static final Object[] TWO_ERRORS = { new Error(FIRST_ERROR, SECOND_ERROR), "<D:error xmlns:D=\"DAV:\"><D:prop/><D:getcontentlanguage/></D:error>",
 			asList(FIRST_ERROR, SECOND_ERROR) };
 
+	@Test
+	void marshallingOneError() throws JAXBException {
+		marshalling(ONE_ERROR);
+	}
+
+	@Test
+	void unmarshallingOneError() throws JAXBException {
+		unmarshalling(ONE_ERROR);
+	}
+
+	@Test
+	void marshallingTwoErrors() throws JAXBException {
+		marshalling(TWO_ERRORS);
+	}
+
+	@Test
+	void unmarshallingTwoErrors() throws JAXBException {
+		unmarshalling(TWO_ERRORS);
+	}
+
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final Error actual, final Error expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final Error actual, final Error expected, final Object[] dataPoint) {
 		assertThat(actual.getErrors(), is(dataPoint[2]));
 		assertThat(expected.getErrors(), is(dataPoint[2]));
 	}
 
 	@Override
-	protected final Error getInstance() {
+	protected Error getInstance() {
 		return new Error("ERROR");
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "Error[[ERROR]]";
 	}
+
 }

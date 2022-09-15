@@ -39,7 +39,6 @@ public final class LockTypeTest extends AbstractJaxbCoreFunctionality<LockType> 
 	@DataPoint
 	public static final Object[] SINGLETON = { LockType.WRITE, "<D:locktype xmlns:D=\"DAV:\"><D:write/></D:locktype>" };
 
-
 	@Test
 	void testMarshalling() throws JAXBException {
 		marshalling(SINGLETON);

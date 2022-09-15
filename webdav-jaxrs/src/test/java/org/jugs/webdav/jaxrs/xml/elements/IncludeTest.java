@@ -28,6 +28,8 @@ import org.jugs.webdav.jaxrs.xml.properties.CreationDate;
 import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
+import javax.xml.bind.JAXBException;
+
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -39,30 +41,41 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class IncludeTest extends AbstractJaxbCoreFunctionality<Include> {
+
 	@Test
-	public final void constructorDoesNotAcceptNullURI() {
+	public void constructorDoesNotAcceptNullURI() {
 		assertThrows(NullArgumentException.class, () -> new Include((Object[]) null));
 	}
 
-	private static Object CREATION_DATE = new CreationDate();
+	private static final Object CREATION_DATE = new CreationDate();
 
 	@DataPoint
 	public static final Object[] SINGLE_VALUE_CONSTRUCTOR = { new Include(CREATION_DATE), "<D:include xmlns:D=\"DAV:\"><D:creationdate/></D:include>",
 			asList(CREATION_DATE) };
 
+	@Test
+	void testMarshalling() throws JAXBException {
+		marshalling(SINGLE_VALUE_CONSTRUCTOR);
+	}
+
+	@Test
+	void testUnmarshalling() throws JAXBException {
+		unmarshalling(SINGLE_VALUE_CONSTRUCTOR);
+	}
+
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final Include actual, final Include expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final Include actual, final Include expected, final Object[] dataPoint) {
 		assertThat(actual.getIncludes(), is(dataPoint[2]));
 		assertThat(expected.getIncludes(), is(dataPoint[2]));
 	}
 
 	@Override
-	protected final Include getInstance() {
+	protected Include getInstance() {
 		return new Include(CREATION_DATE);
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "Include[[CreationDate[null]]]";
 	}
 }

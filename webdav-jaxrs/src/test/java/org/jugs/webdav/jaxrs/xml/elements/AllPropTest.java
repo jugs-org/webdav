@@ -34,6 +34,7 @@ import javax.xml.bind.JAXBException;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class AllPropTest extends AbstractJaxbCoreFunctionality<AllProp> {
+
 	@DataPoint
 	public static final Object[] SINGLETON = { AllProp.ALLPROP, "<D:allprop xmlns:D=\"DAV:\"/>" };
 

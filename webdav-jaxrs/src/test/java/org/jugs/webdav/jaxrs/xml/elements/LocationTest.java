@@ -27,6 +27,8 @@ import org.jugs.webdav.jaxrs.NullArgumentException;
 import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
+import javax.xml.bind.JAXBException;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -37,6 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class LocationTest extends AbstractJaxbCoreFunctionality<Location> {
+
 	@Test
 	void constructorDoesNotAcceptNullURI() {
 		assertThrows(NullArgumentException.class, () -> new Location((HRef) null));
@@ -48,19 +51,30 @@ public final class LocationTest extends AbstractJaxbCoreFunctionality<Location> 
 	public static final Object[] SINGLE_VALUE_CONSTRUCTOR = { new Location(HREF),
 			"<D:location xmlns:D=\"DAV:\"><D:href>http://localhost</D:href></D:location>", HREF };
 
+	@Test
+	void testMarshalling() throws JAXBException {
+		marshalling(SINGLE_VALUE_CONSTRUCTOR);
+	}
+
+	@Test
+	void testUnmarshalling() throws JAXBException {
+		unmarshalling(SINGLE_VALUE_CONSTRUCTOR);
+	}
+
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final Location actual, final Location expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final Location actual, final Location expected, final Object[] dataPoint) {
 		assertThat(actual.getHRef(), is(dataPoint[2]));
 		assertThat(expected.getHRef(), is(dataPoint[2]));
 	}
 
 	@Override
-	protected final Location getInstance() {
+	protected Location getInstance() {
 		return new Location(HREF);
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "Location[HRef[http://localhost]]";
 	}
+
 }

@@ -22,22 +22,20 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static java.lang.String.format;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.hamcrest.MatcherAssert.assertThat;
-
-import java.io.StringReader;
+import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
+import org.junit.experimental.theories.DataPoint;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
+import java.io.StringReader;
 
-import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-
-import org.junit.jupiter.api.Test;
-import org.junit.experimental.theories.DataPoint;
+import static java.lang.String.format;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.sameInstance;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Unit test for {@link LockScope}
@@ -45,11 +43,32 @@ import org.junit.experimental.theories.DataPoint;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class LockScopeTest extends AbstractJaxbCoreFunctionality<LockScope> {
+
 	@DataPoint
 	public static final Object[] EXCLUSIVE = { LockScope.EXCLUSIVE, "<D:lockscope xmlns:D=\"DAV:\"><D:exclusive/></D:lockscope>" };
 
 	@DataPoint
 	public static final Object[] SHARED = { LockScope.SHARED, "<D:lockscope xmlns:D=\"DAV:\"><D:shared/></D:lockscope>" };
+
+	@Test
+	void marshallingExclusive() throws JAXBException {
+		marshalling(EXCLUSIVE);
+	}
+
+	@Test
+	void unmarshallingExclusive() throws JAXBException {
+		unmarshalling(EXCLUSIVE);
+	}
+
+	@Test
+	void marshallingShared() throws JAXBException {
+		marshalling(SHARED);
+	}
+
+	@Test
+	void unmarshallingShared() throws JAXBException {
+		unmarshalling(SHARED);
+	}
 
 	/**
 	 * JAXB Workaround: JAXB only invokes {@link XmlAdapter} if element is wrapped.
@@ -60,7 +79,7 @@ public final class LockScopeTest extends AbstractJaxbCoreFunctionality<LockScope
 	}
 
 	@Test
-	public final void shouldUnmarshalEXCLUSIVEConstant() throws JAXBException {
+	void shouldUnmarshalEXCLUSIVEConstant() throws JAXBException {
 		// given
 		final String marshalledForm = "<D:lockscope><D:exclusive/></D:lockscope>";
 
@@ -73,7 +92,7 @@ public final class LockScopeTest extends AbstractJaxbCoreFunctionality<LockScope
 	}
 
 	@Test
-	public final void shouldUnmarshalSHAREDConstant() throws JAXBException {
+	void shouldUnmarshalSHAREDConstant() throws JAXBException {
 		// given
 		final String marshalledForm = "<D:lockscope><D:shared/></D:lockscope>";
 
@@ -86,12 +105,13 @@ public final class LockScopeTest extends AbstractJaxbCoreFunctionality<LockScope
 	}
 
 	@Override
-	protected final LockScope getInstance() {
+	protected LockScope getInstance() {
 		return LockScope.EXCLUSIVE;
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "LockScope[null, Exclusive[]]";
 	}
+
 }

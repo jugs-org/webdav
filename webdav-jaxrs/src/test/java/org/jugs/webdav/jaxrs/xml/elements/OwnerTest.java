@@ -26,6 +26,10 @@ import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
 import org.junit.experimental.theories.DataPoints;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import javax.xml.bind.JAXBException;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.EMPTY_LIST;
@@ -39,14 +43,27 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class OwnerTest extends AbstractJaxbCoreFunctionality<Owner> {
-	private static String ANY = "ANY";
+
+	private static final String ANY = "ANY";
 
 	@DataPoints
 	public static final Object[][] DATA_POINTS = { { new Owner(), "<D:owner xmlns:D=\"DAV:\"/>", EMPTY_LIST },
 			{ new Owner(ANY), "<D:owner xmlns:D=\"DAV:\">ANY</D:owner>", asList(ANY) } };
 
+	@ParameterizedTest(name = "[{index}]")
+	@ValueSource(ints = {0, 1})
+	void testMarshalling(int i) throws JAXBException {
+		marshalling(DATA_POINTS[i]);
+	}
+
+	@ParameterizedTest(name = "[{index}]")
+	@ValueSource(ints = {0, 1})
+		void testUnmarshalling(int i) throws JAXBException {
+		unmarshalling(DATA_POINTS[i]);
+	}
+
 	@Test
-	public final void constructorDoesNotAcceptNullAsLockEntries() {
+	void constructorDoesNotAcceptNullAsLockEntries() {
 		assertThrows(NullArgumentException.class, () -> new Owner((Object[]) null));
 	}
 
@@ -57,12 +74,13 @@ public final class OwnerTest extends AbstractJaxbCoreFunctionality<Owner> {
 	}
 
 	@Override
-	protected final Owner getInstance() {
+	protected Owner getInstance() {
 		return new Owner(ANY);
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "Owner[[ANY]]";
 	}
+
 }

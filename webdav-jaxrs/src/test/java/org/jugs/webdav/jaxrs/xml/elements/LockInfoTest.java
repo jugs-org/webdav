@@ -27,6 +27,8 @@ import org.jugs.webdav.jaxrs.NullArgumentException;
 import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
+import javax.xml.bind.JAXBException;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.jugs.webdav.jaxrs.xml.elements.LockScope.EXCLUSIVE;
@@ -39,13 +41,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class LockInfoTest extends AbstractJaxbCoreFunctionality<LockInfo> {
+
 	@Test
-	public final void constructorDoesNotAcceptNullLockScope() {
+	void constructorDoesNotAcceptNullLockScope() {
 		assertThrows(NullArgumentException.class, () -> new LockInfo(null, WRITE, null));
 	}
 
 	@Test
-	public final void constructorDoesNotAcceptNullLockType() {
+	void constructorDoesNotAcceptNullLockType() {
 		assertThrows(NullArgumentException.class, () -> new LockInfo(EXCLUSIVE, null, null));
 	}
 
@@ -58,8 +61,28 @@ public final class LockInfoTest extends AbstractJaxbCoreFunctionality<LockInfo> 
 			"<D:lockinfo xmlns:D=\"DAV:\"><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype><D:owner/></D:lockinfo>", EXCLUSIVE,
 			WRITE, new Owner() };
 
+	@Test
+	void marshallingNoOwner() throws JAXBException {
+		marshalling(NO_OWNER);
+	}
+
+	@Test
+	void unmarshallingNoOwner() throws JAXBException {
+		unmarshalling(NO_OWNER);
+	}
+
+	@Test
+	void marshallingHasOwner() throws JAXBException {
+		marshalling(HAS_OWNER);
+	}
+
+	@Test
+	void unmarshallingHasOwner() throws JAXBException {
+		unmarshalling(HAS_OWNER);
+	}
+
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final LockInfo actual, final LockInfo expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final LockInfo actual, final LockInfo expected, final Object[] dataPoint) {
 		assertThat(actual.getLockScope(), is(dataPoint[2]));
 		assertThat(actual.getLockType(), is(dataPoint[3]));
 		assertThat(actual.getOwner(), is(dataPoint[4]));
@@ -69,12 +92,13 @@ public final class LockInfoTest extends AbstractJaxbCoreFunctionality<LockInfo> 
 	}
 
 	@Override
-	protected final LockInfo getInstance() {
+	protected LockInfo getInstance() {
 		return new LockInfo(EXCLUSIVE, WRITE, null);
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "LockInfo[LockScope[null, Exclusive[]], LockType[Write[]], null]";
 	}
+
 }

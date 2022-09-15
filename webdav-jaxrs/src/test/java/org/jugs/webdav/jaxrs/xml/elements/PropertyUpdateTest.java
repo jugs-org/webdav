@@ -27,6 +27,8 @@ import org.jugs.webdav.jaxrs.NullArgumentException;
 import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
+import javax.xml.bind.JAXBException;
+
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -38,13 +40,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class PropertyUpdateTest extends AbstractJaxbCoreFunctionality<PropertyUpdate> {
+
 	private static final Prop PROP = new Prop();
 	private static final Remove REMOVE = new Remove(PROP);
 	private static final Set SET = new Set(PROP);
 
 	@Test
 	void constructorDoesNotAcceptNull() {
-		assertThrows(NullArgumentException.class, () -> new PropertyUpdate((RemoveOrSet) null));
+		assertThrows(NullArgumentException.class, () -> new PropertyUpdate(null));
 	}
 
 	@DataPoint
@@ -56,19 +59,40 @@ public final class PropertyUpdateTest extends AbstractJaxbCoreFunctionality<Prop
 			"<D:propertyupdate xmlns:D=\"DAV:\"><D:set><D:prop/></D:set><D:remove><D:prop/></D:remove><D:set><D:prop/></D:set></D:propertyupdate>",
 			asList(SET, REMOVE, SET) };
 
+	@Test
+	void marshallingSingleUpdate() throws JAXBException {
+		marshalling(SINGLE_UPDATE);
+	}
+
+	@Test
+	void unmarshallingSingleUpdate() throws JAXBException {
+		unmarshalling(SINGLE_UPDATE);
+	}
+
+	@Test
+	void marshallingMultipleUpdate() throws JAXBException {
+		marshalling(MULTIPLE_UPDATES);
+	}
+
+	@Test
+	void unmarshallingMultipleUpdate() throws JAXBException {
+		unmarshalling(MULTIPLE_UPDATES);
+	}
+
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final PropertyUpdate actual, final PropertyUpdate expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final PropertyUpdate actual, final PropertyUpdate expected, final Object[] dataPoint) {
 		assertThat(actual.list(), is(dataPoint[2]));
 		assertThat(expected.list(), is(dataPoint[2]));
 	}
 
 	@Override
-	protected final PropertyUpdate getInstance() {
+	protected PropertyUpdate getInstance() {
 		return new PropertyUpdate(SET);
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "PropertyUpdate[[Set[Prop[[]]]]]";
 	}
+
 }

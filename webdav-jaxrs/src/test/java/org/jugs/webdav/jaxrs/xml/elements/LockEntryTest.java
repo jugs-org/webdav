@@ -27,6 +27,8 @@ import org.jugs.webdav.jaxrs.NullArgumentException;
 import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
+import javax.xml.bind.JAXBException;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.jugs.webdav.jaxrs.xml.elements.LockScope.EXCLUSIVE;
@@ -39,13 +41,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class LockEntryTest extends AbstractJaxbCoreFunctionality<LockEntry> {
+
 	@Test
 	void constructorDoesNotAcceptNullLockScope() {
 		assertThrows(NullArgumentException.class, () -> new LockEntry(null, WRITE));
 	}
 
 	@Test
-	public final void constructorDoesNotAcceptNullLockType() {
+	public void constructorDoesNotAcceptNullLockType() {
 		assertThrows(NullArgumentException.class, () -> new LockEntry(EXCLUSIVE, null));
 	}
 
@@ -53,8 +56,18 @@ public final class LockEntryTest extends AbstractJaxbCoreFunctionality<LockEntry
 	public static final Object[] STANDARD = { new LockEntry(EXCLUSIVE, WRITE),
 			"<D:lockentry xmlns:D=\"DAV:\"><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry>", EXCLUSIVE, WRITE };
 
+	@Test
+	void testMarshalling() throws JAXBException {
+		marshalling(STANDARD);
+	}
+
+	@Test
+	void testUnmarshalling() throws JAXBException {
+		unmarshalling(STANDARD);
+	}
+
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final LockEntry actual, final LockEntry expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final LockEntry actual, final LockEntry expected, final Object[] dataPoint) {
 		assertThat(actual.getLockScope(), is(dataPoint[2]));
 		assertThat(actual.getLockType(), is(dataPoint[3]));
 		assertThat(expected.getLockScope(), is(dataPoint[2]));
@@ -62,12 +75,13 @@ public final class LockEntryTest extends AbstractJaxbCoreFunctionality<LockEntry
 	}
 
 	@Override
-	protected final LockEntry getInstance() {
+	protected LockEntry getInstance() {
 		return new LockEntry(EXCLUSIVE, WRITE);
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "LockEntry[LockScope[null, Exclusive[]], LockType[Write[]]]";
 	}
+
 }

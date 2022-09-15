@@ -27,6 +27,8 @@ import org.jugs.webdav.jaxrs.NullArgumentException;
 import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
+import javax.xml.bind.JAXBException;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -37,30 +39,42 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class LockTokenTest extends AbstractJaxbCoreFunctionality<LockToken> {
+
 	@Test
 	void constructorDoesNotAcceptNullURI() {
-		assertThrows(NullArgumentException.class, () -> new LockToken((HRef) null));
+		assertThrows(NullArgumentException.class, () -> new LockToken(null));
 	}
 
-	private static HRef HREF = new HRef("http://localhost");
+	private static final HRef HREF = new HRef("http://localhost");
 
 	@DataPoint
 	public static final Object[] SINGLE_VALUE_CONSTRUCTOR = { new LockToken(HREF),
 			"<D:locktoken xmlns:D=\"DAV:\"><D:href>http://localhost</D:href></D:locktoken>", HREF };
 
+	@Test
+	void testMarshalling() throws JAXBException {
+		marshalling(SINGLE_VALUE_CONSTRUCTOR);
+	}
+
+	@Test
+	void testUnmarshalling() throws JAXBException {
+		unmarshalling(SINGLE_VALUE_CONSTRUCTOR);
+	}
+
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final LockToken actual, final LockToken expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final LockToken actual, final LockToken expected, final Object[] dataPoint) {
 		assertThat(actual.getHRef(), is(dataPoint[2]));
 		assertThat(expected.getHRef(), is(dataPoint[2]));
 	}
 
 	@Override
-	protected final LockToken getInstance() {
+	protected LockToken getInstance() {
 		return new LockToken(HREF);
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "LockToken[HRef[http://localhost]]";
 	}
+
 }

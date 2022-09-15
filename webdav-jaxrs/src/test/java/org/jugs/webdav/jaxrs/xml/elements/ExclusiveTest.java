@@ -39,7 +39,6 @@ public final class ExclusiveTest extends AbstractJaxbCoreFunctionality<Exclusive
 	@DataPoint
 	public static final Object[] SINGLETON = { Exclusive.EXCLUSIVE, "<D:exclusive xmlns:D=\"DAV:\"/>" };
 
-
 	@Test
 	void testMarshalling() throws JAXBException {
 		marshalling(SINGLETON);

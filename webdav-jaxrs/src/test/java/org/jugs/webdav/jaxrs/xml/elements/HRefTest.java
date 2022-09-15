@@ -27,6 +27,7 @@ import org.jugs.webdav.jaxrs.NullArgumentException;
 import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
+import javax.xml.bind.JAXBException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -63,8 +64,28 @@ public final class HRefTest extends AbstractJaxbCoreFunctionality<HRef> {
 	@DataPoint
 	public static final Object[] CASE_STRING_CONSTRUCTOR = { new HRef(URI_VALUE), "<D:href xmlns:D=\"DAV:\">http://localhost</D:href>", URI_VALUE, STRING_VALUE };
 
+	@Test
+	void marshallingURI() throws JAXBException {
+		marshalling(CASE_URI_CONSTRUCTOR);
+	}
+
+	@Test
+	void unmarshallingURI() throws JAXBException {
+		unmarshalling(CASE_URI_CONSTRUCTOR);
+	}
+
+	@Test
+	void marshallingString() throws JAXBException {
+		marshalling(CASE_STRING_CONSTRUCTOR);
+	}
+
+	@Test
+	void unmarshallingString() throws JAXBException {
+		unmarshalling(CASE_STRING_CONSTRUCTOR);
+	}
+
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final HRef actual, final HRef expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final HRef actual, final HRef expected, final Object[] dataPoint) {
 		try {
 			assertThat(actual.getURI(), is(dataPoint[2]));
 			assertThat(actual.getValue(), is(dataPoint[3]));
@@ -76,12 +97,13 @@ public final class HRefTest extends AbstractJaxbCoreFunctionality<HRef> {
 	}
 
 	@Override
-	protected final HRef getInstance() {
+	protected HRef getInstance() {
 		return new HRef(URI_VALUE);
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "HRef[http://localhost]";
 	}
+
 }

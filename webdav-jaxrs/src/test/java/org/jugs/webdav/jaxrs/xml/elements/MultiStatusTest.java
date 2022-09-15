@@ -22,14 +22,17 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
+import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
+import org.jugs.webdav.util.Utilities;
+import org.junit.experimental.theories.DataPoint;
+import org.junit.jupiter.api.Test;
+
+import javax.xml.bind.JAXBException;
+
 import static java.util.Arrays.asList;
 import static java.util.Collections.EMPTY_LIST;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-import org.jugs.webdav.util.Utilities;
-
-import org.junit.experimental.theories.DataPoint;
 
 /**
  * Unit test for {@link MultiStatus}
@@ -58,8 +61,38 @@ public final class MultiStatusTest extends AbstractJaxbCoreFunctionality<MultiSt
 	public static final Object[] RESPONSE_DESCRIPTION_ONLY = { new MultiStatus(RESPONSE_DESCRIPTION),
 			"<D:multistatus xmlns:D=\"DAV:\"><D:responsedescription>X</D:responsedescription></D:multistatus>", EMPTY_LIST, RESPONSE_DESCRIPTION };
 
+	@Test
+	void marshallingSingleResponse() throws JAXBException {
+		marshalling(SINGLE_RESPONSE_WITH_RESPONSE_DESCRIPTION);
+	}
+
+	@Test
+	void unmarshallingSingleResponse() throws JAXBException {
+		unmarshalling(SINGLE_RESPONSE_WITH_RESPONSE_DESCRIPTION);
+	}
+
+	@Test
+	void marshallingMultiResponse() throws JAXBException {
+		marshalling(MULTI_RESPONSE_WITH_RESPONSE_DESCRIPTION);
+	}
+
+	@Test
+	void unmarshallingMultiResponse() throws JAXBException {
+		unmarshalling(MULTI_RESPONSE_WITH_RESPONSE_DESCRIPTION);
+	}
+
+	@Test
+	void marshallingResponseDescriptionOnly() throws JAXBException {
+		marshalling(RESPONSE_DESCRIPTION_ONLY);
+	}
+
+	@Test
+	void unmarshallingResponseDescriptionOnly() throws JAXBException {
+		unmarshalling(RESPONSE_DESCRIPTION_ONLY);
+	}
+
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final MultiStatus actual, final MultiStatus expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final MultiStatus actual, final MultiStatus expected, final Object[] dataPoint) {
 		assertThat(actual.getResponses(), is(dataPoint[2]));
 		assertThat(actual.getResponseDescription(), is(dataPoint[3]));
 		assertThat(expected.getResponses(), is(dataPoint[2]));
@@ -67,12 +100,13 @@ public final class MultiStatusTest extends AbstractJaxbCoreFunctionality<MultiSt
 	}
 
 	@Override
-	protected final MultiStatus getInstance() {
+	protected MultiStatus getInstance() {
 		return new MultiStatus(RESPONSE);
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "MultiStatus[[Response[null, [], null, null, null]], null]";
 	}
+
 }

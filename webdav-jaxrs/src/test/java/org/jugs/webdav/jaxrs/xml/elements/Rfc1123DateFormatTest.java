@@ -22,43 +22,48 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import org.jugs.webdav.util.DateBuilder;
+import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.util.Date;
 
-import org.jugs.webdav.util.DateBuilder;
-import org.junit.experimental.theories.DataPoint;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Unit test for {@link Rfc1123DateFormat}
  * 
  * @author Markus KARG (mkarg@java.net)
  */
-@RunWith(Theories.class)
 public final class Rfc1123DateFormatTest {
-	@DataPoint
-	public static final Object[] DATA_POINTS = new Object[] {DateBuilder.date(2012, 11, 12, 13 + 1 /* Europe/Berlin = UTC+1 */, 14, 15, 16, "Europe/Berlin"),
+
+	private static final Object[] DATA_POINTS = new Object[] {DateBuilder.date(2012, 11, 12, 13 + 1 /* Europe/Berlin = UTC+1 */, 14, 15, 16, "Europe/Berlin"),
                                                              "Mon, 12 Nov 2012 13:14:15 GMT",
                                                              DateBuilder.date(2012, 11, 12, 13 + 1 /* Europe/Berlin = UTC+1 */, 14, 15, 0 /* RFC1123 ignores milliseconds */, "Europe/Berlin") };
 
-	@Theory
-	public final void parsing(final Object[] dataPoint) throws ParseException {
+	@Test
+	void parsing() throws ParseException {
+		parsing(DATA_POINTS);
+	}
+
+	private void parsing(final Object[] dataPoint) throws ParseException {
 		final Rfc1123DateFormat rfc1123DateFormat = new Rfc1123DateFormat();
 		final Date actual = rfc1123DateFormat.parse((String) dataPoint[1]);
 		final Date expected = (Date) dataPoint[2]; // RFC1123 ignores milliseconds, so dataPoint[0] cannot be used here.
 		assertThat(actual, is(expected));
 	}
 
-	@Theory
-	public final void formatting(final Object[] dataPoint) {
+	@Test
+	void formatting() {
+		formatting(DATA_POINTS);
+	}
+
+	private void formatting(final Object[] dataPoint) {
 		final Rfc1123DateFormat rfc1123DateFormat = new Rfc1123DateFormat();
 		final String actual = rfc1123DateFormat.format(dataPoint[0]);
 		final String expected = (String) dataPoint[1];
 		assertThat(actual, is(expected));
 	}
+
 }

@@ -22,11 +22,14 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
+import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
+import org.junit.experimental.theories.DataPoint;
+import org.junit.jupiter.api.Test;
+
+import javax.xml.bind.JAXBException;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-
-import org.junit.experimental.theories.DataPoint;
 
 /**
  * Unit test for {@link ResponseDescription}
@@ -34,23 +37,35 @@ import org.junit.experimental.theories.DataPoint;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class ResponseDescriptionTest extends AbstractJaxbCoreFunctionality<ResponseDescription> {
+
 	@DataPoint
 	public static final Object[] DATA_POINT = { new ResponseDescription("some content"),
 			"<D:responsedescription xmlns:D=\"DAV:\">some content</D:responsedescription>", "some content" };
 
+	@Test
+	void testMarshalling() throws JAXBException {
+		marshalling(DATA_POINT);
+	}
+
+	@Test
+	void testUnmarshalling() throws JAXBException {
+		unmarshalling(DATA_POINT);
+	}
+
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final ResponseDescription actual, final ResponseDescription expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final ResponseDescription actual, final ResponseDescription expected, final Object[] dataPoint) {
 		assertThat(actual.getContent(), is(dataPoint[2]));
 		assertThat(expected.getContent(), is(dataPoint[2]));
 	}
 
 	@Override
-	protected final ResponseDescription getInstance() {
+	protected ResponseDescription getInstance() {
 		return new ResponseDescription("some content");
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "ResponseDescription[some content]";
 	}
+
 }

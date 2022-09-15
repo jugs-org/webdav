@@ -27,6 +27,8 @@ import org.jugs.webdav.jaxrs.NullArgumentException;
 import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
+import javax.xml.bind.JAXBException;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -37,6 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class PropFindTest extends AbstractJaxbCoreFunctionality<PropFind> {
+
 	private static final PropName PROPNAME = PropName.PROPNAME;
 	private static final AllProp ALLPROP = AllProp.ALLPROP;
 	private static final Include INCLUDE = new Include();
@@ -53,7 +56,7 @@ public final class PropFindTest extends AbstractJaxbCoreFunctionality<PropFind> 
 	}
 
 	@Test
-	public final void constructorDoesNotAcceptNullProp() {
+	void constructorDoesNotAcceptNullProp() {
 		assertThrows(NullArgumentException.class, () -> new PropFind((Prop) null));
 	}
 
@@ -71,8 +74,48 @@ public final class PropFindTest extends AbstractJaxbCoreFunctionality<PropFind> 
 	@DataPoint
 	public static final Object[] PROP_VARIANT = { new PropFind(PROP), "<D:propfind xmlns:D=\"DAV:\"><D:prop/></D:propfind>", null, null, null, PROP };
 
+	@Test
+	void marshallingPropname() throws JAXBException {
+		marshalling(PROPNAME_VARIANT);
+	}
+
+	@Test
+	void unmarshallingPropname() throws JAXBException {
+		unmarshalling(PROPNAME_VARIANT);
+	}
+
+	@Test
+	void marshallingAllProp() throws JAXBException {
+		marshalling(ALLPROP_VARIANT);
+	}
+
+	@Test
+	void unmarshallingAllProp() throws JAXBException {
+		unmarshalling(ALLPROP_VARIANT);
+	}
+
+	@Test
+	void marshallingAllPropInclude() throws JAXBException {
+		marshalling(ALLPROP_INCLUDE_VARIANT);
+	}
+
+	@Test
+	void unmarshallingAllPropInclude() throws JAXBException {
+		unmarshalling(ALLPROP_INCLUDE_VARIANT);
+	}
+
+	@Test
+	void marshallingProp() throws JAXBException {
+		marshalling(PROP_VARIANT);
+	}
+
+	@Test
+	void unmarshallingProp() throws JAXBException {
+		unmarshalling(PROP_VARIANT);
+	}
+
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final PropFind actual, final PropFind expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final PropFind actual, final PropFind expected, final Object[] dataPoint) {
 		assertThat(actual.getPropName(), is(dataPoint[2]));
 		assertThat(actual.getAllProp(), is(dataPoint[3]));
 		assertThat(actual.getInclude(), is(dataPoint[4]));
@@ -84,12 +127,12 @@ public final class PropFindTest extends AbstractJaxbCoreFunctionality<PropFind> 
 	}
 
 	@Override
-	protected final PropFind getInstance() {
+	protected PropFind getInstance() {
 		return new PropFind(ALLPROP);
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "PropFind[null, AllProp[], null, null]";
 	}
 }

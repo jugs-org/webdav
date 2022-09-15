@@ -27,6 +27,8 @@ import org.jugs.webdav.jaxrs.NullArgumentException;
 import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
+import javax.xml.bind.JAXBException;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -37,29 +39,41 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class SetTest extends AbstractJaxbCoreFunctionality<Set> {
+
 	private static final Prop PROP = new Prop();
 
 	@DataPoint
 	public static final Object[] DATA_POINT = { new Set(PROP), "<D:set xmlns:D=\"DAV:\"><D:prop/></D:set>", PROP };
 
+	@Test
+	void testMarshalling() throws JAXBException {
+		marshalling(DATA_POINT);
+	}
+
+	@Test
+	void testUnmarshalling() throws JAXBException {
+		unmarshalling(DATA_POINT);
+	}
+
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final Set actual, final Set expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final Set actual, final Set expected, final Object[] dataPoint) {
 		assertThat(actual.getProp(), is(dataPoint[2]));
 		assertThat(expected.getProp(), is(dataPoint[2]));
 	}
 
 	@Test
-	public final void constructorDoesNotAcceptNull() {
+	void constructorDoesNotAcceptNull() {
 		assertThrows(NullArgumentException.class, () -> new Set(null));
 	}
 
 	@Override
-	protected final Set getInstance() {
+	protected Set getInstance() {
 		return new Set(PROP);
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "Set[Prop[[]]]";
 	}
+
 }

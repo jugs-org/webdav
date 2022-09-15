@@ -22,13 +22,16 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
+import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
+import org.jugs.webdav.jaxrs.xml.properties.CreationDate;
+import org.junit.experimental.theories.DataPoint;
+import org.junit.jupiter.api.Test;
+
+import javax.xml.bind.JAXBException;
+
 import static java.util.Collections.singletonList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-import org.jugs.webdav.jaxrs.xml.properties.CreationDate;
-
-import org.junit.experimental.theories.DataPoint;
 
 /**
  * Unit test for {@link Prop}
@@ -36,24 +39,36 @@ import org.junit.experimental.theories.DataPoint;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class PropTest extends AbstractJaxbCoreFunctionality<Prop> {
+
 	private static final CreationDate CREATIONDATE = CreationDate.CREATIONDATE;
 
 	@DataPoint
 	public static final Object[] DATA_POINT = { new Prop(CREATIONDATE), "<D:prop xmlns:D=\"DAV:\"><D:creationdate/></D:prop>", singletonList(CREATIONDATE) };
 
+	@Test
+	void testMarshalling() throws JAXBException {
+		marshalling(DATA_POINT);
+	}
+
+	@Test
+	void testUnmarshalling() throws JAXBException {
+		unmarshalling(DATA_POINT);
+	}
+
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final Prop actual, final Prop expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final Prop actual, final Prop expected, final Object[] dataPoint) {
 		assertThat(actual.getProperties(), is(dataPoint[2]));
 		assertThat(expected.getProperties(), is(dataPoint[2]));
 	}
 
 	@Override
-	protected final Prop getInstance() {
+	protected Prop getInstance() {
 		return new Prop(CREATIONDATE);
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "Prop[[CreationDate[null]]]";
 	}
+
 }

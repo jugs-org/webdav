@@ -25,9 +25,12 @@ package org.jugs.webdav.jaxrs.xml.elements;
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.ResponseStatus;
 import org.junit.experimental.theories.DataPoints;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.StatusType;
+import javax.xml.bind.JAXBException;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -39,6 +42,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public final class StatusTest extends AbstractJaxbCoreFunctionality<Status> {
 	@SuppressWarnings("deprecation")
+
 	@DataPoints
 	public static final Object[][] DATA_POINTS = {
 			{ new Status(ResponseStatus.FAILED_DEPENDENCY), "<D:status xmlns:D=\"DAV:\">HTTP/1.1 424 Failed Dependency</D:status>",
@@ -48,6 +52,18 @@ public final class StatusTest extends AbstractJaxbCoreFunctionality<Status> {
 			{ new Status((Response.StatusType) Response.Status.BAD_REQUEST), "<D:status xmlns:D=\"DAV:\">HTTP/1.1 400 Bad Request</D:status>",
 					"HTTP/1.1 400 Bad Request" } };
 
+	@ParameterizedTest(name = "[{index}]")
+	@ValueSource(ints = {0, 1, 2})
+	void testMarshalling(int i) throws JAXBException {
+		marshalling(DATA_POINTS[i]);
+	}
+
+	@ParameterizedTest(name = "[{index}]")
+	@ValueSource(ints = {0, 1, 2})
+	void testUnmarshalling(int i) throws JAXBException {
+		unmarshalling(DATA_POINTS[i]);
+	}
+
 	@Override
 	protected void assertThatGettersProvideExpectedValues(final Status actual, final Status expected, final Object[] dataPoint) {
 		assertThat(actual.getStatus(), is(dataPoint[2]));
@@ -55,12 +71,13 @@ public final class StatusTest extends AbstractJaxbCoreFunctionality<Status> {
 	}
 
 	@Override
-	protected final Status getInstance() {
+	protected Status getInstance() {
 		return new Status((StatusType) ResponseStatus.UNPROCESSABLE_ENTITY);
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "Status[HTTP/1.1 422 Unprocessable Entity]";
 	}
+
 }

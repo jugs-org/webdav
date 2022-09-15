@@ -22,6 +22,16 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
+import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
+import org.junit.experimental.theories.DataPoint;
+import org.junit.jupiter.api.Test;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlAdapter;
+import java.io.StringReader;
+
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 import static java.lang.Long.MAX_VALUE;
@@ -30,32 +40,41 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import java.io.StringReader;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
-
-import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-
-import org.junit.jupiter.api.Test;
-import org.junit.experimental.theories.DataPoint;
-
 /**
  * Unit test for {@link TimeOut}
  * 
  * @author Markus KARG (mkarg@java.net)
  */
 public final class TimeOutTest extends AbstractJaxbCoreFunctionality<TimeOut> {
+
 	@DataPoint
 	public static final Object[] INFINITE = { TimeOut.INFINITE, "<D:timeout xmlns:D=\"DAV:\">Infinite</D:timeout>", MAX_VALUE, TRUE };
 
 	@DataPoint
 	public static final Object[] SECOND = { new TimeOut(60L), "<D:timeout xmlns:D=\"DAV:\">Second-60</D:timeout>", 60L, FALSE };
 
+	@Test
+	void marshallingInfinite() throws JAXBException {
+		marshalling(INFINITE);
+	}
+
+	@Test
+	void unmarshallingInfinite() throws JAXBException {
+		unmarshalling(INFINITE);
+	}
+
+	@Test
+	void marshallingSecond() throws JAXBException {
+		marshalling(SECOND);
+	}
+
+	@Test
+	void unmarshallingSecond() throws JAXBException {
+		unmarshalling(SECOND);
+	}
+
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final TimeOut actual, final TimeOut expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final TimeOut actual, final TimeOut expected, final Object[] dataPoint) {
 		assertThat(actual.getSeconds(), is(dataPoint[2]));
 		assertThat(actual.isInfinite(), is(dataPoint[3]));
 		assertThat(expected.getSeconds(), is(dataPoint[2]));
@@ -71,49 +90,44 @@ public final class TimeOutTest extends AbstractJaxbCoreFunctionality<TimeOut> {
 	}
 
 	@Test
-	public final void shouldUnmarshalINFINITEConstant() throws JAXBException {
+	void shouldUnmarshalINFINITEConstant() throws JAXBException {
 		// given
 		final String marshalledForm = "<D:timeout>Infinite</D:timeout>";
-
 		// when
 		final TimeOut unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
 				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).timeout;
-
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(TimeOut.INFINITE)));
 	}
 
 	@Override
-	protected final TimeOut getInstance() {
+	protected TimeOut getInstance() {
 		return new TimeOut(90L);
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "TimeOut[90]";
 	}
 
 	@Test
-	public final void shouldParseINFINITEConstant() {
+	void shouldParseINFINITEConstant() {
 		// given
 		final String timeType = "Infinite";
-
 		// when
 		final TimeOut timeOut = TimeOut.valueOf(timeType);
-
 		// then
 		assertThat(timeOut, is(sameInstance(TimeOut.INFINITE)));
 	}
 
 	@Test
-	public final void shouldParseSeconds() {
+	void shouldParseSeconds() {
 		// given
 		final String timeType = "Second-1234567890";
-
 		// when
 		final TimeOut timeOut = TimeOut.valueOf(timeType);
-
 		// then
 		assertThat(timeOut.getSeconds(), is(1234567890L));
 	}
+
 }

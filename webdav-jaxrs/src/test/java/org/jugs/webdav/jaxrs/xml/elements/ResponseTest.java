@@ -28,6 +28,7 @@ import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
 import javax.ws.rs.core.Response.StatusType;
+import javax.xml.bind.JAXBException;
 import java.util.LinkedList;
 
 import static java.util.Arrays.asList;
@@ -43,6 +44,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class ResponseTest extends AbstractJaxbCoreFunctionality<Response> {
+
 	private static final HRef HREF = new HRef("http://localhost");
 	private static final Status STATUS = new Status((StatusType) MULTI_STATUS);
 	private static final org.jugs.webdav.jaxrs.xml.elements.Error ERROR = new Error(new Prop());
@@ -67,14 +69,14 @@ public final class ResponseTest extends AbstractJaxbCoreFunctionality<Response> 
 
 	@SuppressWarnings("deprecation")
 	@Test
-	public final void constructorShouldNotAcceptNullPropStatCollection() {
-		assertThrows(NullArgumentException.class, () -> new Response(HREF, ERROR, RESPONSE_DESCRIPTION, LOCATION, (java.util.Collection<PropStat>) null));
+	void constructorShouldNotAcceptNullPropStatCollection() {
+		assertThrows(NullArgumentException.class, () -> new Response(HREF, ERROR, RESPONSE_DESCRIPTION, LOCATION, null));
 	}
 
 	@SuppressWarnings("deprecation")
 	@Test
-	public final void constructorShouldNotAcceptEmptyPropStatCollection() {
-		assertThrows(NullArgumentException.class, () -> new Response(HREF, ERROR, RESPONSE_DESCRIPTION, LOCATION, new LinkedList<PropStat>()));
+	void constructorShouldNotAcceptEmptyPropStatCollection() {
+		assertThrows(NullArgumentException.class, () -> new Response(HREF, ERROR, RESPONSE_DESCRIPTION, LOCATION, new LinkedList<>()));
 	}
 
 	@DataPoint
@@ -96,8 +98,38 @@ public final class ResponseTest extends AbstractJaxbCoreFunctionality<Response> 
 			"<D:response xmlns:D=\"DAV:\"><D:href>http://localhost</D:href><D:propstat><D:prop/><D:status>HTTP/1.1 207 Multi-Status</D:status></D:propstat><D:propstat><D:prop/><D:status>HTTP/1.1 207 Multi-Status</D:status></D:propstat><D:propstat><D:prop/><D:status>HTTP/1.1 207 Multi-Status</D:status></D:propstat><D:error><D:prop/></D:error><D:responsedescription>X</D:responsedescription><D:location><D:href>http://localhost</D:href></D:location></D:response>",
 			asList(HREF), null, asList(PROP_STAT, PROP_STAT, PROP_STAT), ERROR, RESPONSE_DESCRIPTION, LOCATION };
 
+	@Test
+	void marshallingStatus() throws JAXBException {
+		marshalling(STATUS_VARIANT);
+	}
+
+	@Test
+	void unmarshallingStatus() throws JAXBException {
+		unmarshalling(STATUS_VARIANT);
+	}
+
+	@Test
+	void marshallingPropstats() throws JAXBException {
+		marshalling(PROPSTATS_VARIANT);
+	}
+
+	@Test
+	void unmarshallingPropstats() throws JAXBException {
+		unmarshalling(PROPSTATS_VARIANT);
+	}
+
+	@Test
+	void marshallingDeprecatedPropstats() throws JAXBException {
+		marshalling(DEPRECATED_PROPSTATS_VARIANT);
+	}
+
+	@Test
+	void unmarshallingDeprecatedPropstats() throws JAXBException {
+		unmarshalling(DEPRECATED_PROPSTATS_VARIANT);
+	}
+
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final Response actual, final Response expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final Response actual, final Response expected, final Object[] dataPoint) {
 		assertThat(actual.getHRefs(), is(dataPoint[2]));
 		assertThat(actual.getStatus(), is(dataPoint[3]));
 		assertThat(actual.getPropStats(), is(dataPoint[4]));
@@ -113,12 +145,13 @@ public final class ResponseTest extends AbstractJaxbCoreFunctionality<Response> 
 	}
 
 	@Override
-	protected final Response getInstance() {
+	protected Response getInstance() {
 		return new Response(STATUS, ERROR, RESPONSE_DESCRIPTION, LOCATION, HREF);
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "Response[Status[HTTP/1.1 207 Multi-Status], [], Error[[Prop[[]]]], ResponseDescription[X], Location[HRef[http://localhost]]]";
 	}
+
 }

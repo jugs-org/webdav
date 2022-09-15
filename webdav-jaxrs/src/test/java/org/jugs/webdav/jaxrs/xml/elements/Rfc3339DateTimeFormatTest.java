@@ -23,11 +23,9 @@
 package org.jugs.webdav.jaxrs.xml.elements;
 
 import org.jugs.webdav.util.DateBuilder;
-import org.junit.experimental.theories.DataPoints;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -41,25 +39,34 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * 
  * @author Markus KARG (mkarg@java.net)
  */
-@RunWith(Theories.class)
 public final class Rfc3339DateTimeFormatTest {
-	@DataPoints
+
 	public static final Object[][] DATA_POINTS = new Object[][] {
 			{/* Assert that Z is UTC */DateBuilder.date(2012, 11, 12, 13, 14, 15, 167, "UTC"), "2012-11-12T13:14:15.167Z", "2012-11-12T13:14:15.167Z" },
 			{/* Assert that numeric offset is working */DateBuilder.date(2012, 12, 31, 13, 14, 15, 167, "GMT-18:17"), "2012-12-31T13:14:15.167-18:17",
              "2013-01-01T07:31:15.167Z"/* format() always does Zulu time, which results in complex time value shifting */},
 			{/* Assert that missing fraction is working */DateBuilder.date(2012, 11, 12, 13, 14, 15, 0, "UTC"), "2012-11-12T13:14:15Z", "2012-11-12T13:14:15.000Z" } };
 
-	@Theory
-	public final void parsing(final Object[] dataPoint) throws ParseException {
+	@ParameterizedTest(name = "[{index}]")
+	@ValueSource(ints = {0, 1, 2})
+	void parsing(int i) throws ParseException {
+		parsing(DATA_POINTS[i]);
+	}
+
+	private void parsing(final Object[] dataPoint) throws ParseException {
 		final Rfc3339DateTimeFormat rfc3339DateTimeFormat = new Rfc3339DateTimeFormat();
 		final Date actual = rfc3339DateTimeFormat.parse((String) dataPoint[1]);
 		final Date expected = (Date) dataPoint[0];
 		assertThat(actual, is(expected));
 	}
 
-	@Theory
-	public final void formatting(final Object[] dataPoint) {
+	@ParameterizedTest(name = "[{index}]")
+	@ValueSource(ints = {0, 1, 2})
+	void formatting(int i) {
+		formatting(DATA_POINTS[i]);
+	}
+
+	private void formatting(final Object[] dataPoint) {
 		final Rfc3339DateTimeFormat rfc3339DateTimeFormat = new Rfc3339DateTimeFormat();
 		final String actual = rfc3339DateTimeFormat.format(dataPoint[0]);
 		final String expected = (String) dataPoint[2];

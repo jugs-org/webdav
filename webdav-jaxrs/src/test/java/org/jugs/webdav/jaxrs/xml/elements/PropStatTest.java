@@ -22,15 +22,16 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static org.jugs.webdav.jaxrs.ResponseStatus.LOCKED;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
+import org.junit.experimental.theories.DataPoint;
+import org.junit.jupiter.api.Test;
 
 import javax.ws.rs.core.Response.StatusType;
+import javax.xml.bind.JAXBException;
 
-import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-
-import org.junit.experimental.theories.DataPoint;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.jugs.webdav.jaxrs.ResponseStatus.LOCKED;
 
 /**
  * Unit test for {@link PropStat}
@@ -38,6 +39,7 @@ import org.junit.experimental.theories.DataPoint;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class PropStatTest extends AbstractJaxbCoreFunctionality<PropStat> {
+
 	private static final Prop PROP = new Prop();
 	private static final Status STATUS = new Status((StatusType) LOCKED);
 	private static final Error ERROR = new Error(PROP);
@@ -58,8 +60,38 @@ public final class PropStatTest extends AbstractJaxbCoreFunctionality<PropStat> 
 			"<D:propstat xmlns:D=\"DAV:\"><D:prop/><D:status>HTTP/1.1 423 Locked</D:status><D:error><D:prop/></D:error><D:responsedescription>X</D:responsedescription></D:propstat>",
 			PROP, STATUS, ERROR, RESPONSEDESCRIPTION };
 
+	@Test
+	void marshallingStatus() throws JAXBException {
+		marshalling(PROP_STATUS);
+	}
+
+	@Test
+	void unmarshallingStatus() throws JAXBException {
+		unmarshalling(PROP_STATUS);
+	}
+
+	@Test
+	void marshallingStatusError() throws JAXBException {
+		marshalling(PROP_STATUS_ERROR);
+	}
+
+	@Test
+	void unmarshallingStatusError() throws JAXBException {
+		unmarshalling(PROP_STATUS_ERROR);
+	}
+
+	@Test
+	void marshallingStatusErrorResponsedescription() throws JAXBException {
+		marshalling(PROP_STATUS_ERROR_RESPONSEDESCRIPTION);
+	}
+
+	@Test
+	void unmarshallingStatusErrorResponsedescription() throws JAXBException {
+		unmarshalling(PROP_STATUS_ERROR_RESPONSEDESCRIPTION);
+	}
+
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final PropStat actual, final PropStat expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final PropStat actual, final PropStat expected, final Object[] dataPoint) {
 		assertThat(actual.getProp(), is(dataPoint[2]));
 		assertThat(actual.getStatus(), is(dataPoint[3]));
 		assertThat(actual.getError(), is(dataPoint[4]));
@@ -71,12 +103,13 @@ public final class PropStatTest extends AbstractJaxbCoreFunctionality<PropStat> 
 	}
 
 	@Override
-	protected final PropStat getInstance() {
+	protected PropStat getInstance() {
 		return new PropStat(PROP, STATUS);
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "PropStat[Prop[[]], Status[HTTP/1.1 423 Locked], null, null]";
 	}
+
 }

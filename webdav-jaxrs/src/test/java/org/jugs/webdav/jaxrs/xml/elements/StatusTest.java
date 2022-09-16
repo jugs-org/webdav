@@ -24,7 +24,6 @@ package org.jugs.webdav.jaxrs.xml.elements;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.ResponseStatus;
-import org.junit.experimental.theories.DataPoints;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -41,10 +40,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class StatusTest extends AbstractJaxbCoreFunctionality<Status> {
-	@SuppressWarnings("deprecation")
 
-	@DataPoints
-	public static final Object[][] DATA_POINTS = {
+	@SuppressWarnings("deprecation")
+	private static final Object[][] DATA_POINTS = {
 			{ new Status(ResponseStatus.FAILED_DEPENDENCY), "<D:status xmlns:D=\"DAV:\">HTTP/1.1 424 Failed Dependency</D:status>",
 					"HTTP/1.1 424 Failed Dependency" },
 			{ new Status(Response.Status.SERVICE_UNAVAILABLE), "<D:status xmlns:D=\"DAV:\">HTTP/1.1 503 Service Unavailable</D:status>",

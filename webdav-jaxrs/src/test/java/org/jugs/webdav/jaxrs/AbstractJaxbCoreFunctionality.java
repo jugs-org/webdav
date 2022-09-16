@@ -23,10 +23,7 @@
 package org.jugs.webdav.jaxrs;
 
 import org.jugs.webdav.jaxrs.xml.AbstractCoreFunctionality;
-import org.junit.BeforeClass;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -52,7 +49,6 @@ import static org.xmlmatchers.transform.XmlConverters.the;
  * 
  * @author Markus KARG (mkarg@java.net)
  */
-@RunWith(Theories.class)
 public abstract class AbstractJaxbCoreFunctionality<T> extends AbstractCoreFunctionality<T> {
 
 	public static JAXBContext context;
@@ -61,7 +57,7 @@ public abstract class AbstractJaxbCoreFunctionality<T> extends AbstractCoreFunct
 
 	public static Unmarshaller unmarshaller;
 
-	@BeforeClass
+	@BeforeAll
 	public static void setUpContext() throws JAXBException {
 		context = WebDavJAXBContextBuilder.build();
 		marshaller = context.createMarshaller();
@@ -69,7 +65,6 @@ public abstract class AbstractJaxbCoreFunctionality<T> extends AbstractCoreFunct
 	}
 
 	@SuppressWarnings("unchecked")
-	@Theory
 	public void marshalling(final Object[] dataPoint) throws JAXBException {
 		final T unmarshalledRepresentation = (T) dataPoint[0];
 		final Writer writer = new StringWriter();
@@ -80,7 +75,6 @@ public abstract class AbstractJaxbCoreFunctionality<T> extends AbstractCoreFunct
 	}
 
 	@SuppressWarnings("unchecked")
-	@Theory
 	public final void unmarshalling(final Object[] dataPoint) throws JAXBException {
 		final T expected = (T) dataPoint[0];
 		final String marshalledRepresentation = (String) dataPoint[1];
@@ -126,10 +120,8 @@ public abstract class AbstractJaxbCoreFunctionality<T> extends AbstractCoreFunct
 		// given
 		final T singletonInstance = expected;
 		final T unmarshalledInstance = actual;
-
 		// when
 		// (doing nothing, as unmarshalling already happened)
-
 		// then
 		assertThat(unmarshalledInstance, sameInstance(singletonInstance));
 	}
@@ -147,11 +139,9 @@ public abstract class AbstractJaxbCoreFunctionality<T> extends AbstractCoreFunct
 		// given
 		final T singletonInstance = expected;
 		final T unmarshalledInstance = actual;
-
 		// when
 		final int unmarshalledHashCode = unmarshalledInstance.hashCode();
 		final int singletonHashCode = singletonInstance.hashCode();
-
 		// then
 		assertThat(unmarshalledHashCode, is(singletonHashCode));
 	}
@@ -171,4 +161,5 @@ public abstract class AbstractJaxbCoreFunctionality<T> extends AbstractCoreFunct
 	protected T getInstance() {
 		return this.getSingleton();
 	}
+
 }

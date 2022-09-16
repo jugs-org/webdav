@@ -23,7 +23,6 @@
 package org.jugs.webdav.jaxrs.xml.elements;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBContext;
@@ -47,11 +46,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public final class TimeOutTest extends AbstractJaxbCoreFunctionality<TimeOut> {
 
-	@DataPoint
-	public static final Object[] INFINITE = { TimeOut.INFINITE, "<D:timeout xmlns:D=\"DAV:\">Infinite</D:timeout>", MAX_VALUE, TRUE };
+	private static final Object[] INFINITE = { TimeOut.INFINITE, "<D:timeout xmlns:D=\"DAV:\">Infinite</D:timeout>", MAX_VALUE, TRUE };
 
-	@DataPoint
-	public static final Object[] SECOND = { new TimeOut(60L), "<D:timeout xmlns:D=\"DAV:\">Second-60</D:timeout>", 60L, FALSE };
+	private static final Object[] SECOND = { new TimeOut(60L), "<D:timeout xmlns:D=\"DAV:\">Second-60</D:timeout>", 60L, FALSE };
 
 	@Test
 	void marshallingInfinite() throws JAXBException {

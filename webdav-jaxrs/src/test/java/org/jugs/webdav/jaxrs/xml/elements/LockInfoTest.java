@@ -24,7 +24,6 @@ package org.jugs.webdav.jaxrs.xml.elements;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
-import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBException;
@@ -52,12 +51,9 @@ public final class LockInfoTest extends AbstractJaxbCoreFunctionality<LockInfo> 
 		assertThrows(NullArgumentException.class, () -> new LockInfo(EXCLUSIVE, null, null));
 	}
 
-	@DataPoint
-	public static final Object[] NO_OWNER = { new LockInfo(EXCLUSIVE, WRITE, null),
+	private static final Object[] NO_OWNER = { new LockInfo(EXCLUSIVE, WRITE, null),
 			"<D:lockinfo xmlns:D=\"DAV:\"><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockinfo>", EXCLUSIVE, WRITE, null };
-
-	@DataPoint
-	public static final Object[] HAS_OWNER = { new LockInfo(EXCLUSIVE, WRITE, new Owner()),
+	private static final Object[] HAS_OWNER = { new LockInfo(EXCLUSIVE, WRITE, new Owner()),
 			"<D:lockinfo xmlns:D=\"DAV:\"><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype><D:owner/></D:lockinfo>", EXCLUSIVE,
 			WRITE, new Owner() };
 

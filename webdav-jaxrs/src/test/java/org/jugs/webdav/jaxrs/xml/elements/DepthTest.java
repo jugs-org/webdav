@@ -23,7 +23,6 @@
 package org.jugs.webdav.jaxrs.xml.elements;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-import org.junit.experimental.theories.DataPoints;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -41,8 +40,7 @@ import static org.jugs.webdav.jaxrs.xml.elements.Depth.*;
  */
 public final class DepthTest extends AbstractJaxbCoreFunctionality<Depth> {
 
-	@DataPoints
-	public static final Object[][] DATA_POINTS = { { ZERO, "<D:depth xmlns:D=\"DAV:\">0</D:depth>", "0" },
+	private static final Object[][] DATA_POINTS = { { ZERO, "<D:depth xmlns:D=\"DAV:\">0</D:depth>", "0" },
 			{ ONE, "<D:depth xmlns:D=\"DAV:\">1</D:depth>", "1" }, { INFINITY, "<D:depth xmlns:D=\"DAV:\">infinity</D:depth>", "infinity" } };
 
 

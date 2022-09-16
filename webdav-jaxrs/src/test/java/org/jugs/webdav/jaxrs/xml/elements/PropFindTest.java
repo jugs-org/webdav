@@ -24,7 +24,6 @@ package org.jugs.webdav.jaxrs.xml.elements;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
-import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBException;
@@ -60,19 +59,12 @@ public final class PropFindTest extends AbstractJaxbCoreFunctionality<PropFind> 
 		assertThrows(NullArgumentException.class, () -> new PropFind((Prop) null));
 	}
 
-	@DataPoint
-	public static final Object[] PROPNAME_VARIANT = { new PropFind(PROPNAME), "<D:propfind xmlns:D=\"DAV:\"><D:propname/></D:propfind>", PROPNAME, null, null,
+	private static final Object[] PROPNAME_VARIANT = { new PropFind(PROPNAME), "<D:propfind xmlns:D=\"DAV:\"><D:propname/></D:propfind>", PROPNAME, null, null,
 			null };
-
-	@DataPoint
-	public static final Object[] ALLPROP_VARIANT = { new PropFind(ALLPROP), "<D:propfind xmlns:D=\"DAV:\"><D:allprop/></D:propfind>", null, ALLPROP, null, null };
-
-	@DataPoint
-	public static final Object[] ALLPROP_INCLUDE_VARIANT = { new PropFind(ALLPROP, INCLUDE),
+	private static final Object[] ALLPROP_VARIANT = { new PropFind(ALLPROP), "<D:propfind xmlns:D=\"DAV:\"><D:allprop/></D:propfind>", null, ALLPROP, null, null };
+	private static final Object[] ALLPROP_INCLUDE_VARIANT = { new PropFind(ALLPROP, INCLUDE),
 			"<D:propfind xmlns:D=\"DAV:\"><D:allprop/><D:include/></D:propfind>", null, ALLPROP, INCLUDE, null };
-
-	@DataPoint
-	public static final Object[] PROP_VARIANT = { new PropFind(PROP), "<D:propfind xmlns:D=\"DAV:\"><D:prop/></D:propfind>", null, null, null, PROP };
+	private static final Object[] PROP_VARIANT = { new PropFind(PROP), "<D:propfind xmlns:D=\"DAV:\"><D:prop/></D:propfind>", null, null, null, PROP };
 
 	@Test
 	void marshallingPropname() throws JAXBException {

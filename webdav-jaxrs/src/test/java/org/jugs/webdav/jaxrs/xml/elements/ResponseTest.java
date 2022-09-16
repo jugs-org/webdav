@@ -24,7 +24,6 @@ package org.jugs.webdav.jaxrs.xml.elements;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
-import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
 import javax.ws.rs.core.Response.StatusType;
@@ -79,21 +78,18 @@ public final class ResponseTest extends AbstractJaxbCoreFunctionality<Response> 
 		assertThrows(NullArgumentException.class, () -> new Response(HREF, ERROR, RESPONSE_DESCRIPTION, LOCATION, new LinkedList<>()));
 	}
 
-	@DataPoint
-	public static final Object[] STATUS_VARIANT = {
+	private static final Object[] STATUS_VARIANT = {
 			new Response(STATUS, ERROR, RESPONSE_DESCRIPTION, LOCATION, HREF),
 			"<D:response xmlns:D=\"DAV:\"><D:href>http://localhost</D:href><D:status>HTTP/1.1 207 Multi-Status</D:status><D:error><D:prop/></D:error><D:responsedescription>X</D:responsedescription><D:location><D:href>http://localhost</D:href></D:location></D:response>",
 			asList(HREF), STATUS, EMPTY_LIST, ERROR, RESPONSE_DESCRIPTION, LOCATION };
 
-	@DataPoint
-	public static final Object[] PROPSTATS_VARIANT = {
+	private static final Object[] PROPSTATS_VARIANT = {
 			new Response(HREF, ERROR, RESPONSE_DESCRIPTION, LOCATION, PROP_STAT, PROP_STAT, PROP_STAT),
 			"<D:response xmlns:D=\"DAV:\"><D:href>http://localhost</D:href><D:propstat><D:prop/><D:status>HTTP/1.1 207 Multi-Status</D:status></D:propstat><D:propstat><D:prop/><D:status>HTTP/1.1 207 Multi-Status</D:status></D:propstat><D:propstat><D:prop/><D:status>HTTP/1.1 207 Multi-Status</D:status></D:propstat><D:error><D:prop/></D:error><D:responsedescription>X</D:responsedescription><D:location><D:href>http://localhost</D:href></D:location></D:response>",
 			asList(HREF), null, asList(PROP_STAT, PROP_STAT, PROP_STAT), ERROR, RESPONSE_DESCRIPTION, LOCATION };
 
 	@SuppressWarnings("deprecation")
-	@DataPoint
-	public static final Object[] DEPRECATED_PROPSTATS_VARIANT = {
+	private static final Object[] DEPRECATED_PROPSTATS_VARIANT = {
 			new Response(HREF, ERROR, RESPONSE_DESCRIPTION, LOCATION, asList(PROP_STAT, PROP_STAT, PROP_STAT)),
 			"<D:response xmlns:D=\"DAV:\"><D:href>http://localhost</D:href><D:propstat><D:prop/><D:status>HTTP/1.1 207 Multi-Status</D:status></D:propstat><D:propstat><D:prop/><D:status>HTTP/1.1 207 Multi-Status</D:status></D:propstat><D:propstat><D:prop/><D:status>HTTP/1.1 207 Multi-Status</D:status></D:propstat><D:error><D:prop/></D:error><D:responsedescription>X</D:responsedescription><D:location><D:href>http://localhost</D:href></D:location></D:response>",
 			asList(HREF), null, asList(PROP_STAT, PROP_STAT, PROP_STAT), ERROR, RESPONSE_DESCRIPTION, LOCATION };

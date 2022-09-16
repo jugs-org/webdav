@@ -24,7 +24,6 @@ package org.jugs.webdav.jaxrs.xml.elements;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
-import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBException;
@@ -46,9 +45,7 @@ public final class LockRootTest extends AbstractJaxbCoreFunctionality<LockRoot> 
 	}
 
 	private static final HRef HREF = new HRef("http://localhost");
-
-	@DataPoint
-	public static final Object[] SINGLE_VALUE_CONSTRUCTOR = { new LockRoot(HREF),
+	private static final Object[] SINGLE_VALUE_CONSTRUCTOR = { new LockRoot(HREF),
 			"<D:lockroot xmlns:D=\"DAV:\"><D:href>http://localhost</D:href></D:lockroot>", HREF };
 
 	@Test

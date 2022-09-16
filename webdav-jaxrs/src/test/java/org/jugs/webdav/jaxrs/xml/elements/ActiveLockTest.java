@@ -25,7 +25,6 @@ package org.jugs.webdav.jaxrs.xml.elements;
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
 import org.jugs.webdav.util.Utilities;
-import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBException;
@@ -73,14 +72,11 @@ public final class ActiveLockTest extends AbstractJaxbCoreFunctionality<ActiveLo
 		assertThrows(NullArgumentException.class, () -> new ActiveLock(LOCK_SCOPE, LOCK_TYPE, DEPTH, OWNER, TIMEOUT, LOCK_TOKEN, null));
 	}
 
-	@DataPoint
-	public static final Object[] ALL_PARAMS = {
+	private static final Object[] ALL_PARAMS = {
 			new ActiveLock(LOCK_SCOPE, LOCK_TYPE, DEPTH, OWNER, TIMEOUT, LOCK_TOKEN, LOCK_ROOT),
 			"<D:activelock xmlns:D=\"DAV:\"><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype><D:depth>infinity</D:depth><D:owner/><D:timeout>Infinite</D:timeout><D:locktoken><D:href>http://localhost</D:href></D:locktoken><D:lockroot><D:href>http://localhost</D:href></D:lockroot></D:activelock>",
 			LOCK_SCOPE, LOCK_TYPE, DEPTH, OWNER, TIMEOUT, LOCK_TOKEN, LOCK_ROOT };
-
-	@DataPoint
-	public static final Object[] MINIMUM_PARAMS = {
+	private static final Object[] MINIMUM_PARAMS = {
 			new ActiveLock(LOCK_SCOPE, LOCK_TYPE, DEPTH, null, null, null, LOCK_ROOT),
 			"<D:activelock xmlns:D=\"DAV:\"><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype><D:depth>infinity</D:depth><D:lockroot><D:href>http://localhost</D:href></D:lockroot></D:activelock>",
 			LOCK_SCOPE, LOCK_TYPE, DEPTH, null, null, null, LOCK_ROOT };

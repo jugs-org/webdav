@@ -23,7 +23,6 @@
 package org.jugs.webdav.jaxrs.xml.elements;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBException;
@@ -38,8 +37,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public final class ResponseDescriptionTest extends AbstractJaxbCoreFunctionality<ResponseDescription> {
 
-	@DataPoint
-	public static final Object[] DATA_POINT = { new ResponseDescription("some content"),
+	private static final Object[] DATA_POINT = { new ResponseDescription("some content"),
 			"<D:responsedescription xmlns:D=\"DAV:\">some content</D:responsedescription>", "some content" };
 
 	@Test

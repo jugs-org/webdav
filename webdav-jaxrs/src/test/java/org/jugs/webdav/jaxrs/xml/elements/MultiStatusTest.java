@@ -24,7 +24,6 @@ package org.jugs.webdav.jaxrs.xml.elements;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.util.Utilities;
-import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBException;
@@ -43,23 +42,26 @@ public final class MultiStatusTest extends AbstractJaxbCoreFunctionality<MultiSt
 	private static final Response RESPONSE = Utilities.buildInstanceOf(Response.class);
 	private static final ResponseDescription RESPONSE_DESCRIPTION = new ResponseDescription("X");
 
-	@DataPoint
-	public static final Object[] SINGLE_RESPONSE_ONLY = { new MultiStatus(RESPONSE), "<D:multistatus xmlns:D=\"DAV:\"><D:response/></D:multistatus>",
+	private static final Object[] SINGLE_RESPONSE_ONLY = { new MultiStatus(RESPONSE), "<D:multistatus xmlns:D=\"DAV:\"><D:response/></D:multistatus>",
 			asList(RESPONSE), null };
-
-	@DataPoint
-	public static final Object[] SINGLE_RESPONSE_WITH_RESPONSE_DESCRIPTION = { new MultiStatus(RESPONSE_DESCRIPTION, RESPONSE),
+	private static final Object[] SINGLE_RESPONSE_WITH_RESPONSE_DESCRIPTION = { new MultiStatus(RESPONSE_DESCRIPTION, RESPONSE),
 			"<D:multistatus xmlns:D=\"DAV:\"><D:response/><D:responsedescription>X</D:responsedescription></D:multistatus>", asList(RESPONSE),
 			RESPONSE_DESCRIPTION };
-
-	@DataPoint
-	public static final Object[] MULTI_RESPONSE_WITH_RESPONSE_DESCRIPTION = { new MultiStatus(RESPONSE_DESCRIPTION, RESPONSE, RESPONSE),
+	private static final Object[] MULTI_RESPONSE_WITH_RESPONSE_DESCRIPTION = { new MultiStatus(RESPONSE_DESCRIPTION, RESPONSE, RESPONSE),
 			"<D:multistatus xmlns:D=\"DAV:\"><D:response/><D:response/><D:responsedescription>X</D:responsedescription></D:multistatus>",
 			asList(RESPONSE, RESPONSE), RESPONSE_DESCRIPTION };
-
-	@DataPoint
-	public static final Object[] RESPONSE_DESCRIPTION_ONLY = { new MultiStatus(RESPONSE_DESCRIPTION),
+	private static final Object[] RESPONSE_DESCRIPTION_ONLY = { new MultiStatus(RESPONSE_DESCRIPTION),
 			"<D:multistatus xmlns:D=\"DAV:\"><D:responsedescription>X</D:responsedescription></D:multistatus>", EMPTY_LIST, RESPONSE_DESCRIPTION };
+
+	@Test
+	void marshallingSingleResponseOnly() throws JAXBException {
+		marshalling(SINGLE_RESPONSE_ONLY);
+	}
+
+	@Test
+	void unmarshallingSingleResponseOnly() throws JAXBException {
+		unmarshalling(SINGLE_RESPONSE_ONLY);
+	}
 
 	@Test
 	void marshallingSingleResponse() throws JAXBException {

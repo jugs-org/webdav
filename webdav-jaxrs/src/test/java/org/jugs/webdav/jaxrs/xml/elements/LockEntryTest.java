@@ -24,7 +24,6 @@ package org.jugs.webdav.jaxrs.xml.elements;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
-import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBException;
@@ -52,8 +51,7 @@ public final class LockEntryTest extends AbstractJaxbCoreFunctionality<LockEntry
 		assertThrows(NullArgumentException.class, () -> new LockEntry(EXCLUSIVE, null));
 	}
 
-	@DataPoint
-	public static final Object[] STANDARD = { new LockEntry(EXCLUSIVE, WRITE),
+	private static final Object[] STANDARD = { new LockEntry(EXCLUSIVE, WRITE),
 			"<D:lockentry xmlns:D=\"DAV:\"><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry>", EXCLUSIVE, WRITE };
 
 	@Test

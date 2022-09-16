@@ -23,8 +23,6 @@
 package org.jugs.webdav.jaxrs.xml.elements;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-
-import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBException;
@@ -36,8 +34,7 @@ import javax.xml.bind.JAXBException;
  */
 public final class WriteTest extends AbstractJaxbCoreFunctionality<Write> {
 
-	@DataPoint
-	public static final Object[] SINGLETON = { Write.WRITE, "<D:write xmlns:D=\"DAV:\"/>" };
+	private static final Object[] SINGLETON = { Write.WRITE, "<D:write xmlns:D=\"DAV:\"/>" };
 
 	@Test
 	void testMarshalling() throws JAXBException {
@@ -58,4 +55,5 @@ public final class WriteTest extends AbstractJaxbCoreFunctionality<Write> {
 	protected String getString() {
 		return "Write[]";
 	}
+
 }

@@ -23,8 +23,6 @@
 package org.jugs.webdav.jaxrs.xml.elements;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-
-import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBException;
@@ -36,8 +34,7 @@ import javax.xml.bind.JAXBException;
  */
 public final class LockTypeTest extends AbstractJaxbCoreFunctionality<LockType> {
 
-	@DataPoint
-	public static final Object[] SINGLETON = { LockType.WRITE, "<D:locktype xmlns:D=\"DAV:\"><D:write/></D:locktype>" };
+	private static final Object[] SINGLETON = { LockType.WRITE, "<D:locktype xmlns:D=\"DAV:\"><D:write/></D:locktype>" };
 
 	@Test
 	void testMarshalling() throws JAXBException {

@@ -24,7 +24,6 @@ package org.jugs.webdav.jaxrs.xml.elements;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
-import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBException;
@@ -46,9 +45,7 @@ public final class LocationTest extends AbstractJaxbCoreFunctionality<Location> 
 	}
 
 	private static HRef HREF = new HRef("http://localhost");
-
-	@DataPoint
-	public static final Object[] SINGLE_VALUE_CONSTRUCTOR = { new Location(HREF),
+	private static final Object[] SINGLE_VALUE_CONSTRUCTOR = { new Location(HREF),
 			"<D:location xmlns:D=\"DAV:\"><D:href>http://localhost</D:href></D:location>", HREF };
 
 	@Test

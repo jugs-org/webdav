@@ -24,7 +24,6 @@ package org.jugs.webdav.jaxrs.xml.elements;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
-import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBException;
@@ -55,14 +54,9 @@ public final class HRefTest extends AbstractJaxbCoreFunctionality<HRef> {
 	}
 
 	private static final String STRING_VALUE = "http://localhost";
-
 	private static final URI URI_VALUE = create(STRING_VALUE);
-
-	@DataPoint
-	public static final Object[] CASE_URI_CONSTRUCTOR = { new HRef(STRING_VALUE), "<D:href xmlns:D=\"DAV:\">http://localhost</D:href>", URI_VALUE, STRING_VALUE };
-
-	@DataPoint
-	public static final Object[] CASE_STRING_CONSTRUCTOR = { new HRef(URI_VALUE), "<D:href xmlns:D=\"DAV:\">http://localhost</D:href>", URI_VALUE, STRING_VALUE };
+	private static final Object[] CASE_URI_CONSTRUCTOR = { new HRef(STRING_VALUE), "<D:href xmlns:D=\"DAV:\">http://localhost</D:href>", URI_VALUE, STRING_VALUE };
+	private static final Object[] CASE_STRING_CONSTRUCTOR = { new HRef(URI_VALUE), "<D:href xmlns:D=\"DAV:\">http://localhost</D:href>", URI_VALUE, STRING_VALUE };
 
 	@Test
 	void marshallingURI() throws JAXBException {

@@ -23,7 +23,6 @@
 package org.jugs.webdav.jaxrs.xml.elements;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
 import javax.ws.rs.core.Response.StatusType;
@@ -45,17 +44,14 @@ public final class PropStatTest extends AbstractJaxbCoreFunctionality<PropStat> 
 	private static final Error ERROR = new Error(PROP);
 	private static final ResponseDescription RESPONSEDESCRIPTION = new ResponseDescription("X");
 
-	@DataPoint
-	public static final Object[] PROP_STATUS = { new PropStat(PROP, STATUS),
+	private static final Object[] PROP_STATUS = { new PropStat(PROP, STATUS),
 			"<D:propstat xmlns:D=\"DAV:\"><D:prop/><D:status>HTTP/1.1 423 Locked</D:status></D:propstat>", PROP, STATUS, null, null };
 
-	@DataPoint
-	public static final Object[] PROP_STATUS_ERROR = { new PropStat(PROP, STATUS, ERROR),
+	private static final Object[] PROP_STATUS_ERROR = { new PropStat(PROP, STATUS, ERROR),
 			"<D:propstat xmlns:D=\"DAV:\"><D:prop/><D:status>HTTP/1.1 423 Locked</D:status><D:error><D:prop/></D:error></D:propstat>", PROP, STATUS, ERROR,
 			null };
 
-	@DataPoint
-	public static final Object[] PROP_STATUS_ERROR_RESPONSEDESCRIPTION = {
+	private static final Object[] PROP_STATUS_ERROR_RESPONSEDESCRIPTION = {
 			new PropStat(PROP, STATUS, ERROR, RESPONSEDESCRIPTION),
 			"<D:propstat xmlns:D=\"DAV:\"><D:prop/><D:status>HTTP/1.1 423 Locked</D:status><D:error><D:prop/></D:error><D:responsedescription>X</D:responsedescription></D:propstat>",
 			PROP, STATUS, ERROR, RESPONSEDESCRIPTION };

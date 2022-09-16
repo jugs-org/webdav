@@ -25,7 +25,6 @@ package org.jugs.webdav.jaxrs.xml.elements;
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
 import org.jugs.webdav.jaxrs.xml.properties.GetContentLanguage;
-import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBException;
@@ -48,14 +47,9 @@ public final class ErrorTest extends AbstractJaxbCoreFunctionality<Error> {
 	}
 
 	private static final Object FIRST_ERROR = new Prop();
-
 	private static final Object SECOND_ERROR = GetContentLanguage.GETCONTENTLANGUAGE;
-
-	@DataPoint
-	public static final Object[] ONE_ERROR = { new Error(FIRST_ERROR), "<D:error xmlns:D=\"DAV:\"><D:prop/></D:error>", asList(FIRST_ERROR) };
-
-	@DataPoint
-	public static final Object[] TWO_ERRORS = { new Error(FIRST_ERROR, SECOND_ERROR), "<D:error xmlns:D=\"DAV:\"><D:prop/><D:getcontentlanguage/></D:error>",
+	private static final Object[] ONE_ERROR = { new Error(FIRST_ERROR), "<D:error xmlns:D=\"DAV:\"><D:prop/></D:error>", asList(FIRST_ERROR) };
+	private static final Object[] TWO_ERRORS = { new Error(FIRST_ERROR, SECOND_ERROR), "<D:error xmlns:D=\"DAV:\"><D:prop/><D:getcontentlanguage/></D:error>",
 			asList(FIRST_ERROR, SECOND_ERROR) };
 
 	@Test

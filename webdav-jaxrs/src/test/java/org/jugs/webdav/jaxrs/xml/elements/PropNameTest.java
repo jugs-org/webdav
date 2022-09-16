@@ -23,8 +23,6 @@
 package org.jugs.webdav.jaxrs.xml.elements;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-
-import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBException;
@@ -36,8 +34,7 @@ import javax.xml.bind.JAXBException;
  */
 public final class PropNameTest extends AbstractJaxbCoreFunctionality<PropName> {
 
-	@DataPoint
-	public static final Object[] SINGLETON = { PropName.PROPNAME, "<D:propname xmlns:D=\"DAV:\"/>" };
+	private static final Object[] SINGLETON = { PropName.PROPNAME, "<D:propname xmlns:D=\"DAV:\"/>" };
 
 	@Test
 	void testMarshalling() throws JAXBException {

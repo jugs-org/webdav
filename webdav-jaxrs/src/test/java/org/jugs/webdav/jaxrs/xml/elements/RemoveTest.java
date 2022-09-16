@@ -24,7 +24,6 @@ package org.jugs.webdav.jaxrs.xml.elements;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
-import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBException;
@@ -42,8 +41,7 @@ public final class RemoveTest extends AbstractJaxbCoreFunctionality<Remove> {
 
 	private static final Prop PROP = new Prop();
 
-	@DataPoint
-	public static final Object[] DATA_POINT = { new Remove(PROP), "<D:remove xmlns:D=\"DAV:\"><D:prop/></D:remove>", PROP };
+	private static final Object[] DATA_POINT = { new Remove(PROP), "<D:remove xmlns:D=\"DAV:\"><D:prop/></D:remove>", PROP };
 
 	@Test
 	void testMarshalling() throws JAXBException {

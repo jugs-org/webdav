@@ -24,7 +24,6 @@ package org.jugs.webdav.jaxrs.xml.elements;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.xml.properties.CreationDate;
-import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBException;
@@ -42,8 +41,7 @@ public final class PropTest extends AbstractJaxbCoreFunctionality<Prop> {
 
 	private static final CreationDate CREATIONDATE = CreationDate.CREATIONDATE;
 
-	@DataPoint
-	public static final Object[] DATA_POINT = { new Prop(CREATIONDATE), "<D:prop xmlns:D=\"DAV:\"><D:creationdate/></D:prop>", singletonList(CREATIONDATE) };
+	private static final Object[] DATA_POINT = { new Prop(CREATIONDATE), "<D:prop xmlns:D=\"DAV:\"><D:creationdate/></D:prop>", singletonList(CREATIONDATE) };
 
 	@Test
 	void testMarshalling() throws JAXBException {

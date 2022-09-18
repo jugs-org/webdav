@@ -23,8 +23,9 @@
 package org.jugs.webdav.jaxrs.xml.conditions;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
+import org.junit.jupiter.api.Test;
 
-import org.junit.experimental.theories.DataPoint;
+import javax.xml.bind.JAXBException;
 
 /**
  * Unit test for {@link CannotModifyProtectedProperty}
@@ -33,17 +34,28 @@ import org.junit.experimental.theories.DataPoint;
  */
 public final class CannotModifyProtectedPropertyTest extends
         AbstractJaxbCoreFunctionality<CannotModifyProtectedProperty> {
-	@DataPoint
-	public static final Object[] SINGLETON = { CannotModifyProtectedProperty.CANNOT_MODIFY_PROTECTED_PROPERTY,
+
+	private static final Object[] SINGLETON = { CannotModifyProtectedProperty.CANNOT_MODIFY_PROTECTED_PROPERTY,
 			"<D:cannot-modify-protected-property xmlns:D=\"DAV:\"/>" };
 
+	@Test
+	void testMarshalling() throws JAXBException {
+		marshalling(SINGLETON);
+	}
+
+	@Test
+	void testUnmarshalling() throws JAXBException {
+		unmarshalling(SINGLETON);
+	}
+
 	@Override
-	protected final CannotModifyProtectedProperty getSingleton() {
+	protected CannotModifyProtectedProperty getSingleton() {
 		return CannotModifyProtectedProperty.CANNOT_MODIFY_PROTECTED_PROPERTY;
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "CannotModifyProtectedProperty[]";
 	}
+
 }

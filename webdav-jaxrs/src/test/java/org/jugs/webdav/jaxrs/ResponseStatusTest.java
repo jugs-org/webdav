@@ -22,39 +22,34 @@
 
 package org.jugs.webdav.jaxrs;
 
-import static javax.ws.rs.core.Response.Status.Family.CLIENT_ERROR;
-import static javax.ws.rs.core.Response.Status.Family.SERVER_ERROR;
-import static javax.ws.rs.core.Response.Status.Family.SUCCESSFUL;
-import static org.jugs.webdav.jaxrs.ResponseStatus.FAILED_DEPENDENCY;
-import static org.jugs.webdav.jaxrs.ResponseStatus.INSUFFICIENT_STORAGE;
-import static org.jugs.webdav.jaxrs.ResponseStatus.LOCKED;
-import static org.jugs.webdav.jaxrs.ResponseStatus.MULTI_STATUS;
-import static org.jugs.webdav.jaxrs.ResponseStatus.UNPROCESSABLE_ENTITY;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import javax.ws.rs.core.Response.Status.Family;
 
-import org.jugs.webdav.jaxrs.ResponseStatus;
-import org.junit.experimental.theories.DataPoints;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import static javax.ws.rs.core.Response.Status.Family.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.jugs.webdav.jaxrs.ResponseStatus.*;
 
 /**
  * Tests WebDAV response statuses.
  * 
  * @author Markus KARG (mkarg@java.net)
  */
-@RunWith(Theories.class)
 public final class ResponseStatusTest {
-	@DataPoints
-	public static final Object[][] DATA_POINTS = new Object[][] { { MULTI_STATUS, 207, "Multi-Status", SUCCESSFUL },
+
+	private static final Object[][] DATA_POINTS = new Object[][] { { MULTI_STATUS, 207, "Multi-Status", SUCCESSFUL },
 			{ UNPROCESSABLE_ENTITY, 422, "Unprocessable Entity", CLIENT_ERROR }, { LOCKED, 423, "Locked", CLIENT_ERROR },
 			{ FAILED_DEPENDENCY, 424, "Failed Dependency", CLIENT_ERROR }, { INSUFFICIENT_STORAGE, 507, "Insufficient Storage", SERVER_ERROR } };
 
-	@Theory
-	public final void webDAVConstantsProduceCorrectly(final Object[] dataPoint) {
+	@ParameterizedTest(name = "[{index}]")
+	@ValueSource(ints = {0, 1, 2, 3, 4})
+	void testWebDAVConstantsProduceCorrectly(int i) {
+		webDAVConstantsProduceCorrectly(DATA_POINTS[i]);
+	}
+
+	private static void webDAVConstantsProduceCorrectly(final Object[] dataPoint) {
 		final ResponseStatus actual = (ResponseStatus) dataPoint[0];
 		final int expectedStatusCode = (Integer) dataPoint[1];
 		final String expectedReasonPhrase = (String) dataPoint[2];
@@ -64,4 +59,5 @@ public final class ResponseStatusTest {
 		assertThat(actual.getReasonPhrase(), is(expectedReasonPhrase));
 		assertThat(actual.getFamily(), is(expectedFamily));
 	}
+
 }

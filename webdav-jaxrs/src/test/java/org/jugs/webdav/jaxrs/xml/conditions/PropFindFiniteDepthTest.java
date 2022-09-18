@@ -23,8 +23,9 @@
 package org.jugs.webdav.jaxrs.xml.conditions;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
+import org.junit.jupiter.api.Test;
 
-import org.junit.experimental.theories.DataPoint;
+import javax.xml.bind.JAXBException;
 
 /**
  * Unit test for {@link PropFindFiniteDepth}
@@ -32,16 +33,27 @@ import org.junit.experimental.theories.DataPoint;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class PropFindFiniteDepthTest extends AbstractJaxbCoreFunctionality<PropFindFiniteDepth> {
-	@DataPoint
-	public static final Object[] SINGLETON = new Object[] { PropFindFiniteDepth.PROPFIND_FINITE_DEPTH, "<D:propfind-finite-depth xmlns:D=\"DAV:\"/>" };
+
+	private static final Object[] SINGLETON = new Object[] { PropFindFiniteDepth.PROPFIND_FINITE_DEPTH, "<D:propfind-finite-depth xmlns:D=\"DAV:\"/>" };
+
+	@Test
+	void testMarshalling() throws JAXBException {
+		marshalling(SINGLETON);
+	}
+
+	@Test
+	void testUnmarshalling() throws JAXBException {
+		unmarshalling(SINGLETON);
+	}
 
 	@Override
-	protected final PropFindFiniteDepth getSingleton() {
+	protected PropFindFiniteDepth getSingleton() {
 		return PropFindFiniteDepth.PROPFIND_FINITE_DEPTH;
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "PropFindFiniteDepth[]";
 	}
+
 }

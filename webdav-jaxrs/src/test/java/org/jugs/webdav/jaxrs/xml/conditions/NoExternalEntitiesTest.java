@@ -23,8 +23,9 @@
 package org.jugs.webdav.jaxrs.xml.conditions;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
+import org.junit.jupiter.api.Test;
 
-import org.junit.experimental.theories.DataPoint;
+import javax.xml.bind.JAXBException;
 
 /**
  * Unit test for {@link NoExternalEntities}
@@ -32,15 +33,26 @@ import org.junit.experimental.theories.DataPoint;
  * @author Markus KARG (mkarg@java.net) *
  */
 public final class NoExternalEntitiesTest extends AbstractJaxbCoreFunctionality<NoExternalEntities> {
-	@DataPoint
-	public static final Object[] SINGLETON = new Object[] { NoExternalEntities.NO_EXTERNAL_ENTITIES, "<D:no-external-entities xmlns:D=\"DAV:\"/>" };
+
+	private static final Object[] SINGLETON = new Object[] { NoExternalEntities.NO_EXTERNAL_ENTITIES, "<D:no-external-entities xmlns:D=\"DAV:\"/>" };
+
+	@Test
+	void testMarshalling() throws JAXBException {
+		marshalling(SINGLETON);
+	}
+
+	@Test
+	void testUnmarshalling() throws JAXBException {
+		unmarshalling(SINGLETON);
+	}
 
 	@Override
-	protected final NoExternalEntities getSingleton() {
+	protected NoExternalEntities getSingleton() {
 		return NoExternalEntities.NO_EXTERNAL_ENTITIES;
 	}
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "NoExternalEntities[]";
 	}
+
 }

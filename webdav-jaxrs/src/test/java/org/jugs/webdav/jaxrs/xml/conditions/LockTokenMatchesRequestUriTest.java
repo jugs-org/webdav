@@ -23,8 +23,9 @@
 package org.jugs.webdav.jaxrs.xml.conditions;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
+import org.junit.jupiter.api.Test;
 
-import org.junit.experimental.theories.DataPoint;
+import javax.xml.bind.JAXBException;
 
 /**
  * Unit test for {@link LockTokenMatchesRequestUri}
@@ -32,17 +33,28 @@ import org.junit.experimental.theories.DataPoint;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class LockTokenMatchesRequestUriTest extends AbstractJaxbCoreFunctionality<LockTokenMatchesRequestUri> {
-	@DataPoint
-	public static final Object[] SINGLETON = { LockTokenMatchesRequestUri.LOCK_TOKEN_MATCHES_REQUEST_URI,
+
+	private static final Object[] SINGLETON = { LockTokenMatchesRequestUri.LOCK_TOKEN_MATCHES_REQUEST_URI,
 			"<D:lock-token-matches-request-uri xmlns:D=\"DAV:\"/>" };
 
+	@Test
+	void testMarshalling() throws JAXBException {
+		marshalling(SINGLETON);
+	}
+
+	@Test
+	void testUnmarshalling() throws JAXBException {
+		unmarshalling(SINGLETON);
+	}
+
 	@Override
-	protected final LockTokenMatchesRequestUri getSingleton() {
+	protected LockTokenMatchesRequestUri getSingleton() {
 		return LockTokenMatchesRequestUri.LOCK_TOKEN_MATCHES_REQUEST_URI;
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "LockTokenMatchesRequestUri[]";
 	}
+
 }

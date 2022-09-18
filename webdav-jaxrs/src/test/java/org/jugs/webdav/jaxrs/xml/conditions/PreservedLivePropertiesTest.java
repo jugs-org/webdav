@@ -23,8 +23,9 @@
 package org.jugs.webdav.jaxrs.xml.conditions;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
+import org.junit.jupiter.api.Test;
 
-import org.junit.experimental.theories.DataPoint;
+import javax.xml.bind.JAXBException;
 
 /**
  * Unit test for {@link PreservedLiveProperties}
@@ -32,17 +33,28 @@ import org.junit.experimental.theories.DataPoint;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class PreservedLivePropertiesTest extends AbstractJaxbCoreFunctionality<PreservedLiveProperties> {
-	@DataPoint
-	public static final Object[] SINGLETON = new Object[] { PreservedLiveProperties.PRESERVED_LIVE_PROPERTIES,
+
+	private static final Object[] SINGLETON = new Object[] { PreservedLiveProperties.PRESERVED_LIVE_PROPERTIES,
 			"<D:preserved-live-properties xmlns:D=\"DAV:\"/>" };
 
+	@Test
+	void testMarshalling() throws JAXBException {
+		marshalling(SINGLETON);
+	}
+
+	@Test
+	void testUnmarshalling() throws JAXBException {
+		unmarshalling(SINGLETON);
+	}
+
 	@Override
-	protected final PreservedLiveProperties getSingleton() {
+	protected PreservedLiveProperties getSingleton() {
 		return PreservedLiveProperties.PRESERVED_LIVE_PROPERTIES;
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "PreservedLiveProperties[]";
 	}
+
 }

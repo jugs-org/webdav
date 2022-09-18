@@ -22,25 +22,20 @@
 
 package org.jugs.webdav.jaxrs.xml.conditions;
 
-import static org.hamcrest.CoreMatchers.anyOf;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.hamcrest.MatcherAssert.assertThat;
+import org.hamcrest.CoreMatchers;
+import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
+import org.jugs.webdav.jaxrs.ImmutableCollection;
+import org.jugs.webdav.jaxrs.xml.elements.HRef;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
+import javax.xml.bind.JAXB;
 import java.io.StringReader;
 import java.util.Collection;
 import java.util.List;
 
-import javax.xml.bind.JAXB;
-
-import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-import org.hamcrest.CoreMatchers;
-import org.jugs.webdav.jaxrs.ImmutableCollection;
-import org.jugs.webdav.jaxrs.xml.elements.HRef;
-
-import org.junit.experimental.theories.DataPoints;
-import org.junit.experimental.theories.Theory;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Unit test for {@link NoConflictingLock}
@@ -48,10 +43,10 @@ import org.junit.experimental.theories.Theory;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class NoConflictingLockTest extends AbstractJaxbCoreFunctionality<NoConflictingLock> {
+
 	private static final HRef HREF = new HRef("x");
 
-	@DataPoints
-	public static final Object[][] DATA_POINTS = new Object[][] {
+	private static final Object[][] DATA_POINTS = new Object[][] {
 			{ new NoConflictingLock(), "<D:no-conflicting-lock xmlns:D=\"DAV:\"/>" },
 			{ new NoConflictingLock(HREF), "<D:no-conflicting-lock xmlns:D=\"DAV:\"><D:href>x</D:href></D:no-conflicting-lock>" },
 			{ new NoConflictingLock(new HRef("x"), new HRef("y"), new HRef("z")),
@@ -59,32 +54,43 @@ public final class NoConflictingLockTest extends AbstractJaxbCoreFunctionality<N
 			{ new NoConflictingLock(new HRef[] { new HRef("x"), new HRef("y"), new HRef("z") }),
 					"<D:no-conflicting-lock xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href><D:href>z</D:href></D:no-conflicting-lock>" } };
 
-	@Theory
-	public final void hRefsAreSorted(final Object[] dataPoint) {
+	@ParameterizedTest(name = "[{index}]")
+	@ValueSource(ints = {0, 1, 2, 3})
+	void testHRefsAreSorted(int i) {
+		hRefsAreSorted(DATA_POINTS[i]);
+	}
+
+	private static void hRefsAreSorted(final Object[] dataPoint) {
 		final List<HRef> actualSequence = JAXB.unmarshal(new StringReader((String) dataPoint[1]), NoConflictingLock.class).getHRefs();
 		final List<HRef> expectedSequence = ((NoConflictingLock) dataPoint[0]).getHRefs();
 		assertThat(actualSequence, is(expectedSequence));
 	}
 
-	@Theory
-	public final void hRefsAreEffectivelyImmutable(final Object[] dataPoint) {
+	@ParameterizedTest(name = "[{index}]")
+	@ValueSource(ints = {0, 1, 2, 3})
+	void testHRefsAreEffectivelyImmutable(int i) {
+		hRefsAreEffectivelyImmutable(DATA_POINTS[i]);
+	}
+
+	private static void hRefsAreEffectivelyImmutable(final Object[] dataPoint) {
 		assertEffectivelyImmutableHRefs((NoConflictingLock) dataPoint[0]);
 		assertEffectivelyImmutableHRefs(JAXB.unmarshal(new StringReader((String) dataPoint[1]), NoConflictingLock.class));
 	}
 
-	private static final void assertEffectivelyImmutableHRefs(final NoConflictingLock immutableObject) {
+	private static void assertEffectivelyImmutableHRefs(final NoConflictingLock immutableObject) {
 		final Collection<HRef> resultOfFirstCall = immutableObject.getHRefs();
 		final Collection<HRef> resultOfSecondCall = immutableObject.getHRefs();
 		assertThat(resultOfFirstCall, is(CoreMatchers.anyOf(ImmutableCollection.immutable(HRef.class), not(sameInstance(resultOfSecondCall)))));
 	}
 
 	@Override
-	protected final NoConflictingLock getInstance() {
+	protected NoConflictingLock getInstance() {
 		return new NoConflictingLock(HREF);
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "NoConflictingLock[[HRef[x]]]";
 	}
+
 }

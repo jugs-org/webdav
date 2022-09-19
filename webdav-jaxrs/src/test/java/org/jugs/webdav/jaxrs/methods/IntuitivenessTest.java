@@ -22,33 +22,29 @@
 
 package org.jugs.webdav.jaxrs.methods;
 
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsEqual.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import javax.ws.rs.HttpMethod;
 
-import org.jugs.webdav.jaxrs.methods.*;
-import org.junit.experimental.theories.DataPoints;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
 
 /**
  * Tests WebDAV method annotations's intuitiveness (i. e. whether the API is intuitive to use).
  * 
  * @author Markus KARG (mkarg@java.net)
  */
-@RunWith(Theories.class)
 public final class IntuitivenessTest {
-	@SuppressWarnings("deprecation")
-	@DataPoints
-	public static final Class<?>[] DATA_POINTS = {COPY.class, LOCK.class, MKCOL.class, MOVE.class, OPTIONS.class, PROPFIND.class, PROPPATCH.class,
-												  UNLOCK.class };
 
-	@Theory
-	public final void annotationNameEqualsHttpMethodName(final Class<?> dataPoint) {
+	@SuppressWarnings("deprecation")
+	@ParameterizedTest(name = "{0}")
+	@ValueSource(classes = {COPY.class, LOCK.class, MKCOL.class, MOVE.class, OPTIONS.class, PROPFIND.class, PROPPATCH.class,
+							UNLOCK.class })
+	void annotationNameEqualsHttpMethod(Class<?> dataPoint) {
 		assertThat("HTTP method name must equal simple name of " + dataPoint + ".", dataPoint.getAnnotation(HttpMethod.class).value(),
 				is(equalTo(dataPoint.getSimpleName())));
 	}
+
 }

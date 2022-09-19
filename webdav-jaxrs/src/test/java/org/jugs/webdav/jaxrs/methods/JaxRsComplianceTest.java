@@ -22,54 +22,58 @@
 
 package org.jugs.webdav.jaxrs.methods;
 
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsSame.sameInstance;
-import static org.hamcrest.MatcherAssert.assertThat;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
+import javax.ws.rs.HttpMethod;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import javax.ws.rs.HttpMethod;
-
-import org.jugs.webdav.jaxrs.methods.*;
-import org.junit.experimental.theories.DataPoints;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsSame.sameInstance;
 
 /**
  * Tests WebDAV method annotations for JAX-RS compliance.
  * 
  * @author Markus KARG (mkarg@java.net)
  */
-@RunWith(Theories.class)
 public final class JaxRsComplianceTest {
-	@SuppressWarnings("deprecation")
-	@DataPoints
-	public static final Class<?>[] DATA_POINTS = {COPY.class, LOCK.class, MKCOL.class, MOVE.class, OPTIONS.class, PROPFIND.class, PROPPATCH.class,
-												  UNLOCK.class };
 
-	@Theory
-	public final void isAnAnnotation(final Class<?> dataPoint) {
+	@SuppressWarnings("deprecation")
+	@ParameterizedTest(name = "{0}")
+	@ValueSource(classes = {COPY.class, LOCK.class, MKCOL.class, MOVE.class, OPTIONS.class, PROPFIND.class, PROPPATCH.class,
+							UNLOCK.class } )
+	void isAnAnnotation(final Class<?> dataPoint) {
 		assertThat(dataPoint + " must be an annotation.", dataPoint.isAnnotation(), is(true));
 	}
 
-	@Theory
-	public final void canBeUsedOnMethods(final Class<?> dataPoint) {
+	@SuppressWarnings("deprecation")
+	@ParameterizedTest(name = "{0}")
+	@ValueSource(classes = {COPY.class, LOCK.class, MKCOL.class, MOVE.class, OPTIONS.class, PROPFIND.class, PROPPATCH.class,
+							UNLOCK.class } )
+	void canBeUsedOnMethods(final Class<?> dataPoint) {
 		assertThat(dataPoint + " must be annotated with @Target.", dataPoint.isAnnotationPresent(Target.class), is(true));
 		assertThat("Target element type of " + dataPoint + " must be METHOD.", dataPoint.getAnnotation(Target.class).value()[0], is(sameInstance(METHOD)));
 	}
 
-	@Theory
-	public final void hasRuntimeRetention(final Class<?> dataPoint) {
+	@SuppressWarnings("deprecation")
+	@ParameterizedTest(name = "{0}")
+	@ValueSource(classes = {COPY.class, LOCK.class, MKCOL.class, MOVE.class, OPTIONS.class, PROPFIND.class, PROPPATCH.class,
+							UNLOCK.class } )
+	void hasRuntimeRetention(final Class<?> dataPoint) {
 		assertThat(dataPoint + " must be annotated with @Retention.", dataPoint.isAnnotationPresent(Retention.class), is(true));
 		assertThat("Retention policy of " + dataPoint + " must be RUNTIME.", dataPoint.getAnnotation(Retention.class).value(), is(sameInstance(RUNTIME)));
 	}
 
-	@Theory
-	public final void hasHttpMethod(final Class<?> dataPoint) {
+	@SuppressWarnings("deprecation")
+	@ParameterizedTest(name = "{0}")
+	@ValueSource(classes = {COPY.class, LOCK.class, MKCOL.class, MOVE.class, OPTIONS.class, PROPFIND.class, PROPPATCH.class,
+							UNLOCK.class } )
+	void hasHttpMethod(final Class<?> dataPoint) {
 		assertThat(dataPoint + " must be annotated with @HttpMethod.", dataPoint.isAnnotationPresent(HttpMethod.class), is(true));
 	}
+
 }

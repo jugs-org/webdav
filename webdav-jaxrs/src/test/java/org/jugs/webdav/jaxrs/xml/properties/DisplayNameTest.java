@@ -24,7 +24,6 @@ package org.jugs.webdav.jaxrs.xml.properties;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
-import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBContext;
@@ -44,19 +43,37 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class DisplayNameTest extends AbstractJaxbCoreFunctionality<DisplayName> {
+
 	@Test
 	void constructorDoesNotAcceptNullAsName() {
 		assertThrows(NullArgumentException.class, () -> new DisplayName(null));
 	}
 
-	@DataPoint
-	public static final Object[] DISPLAYNAME = { DisplayName.DISPLAYNAME, "<D:displayname xmlns:D=\"DAV:\"/>", "" };
+	private static final Object[] DISPLAYNAME = { DisplayName.DISPLAYNAME, "<D:displayname xmlns:D=\"DAV:\"/>", "" };
+	private static final Object[] NAME_CONSTRUCTOR = { new DisplayName("SomeName"), "<D:displayname xmlns:D=\"DAV:\">SomeName</D:displayname>", "SomeName" };
 
-	@DataPoint
-	public static final Object[] NAME_CONSTRUCTOR = { new DisplayName("SomeName"), "<D:displayname xmlns:D=\"DAV:\">SomeName</D:displayname>", "SomeName" };
+	@Test
+	void marshallingDisplayname() throws JAXBException {
+		marshalling(DISPLAYNAME);
+	}
+
+	@Test
+	void unmarshallingDisplayname() throws JAXBException {
+		unmarshalling(DISPLAYNAME);
+	}
+
+	@Test
+	void marshallingNameConstructor() throws JAXBException {
+		marshalling(NAME_CONSTRUCTOR);
+	}
+
+	@Test
+	void unmarshallingNameConstructor() throws JAXBException {
+		unmarshalling(NAME_CONSTRUCTOR);
+	}
 
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final DisplayName actual, final DisplayName expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final DisplayName actual, final DisplayName expected, final Object[] dataPoint) {
 		assertThat(actual.getName(), is(dataPoint[2]));
 		assertThat(expected.getName(), is(dataPoint[2]));
 	}
@@ -67,25 +84,24 @@ public final class DisplayNameTest extends AbstractJaxbCoreFunctionality<Display
 	}
 
 	@Test
-	public final void shouldUnmarshalDISPLAYNAMEConstant() throws JAXBException {
+	void shouldUnmarshalDISPLAYNAMEConstant() throws JAXBException {
 		// given
 		final String marshalledForm = "<D:displayname/>";
-
 		// when
 		final DisplayName unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
 				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).displayname;
-
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(DisplayName.DISPLAYNAME)));
 	}
 
 	@Override
-	protected final DisplayName getInstance() {
+	protected DisplayName getInstance() {
 		return new DisplayName("SomeName");
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "DisplayName[SomeName]";
 	}
+
 }

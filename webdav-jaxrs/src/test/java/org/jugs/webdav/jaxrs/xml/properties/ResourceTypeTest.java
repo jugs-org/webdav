@@ -26,7 +26,6 @@ import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
 import org.jugs.webdav.jaxrs.xml.elements.Collection;
 import org.jugs.webdav.util.Utilities;
-import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBContext;
@@ -48,26 +47,52 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class ResourceTypeTest extends AbstractJaxbCoreFunctionality<ResourceType> {
-	private static Collection RESOURCE_TYPE = Utilities.buildInstanceOf(Collection.class);
+
+	private static final Collection RESOURCE_TYPE = Utilities.buildInstanceOf(Collection.class);
 
 	@Test
 	void constructorDoesNotAcceptNullAsLockEntries() {
 		assertThrows(NullArgumentException.class, () -> new ResourceType((Object[]) null));
 	}
 
-	@DataPoint
-	public static final Object[] RESOURCETYPE = { ResourceType.RESOURCETYPE, "<D:resourcetype xmlns:D=\"DAV:\"/>", EMPTY_LIST };
-
-	@DataPoint
-	public static final Object[] COLLECTION = { ResourceType.COLLECTION, "<D:resourcetype xmlns:D=\"DAV:\"><D:collection/></D:resourcetype>",
+	private static final Object[] RESOURCETYPE = { ResourceType.RESOURCETYPE, "<D:resourcetype xmlns:D=\"DAV:\"/>", EMPTY_LIST };
+	private static final Object[] COLLECTION = { ResourceType.COLLECTION, "<D:resourcetype xmlns:D=\"DAV:\"><D:collection/></D:resourcetype>",
 			asList(RESOURCE_TYPE) };
-
-	@DataPoint
-	public static final Object[] RESOURCETYPE_CONSTRUCTOR = { new ResourceType(RESOURCE_TYPE),
+	private static final Object[] RESOURCETYPE_CONSTRUCTOR = { new ResourceType(RESOURCE_TYPE),
 			"<D:resourcetype xmlns:D=\"DAV:\"><D:collection/></D:resourcetype>", asList(RESOURCE_TYPE) };
 
+	@Test
+	void marshallingResourcetype() throws JAXBException {
+		marshalling(RESOURCETYPE);
+	}
+
+	@Test
+	void unmarshallingResourcetype() throws JAXBException {
+		unmarshalling(RESOURCETYPE);
+	}
+
+	@Test
+	void marshallingCollection() throws JAXBException {
+		marshalling(COLLECTION);
+	}
+
+	@Test
+	void unmarshallingCollection() throws JAXBException {
+		unmarshalling(COLLECTION);
+	}
+
+	@Test
+	void marshallingResourcetypeConstructor() throws JAXBException {
+		marshalling(RESOURCETYPE_CONSTRUCTOR);
+	}
+
+	@Test
+	void unmarshallingResourcetypeConstructor() throws JAXBException {
+		unmarshalling(RESOURCETYPE_CONSTRUCTOR);
+	}
+
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final ResourceType actual, final ResourceType expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final ResourceType actual, final ResourceType expected, final Object[] dataPoint) {
 		assertThat(actual.getResourceTypes(), is(dataPoint[2]));
 		assertThat(expected.getResourceTypes(), is(dataPoint[2]));
 	}
@@ -78,38 +103,35 @@ public final class ResourceTypeTest extends AbstractJaxbCoreFunctionality<Resour
 	}
 
 	@Test
-	public final void shouldUnmarshalRESOURCETYPEConstant() throws JAXBException {
+	void shouldUnmarshalRESOURCETYPEConstant() throws JAXBException {
 		// given
 		final String marshalledForm = "<D:resourcetype/>";
-
 		// when
 		final ResourceType unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
 				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).resourcetype;
-
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(ResourceType.RESOURCETYPE)));
 	}
 
 	@Test
-	public final void shouldUnmarshalCOLLECTIONConstant() throws JAXBException {
+	void shouldUnmarshalCOLLECTIONConstant() throws JAXBException {
 		// given
 		final String marshalledForm = "<D:resourcetype><D:collection/></D:resourcetype>";
-
 		// when
 		final ResourceType unmarshalledInstance = ((X) JAXBContext.newInstance(X.class, Collection.class).createUnmarshaller()
 				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).resourcetype;
-
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(ResourceType.COLLECTION)));
 	}
 
 	@Override
-	protected final ResourceType getInstance() {
+	protected ResourceType getInstance() {
 		return ResourceType.COLLECTION;
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "ResourceType[[Collection[]]]";
 	}
+
 }

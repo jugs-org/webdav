@@ -28,7 +28,6 @@ import org.jugs.webdav.jaxrs.xml.elements.LockEntry;
 import org.jugs.webdav.jaxrs.xml.elements.LockScope;
 import org.jugs.webdav.jaxrs.xml.elements.LockType;
 import org.jugs.webdav.util.Utilities;
-import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBContext;
@@ -50,22 +49,40 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class SupportedLockTest extends AbstractJaxbCoreFunctionality<SupportedLock> {
-	private static LockEntry LOCK_ENTRY = Utilities.buildInstanceOf(LockEntry.class);
+
+	private static final LockEntry LOCK_ENTRY = Utilities.buildInstanceOf(LockEntry.class);
 
 	@Test
 	void constructorDoesNotAcceptNullAsLockEntries() {
 		assertThrows(NullArgumentException.class, () -> new SupportedLock((LockEntry[]) null));
 	}
 
-	@DataPoint
-	public static final Object[] SUPPORTEDLOCK = { SupportedLock.SUPPORTEDLOCK, "<D:supportedlock xmlns:D=\"DAV:\"/>", EMPTY_LIST };
-
-	@DataPoint
-	public static final Object[] LOCKENTRY_CONSTRUCTOR = { new SupportedLock(LOCK_ENTRY), "<D:supportedlock xmlns:D=\"DAV:\"><D:lockentry/></D:supportedlock>",
+	private static final Object[] SUPPORTEDLOCK = { SupportedLock.SUPPORTEDLOCK, "<D:supportedlock xmlns:D=\"DAV:\"/>", EMPTY_LIST };
+	private static final Object[] LOCKENTRY_CONSTRUCTOR = { new SupportedLock(LOCK_ENTRY), "<D:supportedlock xmlns:D=\"DAV:\"><D:lockentry/></D:supportedlock>",
 			asList(LOCK_ENTRY) };
 
+	@Test
+	void marshallingSupportedLock() throws JAXBException {
+		marshalling(SUPPORTEDLOCK);
+	}
+
+	@Test
+	void unmarshallingSupportedLock() throws JAXBException {
+		unmarshalling(SUPPORTEDLOCK);
+	}
+
+	@Test
+	void marshallingLockentryConstructor() throws JAXBException {
+		marshalling(LOCKENTRY_CONSTRUCTOR);
+	}
+
+	@Test
+	void unmarshallingLockentryConstructor() throws JAXBException {
+		unmarshalling(LOCKENTRY_CONSTRUCTOR);
+	}
+
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final SupportedLock actual, final SupportedLock expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final SupportedLock actual, final SupportedLock expected, final Object[] dataPoint) {
 		assertThat(actual.getLockEntries(), is(dataPoint[2]));
 		assertThat(expected.getLockEntries(), is(dataPoint[2]));
 	}
@@ -76,25 +93,24 @@ public final class SupportedLockTest extends AbstractJaxbCoreFunctionality<Suppo
 	}
 
 	@Test
-	public final void shouldUnmarshalSUPPORTEDLOCKConstant() throws JAXBException {
+	void shouldUnmarshalSUPPORTEDLOCKConstant() throws JAXBException {
 		// given
 		final String marshalledForm = "<D:supportedlock/>";
-
 		// when
 		final SupportedLock unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
 				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).supportedlock;
-
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(SupportedLock.SUPPORTEDLOCK)));
 	}
 
 	@Override
-	protected final SupportedLock getInstance() {
+	protected SupportedLock getInstance() {
 		return new SupportedLock(new LockEntry(LockScope.EXCLUSIVE, LockType.WRITE));
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "SupportedLock[[LockEntry[LockScope[null, Exclusive[]], LockType[Write[]]]]]";
 	}
+
 }

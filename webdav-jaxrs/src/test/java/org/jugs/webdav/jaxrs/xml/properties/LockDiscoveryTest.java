@@ -26,7 +26,6 @@ import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
 import org.jugs.webdav.jaxrs.xml.elements.*;
 import org.jugs.webdav.util.Utilities;
-import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBContext;
@@ -48,6 +47,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class LockDiscoveryTest extends AbstractJaxbCoreFunctionality<LockDiscovery> {
+
 	private static ActiveLock ACTIVE_LOCK = Utilities.buildInstanceOf(ActiveLock.class);
 
 	@Test
@@ -55,15 +55,32 @@ public final class LockDiscoveryTest extends AbstractJaxbCoreFunctionality<LockD
 		assertThrows(NullArgumentException.class, () -> new LockDiscovery((ActiveLock[]) null));
 	}
 
-	@DataPoint
-	public static final Object[] LOCKDISCOVERY = { LockDiscovery.LOCKDISCOVERY, "<D:lockdiscovery xmlns:D=\"DAV:\"/>", EMPTY_LIST };
-
-	@DataPoint
-	public static final Object[] ACTIVELOCKS_CONSTRUCTOR = { new LockDiscovery(ACTIVE_LOCK),
+	private static final Object[] LOCKDISCOVERY = { LockDiscovery.LOCKDISCOVERY, "<D:lockdiscovery xmlns:D=\"DAV:\"/>", EMPTY_LIST };
+	private static final Object[] ACTIVELOCKS_CONSTRUCTOR = { new LockDiscovery(ACTIVE_LOCK),
 			"<D:lockdiscovery xmlns:D=\"DAV:\"><D:activelock/></D:lockdiscovery>", asList(ACTIVE_LOCK) };
 
+	@Test
+	void marshallingLockdiscovery() throws JAXBException {
+		marshalling(LOCKDISCOVERY);
+	}
+
+	@Test
+	void unmarshallingLockdiscovery() throws JAXBException {
+		unmarshalling(LOCKDISCOVERY);
+	}
+
+	@Test
+	void marshallingActivelocksConstructor() throws JAXBException {
+		marshalling(ACTIVELOCKS_CONSTRUCTOR);
+	}
+
+	@Test
+	void unmarshallingActivelocksConstructor() throws JAXBException {
+		unmarshalling(ACTIVELOCKS_CONSTRUCTOR);
+	}
+
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final LockDiscovery actual, final LockDiscovery expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final LockDiscovery actual, final LockDiscovery expected, final Object[] dataPoint) {
 		assertThat(actual.getActiveLocks(), is(dataPoint[2]));
 		assertThat(expected.getActiveLocks(), is(dataPoint[2]));
 	}
@@ -74,26 +91,25 @@ public final class LockDiscoveryTest extends AbstractJaxbCoreFunctionality<LockD
 	}
 
 	@Test
-	public final void shouldUnmarshalGETLCOKDISCOVERYConstant() throws JAXBException {
+	void shouldUnmarshalGETLCOKDISCOVERYConstant() throws JAXBException {
 		// given
 		final String marshalledForm = "<D:lockdiscovery/>";
-
 		// when
 		final LockDiscovery unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
 				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).lockdiscovery;
-
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(LockDiscovery.LOCKDISCOVERY)));
 	}
 
 	@Override
-	protected final LockDiscovery getInstance() {
+	protected LockDiscovery getInstance() {
 		return new LockDiscovery(new ActiveLock(LockScope.SHARED, LockType.WRITE, Depth.ZERO, new Owner(""), new TimeOut(75), new LockToken(new HRef(
 				"http://localhost")), new LockRoot(new HRef("http://localhost"))));
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "LockDiscovery[[ActiveLock[LockScope[Shared[], null], LockToken[HRef[http://localhost]], ZERO, Owner[[]], TimeOut[75], LockToken[HRef[http://localhost]], LockRoot[HRef[http://localhost]]]]]";
 	}
+
 }

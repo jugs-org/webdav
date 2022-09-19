@@ -22,21 +22,18 @@
 
 package org.jugs.webdav.jaxrs.xml.properties;
 
-import static java.lang.String.format;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.hamcrest.MatcherAssert.assertThat;
-
-import java.io.StringReader;
+import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.StringReader;
 
-import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
-
-import org.junit.jupiter.api.Test;
-import org.junit.experimental.theories.DataPoint;
+import static java.lang.String.format;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.sameInstance;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Unit test for {@link GetContentLength}
@@ -44,16 +41,34 @@ import org.junit.experimental.theories.DataPoint;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class GetContentLengthTest extends AbstractJaxbCoreFunctionality<GetContentLength> {
-	@DataPoint
-	public static final Object[] GETCONTENTLENGTH = { GetContentLength.GETCONTENTLENGTH, "<D:getcontentlength xmlns:D=\"DAV:\"/>", 0L };
 
-	@DataPoint
-	public static final Object[] LENGTH_CONSTRUCTOR = { new GetContentLength(123L), "<D:getcontentlength xmlns:D=\"DAV:\">123</D:getcontentlength>", 123L };
+	private static final Object[] GETCONTENTLENGTH = { GetContentLength.GETCONTENTLENGTH, "<D:getcontentlength xmlns:D=\"DAV:\"/>", 0L };
+	private static final Object[] LENGTH_CONSTRUCTOR = { new GetContentLength(123L), "<D:getcontentlength xmlns:D=\"DAV:\">123</D:getcontentlength>", 123L };
+
+	@Test
+	void marshallingGetcontentlength() throws JAXBException {
+		marshalling(GETCONTENTLENGTH);
+	}
+
+	@Test
+	void unmarshallingGetcontentlength() throws JAXBException {
+		unmarshalling(GETCONTENTLENGTH);
+	}
+
+	@Test
+	void marshallingLengthConstructor() throws JAXBException {
+		marshalling(LENGTH_CONSTRUCTOR);
+	}
+
+	@Test
+	void unmarshallingLengthConstructor() throws JAXBException {
+		unmarshalling(LENGTH_CONSTRUCTOR);
+	}
 
 	@SuppressWarnings("deprecation")
 	// 'getLanguageTag' is still supported!
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final GetContentLength actual, final GetContentLength expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final GetContentLength actual, final GetContentLength expected, final Object[] dataPoint) {
 		assertThat(actual.getContentLength(), is(dataPoint[2]));
 		assertThat(expected.getContentLength(), is(dataPoint[2]));
 		assertThat(actual.getLanguageTag(), is(dataPoint[2]));
@@ -66,25 +81,24 @@ public final class GetContentLengthTest extends AbstractJaxbCoreFunctionality<Ge
 	}
 
 	@Test
-	public final void shouldUnmarshalGETCONTENTLENGTHConstant() throws JAXBException {
+	void shouldUnmarshalGETCONTENTLENGTHConstant() throws JAXBException {
 		// given
 		final String marshalledForm = "<D:getcontentlength/>";
-
 		// when
 		final GetContentLength unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
 				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).getcontentlength;
-
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(GetContentLength.GETCONTENTLENGTH)));
 	}
 
 	@Override
-	protected final GetContentLength getInstance() {
+	protected GetContentLength getInstance() {
 		return new GetContentLength(123L);
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "GetContentLength[123]";
 	}
+
 }

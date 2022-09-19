@@ -24,7 +24,6 @@ package org.jugs.webdav.jaxrs.xml.properties;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
-import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBContext;
@@ -50,15 +49,32 @@ public final class GetContentLanguageTest extends AbstractJaxbCoreFunctionality<
 		assertThrows(NullArgumentException.class, () -> new GetContentLanguage(null));
 	}
 
-	@DataPoint
-	public static final Object[] GETCONTENTLANGUAGE = { GetContentLanguage.GETCONTENTLANGUAGE, "<D:getcontentlanguage xmlns:D=\"DAV:\"/>", "" };
-
-	@DataPoint
-	public static final Object[] LANGUAGETAG_CONSTRUCTOR = { new GetContentLanguage("SomeLanguageTag"),
+	private static final Object[] GETCONTENTLANGUAGE = { GetContentLanguage.GETCONTENTLANGUAGE, "<D:getcontentlanguage xmlns:D=\"DAV:\"/>", "" };
+	private static final Object[] LANGUAGETAG_CONSTRUCTOR = { new GetContentLanguage("SomeLanguageTag"),
 			"<D:getcontentlanguage xmlns:D=\"DAV:\">SomeLanguageTag</D:getcontentlanguage>", "SomeLanguageTag" };
 
+	@Test
+	void marshallingGetcontentlanguage() throws JAXBException {
+		marshalling(GETCONTENTLANGUAGE);
+	}
+
+	@Test
+	void unmarshallingGetcontentlanguage() throws JAXBException {
+		unmarshalling(GETCONTENTLANGUAGE);
+	}
+
+	@Test
+	void marshallingLanguagetagConstructor() throws JAXBException {
+		marshalling(LANGUAGETAG_CONSTRUCTOR);
+	}
+
+	@Test
+	void unmarshallingLanguagetagConstructor() throws JAXBException {
+		unmarshalling(LANGUAGETAG_CONSTRUCTOR);
+	}
+
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final GetContentLanguage actual, final GetContentLanguage expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final GetContentLanguage actual, final GetContentLanguage expected, final Object[] dataPoint) {
 		assertThat(actual.getLanguageTag(), is(dataPoint[2]));
 		assertThat(expected.getLanguageTag(), is(dataPoint[2]));
 	}
@@ -69,25 +85,24 @@ public final class GetContentLanguageTest extends AbstractJaxbCoreFunctionality<
 	}
 
 	@Test
-	public final void shouldUnmarshalGETCONTENTLANGUAGEConstant() throws JAXBException {
+	void shouldUnmarshalGETCONTENTLANGUAGEConstant() throws JAXBException {
 		// given
 		final String marshalledForm = "<D:getcontentlanguage/>";
-
 		// when
 		final GetContentLanguage unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
 				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).getcontentlanguage;
-
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(GetContentLanguage.GETCONTENTLANGUAGE)));
 	}
 
 	@Override
-	protected final GetContentLanguage getInstance() {
+	protected GetContentLanguage getInstance() {
 		return new GetContentLanguage("DE");
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "GetContentLanguage[DE]";
 	}
+
 }

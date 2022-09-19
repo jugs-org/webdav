@@ -26,8 +26,6 @@ import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
 import org.jugs.webdav.util.DateBuilder;
 import org.jugs.webdav.util.UnitTestUtilities;
-import org.junit.experimental.theories.DataPoint;
-import org.junit.experimental.theories.Theory;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXB;
@@ -35,7 +33,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.StringReader;
-import java.lang.reflect.InvocationTargetException;
 
 import static java.lang.String.format;
 import static org.hamcrest.CoreMatchers.is;
@@ -55,23 +52,48 @@ public final class CreationDateTest extends AbstractJaxbCoreFunctionality<Creati
 		assertThrows(NullArgumentException.class, () -> new CreationDate(null));
 	}
 
-	@DataPoint
-	public static final Object[] CREATIONDATE = new Object[] { CreationDate.CREATIONDATE, "<D:creationdate xmlns:D=\"DAV:\"/>", null };
-
-	@DataPoint
-	public static final Object[] DATE_CONSTRUCTOR = new Object[] {new CreationDate(
+	private static final Object[] CREATIONDATE = new Object[] { CreationDate.CREATIONDATE, "<D:creationdate xmlns:D=\"DAV:\"/>", null };
+	private static final Object[] DATE_CONSTRUCTOR = new Object[] {new CreationDate(
             DateBuilder.date(2012, 11, 12, 13, 14, 15, 16, "UTC")),
                                                                   "<D:creationdate xmlns:D=\"DAV:\">2012-11-12T13:14:15.016Z</D:creationdate>", DateBuilder.date(2012, 11, 12, 13, 14, 15, 16, "UTC") };
 
+	@Test
+	void marshallingCreationdate() throws JAXBException {
+		marshalling(CREATIONDATE);
+	}
+
+	@Test
+	void unmarshallingCreationdate() throws JAXBException {
+		unmarshalling(CREATIONDATE);
+	}
+
+	@Test
+	void marshallingDateConstructor() throws JAXBException {
+		marshalling(DATE_CONSTRUCTOR);
+	}
+
+	@Test
+	void unmarshallingDateConstructor() throws JAXBException {
+		unmarshalling(DATE_CONSTRUCTOR);
+	}
+
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final CreationDate actual, final CreationDate expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final CreationDate actual, final CreationDate expected, final Object[] dataPoint) {
 		assertThat(actual.getDateTime(), is(dataPoint[2]));
 		assertThat(expected.getDateTime(), is(dataPoint[2]));
 	}
 
-	@Theory
-	public final void dateIsEffectivelyImmutable(final Object[] dataPoint) throws NoSuchMethodException, SecurityException, IllegalAccessException,
-			IllegalArgumentException, InvocationTargetException {
+	@Test
+	void dateIsEffectivelyImmutableCreationdate() throws ReflectiveOperationException, SecurityException {
+		dateIsEffectivelyImmutable(CREATIONDATE);
+	}
+
+	@Test
+	void dateIsEffectivelyImmutableDateConstructor() throws ReflectiveOperationException, SecurityException {
+		dateIsEffectivelyImmutable(DATE_CONSTRUCTOR);
+	}
+
+	private static void dateIsEffectivelyImmutable(final Object[] dataPoint) throws ReflectiveOperationException, SecurityException {
 		UnitTestUtilities.assertEffectivelyImmutableDate(dataPoint[0], "getDateTime");
 		UnitTestUtilities.assertEffectivelyImmutableDate(JAXB.unmarshal(new StringReader((String) dataPoint[1]), CreationDate.class), "getDateTime");
 	}
@@ -82,25 +104,24 @@ public final class CreationDateTest extends AbstractJaxbCoreFunctionality<Creati
 	}
 
 	@Test
-	public final void shouldUnmarshalCREATIONDATEConstant() throws JAXBException {
+	public void shouldUnmarshalCREATIONDATEConstant() throws JAXBException {
 		// given
 		final String marshalledForm = "<D:creationdate/>";
-
 		// when
 		final CreationDate unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
 				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).creationdate;
-
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(CreationDate.CREATIONDATE)));
 	}
 
 	@Override
-	protected final CreationDate getInstance() {
-		return new CreationDate(DateBuilder.date(2000, 01, 01, 00, 00, 00, 00, "UTC"));
+	protected CreationDate getInstance() {
+		return new CreationDate(DateBuilder.date(2000, 1, 1, 0, 0, 0, 0, "UTC"));
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "CreationDate[Sat Jan 01 01:00:00 CET 2000]";
 	}
+
 }

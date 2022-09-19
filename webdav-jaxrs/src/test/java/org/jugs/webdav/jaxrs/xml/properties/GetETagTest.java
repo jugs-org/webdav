@@ -24,7 +24,6 @@ package org.jugs.webdav.jaxrs.xml.properties;
 
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
-import org.junit.experimental.theories.DataPoint;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBContext;
@@ -50,14 +49,31 @@ public final class GetETagTest extends AbstractJaxbCoreFunctionality<GetETag> {
 		assertThrows(NullArgumentException.class, () -> new GetETag(null));
 	}
 
-	@DataPoint
-	public static final Object[] GETETAG = { GetETag.GETETAG, "<D:getetag xmlns:D=\"DAV:\"/>", "" };
+	private static final Object[] GETETAG = { GetETag.GETETAG, "<D:getetag xmlns:D=\"DAV:\"/>", "" };
+	private static final Object[] ETAG_CONSTRUCTOR = { new GetETag("SomeETag"), "<D:getetag xmlns:D=\"DAV:\">SomeETag</D:getetag>", "SomeETag" };
 
-	@DataPoint
-	public static final Object[] ETAG_CONSTRUCTOR = { new GetETag("SomeETag"), "<D:getetag xmlns:D=\"DAV:\">SomeETag</D:getetag>", "SomeETag" };
+	@Test
+	void marshallingGetetag() throws JAXBException {
+		marshalling(GETETAG);
+	}
+
+	@Test
+	void unmarshallingGetetag() throws JAXBException {
+		unmarshalling(GETETAG);
+	}
+
+	@Test
+	void marshallingEtagConstructor() throws JAXBException {
+		marshalling(ETAG_CONSTRUCTOR);
+	}
+
+	@Test
+	void unmarshallingEtagConstructor() throws JAXBException {
+		unmarshalling(ETAG_CONSTRUCTOR);
+	}
 
 	@Override
-	protected final void assertThatGettersProvideExpectedValues(final GetETag actual, final GetETag expected, final Object[] dataPoint) {
+	protected void assertThatGettersProvideExpectedValues(final GetETag actual, final GetETag expected, final Object[] dataPoint) {
 		assertThat(actual.getEntityTag(), is(dataPoint[2]));
 		assertThat(expected.getEntityTag(), is(dataPoint[2]));
 	}
@@ -68,25 +84,24 @@ public final class GetETagTest extends AbstractJaxbCoreFunctionality<GetETag> {
 	}
 
 	@Test
-	public final void shouldUnmarshalGETETAGConstant() throws JAXBException {
+	void shouldUnmarshalGETETAGConstant() throws JAXBException {
 		// given
 		final String marshalledForm = "<D:getetag/>";
-
 		// when
 		final GetETag unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
 				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).getetag;
-
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(GetETag.GETETAG)));
 	}
 
 	@Override
-	protected final GetETag getInstance() {
+	protected GetETag getInstance() {
 		return new GetETag("ETAG");
 	}
 
 	@Override
-	protected final String getString() {
+	protected String getString() {
 		return "GetETag[ETAG]";
 	}
+
 }

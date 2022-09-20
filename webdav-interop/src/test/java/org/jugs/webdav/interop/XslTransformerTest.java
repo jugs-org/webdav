@@ -18,7 +18,7 @@
  */
 package org.jugs.webdav.interop;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -53,7 +53,7 @@ public class XslTransformerTest {
         StreamResult result = new StreamResult(caw);
         transformer.transform(webdavSource, result);
 
-        System.out.println(caw.toString());
+        System.out.println(caw);
     }
 
 }

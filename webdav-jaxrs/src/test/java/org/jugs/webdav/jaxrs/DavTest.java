@@ -24,9 +24,9 @@ package org.jugs.webdav.jaxrs;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertEquals;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit test for {@link Dav} class.
@@ -36,75 +36,63 @@ import static org.junit.Assert.assertThrows;
 public final class DavTest {
 
 	@Test
-	public void shouldParseClassOne() {
+	void shouldParseClassOne() {
 		// given
 		final String davHeaderValue = "1";
-
 		// when
 		final Dav dav = Dav.fromString(davHeaderValue);
-
 		// then
 		assertThat(dav, is(sameInstance(Dav.ONE)));
 	}
 
 	@Test
-	public void shouldParseClassOneTwo() {
+	void shouldParseClassOneTwo() {
 		// given
 		final String davHeaderValue = "1, 2";
-
 		// when
 		final Dav dav = Dav.fromString(davHeaderValue);
-
 		// then
 		assertThat(dav, is(sameInstance(Dav.ONE_TWO)));
 	}
 
 	@Test
-	public void shouldParseClassOneTwoThree() {
+	void shouldParseClassOneTwoThree() {
 		// given
 		final String davHeaderValue = "1, 2, 3";
-
 		// when
 		final Dav dav = Dav.fromString(davHeaderValue);
-
 		// then
 		assertThat(dav, is(sameInstance(Dav.ONE_TWO_THREE)));
 	}
 
 	@Test
-	public void shouldParseClassOneThree() {
+	void shouldParseClassOneThree() {
 		// given
 		final String davHeaderValue = "1, 3";
-
 		// when
 		final Dav dav = Dav.fromString(davHeaderValue);
-
 		// then
 		assertThat(dav, is(sameInstance(Dav.ONE_THREE)));
 	}
 
 	@Test
-	public void shouldParseTokensAndUrls() {
+	void shouldParseTokensAndUrls() {
 		// given
 		final String davHeaderValue = "SomeToken, SomeOtherToken, schema://host:port/path";
-
 		// when
 		final Dav dav = Dav.fromString(davHeaderValue);
-
 		// then
 		assertThat(dav, contains("SomeToken", "SomeOtherToken", "schema://host:port/path"));
 	}
 
 	@Test
-	public void shouldTreatUnorderedClassesAsEqualToOrderedClasses() {
+	void shouldTreatUnorderedClassesAsEqualToOrderedClasses() {
 		// given
 		final String orderedClasses = "1, 2, 3";
 		final String unorderedClasses = "2, 3, 1";
-
 		// when
 		final Dav orderedResult = Dav.fromString(orderedClasses);
 		final Dav unorderedResult = Dav.fromString(unorderedClasses);
-
 		// then
 		assertThat(unorderedResult, is(equalTo(orderedResult)));
 		assertThat(unorderedResult.hashCode(), is(equalTo(orderedResult.hashCode())));
@@ -123,37 +111,31 @@ public final class DavTest {
 	}
 
 	@Test
-	public void shouldFindClassInClasses() {
+	void shouldFindClassInClasses() {
 		// given
 		final Dav dav = new Dav("A", "B", "C");
-
 		// when
 		final boolean containsB = dav.contains("B");
-
 		// then
 		assertThat(containsB, is(true));
 	}
 
 	@Test
-	public void shouldProduceCommaSeparatedString() {
+	void shouldProduceCommaSeparatedString() {
 		// given
 		final Dav dav = new Dav("A", "B", "C");
-
 		// when
 		final String asString = dav.toString();
-
 		// then
 		assertThat(asString, is(equalTo("A, B, C")));
 	}
 
 	@Test
-	public void shouldProduceEmptyStringForEmptyClasses() {
+	void shouldProduceEmptyStringForEmptyClasses() {
 		// given
 		final Dav dav = new Dav();
-
 		// when
 		final String asString = dav.toString();
-
 		// then
 		assertThat(asString.isEmpty(), is(true));
 	}
@@ -162,16 +144,14 @@ public final class DavTest {
 	public void shouldNotBeEqualToOtherClass() {
 		// given
 		final Dav dav = new Dav();
-
 		// when
 		final boolean isEqualToOtherClass = dav.equals(new Object());
-
 		// then
 		assertThat(isEqualToOtherClass, is(false));
 	}
 
 	@Test
-	public void testToString() {
+	void testToString() {
 		assertEquals("1, 2, 3", Dav.ONE_TWO_THREE.toString());
 	}
 

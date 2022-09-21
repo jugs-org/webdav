@@ -22,14 +22,12 @@
 
 package org.jugs.webdav.jaxrs;
 
-import java.util.Collection;
-
 import org.hamcrest.Description;
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.junit.Assert;
-import org.powermock.reflect.Whitebox;
+
+import java.util.Collection;
 
 /**
  * Matches when collection is immutable, i. e. invoking {@link Collection#add(Object)} throws {@link UnsupportedOperationException} or does effectively not
@@ -38,6 +36,7 @@ import org.powermock.reflect.Whitebox;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class ImmutableCollection<E> extends TypeSafeMatcher<Collection<E>> {
+
 	private final Class<E> elementType;
 
 	public ImmutableCollection(final Class<E> elementType) {
@@ -45,26 +44,31 @@ public final class ImmutableCollection<E> extends TypeSafeMatcher<Collection<E>>
 	}
 
 	@Override
-	public final boolean matchesSafely(final Collection<E> collection) {
+	public boolean matchesSafely(final Collection<E> collection) {
 		try {
 			final int sizeBeforeAdd = collection.size();
-			collection.add(Whitebox.newInstance(this.elementType));
+			collection.add(createElementType());
 			return sizeBeforeAdd == collection.size();
 		} catch (final UnsupportedOperationException e) {
 			return true;
-		} catch (final Exception e) {
-			Assert.fail(e.toString());
-			return false;
+		}
+	}
+
+	private E createElementType() {
+		try {
+			return this.elementType.getDeclaredConstructor(String.class).newInstance("");
+		} catch (ReflectiveOperationException ex) {
+			throw new IllegalArgumentException("unsupported type: " + this.elementType, ex);
 		}
 	}
 
 	@Override
-	public final void describeTo(final Description description) {
+	public void describeTo(final Description description) {
 		description.appendText("immutable");
 	}
 
 	@Factory
-	public static final <E> Matcher<Collection<E>> immutable(final Class<E> elementType) {
-		return new ImmutableCollection<E>(elementType);
+	public static <E> Matcher<Collection<E>> immutable(final Class<E> elementType) {
+		return new ImmutableCollection<>(elementType);
 	}
 }

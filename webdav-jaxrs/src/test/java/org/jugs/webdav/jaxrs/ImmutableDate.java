@@ -22,13 +22,12 @@
 
 package org.jugs.webdav.jaxrs;
 
-import java.util.Date;
-
 import org.hamcrest.Description;
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.junit.Assert;
+
+import java.util.Date;
 
 /**
  * Matches when date is immutable, i. e. invoking and setter either throws {@link UnsupportedOperationException} or does effectively not modify the date.
@@ -36,9 +35,10 @@ import org.junit.Assert;
  * @author Markus KARG (mkarg@java.net)
  */
 public final class ImmutableDate extends TypeSafeMatcher<Date> {
+
 	@SuppressWarnings("deprecation")
 	@Override
-	public final boolean matchesSafely(final Date date) {
+	public boolean matchesSafely(final Date date) {
 		try {
 			final Date originalDate = (Date) date.clone();
 			final Date modifiedDate = date;
@@ -52,19 +52,17 @@ public final class ImmutableDate extends TypeSafeMatcher<Date> {
 			return originalDate.equals(modifiedDate);
 		} catch (final UnsupportedOperationException e) {
 			return true;
-		} catch (final Exception e) {
-			Assert.fail(e.toString());
-			return false;
 		}
 	}
 
 	@Override
-	public final void describeTo(final Description description) {
+	public void describeTo(final Description description) {
 		description.appendText("immutable");
 	}
 
 	@Factory
-	public static final Matcher<Date> immutable() {
+	public static Matcher<Date> immutable() {
 		return new ImmutableDate();
 	}
+
 }

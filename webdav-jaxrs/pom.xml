@@ -90,10 +90,6 @@
 			</roles>
 		</contributor>
 	</contributors>
-	<issueManagement>
-		<system>github</system>
-		<url>https://github.com/jugs-org/webdav/issues</url>
-	</issueManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.mockito</groupId>
@@ -208,16 +204,6 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.0.0-M6</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>3.0.0-M6</version>
 			</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>

@@ -1,7 +1,7 @@
 = WebDAV Support for JAX-RS
 
 The input for this documentation is located at https://gitlab.com/headcrashing/webdav-jaxrs/-/tree/master/src/site.
-It was transfered from the Doxia (APT) format into ASCIIDOC because the format can be directly rendered by GitHub.
+It was transfered from the Doxia (APT) format into ASCIIDOC because this format can be directly rendered by GitHub.
 
 * link:asciidoc/introduction.adoc[Introduction]
 * link:../../../CHANGELOG.md[News]
@@ -18,8 +18,9 @@ It was transfered from the Doxia (APT) format into ASCIIDOC because the format c
 
 * http://www.webdav.org/[WebDAV]
 * http://jsr311.java.net/[JAX-RS]
-* http://webdav-interop.java.net[WebDAV Interoperability Filter]
-* http://webdav-addressbook.java.net[WebDAV Address-Book Sample]
+* link:../../../webdav-interop/README.md[WebDAV Interoperability Filter]
+* link:../../../addressbook/README.md[WebDAV Address-Book Sample]
+* link:../../../fileserver/README.md[WebDAV Fileserver Sample]
 
 '''
 

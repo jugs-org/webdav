@@ -9,4 +9,5 @@ There is no time frame associated with any release version.
 * Version 3.x
 
   ** update to Jakarta
+  ** update to https://jakarta.ee/specifications/restful-ws/3.0/[JAX-RS 3.0]
   ** ... (depends on you)

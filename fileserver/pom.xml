@@ -75,10 +75,6 @@
 	</contributors>
 	<dependencies>
 		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-server</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.jugs.webdav</groupId>
 			<artifactId>webdav-jaxrs</artifactId>
 			<version>${project.version}</version>
@@ -87,6 +83,10 @@
 			<groupId>org.jugs.webdav</groupId>
 			<artifactId>webdav-interop</artifactId>
 			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-grizzly</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.grizzly</groupId>

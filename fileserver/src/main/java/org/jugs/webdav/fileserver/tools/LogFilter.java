@@ -22,8 +22,6 @@ import com.sun.grizzly.ProtocolFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-
 /**
  * Die Klasse LogFilter ...
  *

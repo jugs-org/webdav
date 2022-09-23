@@ -18,18 +18,16 @@
  */
 package org.jugs.webdav.fileserver;
 
-import java.io.IOException;
-
-import javax.ws.rs.ext.RuntimeDelegate;
-
 import com.sun.grizzly.http.SelectorThread;
 import com.sun.grizzly.tcp.Adapter;
 import com.sun.jersey.api.container.grizzly.GrizzlyServerFactory;
-import org.jugs.webdav.fileserver.tools.LogFilter;
 import org.jugs.webdav.interop.WindowsRedirectorPatchProperty;
 import org.jugs.webdav.interop.WindowsRedirectorPatchResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.ws.rs.ext.RuntimeDelegate;
+import java.io.IOException;
 
 public final class FileServerStarter {
 

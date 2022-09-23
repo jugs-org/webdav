@@ -1,4 +1,4 @@
-# WebDAV JPA AddressBook Example
+# WebDAV AddressBook Example
 
 
 This example demonstrates how to develop RESTful WebDAV service with the embedded Grizzly server.

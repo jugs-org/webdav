@@ -1,4 +1,4 @@
-# WebDAV Fileserver [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.jugs.webdav/fileserver/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.jugs.webdav/fileserver)
+# WebDAV Fileserver Sample[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.jugs.webdav/fileserver/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.jugs.webdav/fileserver)
 
 
 ## Introduction

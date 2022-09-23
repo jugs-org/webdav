@@ -1,4 +1,4 @@
-# WebDAV Interop
+# WebDAV Interoperability Filter
 
 **webdav-interop** is a plugin for [webdav-jaxrs](../webdav-jaxrs/README.md).
 If WebDAV is not recognised on Windows put it in the classpath.

@@ -36,7 +36,7 @@ To access the backend, simply write Java code.
 Use JDBC, JPA, File API, proprietary API... whatever you like.
 There are no real limits like in "ready to use" servers (e. g. Milton) due to this.
 This approach is fully flexible, but certainly implies more to learn.
-So to simplify your start, check out the http://webdav-addressbook.java.net[WebDAV Address-Book Example] and read the (short!) source code.
+So to simplify your start, check out the link:../../../../addressbook/README.md[WebDAV Address-Book Example] and read the (short!) source code.
 Note that some WebDAV clients are rather buggy...
 That's why we also provide "WebDAV Interoperability Filter".
 It cannot fix your local client, but it prevents changes in your service.
@@ -49,7 +49,7 @@ This is applied by the mentioned example, too.
    This is essential as we build ontop of it.
    The http://jersey.java.net[Jersey website] is a good starting point, but you certainly can use any other JAX-RS engine instead.
 
-2. Download the http://webdav-addressbook.java.net[Address-Book example] and read its source code.
+2. Download the link:../../../../addressbook/[Address-Book example] and read its source code.
 
 3. Modify the example according to your needs.
   
@@ -67,7 +67,7 @@ This project is providing the following building bricks:
 
 ** This is the work horse. Use this to rather easily wrap any back end data as WebDAV information. It is an extension to JAX-RS and is not dependent of any particular JAX-RS engine.
   
-* http://webdav-interop.java.net[The Interoperability Filter]
+* https://github.com/jugs-org/webdav/tree/develop/webdav-interop[The Interoperability Filter]
   
 ** If you want to access your WebDAV service (either written with _WebDAV Support for JAX-RS_ or any other WebDAV front end) with one of Microsoft's clients, you'll need to tweak the WebDAV protocol, as Microsoft decided to modify it a bit.
    As nobody wants to implement those tweaks inside of the service itself, just apply this (Servlet API 2.5 compliant) filter.
@@ -79,9 +79,9 @@ This project is providing the following building bricks:
    If it would be finished, you could use Maven's archetype feature to get a jumpstart project structure.
    Instead, you can start by modifying the sample project.
   
-* http://webdav-addressbook.java.net[The Address-Book Example]
+* https://github.com/jugs-org/webdav/tree/develop/addressbook[The Address-Book Example]
   
-** This example is a complete project (built using Maven 3.0.3) showcasing the use of the JAX-RS Extension and the Interoperability Filter.
+** This example is a complete project (built using Maven 3.8.4) showcasing the use of the JAX-RS Extension and the Interoperability Filter.
    It implements a simple address-book which is stored in an embedded Derby database (automatic setup thanks to Maven; no manual steps needed).
    The records are presented to WebDAV clients as ".adr" files, which in fact are XML data streams.
    The example is fully functional, which means, a client can read and write, create, delete and even search for addresses.

@@ -22,20 +22,19 @@
 
 package org.jugs.webdav.jaxrs.xml.properties;
 
-import static java.util.Arrays.asList;
-import static java.util.Collections.unmodifiableList;
-import static org.jugs.webdav.util.Utilities.notNull;
-
-import java.util.LinkedList;
-import java.util.List;
+import org.jugs.webdav.jaxrs.ConstantsAdapter;
+import org.jugs.webdav.jaxrs.xml.elements.Collection;
+import org.jugs.webdav.util.Utilities;
 
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.LinkedList;
+import java.util.List;
 
-import org.jugs.webdav.jaxrs.ConstantsAdapter;
-import org.jugs.webdav.jaxrs.xml.elements.Collection;
-import org.jugs.webdav.util.Utilities;
+import static java.util.Arrays.asList;
+import static java.util.Collections.unmodifiableList;
+import static org.jugs.webdav.util.Utilities.notNull;
 
 /**
  * WebDAV resourcetype Property.
@@ -66,9 +65,14 @@ public final class ResourceType {
 	 */
 	@Deprecated
 	public ResourceType() {
-		this.resourceTypes = new LinkedList<Object>();
+		this.resourceTypes = new LinkedList<>();
 	}
 
+	/**
+	 * Create a resource type from an array of resource types.
+	 *
+	 * @param resourceTypes array of resource types
+	 */
 	public ResourceType(final Object... resourceTypes) {
 		this.resourceTypes = asList(notNull(resourceTypes, "resourceTypes"));
 	}
@@ -78,21 +82,26 @@ public final class ResourceType {
 	 * @return The same result as {@link #getResourceTypes()}
 	 */
 	@Deprecated
-	public final List<Object> getResourceType() {
+	 public List<Object> getResourceType() {
 		return this.getResourceTypes();
 	}
 
-	public final List<Object> getResourceTypes() {
+	/**
+	 * Get a list of resource types.
+	 *
+	 * @return a list of resource types.
+	 */
+	 public List<Object> getResourceTypes() {
 		return unmodifiableList(this.resourceTypes);
 	}
 
 	@Override
-	public final int hashCode() {
+	 public int hashCode() {
 		return this.resourceTypes.hashCode();
 	}
 
 	@Override
-	public final boolean equals(final Object other) {
+	 public boolean equals(final Object other) {
 		if (!(other instanceof ResourceType))
 			return false;
 
@@ -108,13 +117,13 @@ public final class ResourceType {
 	 */
 	protected static final class Adapter extends ConstantsAdapter<ResourceType> {
 		@Override
-		protected final java.util.Collection<ResourceType> getConstants() {
+		protected java.util.Collection<ResourceType> getConstants() {
 			return asList(RESOURCETYPE, COLLECTION);
 		}
 	}
 
 	@Override
-	public final String toString() {
+	 public String toString() {
 		return Utilities.toString(this, this.resourceTypes);
 	}
 }

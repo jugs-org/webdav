@@ -22,19 +22,18 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static java.util.Objects.hash;
-import static javax.xml.bind.annotation.XmlAccessType.FIELD;
-import static org.jugs.webdav.util.Utilities.array;
-import static org.jugs.webdav.util.Utilities.notNull;
-
-import java.util.Arrays;
+import org.jugs.webdav.util.Utilities;
 
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.Arrays;
 
-import org.jugs.webdav.util.Utilities;
+import static java.util.Objects.hash;
+import static javax.xml.bind.annotation.XmlAccessType.FIELD;
+import static org.jugs.webdav.util.Utilities.array;
+import static org.jugs.webdav.util.Utilities.notNull;
 
 /**
  * WebDAV activelock XML Element.
@@ -90,52 +89,78 @@ public final class ActiveLock {
 		this.lockRoot = notNull(lockRoot, "lockRoot");
 	}
 
-	public final LockScope getLockScope() {
+	/**
+	 * Get the lock scope.
+	 *
+	 * @return the lock scope.
+	 */
+	public LockScope getLockScope() {
 		return this.lockScope;
 	}
 
-	public final LockType getLockType() {
+	/**
+	 * Get the lock type.
+	 *
+	 * @return the lock type.
+	 */
+	public LockType getLockType() {
 		return this.lockType;
 	}
 
 	/**
+	 * Get the depth.
+	 *
+	 * @return the depth
 	 * @deprecated Since 1.1.1. Use {@link #getDepth()} instead.
 	 */
 	@Deprecated
-	public final Depth depth() {
+	public Depth depth() {
 		return this.depth;
 	}
 
 	/**
+	 * Get the depth.
+	 *
+	 * @return the depth
 	 * @since 1.1.1
 	 */
-	public final Depth getDepth() {
+	public Depth getDepth() {
 		return this.depth;
 	}
 
-	public final Owner getOwner() {
+	/**
+	 * Get the owner.
+	 *
+	 * @return the owner
+	 */
+	public Owner getOwner() {
 		return this.owner;
 	}
 
-	public final TimeOut getTimeOut() {
+	/**
+	 * Get the timout.
+	 *
+	 * @return the timeout.
+	 */
+	public TimeOut getTimeOut() {
 		return this.timeOut;
 	}
 
-	public final LockToken getLockToken() {
+	public LockToken getLockToken() {
 		return this.lockToken;
 	}
 
-	public final LockRoot getLockRoot() {
+	public LockRoot getLockRoot() {
 		return this.lockRoot;
 	}
 
 	@Override
-	public final int hashCode() {
+	public int hashCode() {
 		return hash(this.lockScope, this.lockType, this.depth, this.owner, this.timeOut, this.lockToken, this.lockRoot);
 	}
 
 	@Override
-	public final boolean equals(final Object other) {
+	public boolean equals(final Object other) {
 		if (!(other instanceof ActiveLock))
 			return false;
 
@@ -146,7 +171,7 @@ public final class ActiveLock {
 	}
 
 	@Override
-	public final String toString() {
+	public String toString() {
 		return Utilities.toString(this, this.lockScope, this.lockToken, this.depth, this.owner, this.timeOut, this.lockToken, this.lockRoot);
 	}
 }

@@ -26,8 +26,10 @@ import org.hamcrest.CoreMatchers;
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.ImmutableCollection;
 import org.jugs.webdav.jaxrs.xml.elements.HRef;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import patterntesting.runtime.junit.ObjectTester;
 
 import javax.xml.bind.JAXB;
 import java.io.StringReader;
@@ -51,7 +53,7 @@ public final class NoConflictingLockTest extends AbstractJaxbCoreFunctionality<N
 			{ new NoConflictingLock(HREF), "<D:no-conflicting-lock xmlns:D=\"DAV:\"><D:href>x</D:href></D:no-conflicting-lock>" },
 			{ new NoConflictingLock(new HRef("x"), new HRef("y"), new HRef("z")),
 					"<D:no-conflicting-lock xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href><D:href>z</D:href></D:no-conflicting-lock>" },
-			{ new NoConflictingLock(new HRef[] { new HRef("x"), new HRef("y"), new HRef("z") }),
+			{ new NoConflictingLock(new HRef("x"), new HRef("y"), new HRef("z")),
 					"<D:no-conflicting-lock xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href><D:href>z</D:href></D:no-conflicting-lock>" } };
 
 	@ParameterizedTest(name = "[{index}]")
@@ -81,6 +83,11 @@ public final class NoConflictingLockTest extends AbstractJaxbCoreFunctionality<N
 		final Collection<HRef> resultOfFirstCall = immutableObject.getHRefs();
 		final Collection<HRef> resultOfSecondCall = immutableObject.getHRefs();
 		assertThat(resultOfFirstCall, is(CoreMatchers.anyOf(ImmutableCollection.immutable(HRef.class), not(sameInstance(resultOfSecondCall)))));
+	}
+
+	@Test
+	void testEquals() {
+		ObjectTester.assertEquals(NoConflictingLock.class);
 	}
 
 	@Override

@@ -30,6 +30,7 @@ import org.jugs.webdav.jaxrs.xml.elements.HRef;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import patterntesting.runtime.junit.ObjectTester;
 
 import javax.xml.bind.JAXB;
 import java.io.StringReader;
@@ -68,7 +69,7 @@ public final class LockTokenSubmittedTest extends AbstractJaxbCoreFunctionality<
 			{ new LockTokenSubmitted(HREF), "<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href></D:lock-token-submitted>" },
 			{ new LockTokenSubmitted(new HRef("x"), new HRef("y")),
 					"<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href></D:lock-token-submitted>" },
-			{ new LockTokenSubmitted(new HRef("x"), new HRef[] { new HRef("y"), new HRef("z") }),
+			{ new LockTokenSubmitted(new HRef("x"), new HRef("y"), new HRef("z")),
 					"<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href><D:href>z</D:href></D:lock-token-submitted>" } };
 
 	@ParameterizedTest(name = "[{index}]")
@@ -98,6 +99,11 @@ public final class LockTokenSubmittedTest extends AbstractJaxbCoreFunctionality<
 		final Collection<HRef> resultOfFirstCall = immutableObject.getHRefs();
 		final Collection<HRef> resultOfSecondCall = immutableObject.getHRefs();
 		assertThat(resultOfFirstCall, is(CoreMatchers.anyOf(ImmutableCollection.immutable(HRef.class), not(sameInstance(resultOfSecondCall)))));
+	}
+
+	@Test
+	void testEquals() {
+		ObjectTester.assertEquals(new LockTokenSubmitted(HREF), new LockTokenSubmitted(HREF));
 	}
 
 	@Override

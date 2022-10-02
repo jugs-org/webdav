@@ -23,7 +23,6 @@
 package org.jugs.webdav.jaxrs;
 
 import org.hamcrest.Description;
-import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
@@ -60,7 +59,6 @@ public final class ImmutableDate extends TypeSafeMatcher<Date> {
 		description.appendText("immutable");
 	}
 
-	@Factory
 	public static Matcher<Date> immutable() {
 		return new ImmutableDate();
 	}

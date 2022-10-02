@@ -23,7 +23,6 @@
 package org.jugs.webdav.jaxrs;
 
 import org.hamcrest.Description;
-import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
@@ -67,8 +66,8 @@ public final class ImmutableCollection<E> extends TypeSafeMatcher<Collection<E>>
 		description.appendText("immutable");
 	}
 
-	@Factory
 	public static <E> Matcher<Collection<E>> immutable(final Class<E> elementType) {
 		return new ImmutableCollection<>(elementType);
 	}
+
 }

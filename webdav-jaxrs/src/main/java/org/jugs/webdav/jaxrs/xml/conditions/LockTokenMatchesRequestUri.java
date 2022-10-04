@@ -22,10 +22,10 @@
 
 package org.jugs.webdav.jaxrs.xml.conditions;
 
+import org.jugs.webdav.util.Utilities;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
-import org.jugs.webdav.util.Utilities;
 
 /**
  * WebDAV lock-token-matches-request-uri Precondition XML Element.
@@ -54,31 +54,27 @@ public final class LockTokenMatchesRequestUri {
 	 * Singleton factory to be used solely by JAXB.
 	 */
 	@SuppressWarnings("unused")
-	private static final LockTokenMatchesRequestUri createSingleton() {
+	private static LockTokenMatchesRequestUri createSingleton() {
 		return LOCK_TOKEN_MATCHES_REQUEST_URI;
 	}
 
-	/**
-	 * @deprecated Since 1.2. Use {@link #LOCK_TOKEN_MATCHES_REQUEST_URI} instead to obtain a singleton. In future releases this will have {@code private}
-	 *             visibility.
-	 */
-	@Deprecated
-	public LockTokenMatchesRequestUri() {
+	private LockTokenMatchesRequestUri() {
 		// For unmarshalling only.
 	}
 
 	@Override
-	public final boolean equals(final Object object) {
+	public boolean equals(final Object object) {
 		return object instanceof LockTokenMatchesRequestUri;
 	}
 
 	@Override
-	public final int hashCode() {
+	public int hashCode() {
 		return 1;
 	}
 
 	@Override
-	public final String toString() {
+	public String toString() {
 		return Utilities.toString(this);
 	}
+
 }

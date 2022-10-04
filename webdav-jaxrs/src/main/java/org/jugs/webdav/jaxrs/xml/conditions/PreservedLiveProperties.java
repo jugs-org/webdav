@@ -22,10 +22,10 @@
 
 package org.jugs.webdav.jaxrs.xml.conditions;
 
+import org.jugs.webdav.util.Utilities;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
-import org.jugs.webdav.util.Utilities;
 
 /**
  * WebDAV preserved-live-propertes Postcondition XML Element.
@@ -54,31 +54,26 @@ public final class PreservedLiveProperties {
 	 * Singleton factory to be used solely by JAXB.
 	 */
 	@SuppressWarnings("unused")
-	private static final PreservedLiveProperties createSingleton() {
+	private static PreservedLiveProperties createSingleton() {
 		return PRESERVED_LIVE_PROPERTIES;
 	}
 
-	/**
-	 * @deprecated Since 1.2. Use {@link #PRESERVED_LIVE_PROPERTIES} instead to obtain a singleton. In future releases this will have {@code private}
-	 *             visibility.
-	 */
-	@Deprecated
-	public PreservedLiveProperties() {
+	private PreservedLiveProperties() {
 		// For unmarshalling only.
 	}
 
 	@Override
-	public final boolean equals(final Object object) {
+	public boolean equals(final Object object) {
 		return object instanceof PreservedLiveProperties;
 	}
 
 	@Override
-	public final int hashCode() {
+	public int hashCode() {
 		return 1;
 	}
 
 	@Override
-	public final String toString() {
+	public String toString() {
 		return Utilities.toString(this);
 	}
 }

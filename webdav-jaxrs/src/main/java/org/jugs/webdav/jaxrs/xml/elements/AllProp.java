@@ -22,10 +22,10 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
+import org.jugs.webdav.util.Utilities;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
-import org.jugs.webdav.util.Utilities;
 
 /**
  * WebDAV allprop XML Element.
@@ -54,30 +54,27 @@ public final class AllProp {
 	 * Singleton factory to be used solely by JAXB.
 	 */
 	@SuppressWarnings("unused")
-	private static final AllProp createSingleton() {
+	private static AllProp createSingleton() {
 		return ALLPROP;
 	}
 
-	/**
-	 * @deprecated Since 1.2. Use {@link #ALLPROP} instead to obtain a singleton. In future releases this will have {@code private} visibility.
-	 */
-	@Deprecated
-	public AllProp() {
+	private AllProp() {
 		// For unmarshalling only.
 	}
 
 	@Override
-	public final boolean equals(final Object other) {
+	public boolean equals(final Object other) {
 		return other instanceof AllProp;
 	}
 
 	@Override
-	public final int hashCode() {
+	public int hashCode() {
 		return 1;
 	}
 
 	@Override
-	public final String toString() {
+	public String toString() {
 		return Utilities.toString(this);
 	}
+
 }

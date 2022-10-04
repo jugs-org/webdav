@@ -22,10 +22,10 @@
 
 package org.jugs.webdav.jaxrs.xml.conditions;
 
+import org.jugs.webdav.util.Utilities;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
-import org.jugs.webdav.util.Utilities;
 
 /**
  * WebDAV cannot-modify-protected-property Precondition XML Element.
@@ -51,31 +51,27 @@ public final class CannotModifyProtectedProperty {
 	public static final CannotModifyProtectedProperty CANNOT_MODIFY_PROTECTED_PROPERTY = new CannotModifyProtectedProperty();
 
 	@SuppressWarnings("unused")
-	private static final CannotModifyProtectedProperty createSingleton() {
+	private static CannotModifyProtectedProperty createSingleton() {
 		return CANNOT_MODIFY_PROTECTED_PROPERTY;
 	}
 
-	/**
-	 * @deprecated Since 1.2. Use {@link #CANNOT_MODIFY_PROTECTED_PROPERTY} instead to obtain a singleton. In future releases this will have {@code private}
-	 *             visibility.
-	 */
-	@Deprecated
-	public CannotModifyProtectedProperty() {
+	private CannotModifyProtectedProperty() {
 		// For unmarshalling only.
 	}
 
 	@Override
-	public final boolean equals(final Object object) {
+	public boolean equals(final Object object) {
 		return object instanceof CannotModifyProtectedProperty;
 	}
 
 	@Override
-	public final int hashCode() {
+	public int hashCode() {
 		return 1;
 	}
 
 	@Override
-	public final String toString() {
+	public String toString() {
 		return Utilities.toString(this);
 	}
+
 }

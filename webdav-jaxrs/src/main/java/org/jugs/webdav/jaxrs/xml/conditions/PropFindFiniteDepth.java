@@ -22,10 +22,10 @@
 
 package org.jugs.webdav.jaxrs.xml.conditions;
 
+import org.jugs.webdav.util.Utilities;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
-import org.jugs.webdav.util.Utilities;
 
 /**
  * WebDAV propfind-finite-depth Precondition XML Element.
@@ -54,30 +54,26 @@ public final class PropFindFiniteDepth {
 	 * Singleton factory to be used solely by JAXB.
 	 */
 	@SuppressWarnings("unused")
-	private static final PropFindFiniteDepth createSingleton() {
+	private static PropFindFiniteDepth createSingleton() {
 		return PROPFIND_FINITE_DEPTH;
 	}
 
-	/**
-	 * @deprecated Since 1.2. Use {@link #PROPFIND_FINITE_DEPTH} instead to obtain a singleton. In future releases this will have {@code private} visibility.
-	 */
-	@Deprecated
-	public PropFindFiniteDepth() {
+	private PropFindFiniteDepth() {
 		// For unmarshalling only.
 	}
 
 	@Override
-	public final boolean equals(final Object object) {
+	public boolean equals(final Object object) {
 		return object instanceof PropFindFiniteDepth;
 	}
 
 	@Override
-	public final int hashCode() {
+	public int hashCode() {
 		return 1;
 	}
 
 	@Override
-	public final String toString() {
+	public  String toString() {
 		return Utilities.toString(this);
 	}
 }

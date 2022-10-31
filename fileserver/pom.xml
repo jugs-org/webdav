@@ -90,7 +90,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.sun.grizzly</groupId>
-			<artifactId>grizzly-servlet-webserver</artifactId>
+			<artifactId>grizzly-webserver</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.hamcrest</groupId>

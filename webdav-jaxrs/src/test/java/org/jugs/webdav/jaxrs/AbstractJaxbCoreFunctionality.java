@@ -24,6 +24,8 @@ package org.jugs.webdav.jaxrs;
 
 import org.jugs.webdav.jaxrs.xml.AbstractCoreFunctionality;
 import org.junit.jupiter.api.BeforeAll;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -55,6 +57,8 @@ import static org.xmlmatchers.transform.XmlConverters.the;
  */
 public abstract class AbstractJaxbCoreFunctionality<T> extends AbstractCoreFunctionality<T> {
 
+	private static final Logger log = LoggerFactory.getLogger(AbstractJaxbCoreFunctionality.class);
+
 	public static JAXBContext context;
 
 	public static Marshaller marshaller;
@@ -66,6 +70,7 @@ public abstract class AbstractJaxbCoreFunctionality<T> extends AbstractCoreFunct
 		context = WebDavJAXBContextBuilder.build();
 		marshaller = context.createMarshaller();
 		unmarshaller = context.createUnmarshaller();
+		log.debug("Context is set up.");
 	}
 
 	@SuppressWarnings("unchecked")

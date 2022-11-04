@@ -19,6 +19,8 @@
 package org.jugs.webdav.interop;
 
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -37,6 +39,8 @@ import java.io.CharArrayWriter;
  */
 public class XslTransformerTest {
 
+    private static final Logger log = LoggerFactory.getLogger(XslTransformerTest.class);
+
     @Test
     public void testTransform() throws TransformerException {
         String styleSheet = "src/main/resources/xml/prefix.xsl";
@@ -52,8 +56,7 @@ public class XslTransformerTest {
         CharArrayWriter caw = new CharArrayWriter();
         StreamResult result = new StreamResult(caw);
         transformer.transform(webdavSource, result);
-
-        System.out.println(caw);
+        log.info("{}", caw);
     }
 
 }

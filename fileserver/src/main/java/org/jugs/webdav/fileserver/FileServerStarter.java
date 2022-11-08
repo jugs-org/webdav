@@ -18,15 +18,15 @@
  */
 package org.jugs.webdav.fileserver;
 
-import com.sun.grizzly.http.SelectorThread;
-import com.sun.grizzly.tcp.Adapter;
-import com.sun.jersey.api.container.grizzly.GrizzlyServerFactory;
+import com.sun.jersey.api.container.grizzly2.GrizzlyServerFactory;
+import com.sun.jersey.api.core.ApplicationAdapter;
+import com.sun.jersey.api.core.ResourceConfig;
+import org.glassfish.grizzly.http.server.HttpServer;
 import org.jugs.webdav.interop.WindowsRedirectorPatchProperty;
 import org.jugs.webdav.interop.WindowsRedirectorPatchResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.ext.RuntimeDelegate;
 import java.io.IOException;
 
 public final class FileServerStarter {
@@ -44,15 +44,14 @@ public final class FileServerStarter {
 		app.registerService(WindowsRedirectorPatchResource.class);
 		app.registerEntity(WindowsRedirectorPatchProperty.class);
 		
-		System.out.println("Creating Endpoint");
-		Adapter adapter = RuntimeDelegate.getInstance().createEndpoint(app, Adapter.class);
+		// create a resource config that scans for JAX-RS resources and providers
+		final ResourceConfig rc = new ApplicationAdapter(app);
 		int port = 80;
 		if (args.length > 0) {
 			port = Integer.parseInt(args[0]);
 		}
-		SelectorThread server = GrizzlyServerFactory.create("http://localhost:" + port + "/", adapter);
-		log.info("{} started with port {}.", server, server.getPort());
-		//server.getProtocolChain().addFilter(new LogFilter());
+		HttpServer server = GrizzlyServerFactory.createHttpServer("http://localhost:" + port + "/", rc);
+		log.info("{} started.", server);
 		System.out.println("Jersey app started (port " + port + ")");
 	}	
 }

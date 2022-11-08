@@ -22,28 +22,22 @@
 
 package org.jugs.webdav.jaxrs;
 
-import static java.util.Arrays.asList;
-import static javax.ws.rs.Priorities.ENTITY_CODER;
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 import javax.ws.rs.core.Configuration;
 import javax.ws.rs.core.Feature;
 import javax.ws.rs.core.FeatureContext;
 import javax.ws.rs.ext.Provider;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
-import org.jugs.webdav.jaxrs.WebDAV;
-import org.jugs.webdav.jaxrs.WebDavContextResolver;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
+import static javax.ws.rs.Priorities.ENTITY_CODER;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.*;
 
 /**
  * Unit test for {@link WebDAV}.
@@ -52,7 +46,7 @@ import org.mockito.ArgumentCaptor;
  */
 public final class WebDAVTest {
 	@Test
-	public final void shouldBeProvider() {
+	public void shouldBeProvider() {
 		// given
 		final Class<?> cls = WebDAV.class;
 
@@ -63,31 +57,31 @@ public final class WebDAVTest {
 	}
 
 	@Test
-	public final void shouldHaveDefaultConstructor() throws InstantiationException, IllegalAccessException {
+	public void shouldHaveDefaultConstructor() throws ReflectiveOperationException {
 		// given
 		final Class<?> cls = WebDAV.class;
 
 		// when
-		final Object instance = cls.newInstance();
+		final Object instance = cls.getDeclaredConstructor().newInstance();
 
 		// then
 		assertThat(instance, is(notNullValue()));
 	}
 
 	@Test
-	public final void shouldImplementFeature() throws InstantiationException, IllegalAccessException {
+	public void shouldImplementFeature() throws ReflectiveOperationException {
 		// given
 		final Class<?> cls = WebDAV.class;
 
 		// when
-		final Object instance = cls.newInstance();
+		final Object instance = cls.getDeclaredConstructor().newInstance();
 
 		// then
 		assertThat(instance, is(instanceOf(Feature.class)));
 	}
 
 	@Test
-	public final void shouldRegisterContextResolverAsEntityCoder() throws InstantiationException, IllegalAccessException {
+	public void shouldRegisterContextResolverAsEntityCoder() {
 		// given
 		final WebDAV webDAV = new WebDAV();
 		final FeatureContext context = mock(FeatureContext.class);
@@ -103,14 +97,14 @@ public final class WebDAVTest {
 
 	@XmlRootElement
 	private static final class SomeCustomExtension {
-	};
+	}
 
 	@Test
-	public final void shouldRegisterCustomExtensionsProvidedAsProperty() throws InstantiationException, IllegalAccessException {
+	public void shouldRegisterCustomExtensionsProvidedAsProperty() {
 		// given
 		final WebDAV webDAV = new WebDAV();
 		final Configuration configuration = mock(Configuration.class);
-		when(configuration.getProperty(WebDAV.CUSTOM_EXTENSIONS)).thenReturn(asList(SomeCustomExtension.class));
+		when(configuration.getProperty(WebDAV.CUSTOM_EXTENSIONS)).thenReturn(List.of(SomeCustomExtension.class));
 		final FeatureContext context = mock(FeatureContext.class);
 		when(context.getConfiguration()).thenReturn(configuration);
 

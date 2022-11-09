@@ -19,12 +19,11 @@
 
 package org.jugs.webdav.addressbook;
 
+import com.sun.jersey.api.container.grizzly2.GrizzlyServerFactory;
+import com.sun.jersey.api.core.ApplicationAdapter;
+import com.sun.jersey.api.core.ResourceConfig;
+
 import java.io.IOException;
-
-import javax.ws.rs.ext.RuntimeDelegate;
-
-import com.sun.grizzly.tcp.Adapter;
-import com.sun.jersey.api.container.grizzly.GrizzlyServerFactory;
 
 /**
  * Main class of JPA Address Book Sample.<br>
@@ -33,16 +32,15 @@ import com.sun.jersey.api.container.grizzly.GrizzlyServerFactory;
  */
 public final class Main {
 
-	public static final void main(final String[] args) throws IOException {
+	public static void main(final String[] args) throws IOException {
 		AddressBookApplication app = new AddressBookApplication();
-		Adapter adapter = RuntimeDelegate.getInstance().createEndpoint(app, Adapter.class);
+		ResourceConfig rc = new ApplicationAdapter(app);
 		int port = 80;
 		if (args.length > 0) {
 			port = Integer.parseInt(args[0]);
 		}
-		GrizzlyServerFactory.create("http://localhost:" + port + "/", adapter);
+		GrizzlyServerFactory.createHttpServer("http://localhost:" + port + "/", rc);
 		System.out.println("Sample Server running... Kill process to stop.");
-		//GrizzlyServerFactory.create("http://localhost:80/", RuntimeDelegate.getInstance().createEndpoint(new AddressBookApplication(), Adapter.class));
 	}
 
 }

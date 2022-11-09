@@ -45,7 +45,7 @@ public final class FileServerStarter {
 		app.registerEntity(WindowsRedirectorPatchProperty.class);
 		
 		// create a resource config that scans for JAX-RS resources and providers
-		final ResourceConfig rc = new ApplicationAdapter(app);
+		ResourceConfig rc = new ApplicationAdapter(app);
 		int port = 80;
 		if (args.length > 0) {
 			port = Integer.parseInt(args[0]);

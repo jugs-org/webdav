@@ -23,6 +23,7 @@ import com.github.sardine.Sardine;
 import com.github.sardine.SardineFactory;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.HttpResponseException;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -111,6 +112,11 @@ public class FileServerStarterTest {
         } catch (HttpResponseException expected) {
             assertEquals(404, expected.getStatusCode());
         }
+    }
+
+    @AfterAll
+    static void stopFileServer() {
+        FileServerStarter.stop();
     }
 
 }

@@ -28,10 +28,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.URI;
 
 public final class FileServerStarter {
 
 	private static final Logger log = LoggerFactory.getLogger(FileServerStarter.class);
+	private static HttpServer server;
 
 	/**
 	 * Starts the FileServer application.
@@ -40,18 +42,28 @@ public final class FileServerStarter {
 	 * @throws IOException in case of problems
 	 */
 	public static void main(final String[] args) throws IOException {
+		start(args);
+	}
+
+	public static void start(String[] args) throws IOException {
 		FileServerApplication app = new FileServerApplication();
 		app.registerService(WindowsRedirectorPatchResource.class);
 		app.registerEntity(WindowsRedirectorPatchProperty.class);
-		
+
 		// create a resource config that scans for JAX-RS resources and providers
 		ResourceConfig rc = new ApplicationAdapter(app);
-		int port = 80;
+		URI serverURI = URI.create("http://localhost");
 		if (args.length > 0) {
-			port = Integer.parseInt(args[0]);
+			serverURI = URI.create(serverURI + ":" + args[0].trim() + "/");
 		}
-		HttpServer server = GrizzlyServerFactory.createHttpServer("http://localhost:" + port + "/", rc);
-		log.info("{} started.", server);
-		System.out.println("Jersey app started (port " + port + ")");
-	}	
+		log.info("Running {}...", serverURI);
+		server = GrizzlyServerFactory.createHttpServer(serverURI, rc);
+		log.info("{} started ({}).", server, serverURI);
+	}
+
+	public static void stop() {
+		server.stop();
+		log.info("{} stopped.", server);
+	}
+
 }

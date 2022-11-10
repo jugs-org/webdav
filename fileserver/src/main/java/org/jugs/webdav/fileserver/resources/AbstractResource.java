@@ -18,9 +18,6 @@
  */
 package org.jugs.webdav.fileserver.resources;
 
-import com.sun.jersey.api.core.HttpRequestContext;
-import com.sun.jersey.api.core.HttpResponseContext;
-import com.sun.jersey.server.impl.application.WebApplicationContext;
 import org.jugs.webdav.jaxrs.xml.elements.*;
 import org.jugs.webdav.jaxrs.xml.properties.LockDiscovery;
 import org.slf4j.Logger;
@@ -160,25 +157,11 @@ public abstract class AbstractResource implements WebDavResource{
 	}
 
 	protected static void logRequest(UriInfo info) {
-		if (info instanceof WebApplicationContext) {
-			logRequest((WebApplicationContext) info);
-		} else {
-			logger.info("<- {}", info.getRequestUri());
-		}
+		logger.info("<- {}", info.getRequestUri());
 	}
 
 	protected static void logRequest(String method, String context) {
 		logger.debug("<- \"{} {}\"", method, context);
-	}
-
-	// inspired by access-log from Tomcat
-	private static void logRequest(WebApplicationContext ctx) {
-		HttpRequestContext req = ctx.getRequest();
-		HttpResponseContext resp = ctx.getResponse();
-		logger.debug("<- \"{} {}\" {} {} Content-Type=\"{}\" accept={} user-agent=\"{}\"",
-				req.getMethod(), req.getPath(), resp.getStatus(), req.getHeaderValue("content-length"),
-				req.getMediaType(), req.getAcceptableMediaTypes(), req.getHeaderValue("user-agent"));
-		logHeaders(req.getRequestHeaders());
 	}
 
 	protected static Response logResponse(String method, Response resp) {

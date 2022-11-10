@@ -53,7 +53,7 @@ public class FileServerStarterTest {
 
     @BeforeAll
     static void startFileServer() throws IOException {
-        FileServerStarter.main(new String[]{Integer.toString(TEST_PORT)});
+        FileServerStarter.start(new String[]{Integer.toString(TEST_PORT)});
     }
 
     @Test

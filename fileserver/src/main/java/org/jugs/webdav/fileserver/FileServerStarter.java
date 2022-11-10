@@ -43,6 +43,8 @@ public final class FileServerStarter {
 	 */
 	public static void main(final String[] args) throws IOException {
 		start(args);
+		System.out.println(server + " started, press <return> to stop...");
+		System.in.read();
 	}
 
 	public static void start(String[] args) throws IOException {

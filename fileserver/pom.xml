@@ -79,11 +79,11 @@
 			<artifactId>webdav-jaxrs</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.jugs.webdav</groupId>
-			<artifactId>webdav-interop</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.jugs.webdav</groupId>-->
+<!--			<artifactId>webdav-interop</artifactId>-->
+<!--			<version>${project.version}</version>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-grizzly2</artifactId>

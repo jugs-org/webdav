@@ -22,8 +22,6 @@ import com.sun.jersey.api.container.grizzly2.GrizzlyServerFactory;
 import com.sun.jersey.api.core.ApplicationAdapter;
 import com.sun.jersey.api.core.ResourceConfig;
 import org.glassfish.grizzly.http.server.HttpServer;
-import org.jugs.webdav.interop.WindowsRedirectorPatchProperty;
-import org.jugs.webdav.interop.WindowsRedirectorPatchResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,8 +47,8 @@ public final class FileServerStarter {
 
 	public static void start(String[] args) throws IOException {
 		FileServerApplication app = new FileServerApplication();
-		app.registerService(WindowsRedirectorPatchResource.class);
-		app.registerEntity(WindowsRedirectorPatchProperty.class);
+		//app.registerService(WindowsRedirectorPatchResource.class);
+		//app.registerEntity(WindowsRedirectorPatchProperty.class);
 
 		// create a resource config that scans for JAX-RS resources and providers
 		ResourceConfig rc = new ApplicationAdapter(app);

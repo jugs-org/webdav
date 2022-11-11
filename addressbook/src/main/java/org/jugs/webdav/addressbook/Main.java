@@ -22,8 +22,12 @@ package org.jugs.webdav.addressbook;
 import com.sun.jersey.api.container.grizzly2.GrizzlyServerFactory;
 import com.sun.jersey.api.core.ApplicationAdapter;
 import com.sun.jersey.api.core.ResourceConfig;
+import org.glassfish.grizzly.http.server.HttpServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.URI;
 
 /**
  * Main class of JPA Address Book Sample.<br>
@@ -32,15 +36,29 @@ import java.io.IOException;
  */
 public final class Main {
 
+	private static final Logger log = LoggerFactory.getLogger(Main.class);
+	private static HttpServer server;
+
 	public static void main(final String[] args) throws IOException {
+		start(args);
+		System.out.println(server + " started, press <return> to stop...");
+		System.in.read();
+	}
+
+	public static void start(final String[] args) throws IOException {
 		AddressBookApplication app = new AddressBookApplication();
 		ResourceConfig rc = new ApplicationAdapter(app);
-		int port = 80;
+		URI serverURI = URI.create("http://localhost/");
 		if (args.length > 0) {
-			port = Integer.parseInt(args[0]);
+			serverURI = URI.create("http://localhost:" + args[0].trim() + "/");
 		}
-		GrizzlyServerFactory.createHttpServer("http://localhost:" + port + "/", rc);
-		System.out.println("Sample Server running... Kill process to stop.");
+		server = GrizzlyServerFactory.createHttpServer(serverURI, rc);
+		log.info("{} started ({}).", server, serverURI);
+	}
+
+	public static void stop() {
+		server.stop();
+		log.info("{} stopped.", server);
 	}
 
 }

@@ -21,18 +21,19 @@ package org.jugs.webdav.addressbook;
 import com.github.sardine.DavResource;
 import com.github.sardine.Sardine;
 import com.github.sardine.SardineFactory;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import patterntesting.runtime.junit.NetworkTester;
 
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
-import org.slf4j.Logger;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Unit-Test fuer {@link Main}.
@@ -48,7 +49,7 @@ class MainTest {
 
     @BeforeAll
     static void startFileServer() throws IOException {
-        Main.main(new String[] {Integer.toString(TEST_URI.getPort())});
+        Main.start(new String[] {Integer.toString(TEST_URI.getPort())});
     }
 
     @Test
@@ -74,6 +75,11 @@ class MainTest {
         String s = SARDINE.lock(TEST_URI + "/test.adr");
         assertNotNull(s);
         log.info("s = '{}'", s);
+    }
+
+    @AfterAll
+    static void stopFileServer() {
+        Main.stop();
     }
 
 }

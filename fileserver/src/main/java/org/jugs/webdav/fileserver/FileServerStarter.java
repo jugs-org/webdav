@@ -54,9 +54,9 @@ public final class FileServerStarter {
 
 		// create a resource config that scans for JAX-RS resources and providers
 		ResourceConfig rc = new ApplicationAdapter(app);
-		URI serverURI = URI.create("http://localhost");
+		URI serverURI = URI.create("http://localhost/");
 		if (args.length > 0) {
-			serverURI = URI.create(serverURI + ":" + args[0].trim() + "/");
+			serverURI = URI.create("http://localhost:" + args[0].trim() + "/");
 		}
 		log.info("Running {}...", serverURI);
 		server = GrizzlyServerFactory.createHttpServer(serverURI, rc);

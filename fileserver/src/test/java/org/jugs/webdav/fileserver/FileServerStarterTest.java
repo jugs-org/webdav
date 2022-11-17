@@ -21,8 +21,15 @@ package org.jugs.webdav.fileserver;
 import com.github.sardine.DavResource;
 import com.github.sardine.Sardine;
 import com.github.sardine.SardineFactory;
+import com.github.sardine.impl.methods.HttpPropFind;
 import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpResponseException;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -33,6 +40,7 @@ import patterntesting.runtime.junit.NetworkTester;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.List;
 
@@ -88,7 +96,7 @@ public class FileServerStarterTest {
     }
 
     @Test
-    public void testGet() throws IOException {
+    public void testPropFindDepth1() throws IOException {
         List<DavResource> resources = SARDINE.propfind(TEST_URI + "/", 1, new HashSet<>());
         assertFalse(resources.isEmpty());
         for (DavResource rsc : resources) {
@@ -111,6 +119,32 @@ public class FileServerStarterTest {
             fail("Exception expected.");
         } catch (HttpResponseException expected) {
             assertEquals(404, expected.getStatusCode());
+        }
+    }
+
+    @Test
+    public void testGetMethod() throws IOException {
+        HttpResponse response = getHttpResponse(new HttpGet(TEST_URI));
+        int statusCode = response.getStatusLine().getStatusCode();
+        assertEquals(404, statusCode);
+    }
+
+    @Test
+    public void testPropfindMethod() throws IOException {
+        HttpResponse response = getHttpResponse(new HttpPropFind(TEST_URI));
+        int statusCode = response.getStatusLine().getStatusCode();
+        assertEquals(200, statusCode);
+    }
+
+    private static HttpResponse getHttpResponse(HttpUriRequest method) throws IOException {
+        try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
+            HttpResponse response = client.execute(method);
+            HttpEntity entity = response.getEntity();
+            log.info("Body of {} is {}.", method, entity);
+            if (log.isDebugEnabled()) {
+                log.debug(IOUtils.toString(entity.getContent(), StandardCharsets.UTF_8));
+            }
+            return response;
         }
     }
 

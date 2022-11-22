@@ -23,11 +23,9 @@ import org.jugs.webdav.jaxrs.xml.properties.LockDiscovery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.*;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
-import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.Providers;
 import java.io.File;
 import java.io.IOException;
@@ -55,7 +53,9 @@ public abstract class AbstractResource implements WebDavResource{
 	@Override
 	public javax.ws.rs.core.Response get() {
 		logger.info("<- \"GET {}\"", resource);
-		return logResponse("GET", javax.ws.rs.core.Response.status(404).build());
+		ResponseBuilder builder = Response.ok("<html><h1>WebDAV Fileserver</h1></html>");
+		builder.header("Content-Type", MediaType.TEXT_HTML);
+		return logResponse("GET", builder.build());
 	}
 	
 	@Override

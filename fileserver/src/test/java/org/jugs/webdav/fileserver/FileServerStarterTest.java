@@ -23,6 +23,7 @@ import com.github.sardine.Sardine;
 import com.github.sardine.SardineFactory;
 import com.github.sardine.impl.methods.HttpPropFind;
 import org.apache.commons.io.IOUtils;
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpResponseException;
@@ -37,6 +38,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import patterntesting.runtime.junit.NetworkTester;
 
+import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -126,7 +128,9 @@ public class FileServerStarterTest {
     public void testGetMethod() throws IOException {
         HttpResponse response = getHttpResponse(new HttpGet(TEST_URI));
         int statusCode = response.getStatusLine().getStatusCode();
-        assertEquals(404, statusCode);
+        assertEquals(200, statusCode);
+        Header[] contentType = response.getHeaders("Content-Type");
+        assertEquals(MediaType.TEXT_HTML, contentType[0].getValue());
     }
 
     @Test

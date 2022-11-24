@@ -18,6 +18,7 @@
  */
 package org.jugs.webdav.fileserver.resources;
 
+import org.apache.commons.io.IOUtils;
 import org.jugs.webdav.jaxrs.xml.elements.*;
 import org.jugs.webdav.jaxrs.xml.properties.LockDiscovery;
 import org.slf4j.Logger;
@@ -28,16 +29,19 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.ext.Providers;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.text.MessageFormat;
 
 import static org.jugs.webdav.jaxrs.Headers.DAV;
 
 
 
-public abstract class AbstractResource implements WebDavResource{
+public abstract class AbstractResource implements WebDavResource {
 	private final static Logger logger = LoggerFactory.getLogger(WebDavResource.class);
 	protected String url;
 	protected File resource;
@@ -51,11 +55,27 @@ public abstract class AbstractResource implements WebDavResource{
 	}
 	
 	@Override
-	public javax.ws.rs.core.Response get() {
-		logger.info("<- \"GET {}\"", resource);
-		ResponseBuilder builder = Response.ok("<html><h1>WebDAV Fileserver</h1></html>");
+	public javax.ws.rs.core.Response get(UriInfo uriInfo) {
+		logger.info("<- \"GET {}\"", uriInfo.getRequestUri());
+		ResponseBuilder builder = Response.ok();
 		builder.header("Content-Type", MediaType.TEXT_HTML);
+		try {
+			String html = MessageFormat.format(readResource("/static/index.html"), uriInfo.getRequestUri());
+			builder.entity(html);
+		} catch (IOException ioe) {
+			logger.error("No resource found:", ioe);
+			builder = Response.status(404);
+		}
 		return logResponse("GET", builder.build());
+	}
+
+	private static String readResource(String name) throws IOException {
+		try (InputStream istream = AbstractResource.class.getResourceAsStream(name)) {
+			if (istream == null) {
+				throw new FileNotFoundException(String.format("resource '%s' not found", name));
+			}
+			return IOUtils.toString(istream, StandardCharsets.UTF_8);
+		}
 	}
 	
 	@Override

@@ -35,8 +35,8 @@ import static org.jugs.webdav.jaxrs.Headers.*;
 
 public interface WebDavResource {
 	@GET
-	@Produces("application/octet-stream")
-	javax.ws.rs.core.Response get();
+	@Produces("text/html")
+	javax.ws.rs.core.Response get(@Context final UriInfo uriInfo);
 
 	@PUT
 	@Consumes("application/octet-stream")

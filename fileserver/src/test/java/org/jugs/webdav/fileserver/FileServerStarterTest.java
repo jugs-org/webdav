@@ -126,7 +126,16 @@ public class FileServerStarterTest {
 
     @Test
     public void testGetMethod() throws IOException {
-        HttpResponse response = getHttpResponse(new HttpGet(TEST_URI));
+        get(TEST_URI);
+    }
+
+    @Test
+    public void testGetWithBackslash() throws IOException {
+        get(URI.create(TEST_URI + "/"));
+    }
+
+    private static void get(URI uri) throws IOException {
+        HttpResponse response = getHttpResponse(new HttpGet(uri));
         int statusCode = response.getStatusLine().getStatusCode();
         assertEquals(200, statusCode);
         Header[] contentType = response.getHeaders("Content-Type");

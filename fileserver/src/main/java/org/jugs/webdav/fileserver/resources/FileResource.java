@@ -37,12 +37,13 @@ import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 import static javax.ws.rs.core.Response.Status.OK;
 
 
-public class FileResource extends AbstractResource{
+public class FileResource extends AbstractResource {
 
 	private final static Logger logger = LoggerFactory.getLogger(FileResource.class);
 
@@ -55,9 +56,9 @@ public class FileResource extends AbstractResource{
 	@Produces("application/octet-stream")
 	public javax.ws.rs.core.Response get() {
 		logRequest("GET", url);
-		if(!resource.exists()){
+		if(!resource.exists()) {
 			return javax.ws.rs.core.Response.status(404).build();
-		}else{
+		} else {
 			ResponseBuilder builder = javax.ws.rs.core.Response.ok();
 			InputStream in;
 			try {
@@ -88,11 +89,7 @@ public class FileResource extends AbstractResource{
 		URI uri = uriInfo.getBaseUri();
 		String host = uri.getScheme()+"://"+uri.getHost()+"/"+ FileServerApplication.RESOURCE_NAME+"/";
 		String originalDestination = destination;
-		try {
-			destination = URLDecoder.decode(destination, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			logger.error("Cannot move {} to {}:", uri, destination, e);
-		}
+		destination = URLDecoder.decode(destination, StandardCharsets.UTF_8);
 		destination = destination.replace(host, "");
 
 		String root = FileServerResource.davFolder;

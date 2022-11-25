@@ -18,6 +18,7 @@
  */
 package org.jugs.webdav.fileserver.resources;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.jugs.webdav.jaxrs.xml.elements.*;
 import org.jugs.webdav.jaxrs.xml.properties.LockDiscovery;
@@ -60,8 +61,19 @@ public abstract class AbstractResource implements WebDavResource {
 		ResponseBuilder builder = Response.ok();
 		builder.header("Content-Type", MediaType.TEXT_HTML);
 		try {
-			String html = MessageFormat.format(readResource("/static/index.html"), uriInfo.getRequestUri());
-			builder.entity(html);
+			if (!resource.exists()) {
+				logger.error("Resource '{}' does not exist (404).", resource);
+				builder = Response.status(404);
+				String html = MessageFormat.format(readResource("/static/404.html"), resource);
+				builder.entity(html);
+			} else if (resource.isDirectory()) {
+				buildDirListing(uriInfo.getRequestUri(), builder);
+			} else if (resource.isFile()) {
+				builder = buildFileContent();
+			} else {
+				String html = MessageFormat.format(readResource("/static/index.html"), uriInfo.getRequestUri());
+				builder.entity(html);
+			}
 		} catch (IOException ioe) {
 			logger.error("No resource found:", ioe);
 			builder = Response.status(404);
@@ -69,7 +81,28 @@ public abstract class AbstractResource implements WebDavResource {
 		return logResponse("GET", builder.build());
 	}
 
-	private static String readResource(String name) throws IOException {
+	private void buildDirListing(URI uri, ResponseBuilder builder) throws IOException {
+		StringBuilder buf = new StringBuilder();
+		for (File f : resource.listFiles()) {
+			buf.append(MessageFormat.format("<li><a href={0}/{1}>{1}</a></li>", uri, f.getName()));
+		}
+		buf.append(MessageFormat.format("<li><a href={0}/..>..</a></li>", uri));
+		String html = MessageFormat.format(readResource("/static/dir.html"),
+				resource.getPath(),
+				buf,
+				uri);
+		builder.entity(html);
+	}
+
+	private ResponseBuilder buildFileContent() throws IOException {
+		ResponseBuilder builder = Response.ok();
+		builder.header("Content-Type", MediaType.APPLICATION_OCTET_STREAM);
+		byte[] content = FileUtils.readFileToByteArray(resource);
+		builder.entity(content);
+		return builder;
+	}
+
+	protected static String readResource(String name) throws IOException {
 		try (InputStream istream = AbstractResource.class.getResourceAsStream(name)) {
 			if (istream == null) {
 				throw new FileNotFoundException(String.format("resource '%s' not found", name));
@@ -184,8 +217,8 @@ public abstract class AbstractResource implements WebDavResource {
 		logger.debug("<- \"{} {}\"", method, context);
 	}
 
-	protected static Response logResponse(String method, Response resp) {
-		logger.info("-> \"{}\" {}: {}", method, resp.getStatus(), resp.getEntity());
+	protected Response logResponse(String method, Response resp) {
+		logger.info("-> \"{} {}: {}", method, url, resp.getStatus());
 		logHeaders(resp.getMetadata());
 		return resp;
 	}

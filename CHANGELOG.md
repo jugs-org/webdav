@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* fileserver supports also HTML for file browsing
 * switched to Grizzly 2 (jersey-grizzly2)
 * JAXB provider added as runtime dependency
 * rebase with [webdav-jaxrs](https://gitlab.com/headcrashing/webdav-jaxrs)

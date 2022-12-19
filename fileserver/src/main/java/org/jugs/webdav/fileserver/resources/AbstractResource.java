@@ -25,10 +25,10 @@ import org.jugs.webdav.jaxrs.xml.properties.LockDiscovery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.core.*;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
-import javax.ws.rs.ext.Providers;
+import jakarta.ws.rs.core.*;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.ResponseBuilder;
+import jakarta.ws.rs.ext.Providers;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -56,7 +56,7 @@ public abstract class AbstractResource implements WebDavResource {
 	}
 	
 	@Override
-	public javax.ws.rs.core.Response get(UriInfo uriInfo) {
+	public jakarta.ws.rs.core.Response get(UriInfo uriInfo) {
 		logger.info("<- \"GET {}\"", uriInfo.getRequestUri());
 		ResponseBuilder builder = Response.ok();
 		builder.header("Content-Type", MediaType.TEXT_HTML);
@@ -112,51 +112,51 @@ public abstract class AbstractResource implements WebDavResource {
 	}
 	
 	@Override
-	public javax.ws.rs.core.Response put(UriInfo uriInfo, final InputStream entityStream, final long contentLength) throws IOException {
+	public jakarta.ws.rs.core.Response put(UriInfo uriInfo, final InputStream entityStream, final long contentLength) throws IOException {
 		logRequest(uriInfo);
-		return logResponse("PUT", javax.ws.rs.core.Response.status(501).build());
+		return logResponse("PUT", jakarta.ws.rs.core.Response.status(501).build());
 	}
 	
 	@Override
-	public javax.ws.rs.core.Response mkcol(){
+	public jakarta.ws.rs.core.Response mkcol(){
 		logger.trace("Abstract - mkcol(..)");
-		return logResponse("MKCOL", javax.ws.rs.core.Response.status(404).build());
+		return logResponse("MKCOL", jakarta.ws.rs.core.Response.status(404).build());
 	}
 	
 	@Override
-	public javax.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) throws IOException {
+	public jakarta.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) throws IOException {
 		logRequest(uriInfo);
-		return logResponse("PROPFIND", javax.ws.rs.core.Response.status(404).build());
+		return logResponse("PROPFIND", jakarta.ws.rs.core.Response.status(404).build());
 	}
 	
 	@Override
-	public javax.ws.rs.core.Response proppatch(){
+	public jakarta.ws.rs.core.Response proppatch(){
 		logger.trace("Abstract - proppatch(..)");
-		return logResponse("PROPPATCH", javax.ws.rs.core.Response.status(404).build());
+		return logResponse("PROPPATCH", jakarta.ws.rs.core.Response.status(404).build());
 	}
 	
 	@Override
-	public javax.ws.rs.core.Response copy(){
+	public jakarta.ws.rs.core.Response copy(){
 		logger.trace("Abstract - copy(..)");
-		return logResponse("COPY", javax.ws.rs.core.Response.status(404).build());
+		return logResponse("COPY", jakarta.ws.rs.core.Response.status(404).build());
 	}
 	
 	@Override
-	public javax.ws.rs.core.Response move(UriInfo uriInfo, String overwriteStr, String destination) throws URISyntaxException{
+	public jakarta.ws.rs.core.Response move(UriInfo uriInfo, String overwriteStr, String destination) throws URISyntaxException{
 		logRequest(uriInfo);
-		return logResponse("MOVE", javax.ws.rs.core.Response.status(404).build());
+		return logResponse("MOVE", jakarta.ws.rs.core.Response.status(404).build());
 	}
 	
 	@Override
-	public javax.ws.rs.core.Response delete(){
+	public jakarta.ws.rs.core.Response delete(){
 		logger.trace("Abstract - delete(..)");
-		return logResponse("DELETE", javax.ws.rs.core.Response.status(404).build());
+		return logResponse("DELETE", jakarta.ws.rs.core.Response.status(404).build());
 	}
 	
 	@Override
-	public javax.ws.rs.core.Response options(){
+	public jakarta.ws.rs.core.Response options(){
 		logger.trace("Abstract - options(..)");
-		ResponseBuilder builder = withDavHeader(javax.ws.rs.core.Response.ok());//noContent();
+		ResponseBuilder builder = withDavHeader(jakarta.ws.rs.core.Response.ok());//noContent();
 		/*
 		 * builder.header("Allow","");
 		 * OPTIONS, GET, HEAD, DELETE, PROPPATCH, COPY, MOVE, LOCK, UNLOCK, PROPFIND, PUT
@@ -204,7 +204,7 @@ public abstract class AbstractResource implements WebDavResource {
 	}
 
 	@Override
-	public javax.ws.rs.core.Response unlock(UriInfo uriInfo, String token) {
+	public jakarta.ws.rs.core.Response unlock(UriInfo uriInfo, String token) {
 		logRequest(uriInfo);
 		return logResponse("UNLOCK", withDavHeader(Response.noContent()).build());
 	}

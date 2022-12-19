@@ -18,12 +18,11 @@
  */
 package org.jugs.webdav.interop;
 
+import jakarta.ws.rs.OPTIONS;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.core.Response.ResponseBuilder;
+
 import static org.jugs.webdav.jaxrs.Headers.DAV;
-
-import javax.ws.rs.Path;
-import javax.ws.rs.core.Response.ResponseBuilder;
-
-import javax.ws.rs.OPTIONS;
 
 /**
  * This class represents a JAX-RS resource with only the OPTIONS-Method which 
@@ -42,8 +41,8 @@ import javax.ws.rs.OPTIONS;
 public final class WindowsRedirectorPatchResource {
 	
 	@OPTIONS
-	public javax.ws.rs.core.Response options() {
-		ResponseBuilder builder = javax.ws.rs.core.Response.noContent();
+	public jakarta.ws.rs.core.Response options() {
+		ResponseBuilder builder = jakarta.ws.rs.core.Response.noContent();
 		builder.header(DAV, "1");
 		/*
 		 * builder.header("Allow","");

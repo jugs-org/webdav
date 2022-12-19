@@ -25,7 +25,7 @@ package org.jugs.webdav.jaxrs.xml.elements;
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 
 /**
  * Unit test for {@link LockType}

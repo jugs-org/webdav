@@ -18,17 +18,16 @@
  */
 package org.jugs.webdav.fileserver;
 
+import jakarta.ws.rs.core.Application;
+import org.jugs.webdav.fileserver.resources.FileServerResource;
+import org.jugs.webdav.jaxrs.xml.WebDavContextResolver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import jakarta.xml.bind.JAXBException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import org.slf4j.Logger;
-
-import javax.ws.rs.core.Application;
-import javax.xml.bind.JAXBException;
-
-import org.jugs.webdav.fileserver.resources.FileServerResource;
-import org.jugs.webdav.jaxrs.xml.WebDavContextResolver;
-import org.slf4j.LoggerFactory;
 
 
 public class FileServerApplication extends Application {

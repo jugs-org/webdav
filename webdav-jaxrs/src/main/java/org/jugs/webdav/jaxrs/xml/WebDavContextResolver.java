@@ -22,13 +22,13 @@
 
 package org.jugs.webdav.jaxrs.xml;
 
-import static javax.ws.rs.core.MediaType.APPLICATION_XML;
+import static jakarta.ws.rs.core.MediaType.APPLICATION_XML;
 
-import javax.ws.rs.Produces;
-import javax.ws.rs.ext.ContextResolver;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.JAXBIntrospector;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.ext.ContextResolver;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBIntrospector;
 
 import org.jugs.webdav.jaxrs.WebDAV;
 import org.jugs.webdav.jaxrs.xml.conditions.CannotModifyProtectedProperty;

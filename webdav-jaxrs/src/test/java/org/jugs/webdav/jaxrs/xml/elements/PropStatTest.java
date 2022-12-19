@@ -25,8 +25,8 @@ package org.jugs.webdav.jaxrs.xml.elements;
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.junit.jupiter.api.Test;
 
-import javax.ws.rs.core.Response.StatusType;
-import javax.xml.bind.JAXBException;
+import jakarta.ws.rs.core.Response.StatusType;
+import jakarta.xml.bind.JAXBException;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;

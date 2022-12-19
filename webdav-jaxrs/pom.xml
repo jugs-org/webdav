@@ -17,7 +17,7 @@
 	<parent>
 		<groupId>org.jugs.webdav</groupId>
 		<artifactId>webdav</artifactId>
-		<version>2.5-SNAPSHOT</version>
+		<version>3.0-SNAPSHOT</version>
 	</parent>
 	<name>WebDAV Support for JAX-RS</name>
 	<description>Provides classes for easier implementation of WebDAV based JAX-RS applications.</description>
@@ -102,14 +102,14 @@
 			<version>4.0.1</version>
 		</dependency>
 		<dependency>
-			<groupId>javax.xml.bind</groupId>
-			<artifactId>jaxb-api</artifactId>
-			<version>2.3.1</version>
+			<groupId>jakarta.xml.bind</groupId>
+			<artifactId>jakarta.xml.bind-api</artifactId>
+			<version>3.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jaxb</groupId>
 			<artifactId>jaxb-runtime</artifactId>
-			<version>2.3.7</version>
+			<version>${jersey.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -119,9 +119,9 @@
 			<type>pom</type>
 		</dependency>
 		<dependency>
-			<groupId>javax.ws.rs</groupId>
-			<artifactId>javax.ws.rs-api</artifactId>
-			<version>2.1.1</version>
+			<groupId>jakarta.ws.rs</groupId>
+			<artifactId>jakarta.ws.rs-api</artifactId>
+			<version>3.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hamcrest</groupId>

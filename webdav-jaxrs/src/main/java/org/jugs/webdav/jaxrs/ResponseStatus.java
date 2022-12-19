@@ -22,15 +22,15 @@
 
 package org.jugs.webdav.jaxrs;
 
-import static javax.ws.rs.core.Response.Status.Family.CLIENT_ERROR;
-import static javax.ws.rs.core.Response.Status.Family.INFORMATIONAL;
-import static javax.ws.rs.core.Response.Status.Family.OTHER;
-import static javax.ws.rs.core.Response.Status.Family.REDIRECTION;
-import static javax.ws.rs.core.Response.Status.Family.SERVER_ERROR;
-import static javax.ws.rs.core.Response.Status.Family.SUCCESSFUL;
+import static jakarta.ws.rs.core.Response.Status.Family.CLIENT_ERROR;
+import static jakarta.ws.rs.core.Response.Status.Family.INFORMATIONAL;
+import static jakarta.ws.rs.core.Response.Status.Family.OTHER;
+import static jakarta.ws.rs.core.Response.Status.Family.REDIRECTION;
+import static jakarta.ws.rs.core.Response.Status.Family.SERVER_ERROR;
+import static jakarta.ws.rs.core.Response.Status.Family.SUCCESSFUL;
 
-import javax.ws.rs.core.Response.Status.Family;
-import javax.ws.rs.core.Response.StatusType;
+import jakarta.ws.rs.core.Response.Status.Family;
+import jakarta.ws.rs.core.Response.StatusType;
 
 /**
  * Commonly used status codes defined by WebDAV.

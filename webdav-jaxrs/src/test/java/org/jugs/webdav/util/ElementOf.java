@@ -22,8 +22,8 @@
 
 package org.jugs.webdav.util;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBIntrospector;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBIntrospector;
 
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;

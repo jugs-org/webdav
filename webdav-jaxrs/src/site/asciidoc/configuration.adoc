@@ -18,19 +18,19 @@ Putting the `webdav-jaxrs` library on the classpath of an application automatica
 === Registering Optional Custom Extensions using Automatic Discovery
 
 Applications providing custom extensions to the WebDAV protocol need to register these JAXB `XmlRootElements` so <
-_WebDAV Support for JAX-RS_ can use them. This is as simple as providing a `List<Class<?>>` referencing all the extension classes to the JAX-RS configuration parameter `net.java.dev.webdav.jaxrs.WebDAV.CUSTOM_EXTENSIONS`. While the JAX-RS specification _mandates_ that all JAX-RS containers MUST be able to accept configuration properties provided by `javax.ws.rs.core.Application.getProperties()` (see <manual configuration> below), some containers also support several <proprietary> ways to configure properties. As all those non-programmatic configuration solutions are _non-portable_, these are not covered here in further depth. A _portable_ and more _concise_ approach is to wrap the custom extension as a custom `@Provider`.
+_WebDAV Support for JAX-RS_ can use them. This is as simple as providing a `List<Class<?>>` referencing all the extension classes to the JAX-RS configuration parameter `net.java.dev.webdav.jaxrs.WebDAV.CUSTOM_EXTENSIONS`. While the JAX-RS specification _mandates_ that all JAX-RS containers MUST be able to accept configuration properties provided by `jakarta.ws.rs.core.Application.getProperties()` (see <manual configuration> below), some containers also support several <proprietary> ways to configure properties. As all those non-programmatic configuration solutions are _non-portable_, these are not covered here in further depth. A _portable_ and more _concise_ approach is to wrap the custom extension as a custom `@Provider`.
     
 
 	@Provider
-	public MyCustomExtension implements javax.ws.rs.core.Feature {
+	public MyCustomExtension implements jakarta.ws.rs.core.Feature {
 		@Override
-		public boolean configure(javax.ws.rs.core.FeatureContext featureContext) {
+		public boolean configure(jakarta.ws.rs.core.FeatureContext featureContext) {
 			featureContext.property(net.java.dev.webdav.jaxrs.WebDAV.CUSTOM_EXTENSIONS, Arrays.asList(MyFirstXmlRootElement.class, MySecondXmlRootElement.class));
 		}
 	}
 
 
-**Note:** Depending on the order of processing, some JAX-RS containers might decide to invoke the custom feature <after> WebDAV, in which case WebDAV will not "see" them. Unfortunately the JAX-RS 2.0 specification does not provide a vendor-independent solution to that problem. If this happens, either the JAX-RS containers's manual is to be referred for a vendor-specific ordering solution, or <manual> configuration is to be provided instead (hence, implementing the `javax.ws.rs.core.Application` interface).
+**Note:** Depending on the order of processing, some JAX-RS containers might decide to invoke the custom feature <after> WebDAV, in which case WebDAV will not "see" them. Unfortunately the JAX-RS 2.0 specification does not provide a vendor-independent solution to that problem. If this happens, either the JAX-RS containers's manual is to be referred for a vendor-specific ordering solution, or <manual> configuration is to be provided instead (hence, implementing the `jakarta.ws.rs.core.Application` interface).
 
 === Manual Configuration without Automatic Discovery
 
@@ -38,7 +38,7 @@ Some JAX-RS containers do _not_ provide support for Automatic Discovery. In such
   
 === Enabling WebDAV using Manual Coding
   
-Manually enabling JAX-RS is only needed if Automatic Discovery is _not_ supported or not wanted by the application author. In that case, WebDAV is to be enabled by implementing the `getClasses()` optional method of the `javax.ws.rs.core.Application` interface to tell the JAX-RS container that WebDAV shall get used.
+Manually enabling JAX-RS is only needed if Automatic Discovery is _not_ supported or not wanted by the application author. In that case, WebDAV is to be enabled by implementing the `getClasses()` optional method of the `jakarta.ws.rs.core.Application` interface to tell the JAX-RS container that WebDAV shall get used.
     
 	@Override
 	public Set<Class<?>> getClasses() {

@@ -19,7 +19,7 @@
 
 package org.jugs.webdav.addressbook;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * WebDAV Extension property which is working around a bug in the Microsoft

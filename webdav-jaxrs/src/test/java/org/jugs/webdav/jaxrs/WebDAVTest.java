@@ -25,14 +25,14 @@ package org.jugs.webdav.jaxrs;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
-import javax.ws.rs.core.Configuration;
-import javax.ws.rs.core.Feature;
-import javax.ws.rs.core.FeatureContext;
-import javax.ws.rs.ext.Provider;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.ws.rs.core.Configuration;
+import jakarta.ws.rs.core.Feature;
+import jakarta.ws.rs.core.FeatureContext;
+import jakarta.ws.rs.ext.Provider;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
-import static javax.ws.rs.Priorities.ENTITY_CODER;
+import static jakarta.ws.rs.Priorities.ENTITY_CODER;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.ArgumentMatchers.any;

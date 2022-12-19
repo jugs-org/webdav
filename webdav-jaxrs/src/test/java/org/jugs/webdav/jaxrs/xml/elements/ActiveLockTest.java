@@ -27,7 +27,7 @@ import org.jugs.webdav.jaxrs.NullArgumentException;
 import org.jugs.webdav.util.Utilities;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;

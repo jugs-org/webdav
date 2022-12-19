@@ -23,7 +23,7 @@
 	<parent>
 		<groupId>org.jugs.webdav</groupId>
 		<artifactId>webdav</artifactId>
-		<version>2.5-SNAPSHOT</version>
+		<version>3.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>fileserver</artifactId>
 	<name>FileServer based on WebDAV Support</name>
@@ -85,16 +85,32 @@
 <!--			<version>${project.version}</version>-->
 <!--		</dependency>-->
 		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-grizzly2</artifactId>
-		</dependency>
-<!--
-		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-grizzly2-http</artifactId>
-			<version>2.37</version>
+			<version>${jersey.version}</version>
 		</dependency>
--->
+		<dependency>
+			<groupId>org.glassfish.jersey.inject</groupId>
+			<artifactId>jersey-hk2</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-jaxb</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-multipart</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jaxb</groupId>
+			<artifactId>jaxb-runtime</artifactId>
+			<version>${jersey.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
@@ -124,11 +140,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.github.lookfirst</groupId>
-			<artifactId>sardine</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
 			<scope>test</scope>
@@ -136,6 +147,22 @@
 		<dependency>
 			<groupId>org.patterntesting</groupId>
 			<artifactId>patterntesting-rt</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- needed to test WebDAV -->
+		<dependency>
+			<groupId>com.github.lookfirst</groupId>
+			<artifactId>sardine</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

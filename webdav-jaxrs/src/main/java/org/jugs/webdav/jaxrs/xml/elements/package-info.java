@@ -30,8 +30,8 @@
 @XmlSchema(namespace = "DAV:", xmlns = @XmlNs(prefix = "D", namespaceURI = "DAV:"), elementFormDefault = QUALIFIED)
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static javax.xml.bind.annotation.XmlNsForm.QUALIFIED;
+import static jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED;
 
-import javax.xml.bind.annotation.XmlNs;
-import javax.xml.bind.annotation.XmlSchema;
+import jakarta.xml.bind.annotation.XmlNs;
+import jakarta.xml.bind.annotation.XmlSchema;
 

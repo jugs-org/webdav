@@ -24,13 +24,13 @@ import org.jugs.webdav.jaxrs.xml.elements.*;
 import org.jugs.webdav.jaxrs.xml.properties.*;
 
 import javax.persistence.*;
-import javax.ws.rs.OPTIONS;
-import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.ext.Providers;
+import jakarta.ws.rs.OPTIONS;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.UriInfo;
+import jakarta.ws.rs.ext.Providers;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
@@ -38,8 +38,8 @@ import java.net.URI;
 import java.util.Collection;
 import java.util.*;
 
-import static javax.ws.rs.core.HttpHeaders.CONTENT_LENGTH;
-import static javax.ws.rs.core.Response.Status.*;
+import static jakarta.ws.rs.core.HttpHeaders.CONTENT_LENGTH;
+import static jakarta.ws.rs.core.Response.Status.*;
 import static org.jugs.webdav.jaxrs.Headers.*;
 import static org.jugs.webdav.jaxrs.xml.properties.ResourceType.COLLECTION;
 
@@ -56,8 +56,8 @@ public final class AddressBook {
 	private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("AddressBook");
 
 	@OPTIONS
-	public final javax.ws.rs.core.Response options() {
-		return javax.ws.rs.core.Response.noContent().header(DAV, "1,2,3").build();
+	public final jakarta.ws.rs.core.Response options() {
+		return jakarta.ws.rs.core.Response.noContent().header(DAV, "1,2,3").build();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -250,12 +250,12 @@ public final class AddressBook {
 
 	@LOCK
 	@Path("{filename}.adr")
-	public javax.ws.rs.core.Response lock(@PathParam("filename") final String matchCode, @Context final UriInfo uriInfo) {
+	public jakarta.ws.rs.core.Response lock(@PathParam("filename") final String matchCode, @Context final UriInfo uriInfo) {
 		LockDiscovery lockDiscovery =
 			new LockDiscovery(new ActiveLock(LockScope.SHARED, LockType.WRITE, Depth.ZERO, new Owner(""), new TimeOut(75), new LockToken(new HRef(
 				"http://localhost")), new LockRoot(new org.jugs.webdav.jaxrs.xml.elements.HRef("http://localhost"))));
 		Prop prop = new Prop(lockDiscovery);
-		return javax.ws.rs.core.Response.ok(prop)
+		return jakarta.ws.rs.core.Response.ok(prop)
 				.header(DAV, "1,2,3")
 				.header(LOCK_TOKEN, "1")
 				.build();

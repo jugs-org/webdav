@@ -22,9 +22,9 @@ import org.jugs.webdav.jaxrs.methods.MKCOL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.ResponseBuilder;
+import jakarta.ws.rs.core.UriInfo;
 import java.io.*;
 
 
@@ -37,7 +37,7 @@ public class UnknownResource extends AbstractResource {
 	}
 	
 	@MKCOL
-	public javax.ws.rs.core.Response mkcol(){
+	public jakarta.ws.rs.core.Response mkcol(){
 		logger.trace("mkcol(..folder..) - "+url);
 		return logResponse("MKCOL", doMkcol());
 	}
@@ -56,7 +56,7 @@ public class UnknownResource extends AbstractResource {
 	}
 
 	@Override
-	public javax.ws.rs.core.Response put(final UriInfo uriInfo, final InputStream entityStream, final long contentLength) throws IOException {
+	public jakarta.ws.rs.core.Response put(final UriInfo uriInfo, final InputStream entityStream, final long contentLength) throws IOException {
 		logRequest(uriInfo);
 		/*
 		 * Workaround for Jersey issue #154 (see
@@ -66,7 +66,7 @@ public class UnknownResource extends AbstractResource {
 		 */
 
 		if (contentLength == 0)
-			return javax.ws.rs.core.Response.ok().build();
+			return jakarta.ws.rs.core.Response.ok().build();
 
 		BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(resource));
 		
@@ -82,13 +82,13 @@ public class UnknownResource extends AbstractResource {
 		 */
 
 		logger.trace(String.format("STORED: %s", resource.getName()));
-		return logResponse("PUT", javax.ws.rs.core.Response.created(uriInfo.getRequestUriBuilder().path(url).build()).build());
+		return logResponse("PUT", jakarta.ws.rs.core.Response.created(uriInfo.getRequestUriBuilder().path(url).build()).build());
 	}
 	
 	@Override
-	public javax.ws.rs.core.Response options(){
+	public jakarta.ws.rs.core.Response options(){
 		logger.trace("UnkownResource - options(..)");
-		ResponseBuilder builder = withDavHeader(javax.ws.rs.core.Response.ok());//noContent();
+		ResponseBuilder builder = withDavHeader(jakarta.ws.rs.core.Response.ok());//noContent();
 		/*
 		 * builder.header("Allow","");
 		 * OPTIONS, GET, HEAD, DELETE, PROPPATCH, COPY, MOVE, LOCK, UNLOCK, PROPFIND, PUT

@@ -27,8 +27,8 @@ import static org.jugs.webdav.util.Utilities.notNull;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlValue;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlValue;
 
 import org.jugs.webdav.util.Utilities;
 

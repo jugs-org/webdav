@@ -25,7 +25,7 @@ package org.jugs.webdav.jaxrs.methods;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import javax.ws.rs.HttpMethod;
+import jakarta.ws.rs.HttpMethod;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
@@ -44,7 +44,7 @@ public final class JaxRsComplianceTest {
 
 	@SuppressWarnings("deprecation")
 	@ParameterizedTest(name = "{0}")
-	@ValueSource(classes = {COPY.class, LOCK.class, MKCOL.class, MOVE.class, OPTIONS.class, PROPFIND.class, PROPPATCH.class,
+	@ValueSource(classes = {COPY.class, LOCK.class, MKCOL.class, MOVE.class, PROPFIND.class, PROPPATCH.class,
 							UNLOCK.class } )
 	void isAnAnnotation(final Class<?> dataPoint) {
 		assertThat(dataPoint + " must be an annotation.", dataPoint.isAnnotation(), is(true));
@@ -52,7 +52,7 @@ public final class JaxRsComplianceTest {
 
 	@SuppressWarnings("deprecation")
 	@ParameterizedTest(name = "{0}")
-	@ValueSource(classes = {COPY.class, LOCK.class, MKCOL.class, MOVE.class, OPTIONS.class, PROPFIND.class, PROPPATCH.class,
+	@ValueSource(classes = {COPY.class, LOCK.class, MKCOL.class, MOVE.class, PROPFIND.class, PROPPATCH.class,
 							UNLOCK.class } )
 	void canBeUsedOnMethods(final Class<?> dataPoint) {
 		assertThat(dataPoint + " must be annotated with @Target.", dataPoint.isAnnotationPresent(Target.class), is(true));
@@ -61,7 +61,7 @@ public final class JaxRsComplianceTest {
 
 	@SuppressWarnings("deprecation")
 	@ParameterizedTest(name = "{0}")
-	@ValueSource(classes = {COPY.class, LOCK.class, MKCOL.class, MOVE.class, OPTIONS.class, PROPFIND.class, PROPPATCH.class,
+	@ValueSource(classes = {COPY.class, LOCK.class, MKCOL.class, MOVE.class, PROPFIND.class, PROPPATCH.class,
 							UNLOCK.class } )
 	void hasRuntimeRetention(final Class<?> dataPoint) {
 		assertThat(dataPoint + " must be annotated with @Retention.", dataPoint.isAnnotationPresent(Retention.class), is(true));
@@ -70,7 +70,7 @@ public final class JaxRsComplianceTest {
 
 	@SuppressWarnings("deprecation")
 	@ParameterizedTest(name = "{0}")
-	@ValueSource(classes = {COPY.class, LOCK.class, MKCOL.class, MOVE.class, OPTIONS.class, PROPFIND.class, PROPPATCH.class,
+	@ValueSource(classes = {COPY.class, LOCK.class, MKCOL.class, MOVE.class, PROPFIND.class, PROPPATCH.class,
 							UNLOCK.class } )
 	void hasHttpMethod(final Class<?> dataPoint) {
 		assertThat(dataPoint + " must be annotated with @HttpMethod.", dataPoint.isAnnotationPresent(HttpMethod.class), is(true));

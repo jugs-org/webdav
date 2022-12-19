@@ -22,13 +22,13 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static javax.xml.bind.annotation.XmlAccessType.NONE;
+import static jakarta.xml.bind.annotation.XmlAccessType.NONE;
 
 import java.util.Objects;
 
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlValue;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlValue;
 
 import org.jugs.webdav.util.Utilities;
 

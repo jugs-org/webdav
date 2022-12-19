@@ -26,7 +26,7 @@ import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.xml.properties.CreationDate;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 
 import static java.util.Collections.singletonList;
 import static org.hamcrest.CoreMatchers.is;

@@ -22,6 +22,7 @@ import com.github.sardine.DavResource;
 import com.github.sardine.Sardine;
 import com.github.sardine.SardineFactory;
 import com.github.sardine.impl.methods.HttpPropFind;
+import jakarta.ws.rs.core.MediaType;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -31,6 +32,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.jugs.webdav.jaxrs.xml.elements.PropFind;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -38,7 +40,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import patterntesting.runtime.junit.NetworkTester;
 
-import javax.ws.rs.core.MediaType;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -64,6 +66,12 @@ public class FileServerStarterTest {
     @BeforeAll
     static void startFileServer() throws IOException {
         FileServerStarter.start(new String[]{Integer.toString(TEST_PORT)});
+    }
+
+    @Test
+    public void testXmlBind() {
+        XmlRootElement rootElement = PropFind.class.getAnnotation(XmlRootElement.class);
+        assertNotNull(rootElement);
     }
 
     @Test

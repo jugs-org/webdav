@@ -25,7 +25,7 @@ package org.jugs.webdav.jaxrs.methods;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import javax.ws.rs.HttpMethod;
+import jakarta.ws.rs.HttpMethod;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -40,7 +40,7 @@ public final class IntuitivenessTest {
 
 	@SuppressWarnings("deprecation")
 	@ParameterizedTest(name = "{0}")
-	@ValueSource(classes = {COPY.class, LOCK.class, MKCOL.class, MOVE.class, OPTIONS.class, PROPFIND.class, PROPPATCH.class,
+	@ValueSource(classes = {COPY.class, LOCK.class, MKCOL.class, MOVE.class, PROPFIND.class, PROPPATCH.class,
 							UNLOCK.class })
 	void annotationNameEqualsHttpMethod(Class<?> dataPoint) {
 		assertThat("HTTP method name must equal simple name of " + dataPoint + ".", dataPoint.getAnnotation(HttpMethod.class).value(),

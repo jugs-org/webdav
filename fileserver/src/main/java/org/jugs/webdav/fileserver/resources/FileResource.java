@@ -27,12 +27,12 @@ import org.jugs.webdav.jaxrs.xml.properties.GetLastModified;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.Response.ResponseBuilder;
-import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.ext.Providers;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.Response.ResponseBuilder;
+import jakarta.ws.rs.core.UriInfo;
+import jakarta.ws.rs.ext.Providers;
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -40,7 +40,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
-import static javax.ws.rs.core.Response.Status.OK;
+import static jakarta.ws.rs.core.Response.Status.OK;
 
 
 public class FileResource extends AbstractResource {
@@ -54,17 +54,17 @@ public class FileResource extends AbstractResource {
 //	@Override
 	@GET
 	@Produces("application/octet-stream")
-	public javax.ws.rs.core.Response get() {
+	public jakarta.ws.rs.core.Response get() {
 		logRequest("GET", url);
 		if(!resource.exists()) {
-			return javax.ws.rs.core.Response.status(404).build();
+			return jakarta.ws.rs.core.Response.status(404).build();
 		} else {
-			ResponseBuilder builder = javax.ws.rs.core.Response.ok();
+			ResponseBuilder builder = jakarta.ws.rs.core.Response.ok();
 			InputStream in;
 			try {
 				in = new BufferedInputStream(new FileInputStream(resource));
 			} catch (FileNotFoundException e) {
-				return javax.ws.rs.core.Response.serverError().build();
+				return jakarta.ws.rs.core.Response.serverError().build();
 			}
 			builder.header("Last-Modified", new Rfc1123DateFormat().format(new Date(resource.lastModified())));
 			builder.header("Content-Length", resource.length());
@@ -74,17 +74,17 @@ public class FileResource extends AbstractResource {
 	}
 	
 	@Override
-	public javax.ws.rs.core.Response delete() {
+	public jakarta.ws.rs.core.Response delete() {
 		logRequest("DELETE", url);
 		boolean deleted = resource.delete();
 		if(deleted){
-			return logResponse("DELETE", javax.ws.rs.core.Response.noContent().build());
+			return logResponse("DELETE", jakarta.ws.rs.core.Response.noContent().build());
 		}
 		return super.delete();
 	}
 	
 	@Override
-	public javax.ws.rs.core.Response move(final UriInfo uriInfo, String overwriteStr, String destination) throws URISyntaxException {
+	public jakarta.ws.rs.core.Response move(final UriInfo uriInfo, String overwriteStr, String destination) throws URISyntaxException {
 		logRequest(uriInfo);
 		URI uri = uriInfo.getBaseUri();
 		String host = uri.getScheme()+"://"+uri.getHost()+"/"+ FileServerApplication.RESOURCE_NAME+"/";
@@ -99,28 +99,28 @@ public class FileResource extends AbstractResource {
 		return logResponse("MOVE", move(originalDestination, destFile, overwrite));
 	}
 
-	private javax.ws.rs.core.Response move(String originalDestination, File destFile, boolean overwrite)
+	private jakarta.ws.rs.core.Response move(String originalDestination, File destFile, boolean overwrite)
 			throws URISyntaxException {
 		if(destFile.equals(resource)){
-			return javax.ws.rs.core.Response.status(403).build();
+			return jakarta.ws.rs.core.Response.status(403).build();
 		}else{
 			if(destFile.exists() && !overwrite){
-				return javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.PRECONDITION_FAILED).build();
+				return jakarta.ws.rs.core.Response.status(jakarta.ws.rs.core.Response.Status.PRECONDITION_FAILED).build();
 			}
 			if(!destFile.exists() || overwrite){
 				destFile.delete();
 				boolean moved = resource.renameTo(destFile);
 				if(moved)
-					return javax.ws.rs.core.Response.created(new URI(originalDestination)).build();
+					return jakarta.ws.rs.core.Response.created(new URI(originalDestination)).build();
 				else
-					return javax.ws.rs.core.Response.serverError().build();
+					return jakarta.ws.rs.core.Response.serverError().build();
 			}
-			return javax.ws.rs.core.Response.status(409).build();
+			return jakarta.ws.rs.core.Response.status(409).build();
 		}
 	}
 
 	@Override
-	public javax.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) {
+	public jakarta.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) {
 		logRequest(uriInfo);
 
 		Date lastModified = new Date(resource.lastModified());
@@ -129,12 +129,12 @@ public class FileResource extends AbstractResource {
 
 		MultiStatus st = new MultiStatus(davFile);
 
-		return logResponse("PROPFIND", javax.ws.rs.core.Response.ok(st).build());
+		return logResponse("PROPFIND", jakarta.ws.rs.core.Response.ok(st).build());
 	}
 	
 
 	@Override
-	public javax.ws.rs.core.Response put(final UriInfo uriInfo, final InputStream entityStream, final long contentLength) throws IOException {
+	public jakarta.ws.rs.core.Response put(final UriInfo uriInfo, final InputStream entityStream, final long contentLength) throws IOException {
 		logRequest(uriInfo);
 		/*
 		 * Workaround for Jersey issue #154 (see
@@ -144,7 +144,7 @@ public class FileResource extends AbstractResource {
 		 */
 
 		if (contentLength == 0)
-			return javax.ws.rs.core.Response.ok().build();
+			return jakarta.ws.rs.core.Response.ok().build();
 
 		BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(resource));
 		
@@ -160,13 +160,13 @@ public class FileResource extends AbstractResource {
 		 */
 
 		logger.trace(String.format("STORED: %s", resource.getName()));
-		return logResponse("PUT", javax.ws.rs.core.Response.created(uriInfo.getRequestUriBuilder().path(url).build()).build());
+		return logResponse("PUT", jakarta.ws.rs.core.Response.created(uriInfo.getRequestUriBuilder().path(url).build()).build());
 	}
 	
 	@Override
-	public javax.ws.rs.core.Response options(){
+	public jakarta.ws.rs.core.Response options(){
 		logger.trace("File - options(..)");
-		ResponseBuilder builder = withDavHeader(javax.ws.rs.core.Response.ok());//noContent();
+		ResponseBuilder builder = withDavHeader(jakarta.ws.rs.core.Response.ok());//noContent();
 		/*
 		 * builder.header("Allow","");
 		 * OPTIONS, GET, HEAD, DELETE, PROPPATCH, COPY, MOVE, LOCK, UNLOCK, PROPFIND, PUT

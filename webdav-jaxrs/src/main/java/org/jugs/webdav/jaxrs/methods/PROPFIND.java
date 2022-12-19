@@ -22,13 +22,13 @@
 
 package org.jugs.webdav.jaxrs.methods;
 
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import jakarta.ws.rs.HttpMethod;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import javax.ws.rs.HttpMethod;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * Indicates that the annotated method responds to WebDAV PROPFIND requests.

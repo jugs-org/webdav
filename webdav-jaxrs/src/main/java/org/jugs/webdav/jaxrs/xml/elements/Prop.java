@@ -22,16 +22,15 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static java.util.Arrays.asList;
-import static java.util.Collections.unmodifiableList;
+import org.jugs.webdav.util.Utilities;
 
+import jakarta.xml.bind.annotation.XmlAnyElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
-import org.jugs.webdav.util.Utilities;
+import static java.util.Arrays.asList;
+import static java.util.Collections.unmodifiableList;
 
 /**
  * WebDAV prop XML Element.
@@ -41,7 +40,7 @@ import org.jugs.webdav.util.Utilities;
  * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_prop">Chapter 14.18 "prop XML Element" of RFC 4918
  *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
-@XmlRootElement
+@ XmlRootElement
 public final class Prop {
 
 	@XmlAnyElement(lax = true)

@@ -27,9 +27,9 @@ import org.jugs.webdav.jaxrs.ResponseStatus;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.StatusType;
-import javax.xml.bind.JAXBException;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.StatusType;
+import jakarta.xml.bind.JAXBException;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;

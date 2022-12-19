@@ -22,7 +22,7 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 import org.jugs.webdav.util.Utilities;
 

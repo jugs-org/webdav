@@ -24,8 +24,8 @@ import java.util.HashSet;
 import java.util.Set;
 import org.slf4j.Logger;
 
-import javax.ws.rs.core.Application;
-import javax.xml.bind.JAXBException;
+import jakarta.ws.rs.core.Application;
+import jakarta.xml.bind.JAXBException;
 
 import org.jugs.webdav.jaxrs.xml.WebDavContextResolver;
 import org.slf4j.LoggerFactory;

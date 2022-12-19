@@ -24,16 +24,16 @@ package org.jugs.webdav.jaxrs.xml.elements;
 
 import static java.util.Arrays.asList;
 import static java.util.Objects.hash;
-import static javax.xml.bind.annotation.XmlAccessType.FIELD;
+import static jakarta.xml.bind.annotation.XmlAccessType.FIELD;
 import static org.jugs.webdav.util.Utilities.array;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.jugs.webdav.jaxrs.ConstantsAdapter;
 import org.jugs.webdav.util.Utilities;

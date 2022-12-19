@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.jugs.webdav.jaxrs.xml.elements.Prop;
 import org.jugs.webdav.jaxrs.xml.elements.PropStat;

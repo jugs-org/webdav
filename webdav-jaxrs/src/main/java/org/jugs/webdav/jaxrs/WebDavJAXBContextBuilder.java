@@ -22,8 +22,8 @@
 
 package org.jugs.webdav.jaxrs;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
 
 import org.jugs.webdav.jaxrs.xml.conditions.CannotModifyProtectedProperty;
 import org.jugs.webdav.jaxrs.xml.conditions.LockTokenMatchesRequestUri;

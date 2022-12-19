@@ -25,7 +25,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.jugs.webdav.jaxrs.xml.elements.Prop;
 import org.jugs.webdav.jaxrs.xml.elements.PropStat;

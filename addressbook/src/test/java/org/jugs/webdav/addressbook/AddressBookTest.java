@@ -21,7 +21,7 @@ import org.jugs.webdav.jaxrs.xml.elements.MultiStatus;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.core.UriInfo;
 
 import java.net.URI;
 

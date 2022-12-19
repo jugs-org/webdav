@@ -19,10 +19,9 @@
 
 package org.jugs.webdav.addressbook;
 
-import com.sun.jersey.api.container.grizzly2.GrizzlyServerFactory;
-import com.sun.jersey.api.core.ApplicationAdapter;
-import com.sun.jersey.api.core.ResourceConfig;
 import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
+import org.glassfish.jersey.server.ResourceConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,14 +44,14 @@ public final class Main {
 		System.in.read();
 	}
 
-	public static void start(final String[] args) throws IOException {
+	public static void start(final String[] args) {
 		AddressBookApplication app = new AddressBookApplication();
-		ResourceConfig rc = new ApplicationAdapter(app);
+		ResourceConfig rc = ResourceConfig.forApplication(app);
 		URI serverURI = URI.create("http://localhost/");
 		if (args.length > 0) {
 			serverURI = URI.create("http://localhost:" + args[0].trim() + "/");
 		}
-		server = GrizzlyServerFactory.createHttpServer(serverURI, rc);
+		server = GrizzlyHttpServerFactory.createHttpServer(serverURI, rc);
 		log.info("{} started ({}).", server, serverURI);
 	}
 

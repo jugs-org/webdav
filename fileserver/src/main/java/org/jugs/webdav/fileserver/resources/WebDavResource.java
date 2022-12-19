@@ -20,52 +20,52 @@ package org.jugs.webdav.fileserver.resources;
 
 import org.jugs.webdav.jaxrs.methods.*;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.ext.Providers;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.UriInfo;
+import jakarta.ws.rs.ext.Providers;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 
-import static javax.ws.rs.core.HttpHeaders.CONTENT_LENGTH;
+import static jakarta.ws.rs.core.HttpHeaders.CONTENT_LENGTH;
 import static org.jugs.webdav.jaxrs.Headers.*;
 
 public interface WebDavResource {
 	@GET
 	@Produces("text/html")
-	javax.ws.rs.core.Response get(@Context final UriInfo uriInfo);
+	jakarta.ws.rs.core.Response get(@Context final UriInfo uriInfo);
 
 	@PUT
 	@Consumes("application/octet-stream")
-	javax.ws.rs.core.Response put(@Context final UriInfo uriInfo,
+	jakarta.ws.rs.core.Response put(@Context final UriInfo uriInfo,
 								  final InputStream entityStream,
 								  @HeaderParam(CONTENT_LENGTH) final long contentLength)
 			throws IOException, URISyntaxException;
 
 	@POST
 	@Consumes("application/octet-stream")
-	default javax.ws.rs.core.Response post(@Context final UriInfo uriInfo,
+	default jakarta.ws.rs.core.Response post(@Context final UriInfo uriInfo,
 								  final InputStream entityStream,
 								  @HeaderParam(CONTENT_LENGTH) final long contentLength) {
 		throw new UnsupportedOperationException("not yet implemented");
 	}
 
 	@MKCOL
-	javax.ws.rs.core.Response mkcol();
+	jakarta.ws.rs.core.Response mkcol();
 
 	@Produces("application/xml")
 	@PROPFIND
-	javax.ws.rs.core.Response propfind(@Context final UriInfo uriInfo,
+	jakarta.ws.rs.core.Response propfind(@Context final UriInfo uriInfo,
 			@HeaderParam(DEPTH) final int depth, final InputStream entityStream, @HeaderParam(CONTENT_LENGTH) final long contentLength, @Context final Providers providers, @Context final HttpHeaders httpHeaders) throws URISyntaxException, IOException;
 	
 	@PROPPATCH
-	javax.ws.rs.core.Response proppatch();
+	jakarta.ws.rs.core.Response proppatch();
 
 	@COPY
-	javax.ws.rs.core.Response copy();
+	jakarta.ws.rs.core.Response copy();
 	
 	/*
 	  	201 (Created)	The resource was moved successfully and a new resource was created at the specified destination URI.
@@ -77,10 +77,10 @@ public interface WebDavResource {
 		502 (Bad Gateway)	The destination URI is located on a different server, which refuses to accept the resource.
 	 */
 	@MOVE
-	javax.ws.rs.core.Response move(@Context final UriInfo uriInfo, @HeaderParam(OVERWRITE) final String overwriteStr, @HeaderParam(DESTINATION) final String destination) throws URISyntaxException;
+	jakarta.ws.rs.core.Response move(@Context final UriInfo uriInfo, @HeaderParam(OVERWRITE) final String overwriteStr, @HeaderParam(DESTINATION) final String destination) throws URISyntaxException;
 
 	@DELETE
-	javax.ws.rs.core.Response delete();
+	jakarta.ws.rs.core.Response delete();
 
 	@Path("{resource}")
 	Object findResource(@PathParam("resource") final String res);
@@ -89,9 +89,9 @@ public interface WebDavResource {
 	Response lock(@Context final UriInfo uriInfo);
 
 	@UNLOCK
-	javax.ws.rs.core.Response unlock(@Context final UriInfo uriInfo, String token);
+	jakarta.ws.rs.core.Response unlock(@Context final UriInfo uriInfo, String token);
 
-	@javax.ws.rs.OPTIONS
-	javax.ws.rs.core.Response options();
+	@jakarta.ws.rs.OPTIONS
+	jakarta.ws.rs.core.Response options();
 
 }

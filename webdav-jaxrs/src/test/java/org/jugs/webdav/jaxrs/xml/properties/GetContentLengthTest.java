@@ -25,9 +25,9 @@ package org.jugs.webdav.jaxrs.xml.properties;
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import java.io.StringReader;
 
 import static java.lang.String.format;

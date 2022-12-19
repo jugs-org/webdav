@@ -19,9 +19,9 @@
 
 package org.jugs.webdav.addressbook;
 
-import javax.ws.rs.OPTIONS;
-import javax.ws.rs.Path;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.OPTIONS;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.core.Response;
 
 import static org.jugs.webdav.jaxrs.Headers.DAV;
 

@@ -23,7 +23,7 @@ package org.jugs.webdav.jaxrs;
 
 import java.util.Collection;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * Guarantees that any unmarshalled enum constants effectively are the constant Java instances itself, so that {@code ==} can be used for comparison.

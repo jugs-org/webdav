@@ -26,14 +26,14 @@ import static java.lang.Long.MAX_VALUE;
 import static java.lang.Long.parseLong;
 import static java.lang.String.format;
 import static java.util.Collections.singleton;
-import static javax.xml.bind.annotation.XmlAccessType.NONE;
+import static jakarta.xml.bind.annotation.XmlAccessType.NONE;
 
 import java.util.Collection;
 
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlValue;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlValue;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.jugs.webdav.jaxrs.ConstantsAdapter;
 import org.jugs.webdav.jaxrs.Headers;

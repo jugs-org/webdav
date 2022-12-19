@@ -24,11 +24,11 @@ import org.jugs.webdav.jaxrs.xml.properties.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.Path;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.ext.MessageBodyReader;
-import javax.ws.rs.ext.Providers;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.UriInfo;
+import jakarta.ws.rs.ext.MessageBodyReader;
+import jakarta.ws.rs.ext.Providers;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,8 +38,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static javax.ws.rs.core.MediaType.APPLICATION_XML_TYPE;
-import static javax.ws.rs.core.Response.Status.OK;
+import static jakarta.ws.rs.core.MediaType.APPLICATION_XML_TYPE;
+import static jakarta.ws.rs.core.Response.Status.OK;
 import static org.jugs.webdav.jaxrs.xml.properties.ResourceType.COLLECTION;
 
 
@@ -56,7 +56,7 @@ public class FileServerResource extends AbstractResource {
 	}
 
 	@Override
-	public javax.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) throws IOException {
+	public jakarta.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) throws IOException {
 		logRequest(uriInfo);
 		URI uri = uriInfo.getRequestUri();
 
@@ -80,10 +80,10 @@ public class FileServerResource extends AbstractResource {
 		return logResponse("PROPFIND", propfind(uriInfo, depth, folder));
 	}
 
-	private javax.ws.rs.core.Response propfind(UriInfo uriInfo, int depth, Response folder) {
+	private jakarta.ws.rs.core.Response propfind(UriInfo uriInfo, int depth, Response folder) {
 		Date lastModified;
 		if (depth == 0) {
-			return javax.ws.rs.core.Response.ok(new MultiStatus(folder))
+			return jakarta.ws.rs.core.Response.ok(new MultiStatus(folder))
 					.build();
 		}
 
@@ -111,7 +111,7 @@ public class FileServerResource extends AbstractResource {
 		MultiStatus st = new MultiStatus(responses
 				.toArray(new Response[responses.size()]));
 
-		return javax.ws.rs.core.Response.ok(st).build();
+		return jakarta.ws.rs.core.Response.ok(st).build();
 	}
 
 }

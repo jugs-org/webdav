@@ -26,10 +26,10 @@ import org.jugs.webdav.jaxrs.xml.properties.GetLastModified;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.ext.MessageBodyReader;
-import javax.ws.rs.ext.Providers;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.UriInfo;
+import jakarta.ws.rs.ext.MessageBodyReader;
+import jakarta.ws.rs.ext.Providers;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,8 +42,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static javax.ws.rs.core.MediaType.APPLICATION_XML_TYPE;
-import static javax.ws.rs.core.Response.Status.OK;
+import static jakarta.ws.rs.core.MediaType.APPLICATION_XML_TYPE;
+import static jakarta.ws.rs.core.Response.Status.OK;
 import static org.jugs.webdav.jaxrs.xml.properties.ResourceType.COLLECTION;
 
 
@@ -55,7 +55,7 @@ public class DirectoryResource extends AbstractResource {
 	}
 	
 	@Override
-	public javax.ws.rs.core.Response move(final UriInfo uriInfo, String overwriteStr, String destination) throws URISyntaxException {
+	public jakarta.ws.rs.core.Response move(final UriInfo uriInfo, String overwriteStr, String destination) throws URISyntaxException {
 		logRequest(uriInfo);
 		URI uri = uriInfo.getBaseUri();
 		String host = uri.getScheme()+"://"+uri.getHost()+"/"+ FileServerApplication.RESOURCE_NAME+"/";
@@ -74,31 +74,31 @@ public class DirectoryResource extends AbstractResource {
 		return logResponse("MOVE", move(originalDestination, destFile, overwrite));
 	}
 
-	private javax.ws.rs.core.Response move(String originalDestination, File destFile, boolean overwrite)
+	private jakarta.ws.rs.core.Response move(String originalDestination, File destFile, boolean overwrite)
 			throws URISyntaxException {
 		if(destFile.equals(resource)){
-			return javax.ws.rs.core.Response.status(403).build();
+			return jakarta.ws.rs.core.Response.status(403).build();
 		}else{
 			if(destFile.exists() && !overwrite){
-				return javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.PRECONDITION_FAILED).build();
+				return jakarta.ws.rs.core.Response.status(jakarta.ws.rs.core.Response.Status.PRECONDITION_FAILED).build();
 			}
 			if(!destFile.exists() || overwrite){
 				destFile.delete();
 				boolean moved = resource.renameTo(destFile);
 				if(moved)
-					return javax.ws.rs.core.Response.created(new URI(originalDestination)).build();
+					return jakarta.ws.rs.core.Response.created(new URI(originalDestination)).build();
 				else
-					return javax.ws.rs.core.Response.serverError().build();
+					return jakarta.ws.rs.core.Response.serverError().build();
 			}
-			return javax.ws.rs.core.Response.status(409).build();
+			return jakarta.ws.rs.core.Response.status(409).build();
 		}
 	}
 
 	@Override
-	public javax.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) throws IOException{
+	public jakarta.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) throws IOException{
 		logRequest(uriInfo);
 		if(!resource.exists()){
-			return logResponse("PROPFIND", javax.ws.rs.core.Response.status(404).build());
+			return logResponse("PROPFIND", jakarta.ws.rs.core.Response.status(404).build());
 		}
 
 		Prop prop = null;
@@ -120,10 +120,10 @@ public class DirectoryResource extends AbstractResource {
 		return logResponse("PROPFIND", propfind(uriInfo, depth, prop, davResource));
 	}
 
-	private javax.ws.rs.core.Response propfind(UriInfo uriInfo, int depth, Prop prop, Response davResource) {
+	private jakarta.ws.rs.core.Response propfind(UriInfo uriInfo, int depth, Prop prop, Response davResource) {
 		Date lastModified;
 		if (depth == 0) {
-			return javax.ws.rs.core.Response.ok(new MultiStatus(davResource))
+			return jakarta.ws.rs.core.Response.ok(new MultiStatus(davResource))
 					.build();
 		}
 
@@ -164,10 +164,10 @@ public class DirectoryResource extends AbstractResource {
 			MultiStatus st = new MultiStatus(responses
 					.toArray(new Response[responses.size()]));
 
-			return javax.ws.rs.core.Response.ok(st).build();
+			return jakarta.ws.rs.core.Response.ok(st).build();
 		}
 
-		return javax.ws.rs.core.Response.noContent().build();
+		return jakarta.ws.rs.core.Response.noContent().build();
 	}
 
 }

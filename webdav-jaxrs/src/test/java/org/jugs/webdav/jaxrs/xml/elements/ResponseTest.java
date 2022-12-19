@@ -26,8 +26,8 @@ import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
 import org.junit.jupiter.api.Test;
 
-import javax.ws.rs.core.Response.StatusType;
-import javax.xml.bind.JAXBException;
+import jakarta.ws.rs.core.Response.StatusType;
+import jakarta.xml.bind.JAXBException;
 import java.util.LinkedList;
 
 import static java.util.Arrays.asList;

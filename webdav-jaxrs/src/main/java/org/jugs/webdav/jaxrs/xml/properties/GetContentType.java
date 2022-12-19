@@ -27,9 +27,9 @@ import static org.jugs.webdav.util.Utilities.notNull;
 
 import java.util.Collection;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlValue;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlValue;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.jugs.webdav.jaxrs.ConstantsAdapter;
 import org.jugs.webdav.util.Utilities;

@@ -22,12 +22,12 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static javax.xml.bind.annotation.XmlAccessType.NONE;
+import static jakarta.xml.bind.annotation.XmlAccessType.NONE;
 
-import javax.ws.rs.core.Response;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlValue;
+import jakarta.ws.rs.core.Response;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlValue;
 
 import org.jugs.webdav.jaxrs.ResponseStatus;
 import org.jugs.webdav.util.Utilities;
@@ -69,7 +69,7 @@ public final class Status {
 	}
 
 	/**
-	 * @deprecated Since 1.1. Use {@link #Status(javax.ws.rs.core.Response.StatusType)} instead.
+	 * @deprecated Since 1.1. Use {@link #Status(jakarta.ws.rs.core.Response.StatusType)} instead.
 	 */
 	@Deprecated
 	public Status(final ResponseStatus responseStatus) {
@@ -77,7 +77,7 @@ public final class Status {
 	}
 
 	/**
-	 * @deprecated Since 1.1. Use {@link #Status(javax.ws.rs.core.Response.StatusType)} instead.
+	 * @deprecated Since 1.1. Use {@link #Status(jakarta.ws.rs.core.Response.StatusType)} instead.
 	 */
 	@Deprecated
 	public Status(final Response.Status responseStatus) {

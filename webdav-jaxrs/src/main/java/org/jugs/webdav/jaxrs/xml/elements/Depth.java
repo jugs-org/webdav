@@ -26,8 +26,8 @@ import static org.jugs.webdav.jaxrs.Headers.DEPTH_0;
 import static org.jugs.webdav.jaxrs.Headers.DEPTH_1;
 import static org.jugs.webdav.jaxrs.Headers.DEPTH_INFINITY;
 
-import javax.xml.bind.annotation.XmlEnumValue;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlEnumValue;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 import org.jugs.webdav.jaxrs.Headers;
 

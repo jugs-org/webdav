@@ -28,8 +28,8 @@ import static java.util.Collections.unmodifiableList;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 import org.jugs.webdav.jaxrs.xml.elements.HRef;
 import org.jugs.webdav.util.Utilities;

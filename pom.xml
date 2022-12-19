@@ -6,7 +6,7 @@
 
     <groupId>org.jugs.webdav</groupId>
     <artifactId>webdav</artifactId>
-    <version>2.5-SNAPSHOT</version>
+    <version>3.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>WebDAV Support</name>
     <description>Provides module webdav-jaxrs for easier implementation of WebDAV based JAX-RS applications.</description>
@@ -45,7 +45,7 @@
 
     <modules>
         <module>webdav-jaxrs</module>
-        <module>webdav-interop</module>
+<!--        <module>webdav-interop</module>-->
         <module>fileserver</module>
         <module>addressbook</module>
     </modules>
@@ -54,6 +54,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.target>11</maven.compiler.target>
         <maven.compiler.source>11</maven.compiler.source>
+        <jersey.version>3.0.2</jersey.version>
         <hamcrest.version>2.2</hamcrest.version>
         <junit.version>5.9.1</junit.version>
     </properties>
@@ -66,14 +67,33 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.sun.grizzly</groupId>
-                <artifactId>grizzly-webserver</artifactId>
-                <version>1.9.65</version>
+                <groupId>org.glassfish.jersey</groupId>
+                <artifactId>jersey-bom</artifactId>
+                <version>${jersey.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
+            <!-- Grizzly2 HTTP Server -->
             <dependency>
-                <groupId>com.sun.jersey</groupId>
-                <artifactId>jersey-grizzly2</artifactId>
-                <version>1.19.4</version>
+                <groupId>org.glassfish.jersey.containers</groupId>
+                <artifactId>jersey-container-grizzly2-http</artifactId>
+            </dependency>
+            <!-- Jersey related and HK2 dependency injection -->
+            <dependency>
+                <groupId>org.glassfish.jersey.inject</groupId>
+                <artifactId>jersey-hk2</artifactId>
+            </dependency>
+            <!-- generates the META-INF/hk2-locator/default files for auto scan and discovery -->
+            <dependency>
+                <groupId>org.glassfish.hk2</groupId>
+                <artifactId>hk2-metadata-generator</artifactId>
+                <version>3.0.2</version>
+            </dependency>
+            <!-- Need this to hide warning for jakarta.activation.DataSource -->
+            <dependency>
+                <groupId>jakarta.activation</groupId>
+                <artifactId>jakarta.activation-api</artifactId>
+                <version>2.0.1</version>
             </dependency>
             <!-- logging -->
             <dependency>
@@ -108,11 +128,6 @@
                 <version>${hamcrest.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.github.lookfirst</groupId>
-                <artifactId>sardine</artifactId>
-                <version>5.10</version>
-            </dependency>
-            <dependency>
                 <groupId>org.patterntesting</groupId>
                 <artifactId>patterntesting-rt</artifactId>
                 <version>2.2.20-YEARS</version>
@@ -121,6 +136,22 @@
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
                 <version>3.12.4</version>
+            </dependency>
+            <!-- neded to test WebDAV -->
+            <dependency>
+                <groupId>com.github.lookfirst</groupId>
+                <artifactId>sardine</artifactId>
+                <version>5.10</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>2.3.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-impl</artifactId>
+                <version>2.3.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

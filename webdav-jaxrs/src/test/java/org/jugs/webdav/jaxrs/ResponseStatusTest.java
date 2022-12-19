@@ -25,9 +25,9 @@ package org.jugs.webdav.jaxrs;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import javax.ws.rs.core.Response.Status.Family;
+import jakarta.ws.rs.core.Response.Status.Family;
 
-import static javax.ws.rs.core.Response.Status.Family.*;
+import static jakarta.ws.rs.core.Response.Status.Family.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.jugs.webdav.jaxrs.ResponseStatus.*;

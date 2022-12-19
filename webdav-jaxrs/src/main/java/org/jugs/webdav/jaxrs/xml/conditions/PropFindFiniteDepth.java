@@ -24,8 +24,8 @@ package org.jugs.webdav.jaxrs.xml.conditions;
 
 import org.jugs.webdav.util.Utilities;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * WebDAV propfind-finite-depth Precondition XML Element.

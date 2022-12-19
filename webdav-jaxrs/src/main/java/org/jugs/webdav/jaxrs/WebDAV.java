@@ -22,7 +22,7 @@
 
 package org.jugs.webdav.jaxrs;
 
-import static javax.ws.rs.Priorities.ENTITY_CODER;
+import static jakarta.ws.rs.Priorities.ENTITY_CODER;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,10 +30,10 @@ import java.util.Collections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.core.Feature;
-import javax.ws.rs.core.FeatureContext;
-import javax.ws.rs.ext.Provider;
-import javax.xml.bind.JAXBException;
+import jakarta.ws.rs.core.Feature;
+import jakarta.ws.rs.core.FeatureContext;
+import jakarta.ws.rs.ext.Provider;
+import jakarta.xml.bind.JAXBException;
 
 /**
  * Provides WebDAV support to JAX-RS applications.

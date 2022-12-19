@@ -20,8 +20,8 @@ package org.jugs.webdav.fileserver.resources;
 
 import org.junit.jupiter.api.Test;
 
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.UriInfo;
 import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

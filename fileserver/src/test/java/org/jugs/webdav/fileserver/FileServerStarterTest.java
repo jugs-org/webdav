@@ -28,6 +28,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpOptions;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -147,6 +148,16 @@ public class FileServerStarterTest {
         HttpResponse response = getHttpResponse(new HttpPropFind(TEST_URI));
         int statusCode = response.getStatusLine().getStatusCode();
         assertEquals(200, statusCode);
+    }
+
+    @Test
+    public void testOptionInterop() throws IOException {
+        HttpResponse response = getHttpResponse(new HttpOptions(TEST_URI));
+        int statusCode = response.getStatusLine().getStatusCode();
+        assertEquals(200, statusCode);
+        Header[] header = response.getHeaders("MS-Author-Via");
+        assertEquals(1, header.length);
+        assertEquals("DAV", header[0].getValue());
     }
 
     private static HttpResponse getHttpResponse(HttpUriRequest method) throws IOException {

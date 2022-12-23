@@ -22,6 +22,7 @@ import com.github.sardine.DavResource;
 import com.github.sardine.Sardine;
 import com.github.sardine.SardineFactory;
 import com.github.sardine.impl.methods.HttpPropFind;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -30,6 +31,7 @@ import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpOptions;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.BasicHttpEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.junit.jupiter.api.AfterAll;
@@ -37,9 +39,15 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xmlunit.builder.DiffBuilder;
+import org.xmlunit.diff.Diff;
+import org.xmlunit.diff.Difference;
+import org.xmlunit.placeholder.PlaceholderDifferenceEvaluator;
 import patterntesting.runtime.junit.NetworkTester;
 
 import javax.ws.rs.core.MediaType;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -151,6 +159,30 @@ public class FileServerStarterTest {
     }
 
     @Test
+    public void testPropfindInterop() throws IOException {
+        File testDir = new File("target", "test");
+        FileUtils.deleteDirectory(testDir);
+        if (testDir.mkdirs()) {
+            log.info("Dir '{}' was (re)created.", testDir);
+        }
+        HttpResponse response = getHttpResponse(new HttpPropFind(TEST_URI + "/" + testDir));
+        String xml = IOUtils.toString(response.getEntity().getContent(), StandardCharsets.UTF_8);
+        assertSimilarXml(new File("src/test/resources/response/profind-target-test.xml"), xml);
+    }
+
+    private static void assertSimilarXml(File ref, String xml) throws IOException {
+        String controlXml = FileUtils.readFileToString(ref, StandardCharsets.UTF_8);
+        Diff diff = DiffBuilder.compare(controlXml).withTest(xml)
+                .ignoreWhitespace()
+                .withDifferenceEvaluator(new PlaceholderDifferenceEvaluator())
+                .checkForSimilar().build();
+        for (Difference d : diff.getDifferences()) {
+            log.info("diff: {}", d);
+        }
+        assertFalse(diff.hasDifferences(), "diff: " + diff);
+    }
+
+    @Test
     public void testOptionInterop() throws IOException {
         HttpResponse response = getHttpResponse(new HttpOptions(TEST_URI));
         int statusCode = response.getStatusLine().getStatusCode();
@@ -165,11 +197,19 @@ public class FileServerStarterTest {
             HttpResponse response = client.execute(method);
             HttpEntity entity = response.getEntity();
             log.info("Body of {} is {}.", method, entity);
+            byte[] content = IOUtils.toByteArray(entity.getContent());
             if (log.isDebugEnabled()) {
-                log.debug(IOUtils.toString(entity.getContent(), StandardCharsets.UTF_8));
+                log.debug(new String(content, StandardCharsets.UTF_8));
             }
-            return response;
+            return wrapResponse(response, content);
         }
+    }
+
+    private static HttpResponse wrapResponse(HttpResponse response, byte[] content) {
+        BasicHttpEntity filled = new BasicHttpEntity();
+        filled.setContent(new ByteArrayInputStream(content));
+        response.setEntity(filled);
+        return response;
     }
 
     @AfterAll

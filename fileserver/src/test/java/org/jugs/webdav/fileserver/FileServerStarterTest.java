@@ -23,6 +23,8 @@ import com.github.sardine.Sardine;
 import com.github.sardine.SardineFactory;
 import com.github.sardine.impl.methods.HttpPropFind;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -46,7 +48,8 @@ import org.xmlunit.diff.Difference;
 import org.xmlunit.placeholder.PlaceholderDifferenceEvaluator;
 import patterntesting.runtime.junit.NetworkTester;
 
-import jakarta.xml.bind.annotation.XmlRootElement;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -70,7 +73,7 @@ public class FileServerStarterTest {
     private static final Sardine SARDINE = SardineFactory.begin();
 
     @BeforeAll
-    static void startFileServer() throws IOException {
+    static void startFileServer() {
         FileServerStarter.start(new String[]{Integer.toString(TEST_PORT)});
     }
 

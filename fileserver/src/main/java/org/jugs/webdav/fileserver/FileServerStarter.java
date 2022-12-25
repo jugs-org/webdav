@@ -44,10 +44,8 @@ public final class FileServerStarter {
 		System.in.read();
 	}
 
-	public static void start(String[] args) throws IOException {
+	public static void start(String[] args) {
 		FileServerApplication app = new FileServerApplication();
-		app.registerService(WindowsRedirectorPatchResource.class);
-		app.registerEntity(WindowsRedirectorPatchProperty.class);
 
 		// create a resource config that scans for JAX-RS resources and providers
 		ResourceConfig rc = ResourceConfig.forApplication(app);

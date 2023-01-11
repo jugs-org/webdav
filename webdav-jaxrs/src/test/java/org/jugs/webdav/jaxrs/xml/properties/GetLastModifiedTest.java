@@ -22,17 +22,20 @@
 
 package org.jugs.webdav.jaxrs.xml.properties;
 
+import jakarta.xml.bind.JAXB;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import org.jugs.webdav.jaxrs.AbstractJaxbCoreFunctionality;
 import org.jugs.webdav.jaxrs.NullArgumentException;
 import org.jugs.webdav.util.DateBuilder;
 import org.jugs.webdav.util.UnitTestUtilities;
 import org.junit.jupiter.api.Test;
 
-import jakarta.xml.bind.JAXB;
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.annotation.XmlRootElement;
 import java.io.StringReader;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 import static java.lang.String.format;
 import static org.hamcrest.CoreMatchers.is;
@@ -121,7 +124,9 @@ public final class GetLastModifiedTest extends AbstractJaxbCoreFunctionality<Get
 
 	@Override
 	protected String getString() {
-		return "GetLastModified[Sat Jan 01 01:00:00 CET 2000]";
+		LocalDateTime time = LocalDateTime.of(2000, 1, 1, 0, 0);
+		Date d = Date.from(time.atZone(ZoneId.of("UTC")).toInstant());
+		return String.format("GetLastModified[%s]", d);
 	}
 
 }

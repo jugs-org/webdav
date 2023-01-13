@@ -116,12 +116,12 @@ public final class CreationDateTest extends AbstractJaxbCoreFunctionality<Creati
 
 	@Override
 	protected CreationDate getInstance() {
-		return new CreationDate(DateBuilder.date(2000, 1, 1, 0, 0, 0, 0, "UTC"));
+		return new CreationDate(TEST_DATE);
 	}
 
 	@Override
 	protected String getString() {
-		return "CreationDate[Sat Jan 01 01:00:00 CET 2000]";
+		return String.format("CreationDate[%s]", TEST_DATE);
 	}
 
 }

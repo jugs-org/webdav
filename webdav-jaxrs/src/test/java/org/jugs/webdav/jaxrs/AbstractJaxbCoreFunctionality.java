@@ -35,6 +35,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.Date;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.sameInstance;
@@ -58,6 +59,7 @@ import static org.xmlmatchers.transform.XmlConverters.the;
 public abstract class AbstractJaxbCoreFunctionality<T> extends AbstractCoreFunctionality<T> {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractJaxbCoreFunctionality.class);
+	public static final Date TEST_DATE = new Date();
 
 	public static JAXBContext context;
 

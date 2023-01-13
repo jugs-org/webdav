@@ -33,9 +33,6 @@ import org.jugs.webdav.util.UnitTestUtilities;
 import org.junit.jupiter.api.Test;
 
 import java.io.StringReader;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 
 import static java.lang.String.format;
 import static org.hamcrest.CoreMatchers.is;
@@ -119,14 +116,12 @@ public final class GetLastModifiedTest extends AbstractJaxbCoreFunctionality<Get
 
 	@Override
 	protected GetLastModified getInstance() {
-		return new GetLastModified(DateBuilder.date(2000, 1, 1, 0, 0, 0, 0, "UTC"));
+		return new GetLastModified(TEST_DATE);
 	}
 
 	@Override
 	protected String getString() {
-		LocalDateTime time = LocalDateTime.of(2000, 1, 1, 0, 0);
-		Date d = Date.from(time.atZone(ZoneId.of("UTC")).toInstant());
-		return String.format("GetLastModified[%s]", d);
+		return String.format("GetLastModified[%s]", TEST_DATE);
 	}
 
 }

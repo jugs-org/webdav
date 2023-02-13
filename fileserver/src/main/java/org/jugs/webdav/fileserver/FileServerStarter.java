@@ -18,9 +18,15 @@
  */
 package org.jugs.webdav.fileserver;
 
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import org.glassfish.grizzly.filterchain.FilterChain;
 import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.grizzly.http.server.NetworkListener;
+import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.jugs.webdav.fileserver.tools.LoggingFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,6 +53,9 @@ public final class FileServerStarter {
 	public static void start(String[] args) {
 		FileServerApplication app = new FileServerApplication();
 
+		Client client = createClient();
+		log.info("{} created.", client);
+
 		// create a resource config that scans for JAX-RS resources and providers
 		ResourceConfig rc = ResourceConfig.forApplication(app);
 		URI serverURI = URI.create("http://localhost/");
@@ -56,11 +65,24 @@ public final class FileServerStarter {
 		log.info("Running {}...", serverURI);
 		server = GrizzlyHttpServerFactory.createHttpServer(serverURI, rc);
 		log.info("{} started ({}).", server, serverURI);
+		addLoggingFilter();
+	}
+
+	private static void addLoggingFilter() {
+		NetworkListener listener = server.getListener("grizzly");
+		FilterChain filterChain = listener.getFilterChain();
+		filterChain.add(new LoggingFilter());
 	}
 
 	public static void stop() {
 		server.shutdown();
 		log.info("{} stopped.", server);
+	}
+
+	private static Client createClient() {
+		ClientConfig config = new ClientConfig();
+		//config.register(LoggingFilter.class);
+		return ClientBuilder.newClient(config);
 	}
 
 }

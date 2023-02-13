@@ -57,7 +57,7 @@ public abstract class AbstractResource implements WebDavResource {
 	
 	@Override
 	public jakarta.ws.rs.core.Response get(UriInfo uriInfo) {
-		logger.info("<- \"GET {}\"", uriInfo.getRequestUri());
+		logger.info("GET {}", uriInfo.getRequestUri());
 		ResponseBuilder builder = Response.ok();
 		builder.header("Content-Type", MediaType.TEXT_HTML);
 		try {
@@ -210,15 +210,15 @@ public abstract class AbstractResource implements WebDavResource {
 	}
 
 	protected static void logRequest(UriInfo info) {
-		logger.info("<- {}", info.getRequestUri());
+		logger.debug("{}", info.getRequestUri());
 	}
 
 	protected static void logRequest(String method, String context) {
-		logger.debug("<- \"{} {}\"", method, context);
+		logger.debug("{} {}", method, context);
 	}
 
 	protected Response logResponse(String method, Response resp) {
-		logger.info("-> \"{} {}: {}", method, url, resp.getStatus());
+		logger.info("{} {}: {}", method, url, resp.getStatus());
 		logHeaders(resp.getMetadata());
 		return resp;
 	}

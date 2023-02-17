@@ -23,7 +23,7 @@
 	<parent>
 		<groupId>org.jugs.webdav</groupId>
 		<artifactId>webdav</artifactId>
-		<version>3.0-SNAPSHOT</version>
+		<version>3.0</version>
 	</parent>
 	<artifactId>addressbook</artifactId>
 	<name>WebDAV Support for JAX-RS Address-Book Sample</name>

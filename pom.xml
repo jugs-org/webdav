@@ -6,7 +6,7 @@
 
     <groupId>org.jugs.webdav</groupId>
     <artifactId>webdav</artifactId>
-    <version>3.0-SNAPSHOT</version>
+    <version>3.0</version>
     <packaging>pom</packaging>
     <name>WebDAV Support</name>
     <description>Provides module webdav-jaxrs for easier implementation of WebDAV based JAX-RS applications.</description>

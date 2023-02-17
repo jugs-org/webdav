@@ -23,7 +23,7 @@
 	<parent>
 		<groupId>org.jugs.webdav</groupId>
 		<artifactId>webdav</artifactId>
-		<version>3.0</version>
+		<version>3.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>fileserver</artifactId>
 	<name>FileServer based on WebDAV Support</name>

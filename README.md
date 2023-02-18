@@ -1,4 +1,4 @@
-# WebDAV Support for JAX-RS   ![Logo](src/doc/images/webdav-logo.png)
+# ![Logo](src/doc/images/webdav-logo.png) WebDAV Support for JAX-RS
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.jugs.webdav/webdav/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.jugs.webdav/webdav)
 
@@ -12,7 +12,6 @@ Since 2.1 some webdav projects and samples received from [Markus Karg](http://ww
 
 * [webdav-jaxrs](webdav-jaxrs/README.md) (since 2.0)
 * [fileserver](fileserver/README.md) (since 2.1)
-* [webdav-interop](webdav-interop/README.md) (since 2.2)
 * [addressbook](addressbook/README.md) (since 2.3)
 
 
@@ -24,5 +23,5 @@ Since 2.1 some webdav projects and samples received from [Markus Karg](http://ww
 * WebDAV Resources: [RFC4918](http://webdav.org/specs/rfc4918.html) and other [resources](http://webdav.org/)
 
 ---
-September 2022,
+Februar 2023,
 Oli B.

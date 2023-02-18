@@ -1,3 +1,5 @@
+https://github.com/jugs-org/webdav/actions/workflows/maven.yml[image:https://github.com/jugs-org/webdav/actions/workflows/maven.yml/badge.svg[Build Status]]
+
 = Releases
 
 This document contains some information about the CI build, release notes and deployment.

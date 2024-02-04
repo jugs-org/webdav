@@ -74,6 +74,12 @@
 			<artifactId>webdav-jaxrs</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.sun.grizzly</groupId>
+			<artifactId>grizzly-webserver</artifactId>
+			<version>1.9.65</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

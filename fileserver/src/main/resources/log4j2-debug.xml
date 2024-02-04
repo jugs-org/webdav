@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  To activate this Log4J2 configuration start it with the follown VM args:
+  -Dlog4j2.configurationFile=log4j2-debug.xml
+ -->
+<Configuration status="WARN" xmlns="http://logging.apache.org/log4j/2.0/config">
+  <Appenders>
+    <Console name="CONSOLE" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level [%-10.10t] %-21.21C{3} - %msg%n" />
+    </Console>
+  </Appenders>
+  <Loggers>
+    <Logger name="org.jugs.webdav" level="INFO" />
+    <Logger name="org.jugs.webdav.fileserver" level="DEBUG" />
+    <Logger name="org.jugs.webdav.fileserver.resources" level="INFO" />
+    <Logger name="org.jugs.webdav.fileserver.tools.LoggingFilter" level="TRACE" />
+    <Root level="INFO">
+      <AppenderRef ref="CONSOLE" />
+    </Root>
+  </Loggers>
+</Configuration>

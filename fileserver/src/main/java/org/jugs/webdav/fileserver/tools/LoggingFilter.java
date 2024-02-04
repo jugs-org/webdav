@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 by Oli B.
+ * Copyright (c) 2023-2024 by Oli B.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Die Klasse LoggingFilter ...
+ * With the LoggingFilter you can record the traffic from and to your
+ * WebDAV server. It implements the {@link Filter} interface so you can
+ * register it like:
+ * <pre>
+ *     	HttpServer server = GrizzlyHttpServerFactory.createHttpServer(serverURI, rc);
+ *     	NetworkListener listener = server.getListener("grizzly");
+ * 		FilterChain filterChain = listener.getFilterChain();
+ * 		filterChain.add(new LoggingFilter());
+ * </pre>
  *
  * @author oboehm
  * @since 3.0 (16.01.23)

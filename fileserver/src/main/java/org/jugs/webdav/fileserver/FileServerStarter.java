@@ -31,6 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.URI;
 
 public final class FileServerStarter {
@@ -58,14 +59,28 @@ public final class FileServerStarter {
 
 		// create a resource config that scans for JAX-RS resources and providers
 		ResourceConfig rc = ResourceConfig.forApplication(app);
-		URI serverURI = URI.create("http://localhost/");
+		URI serverURI = URI.create("http://" + getHostname());
 		if (args.length > 0) {
-			serverURI = URI.create("http://localhost:" + args[0].trim() + "/");
+			serverURI = URI.create(serverURI + ":" + args[0].trim() + "/");
 		}
-		log.info("Running {}...", serverURI);
+		log.info("Running {}{}...", serverURI, FileServerApplication.RESOURCE_NAME);
 		server = GrizzlyHttpServerFactory.createHttpServer(serverURI, rc);
-		log.info("{} started ({}).", server, serverURI);
+		log.info("{} started ({}{}).", server, serverURI, FileServerApplication.RESOURCE_NAME);
 		addLoggingFilter();
+	}
+
+	static String getHostname() {
+        try {
+			InetAddress inetAddress = InetAddress.getLocalHost();
+			if (inetAddress.isReachable(10)) {
+				return inetAddress.getHostAddress();
+			}
+			log.debug("You are offline with host '{}'.", inetAddress);
+        } catch (IOException ex) {
+            log.warn("Cannot get hostname - {}.", ex.getMessage());
+			log.debug("Details:", ex);
+        }
+		return "localhost";
 	}
 
 	private static void addLoggingFilter() {
@@ -81,7 +96,7 @@ public final class FileServerStarter {
 
 	private static Client createClient() {
 		ClientConfig config = new ClientConfig();
-		//config.register(LoggingFilter.class);
+		config.register(LoggingFilter.class);
 		return ClientBuilder.newClient(config);
 	}
 

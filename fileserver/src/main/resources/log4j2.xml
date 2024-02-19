@@ -9,6 +9,7 @@
     <Logger name="org.jugs.webdav" level="INFO" />
     <Logger name="org.jugs.webdav.fileserver" level="DEBUG" />
     <Logger name="org.jugs.webdav.fileserver.resources" level="INFO" />
+    <Logger name="org.jugs.webdav.fileserver.tools.LoggingFilter" level="DEBUG" />
     <Root level="INFO">
       <AppenderRef ref="CONSOLE" />
     </Root>

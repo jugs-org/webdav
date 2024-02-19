@@ -56,7 +56,7 @@ public class DirectoryResource extends AbstractResource {
 	
 	@Override
 	public jakarta.ws.rs.core.Response move(final UriInfo uriInfo, String overwriteStr, String destination) throws URISyntaxException {
-		logRequest(uriInfo);
+		logRequest("MOVE", uriInfo);
 		URI uri = uriInfo.getBaseUri();
 		String host = uri.getScheme()+"://"+uri.getHost()+"/"+ FileServerApplication.RESOURCE_NAME+"/";
 		String originalDestination = destination;
@@ -71,7 +71,7 @@ public class DirectoryResource extends AbstractResource {
 		File destFile = new File(root+File.separator+destination);
 		boolean overwrite = overwriteStr.equalsIgnoreCase("T");
 
-		return logResponse("MOVE", move(originalDestination, destFile, overwrite));
+		return logResponse("MOVE", uriInfo, move(originalDestination, destFile, overwrite));
 	}
 
 	private jakarta.ws.rs.core.Response move(String originalDestination, File destFile, boolean overwrite)
@@ -96,9 +96,9 @@ public class DirectoryResource extends AbstractResource {
 
 	@Override
 	public jakarta.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) throws IOException{
-		logRequest(uriInfo);
+		logRequest("PROPFIND", uriInfo);
 		if(!resource.exists()){
-			return logResponse("PROPFIND", jakarta.ws.rs.core.Response.status(404).build());
+			return logResponse("PROPFIND", uriInfo, jakarta.ws.rs.core.Response.status(404).build());
 		}
 
 		Prop prop = null;
@@ -117,7 +117,7 @@ public class DirectoryResource extends AbstractResource {
 				null,
 				new PropStat(new Prop(new CreationDate(lastModified), new GetLastModified(lastModified), COLLECTION), new Status(OK)));
 
-		return logResponse("PROPFIND", propfind(uriInfo, depth, prop, davResource));
+		return logResponse("PROPFIND", uriInfo, propfind(uriInfo, depth, prop, davResource));
 	}
 
 	private jakarta.ws.rs.core.Response propfind(UriInfo uriInfo, int depth, Prop prop, Response davResource) {

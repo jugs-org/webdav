@@ -57,7 +57,7 @@ public class FileServerResource extends AbstractResource {
 
 	@Override
 	public jakarta.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) throws IOException {
-		logRequest(uriInfo);
+		logRequest("PROPFIND", uriInfo);
 		URI uri = uriInfo.getRequestUri();
 
 		Prop prop = null;
@@ -77,7 +77,7 @@ public class FileServerResource extends AbstractResource {
 				new PropStat(new Prop(new CreationDate(lastModified),
 						new GetLastModified(lastModified), COLLECTION), new Status(OK)));
 
-		return logResponse("PROPFIND", propfind(uriInfo, depth, folder));
+		return logResponse("PROPFIND", uriInfo, propfind(uriInfo, depth, folder));
 	}
 
 	private jakarta.ws.rs.core.Response propfind(UriInfo uriInfo, int depth, Response folder) {

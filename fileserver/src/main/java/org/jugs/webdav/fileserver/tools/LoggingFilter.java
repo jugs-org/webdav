@@ -17,17 +17,18 @@
  */
 package org.jugs.webdav.fileserver.tools;
 
-import jakarta.ws.rs.container.ContainerRequestContext;
-import jakarta.ws.rs.container.ContainerRequestFilter;
-import jakarta.ws.rs.container.PreMatching;
+import jakarta.ws.rs.client.ClientRequestContext;
+import jakarta.ws.rs.client.ClientRequestFilter;
+import jakarta.ws.rs.container.*;
 import jakarta.ws.rs.ext.Provider;
 import org.glassfish.grizzly.Connection;
-import org.glassfish.grizzly.filterchain.BaseFilter;
-import org.glassfish.grizzly.filterchain.Filter;
-import org.glassfish.grizzly.filterchain.FilterChainContext;
-import org.glassfish.grizzly.filterchain.NextAction;
+import org.glassfish.grizzly.Context;
+import org.glassfish.grizzly.filterchain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.Objects;
 
 /**
  * With the LoggingFilter you can record the traffic from and to your
@@ -45,14 +46,30 @@ import org.slf4j.LoggerFactory;
  */
 @Provider
 @PreMatching
-public class LoggingFilter extends BaseFilter implements ContainerRequestFilter, Filter {
+public class LoggingFilter extends BaseFilter implements ContainerRequestFilter, ContainerResponseFilter,
+        ClientRequestFilter, Filter {
 
-    private static final Logger log = LoggerFactory.getLogger(ContainerRequestFilter.class);
+    private static final Logger log = LoggerFactory.getLogger(LoggingFilter.class);
     private FilterChainContext.Operation operation;
 
     @Override
-    public void filter(ContainerRequestContext containerRequestContext) {
-        log.debug("{} is not filtered", containerRequestContext);
+    public void filter(ContainerRequestContext ctx) {
+        log.info("<- {} {}", ctx.getMethod(), ctx);
+    }
+
+    @Override
+    public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) {
+        log.info("-> {} {}", requestContext.getMethod(), responseContext);
+    }
+
+    @Override
+    public void filter(ClientRequestContext requestContext) {
+        log.info("<- {}", requestContext.getMethod());
+    }
+
+    @Override
+    public NextAction handleEvent(FilterChainContext ctx, FilterChainEvent event) throws IOException {
+        return logAccess("EVENT " + event, ctx);
     }
 
     @Override
@@ -63,39 +80,40 @@ public class LoggingFilter extends BaseFilter implements ContainerRequestFilter,
 
     @Override
     public NextAction handleRead(FilterChainContext ctx) {
-        return logAccess("<- READ", ctx);
+        return logAccess("READ", ctx);
     }
 
     @Override
     public NextAction handleWrite(FilterChainContext ctx) {
-        return logAccess("-> WRITE", ctx);
+        return logAccess("WRITE", ctx);
     }
 
     @Override
     public NextAction handleConnect(FilterChainContext ctx) {
-        return logAccess("<- CONNECT", ctx);
+        return logAccess("CONNECT", ctx);
     }
 
     @Override
     public NextAction handleAccept(FilterChainContext ctx) {
-        return logAccess("<- ACCEPT", ctx);
+        return logAccess("ACCEPT", ctx);
     }
 
     @Override
     public NextAction handleClose(FilterChainContext ctx) {
-        return logAccess("-> CLOSE", ctx);
+        return logAccess("CLOSE", ctx);
     }
 
-    private static NextAction logAccess(String prefix, FilterChainContext ctx) {
+    private static NextAction logAccess(String op, FilterChainContext ctx) {
         Connection connection = ctx.getConnection();
-        log.info("{} {} {}", connection.getPeerAddress(), prefix, ctx.getMessage());
+        Context internalCtx = ctx.getInternalContext();
+        log.debug("{} {} {}-> {}", connection.getPeerAddress(), op, Objects.toString(ctx.getMessage(), ""), internalCtx.getIoEvent());
         return ctx.getInvokeAction();
     }
 
     @Override
     public void exceptionOccurred(FilterChainContext ctx, Throwable error) {
         Connection connection = ctx.getConnection();
-        log.error("{} ** {} {}", connection.getPeerAddress(), operation, ctx.getMessage(), error);
+        log.error("{} ** {} {}", connection.getPeerAddress(), operation, Objects.toString(ctx.getMessage(), ""), error);
     }
 
 }

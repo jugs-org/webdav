@@ -57,7 +57,7 @@ public class UnknownResource extends AbstractResource {
 
 	@Override
 	public jakarta.ws.rs.core.Response put(final UriInfo uriInfo, final InputStream entityStream, final long contentLength) throws IOException {
-		logRequest(uriInfo);
+		logRequest("PUT", uriInfo);
 		/*
 		 * Workaround for Jersey issue #154 (see
 		 * https://jersey.dev.java.net/issues/show_bug.cgi?id=154): Jersey will
@@ -82,7 +82,7 @@ public class UnknownResource extends AbstractResource {
 		 */
 
 		logger.trace(String.format("STORED: %s", resource.getName()));
-		return logResponse("PUT", jakarta.ws.rs.core.Response.created(uriInfo.getRequestUriBuilder().path(url).build()).build());
+		return logResponse("PUT", uriInfo, jakarta.ws.rs.core.Response.created(uriInfo.getRequestUriBuilder().path(url).build()).build());
 	}
 	
 	@Override

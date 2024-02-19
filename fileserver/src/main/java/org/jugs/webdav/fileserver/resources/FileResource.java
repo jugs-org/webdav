@@ -85,7 +85,7 @@ public class FileResource extends AbstractResource {
 	
 	@Override
 	public jakarta.ws.rs.core.Response move(final UriInfo uriInfo, String overwriteStr, String destination) throws URISyntaxException {
-		logRequest(uriInfo);
+		logRequest("MOVE", uriInfo);
 		URI uri = uriInfo.getBaseUri();
 		String host = uri.getScheme()+"://"+uri.getHost()+"/"+ FileServerApplication.RESOURCE_NAME+"/";
 		String originalDestination = destination;
@@ -96,7 +96,7 @@ public class FileResource extends AbstractResource {
 		File destFile = new File(root+File.separator+destination);
 		boolean overwrite = overwriteStr.equalsIgnoreCase("T");
 
-		return logResponse("MOVE", move(originalDestination, destFile, overwrite));
+		return logResponse("MOVE", uriInfo, move(originalDestination, destFile, overwrite));
 	}
 
 	private jakarta.ws.rs.core.Response move(String originalDestination, File destFile, boolean overwrite)
@@ -121,7 +121,7 @@ public class FileResource extends AbstractResource {
 
 	@Override
 	public jakarta.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) {
-		logRequest(uriInfo);
+		logRequest("PROPFIND", uriInfo);
 
 		Date lastModified = new Date(resource.lastModified());
 		Response davFile = new Response(new HRef(uriInfo.getRequestUri()), null, null, null, new PropStat(new Prop(
@@ -129,13 +129,13 @@ public class FileResource extends AbstractResource {
 
 		MultiStatus st = new MultiStatus(davFile);
 
-		return logResponse("PROPFIND", jakarta.ws.rs.core.Response.ok(st).build());
+		return logResponse("PROPFIND", uriInfo, jakarta.ws.rs.core.Response.ok(st).build());
 	}
 	
 
 	@Override
 	public jakarta.ws.rs.core.Response put(final UriInfo uriInfo, final InputStream entityStream, final long contentLength) throws IOException {
-		logRequest(uriInfo);
+		logRequest("PUT", uriInfo);
 		/*
 		 * Workaround for Jersey issue #154 (see
 		 * https://jersey.dev.java.net/issues/show_bug.cgi?id=154): Jersey will
@@ -160,7 +160,7 @@ public class FileResource extends AbstractResource {
 		 */
 
 		logger.trace(String.format("STORED: %s", resource.getName()));
-		return logResponse("PUT", jakarta.ws.rs.core.Response.created(uriInfo.getRequestUriBuilder().path(url).build()).build());
+		return logResponse("PUT", uriInfo, jakarta.ws.rs.core.Response.created(uriInfo.getRequestUriBuilder().path(url).build()).build());
 	}
 	
 	@Override

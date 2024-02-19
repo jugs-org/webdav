@@ -18,6 +18,10 @@
  */
 package org.jugs.webdav.fileserver.resources;
 
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.*;
+import jakarta.ws.rs.core.Response.ResponseBuilder;
+import jakarta.ws.rs.ext.Providers;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.jugs.webdav.jaxrs.xml.elements.*;
@@ -25,10 +29,6 @@ import org.jugs.webdav.jaxrs.xml.properties.LockDiscovery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jakarta.ws.rs.core.*;
-import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.Response.ResponseBuilder;
-import jakarta.ws.rs.ext.Providers;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -57,7 +57,7 @@ public abstract class AbstractResource implements WebDavResource {
 	
 	@Override
 	public jakarta.ws.rs.core.Response get(UriInfo uriInfo) {
-		logger.info("GET {}", uriInfo.getRequestUri());
+		logRequest("GET", uriInfo);
 		ResponseBuilder builder = Response.ok();
 		builder.header("Content-Type", MediaType.TEXT_HTML);
 		try {
@@ -78,7 +78,7 @@ public abstract class AbstractResource implements WebDavResource {
 			logger.error("No resource found:", ioe);
 			builder = Response.status(404);
 		}
-		return logResponse("GET", builder.build());
+		return logResponse("GET", uriInfo, builder.build());
 	}
 
 	private void buildDirListing(URI uri, ResponseBuilder builder) throws IOException {
@@ -113,8 +113,8 @@ public abstract class AbstractResource implements WebDavResource {
 	
 	@Override
 	public jakarta.ws.rs.core.Response put(UriInfo uriInfo, final InputStream entityStream, final long contentLength) throws IOException {
-		logRequest(uriInfo);
-		return logResponse("PUT", jakarta.ws.rs.core.Response.status(501).build());
+		logRequest("PUT", uriInfo);
+		return logResponse("PUT", uriInfo, jakarta.ws.rs.core.Response.status(501).build());
 	}
 	
 	@Override
@@ -125,8 +125,8 @@ public abstract class AbstractResource implements WebDavResource {
 	
 	@Override
 	public jakarta.ws.rs.core.Response propfind(final UriInfo uriInfo, final int depth, final InputStream entityStream, final long contentLength, final Providers providers, final HttpHeaders httpHeaders) throws IOException {
-		logRequest(uriInfo);
-		return logResponse("PROPFIND", jakarta.ws.rs.core.Response.status(404).build());
+		logRequest("PROPFIND", uriInfo);
+		return logResponse("PROPFIND", uriInfo, jakarta.ws.rs.core.Response.status(404).build());
 	}
 	
 	@Override
@@ -143,8 +143,8 @@ public abstract class AbstractResource implements WebDavResource {
 	
 	@Override
 	public jakarta.ws.rs.core.Response move(UriInfo uriInfo, String overwriteStr, String destination) throws URISyntaxException{
-		logRequest(uriInfo);
-		return logResponse("MOVE", jakarta.ws.rs.core.Response.status(404).build());
+		logRequest("MOVE", uriInfo);
+		return logResponse("MOVE", uriInfo, jakarta.ws.rs.core.Response.status(404).build());
 	}
 	
 	@Override
@@ -193,24 +193,24 @@ public abstract class AbstractResource implements WebDavResource {
 
 	@Override
 	public Response lock(UriInfo uriInfo) {
-		logRequest(uriInfo);
+		logRequest("LOCK", uriInfo);
 		URI uri = uriInfo.getRequestUri();
 		LockDiscovery lockDiscovery =
 				new LockDiscovery(new ActiveLock(LockScope.SHARED, LockType.WRITE, Depth.ZERO, new Owner(""), new TimeOut(75), new LockToken(new HRef(
 						uri)), new LockRoot(new HRef(uri))));
 		Prop prop = new Prop(lockDiscovery);
 		ResponseBuilder builder = withDavHeader(Response.ok(prop));
-		return logResponse("LOCK", builder.build());
+		return logResponse("LOCK", uriInfo, builder.build());
 	}
 
 	@Override
 	public jakarta.ws.rs.core.Response unlock(UriInfo uriInfo, String token) {
-		logRequest(uriInfo);
-		return logResponse("UNLOCK", withDavHeader(Response.noContent()).build());
+		logRequest("UNLOCK", uriInfo);
+		return logResponse("UNLOCK", uriInfo, withDavHeader(Response.noContent()).build());
 	}
 
-	protected static void logRequest(UriInfo info) {
-		logger.debug("{}", info.getRequestUri());
+	protected static void logRequest(String method, UriInfo info) {
+		logger.debug("{} {}", method, info.getRequestUri());
 	}
 
 	protected static void logRequest(String method, String context) {
@@ -219,6 +219,12 @@ public abstract class AbstractResource implements WebDavResource {
 
 	protected Response logResponse(String method, Response resp) {
 		logger.info("{} {}: {}", method, url, resp.getStatus());
+		logHeaders(resp.getMetadata());
+		return resp;
+	}
+
+	protected Response logResponse(String method, UriInfo ctx, Response resp) {
+		logger.info("{} {}: {}", method, ctx.getRequestUri(), resp.getStatus());
 		logHeaders(resp.getMetadata());
 		return resp;
 	}

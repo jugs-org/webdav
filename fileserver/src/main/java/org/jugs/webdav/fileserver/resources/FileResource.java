@@ -18,6 +18,12 @@
  */
 package org.jugs.webdav.fileserver.resources;
 
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.Response.ResponseBuilder;
+import jakarta.ws.rs.core.UriInfo;
+import jakarta.ws.rs.ext.Providers;
 import org.jugs.webdav.fileserver.FileServerApplication;
 import org.jugs.webdav.jaxrs.xml.elements.*;
 import org.jugs.webdav.jaxrs.xml.properties.CreationDate;
@@ -27,12 +33,6 @@ import org.jugs.webdav.jaxrs.xml.properties.GetLastModified;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.HttpHeaders;
-import jakarta.ws.rs.core.Response.ResponseBuilder;
-import jakarta.ws.rs.core.UriInfo;
-import jakarta.ws.rs.ext.Providers;
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -108,7 +108,9 @@ public class FileResource extends AbstractResource {
 				return jakarta.ws.rs.core.Response.status(jakarta.ws.rs.core.Response.Status.PRECONDITION_FAILED).build();
 			}
 			if(!destFile.exists() || overwrite){
-				destFile.delete();
+				if (destFile.delete()) {
+					logger.info("{} was deleted.", destFile);
+				}
 				boolean moved = resource.renameTo(destFile);
 				if(moved)
 					return jakarta.ws.rs.core.Response.created(new URI(originalDestination)).build();
@@ -125,7 +127,9 @@ public class FileResource extends AbstractResource {
 
 		Date lastModified = new Date(resource.lastModified());
 		Response davFile = new Response(new HRef(uriInfo.getRequestUri()), null, null, null, new PropStat(new Prop(
-					new CreationDate(lastModified), new GetLastModified(lastModified), new GetContentType("application/octet-stream"), new GetContentLength(resource.length())), new Status(OK)));
+				new CreationDate(lastModified), new GetLastModified(lastModified),
+				new GetContentType("application/octet-stream"), new GetContentLength(resource.length())),
+				new Status(OK)));
 
 		MultiStatus st = new MultiStatus(davFile);
 

@@ -19,18 +19,17 @@
 
 package org.jugs.webdav.addressbook;
 
-import org.jugs.webdav.jaxrs.methods.*;
-import org.jugs.webdav.jaxrs.xml.elements.*;
-import org.jugs.webdav.jaxrs.xml.properties.*;
-
-import javax.persistence.*;
-import jakarta.ws.rs.OPTIONS;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.ext.Providers;
+import org.jugs.webdav.jaxrs.methods.*;
+import org.jugs.webdav.jaxrs.xml.elements.*;
+import org.jugs.webdav.jaxrs.xml.properties.*;
+
+import javax.persistence.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
@@ -70,7 +69,8 @@ public final class AddressBook {
 			return new MultiStatus(folder);
 
 		final Collection<Response> responses = new LinkedList<Response>(Collections.singletonList(folder));
-		for (final Contact c : (List<Contact>) this.em().createNamedQuery("ListContacts").getResultList())
+		TypedQuery<Contact> listContacts = this.em().createNamedQuery("ListContacts", Contact.class);
+		for (final Contact c : listContacts.getResultList())
 			responses.add(new Response(new HRef(uriInfo.getAbsolutePathBuilder().path(String.format("%s.adr", c.getMatchCode())).build()), null, null, null,
 					new PropStat(new Prop(new MicrosoftRedirectorPatch2(), new DisplayName(String.format("%s %s", c.getLastName(), c.getFirstName())),
 							new CreationDate(c.getCreationDate()), new GetLastModified(c.getLastModified()), new GetContentLength(0), new GetContentType(

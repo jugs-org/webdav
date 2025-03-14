@@ -56,7 +56,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <jersey.version>3.1.9</jersey.version>
         <hamcrest.version>3.0</hamcrest.version>
-        <junit.version>5.11.3</junit.version>
+        <junit.version>5.12.1</junit.version>
     </properties>
 
     <issueManagement>
@@ -99,22 +99,22 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>2.0.11</version>
+                <version>2.0.17</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-api</artifactId>
-                <version>2.22.1</version>
+                <version>2.24.3</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-core</artifactId>
-                <version>2.22.1</version>
+                <version>2.24.3</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-slf4j2-impl</artifactId>
-                <version>2.22.1</version>
+                <version>2.24.3</version>
             </dependency>
             <!-- test libs -->
             <dependency>
@@ -135,7 +135,7 @@
             <dependency>
                 <groupId>org.patterntesting</groupId>
                 <artifactId>patterntesting-rt</artifactId>
-                <version>2.4.0</version>
+                <version>2.5.0</version>
             </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>
@@ -204,7 +204,7 @@
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>
-            <version>1.11.3</version>
+            <version>1.12.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -220,6 +220,17 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <!-- mvn versions:display-dependency-updates -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.18.0</version>
+                <configuration>
+                    <allowMajorUpdates>false</allowMajorUpdates>
+                    <processDependencyManagementTransitive>false</processDependencyManagementTransitive>
+                    <ignoredVersions>.*-alpha.*</ignoredVersions>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>

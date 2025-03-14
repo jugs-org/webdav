@@ -6,8 +6,7 @@ If you like to see a particular feature, create an issue describing your idea.
 There is no time frame associated with any release version.
 
 
-* Version 3.x
+* Version 4.x
 
-  ** update to Jakarta
-  ** update to https://jakarta.ee/specifications/restful-ws/3.0/[JAX-RS 3.0]
+  ** update to https://jakarta.ee/specifications/restful-ws/4.0/[JAX-RS 4.0]
   ** ... (depends on you)

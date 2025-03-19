@@ -8,8 +8,8 @@
 
 # set up some constants
 URL=https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/
-VERSION=3.1
-options="gpg:sign-and-deploy-file -Durl=$URL -DrepositoryId=sonatype-nexus-staging"
+VERSION=3.2
+options="gpg:sign-and-deploy-file -Durl=$URL -DrepositoryId=s01-oss-sonatype"
 
 # passphrase is needed for signing
 echo "passphrase for GPG: "
@@ -18,7 +18,7 @@ stty -echo
 read passphrase
 stty $stty_orig
 
-options="gpg:sign-and-deploy-file -Durl=$URL -DrepositoryId=sonatype-nexus-staging -Dgpg.passphrase=$passphrase"
+options="gpg:sign-and-deploy-file -Durl=$URL -DrepositoryId=s01-oss-sonatype -Dgpg.passphrase=$passphrase"
 
 deploy_pom_for() {
 	module=$1
@@ -42,6 +42,6 @@ deploy_jar_for() {
 # start deployment
 deploy_pom_for webdav
 deploy_jar_for webdav-jaxrs webdav-jaxrs
-deploy_jar_for webdav-interop webdav-interop
+#deploy_jar_for webdav-interop webdav-interop
 deploy_jar_for fileserver fileserver
 deploy_jar_for addressbook addressbook

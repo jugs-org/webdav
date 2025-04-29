@@ -230,6 +230,11 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <!-- unused dependencies: mvn dependency:analyze -->
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.8.1</version>
+            </plugin>
             <!-- mvn versions:display-dependency-updates -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>

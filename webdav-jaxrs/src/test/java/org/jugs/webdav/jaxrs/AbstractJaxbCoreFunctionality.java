@@ -45,7 +45,7 @@ import static org.xmlmatchers.transform.XmlConverters.the;
 
 /**
  * Abstract unit test for elements.
- * 
+ * <p>
  * Tests marshalling and unmarshalling of descendant classes.
  * For the marshalling/unmarshalling tests descandet has to provide an array
  * type {@code Object[]}, where element 0 contains the Java representation of
@@ -53,7 +53,7 @@ import static org.xmlmatchers.transform.XmlConverters.the;
  * elements can be used to provide expectations for getters, which will get
  * checked using
  * {@link #assertThatGettersProvideExpectedValues(Object, Object, Object[])}.
- * 
+ * </p>
  * @author Markus KARG (mkarg@java.net)
  */
 public abstract class AbstractJaxbCoreFunctionality<T> extends AbstractCoreFunctionality<T> {
@@ -82,6 +82,7 @@ public abstract class AbstractJaxbCoreFunctionality<T> extends AbstractCoreFunct
 		marshaller.marshal(unmarshalledRepresentation, writer);
 		final String actual = writer.toString();
 		final String expected = (String) dataPoint[1];
+		log.info("{} was marshalled to:\t{}", unmarshalledRepresentation, actual);
 		assertThat(the(actual), isEquivalentTo(the(expected)));
 	}
 

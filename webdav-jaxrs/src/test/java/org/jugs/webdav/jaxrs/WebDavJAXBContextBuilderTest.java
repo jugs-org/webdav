@@ -50,19 +50,19 @@ public final class WebDavJAXBContextBuilderTest {
 	private static JAXBContext context;
 
 	@BeforeAll
-	public static final void setUp() throws JAXBException {
+	public static void setUp() throws JAXBException {
 		context = WebDavJAXBContextBuilder.build();
 	}
 
 	@Test
-	public final void createsJAXBContext() {
+	public void createsJAXBContext() {
 		assertThat(context, instanceOf(JAXBContext.class));
 	}
 
 	@org.junit.jupiter.api.DisplayName("webDavClasses")
 	@ParameterizedTest(name = "{index}) {0}")
 	@ValueSource(classes = { ActiveLock.class, AllProp.class, CannotModifyProtectedProperty.class, Collection.class,
-							 CreationDate.class, Depth.class, DisplayName.class, Error.class, Exclusive.class, GetContentLanguage.class, GetContentLength.class,
+							 CreationDate.class, DisplayName.class, Error.class, Exclusive.class, GetContentLanguage.class, GetContentLength.class,
 							 GetContentType.class, GetETag.class, GetLastModified.class, HRef.class, Include.class, Location.class, LockDiscovery.class, LockEntry.class,
 							 LockInfo.class, LockRoot.class, LockScope.class, LockToken.class, LockTokenMatchesRequestUri.class, LockTokenSubmitted.class, LockType.class,
 							 MultiStatus.class, NoConflictingLock.class, NoExternalEntities.class, Owner.class, PreservedLiveProperties.class, Prop.class, PropertyUpdate.class,
@@ -72,13 +72,19 @@ public final class WebDavJAXBContextBuilderTest {
 		assertThat(webDavElement, is(elementOf(context)));
 	}
 
+	@org.junit.jupiter.api.DisplayName("webDavEnum")
+	@Test
+	void containsWebDavEnum() {
+		assertThat(Depth.class, is(elementOf(context)));
+	}
+
 	@XmlRootElement
 	private static final class CustomClass {
 		// Intentionally left blank.
 	}
 
 	@Test
-	public final void containsCustomClass() throws JAXBException {
+	public void containsCustomClass() throws JAXBException {
 		assertThat(CustomClass.class, is(elementOf(WebDavJAXBContextBuilder.build(CustomClass.class))));
 	}
 
@@ -88,7 +94,7 @@ public final class WebDavJAXBContextBuilderTest {
 	}
 
 	@Test
-	public final void doesNotContainUnboundClasses() {
+	public void doesNotContainUnboundClasses() {
 		assertThat(UnboundClass.class, is(not(elementOf(context))));
 	}
 }

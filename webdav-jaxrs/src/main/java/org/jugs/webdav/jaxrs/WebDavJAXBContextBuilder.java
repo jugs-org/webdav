@@ -32,36 +32,8 @@ import org.jugs.webdav.jaxrs.xml.conditions.NoConflictingLock;
 import org.jugs.webdav.jaxrs.xml.conditions.NoExternalEntities;
 import org.jugs.webdav.jaxrs.xml.conditions.PreservedLiveProperties;
 import org.jugs.webdav.jaxrs.xml.conditions.PropFindFiniteDepth;
-import org.jugs.webdav.jaxrs.xml.elements.ActiveLock;
-import org.jugs.webdav.jaxrs.xml.elements.AllProp;
-import org.jugs.webdav.jaxrs.xml.elements.Collection;
-import org.jugs.webdav.jaxrs.xml.elements.Depth;
+import org.jugs.webdav.jaxrs.xml.elements.*;
 import org.jugs.webdav.jaxrs.xml.elements.Error;
-import org.jugs.webdav.jaxrs.xml.elements.Exclusive;
-import org.jugs.webdav.jaxrs.xml.elements.HRef;
-import org.jugs.webdav.jaxrs.xml.elements.Include;
-import org.jugs.webdav.jaxrs.xml.elements.Location;
-import org.jugs.webdav.jaxrs.xml.elements.LockEntry;
-import org.jugs.webdav.jaxrs.xml.elements.LockInfo;
-import org.jugs.webdav.jaxrs.xml.elements.LockRoot;
-import org.jugs.webdav.jaxrs.xml.elements.LockScope;
-import org.jugs.webdav.jaxrs.xml.elements.LockToken;
-import org.jugs.webdav.jaxrs.xml.elements.LockType;
-import org.jugs.webdav.jaxrs.xml.elements.MultiStatus;
-import org.jugs.webdav.jaxrs.xml.elements.Owner;
-import org.jugs.webdav.jaxrs.xml.elements.Prop;
-import org.jugs.webdav.jaxrs.xml.elements.PropFind;
-import org.jugs.webdav.jaxrs.xml.elements.PropName;
-import org.jugs.webdav.jaxrs.xml.elements.PropStat;
-import org.jugs.webdav.jaxrs.xml.elements.PropertyUpdate;
-import org.jugs.webdav.jaxrs.xml.elements.Remove;
-import org.jugs.webdav.jaxrs.xml.elements.Response;
-import org.jugs.webdav.jaxrs.xml.elements.ResponseDescription;
-import org.jugs.webdav.jaxrs.xml.elements.Set;
-import org.jugs.webdav.jaxrs.xml.elements.Shared;
-import org.jugs.webdav.jaxrs.xml.elements.Status;
-import org.jugs.webdav.jaxrs.xml.elements.TimeOut;
-import org.jugs.webdav.jaxrs.xml.elements.Write;
 import org.jugs.webdav.jaxrs.xml.properties.CreationDate;
 import org.jugs.webdav.jaxrs.xml.properties.DisplayName;
 import org.jugs.webdav.jaxrs.xml.properties.GetContentLanguage;
@@ -95,14 +67,15 @@ final class WebDavJAXBContextBuilder {
 	 * @throws JAXBException
 	 *             If JAXB cannot create the context.
 	 */
-	public static final JAXBContext build(final Class<?>... auxiliaryClasses) throws JAXBException {
+	public static JAXBContext build(final Class<?>... auxiliaryClasses) throws JAXBException {
 		final Class<?>[] webDavClasses = new Class<?>[] {ActiveLock.class, AllProp.class, CannotModifyProtectedProperty.class, Collection.class,
                                                          CreationDate.class, Depth.class, DisplayName.class, Error.class, Exclusive.class, GetContentLanguage.class, GetContentLength.class,
                                                          GetContentType.class, GetETag.class, GetLastModified.class, HRef.class, Include.class, Location.class, LockDiscovery.class, LockEntry.class,
                                                          LockInfo.class, LockRoot.class, LockScope.class, LockToken.class, LockTokenMatchesRequestUri.class, LockTokenSubmitted.class, LockType.class,
                                                          MultiStatus.class, NoConflictingLock.class, NoExternalEntities.class, Owner.class, PreservedLiveProperties.class, Prop.class,
                                                          PropertyUpdate.class, PropFind.class, PropFindFiniteDepth.class, PropName.class, PropStat.class, Remove.class, ResourceType.class,
-                                                         Response.class, ResponseDescription.class, Set.class, Shared.class, Status.class, SupportedLock.class, TimeOut.class, Write.class };
+                                                         Response.class, ResponseDescription.class, Set.class, Shared.class, Status.class, SupportedLock.class, TimeOut.class, Write.class,
+														 DepthWrapper.class };
 		final Class<?>[] allClasses = Utilities.append(webDavClasses, auxiliaryClasses);
 		return JAXBContext.newInstance(allClasses);
 	}

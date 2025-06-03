@@ -72,7 +72,7 @@ public abstract class AbstractJaxbCoreFunctionality<T> extends AbstractCoreFunct
 		context = WebDavJAXBContextBuilder.build();
 		marshaller = context.createMarshaller();
 		unmarshaller = context.createUnmarshaller();
-		log.debug("Context is set up.");
+		log.debug("{} is set up.", context);
 	}
 
 	@SuppressWarnings("unchecked")

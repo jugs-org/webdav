@@ -29,7 +29,7 @@ import org.jugs.webdav.jaxrs.methods.*;
 import org.jugs.webdav.jaxrs.xml.elements.*;
 import org.jugs.webdav.jaxrs.xml.properties.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
@@ -55,13 +55,13 @@ public final class AddressBook {
 	private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("AddressBook");
 
 	@OPTIONS
-	public final jakarta.ws.rs.core.Response options() {
+	public jakarta.ws.rs.core.Response options() {
 		return jakarta.ws.rs.core.Response.noContent().header(DAV, "1,2,3").build();
 	}
 
 	@SuppressWarnings("unchecked")
 	@PROPFIND
-	public final MultiStatus propfind(@Context final UriInfo uriInfo, @DefaultValue(DEPTH_INFINITY) @HeaderParam(DEPTH) final String depth) {
+	public MultiStatus propfind(@Context final UriInfo uriInfo, @DefaultValue(DEPTH_INFINITY) @HeaderParam(DEPTH) final String depth) {
 		final Response folder = new Response(new HRef(uriInfo.getRequestUri()), null, null, null, new PropStat(new Prop(new MicrosoftRedirectorPatch2(),
 				new DisplayName("My Collection"), new CreationDate(new Date()), new GetLastModified(new Date()), COLLECTION), new Status(OK)));
 
@@ -91,7 +91,7 @@ public final class AddressBook {
 
 	@PROPPATCH
 	@Path("{filename}.adr")
-	public final void proppatch(final InputStream body, @Context final Providers providers, @Context final HttpHeaders httpHeaders) throws IOException {
+	public void proppatch(final InputStream body, @Context final Providers providers, @Context final HttpHeaders httpHeaders) throws IOException {
 		final PropertyUpdate propertyUpdate = providers.getMessageBodyReader(PropertyUpdate.class, PropertyUpdate.class, new Annotation[0],
 				MediaType.APPLICATION_XML_TYPE).readFrom(PropertyUpdate.class, PropertyUpdate.class, new Annotation[0], MediaType.APPLICATION_XML_TYPE,
 				httpHeaders.getRequestHeaders(), body);
@@ -106,14 +106,14 @@ public final class AddressBook {
 	@GET
 	@Produces(ADDRESS_MIME)
 	@Path("{filename}.adr")
-	public final Contact get(@PathParam("filename") final String matchCode) {
+	public Contact get(@PathParam("filename") final String matchCode) {
 		return (Contact) this.em().createNamedQuery("FindContactByMatchCode").setParameter(1, matchCode).getSingleResult();
 	}
 
 	@PUT
 	@Consumes(ADDRESS_MIME)
 	@Path("{filename}.adr")
-	public final void put(final InputStream entityStream, @PathParam("filename") final String matchCode, @HeaderParam(CONTENT_LENGTH) final long contentLength,
+	public void put(final InputStream entityStream, @PathParam("filename") final String matchCode, @HeaderParam(CONTENT_LENGTH) final long contentLength,
 			@Context final Providers providers, @Context final HttpHeaders httpHeaders) throws IOException {
 		/*
 		 * Workaround for Jersey issue #154 (see
@@ -143,7 +143,7 @@ public final class AddressBook {
 
 	@DELETE
 	@Path("{filename}.adr")
-	public final void delete(@PathParam("filename") final String matchCode) {
+	public void delete(@PathParam("filename") final String matchCode) {
 		final EntityManager em = this.em();
 		final EntityTransaction t = em.getTransaction();
 		t.begin();
@@ -153,7 +153,7 @@ public final class AddressBook {
 
 	@MOVE
 	@Path("{filename}.adr")
-	public final void move(@PathParam("filename") final String sourceMatchCode, @HeaderParam(DESTINATION) final URI destination,
+	public void move(@PathParam("filename") final String sourceMatchCode, @HeaderParam(DESTINATION) final URI destination,
 			@HeaderParam(OVERWRITE) final String overwrite) {
 		final EntityManager em = this.em();
 		final EntityTransaction t = em.getTransaction();
@@ -202,7 +202,7 @@ public final class AddressBook {
 
 	@COPY
 	@Path("{filename}.adr")
-	public final void copy(@PathParam("filename") final String sourceMatchCode, @HeaderParam(DESTINATION) final URI destination,
+	public void copy(@PathParam("filename") final String sourceMatchCode, @HeaderParam(DESTINATION) final URI destination,
 			@HeaderParam(OVERWRITE) final String overwrite) {
 
 		final EntityManager em = this.em();
@@ -261,7 +261,7 @@ public final class AddressBook {
 				.build();
 	}
 
-	private final EntityManager em() {
+	private EntityManager em() {
 		return this.emf.createEntityManager();
 	}
 

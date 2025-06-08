@@ -22,15 +22,14 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static org.jugs.webdav.util.Utilities.notNull;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlValue;
+import org.jugs.webdav.util.Utilities;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlValue;
-
-import org.jugs.webdav.util.Utilities;
+import static org.jugs.webdav.util.Utilities.notNull;
 
 /**
  * WebDAV href XML Element.

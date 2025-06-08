@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * switched to jakarta.xml.bind
+* using [Eclipse MOXy](https://eclipse.dev/eclipselink/documentation/4.0/moxy/moxy.html#INTRODUCTION001) for XML mapping
 
 
 ## [3.2] - 2025-03-19

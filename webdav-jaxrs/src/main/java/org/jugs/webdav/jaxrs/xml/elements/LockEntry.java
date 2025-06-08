@@ -22,17 +22,16 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static java.util.Objects.hash;
-import static org.jugs.webdav.util.Utilities.array;
-import static org.jugs.webdav.util.Utilities.notNull;
-
-import java.util.Arrays;
-
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
-
 import org.jugs.webdav.util.Utilities;
+
+import java.util.Arrays;
+
+import static java.util.Objects.hash;
+import static org.jugs.webdav.util.Utilities.array;
+import static org.jugs.webdav.util.Utilities.notNull;
 
 /**
  * WebDAV lockentry XML Element.
@@ -46,10 +45,10 @@ import org.jugs.webdav.util.Utilities;
 @XmlRootElement(name = "lockentry")
 public final class LockEntry {
 
-	@XmlElement(name = "lockscope")
+	@XmlElement(name = "lockscope", namespace = "DAV:")
 	private final LockScope lockScope;
 
-	@XmlElement(name = "locktype")
+	@XmlElement(name = "locktype", namespace = "DAV:")
 	private final LockType lockType;
 
 	@SuppressWarnings("unused")

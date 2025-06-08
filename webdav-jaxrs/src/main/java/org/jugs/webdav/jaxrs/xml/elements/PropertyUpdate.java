@@ -22,18 +22,17 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static java.util.Collections.unmodifiableList;
-import static org.jugs.webdav.util.Utilities.append;
-import static org.jugs.webdav.util.Utilities.notNull;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElements;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import org.jugs.webdav.util.Utilities;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlElements;
-import jakarta.xml.bind.annotation.XmlRootElement;
-
-import org.jugs.webdav.util.Utilities;
+import static java.util.Collections.unmodifiableList;
+import static org.jugs.webdav.util.Utilities.append;
+import static org.jugs.webdav.util.Utilities.notNull;
 
 /**
  * WebDAV propertyupdate XML Element.
@@ -46,7 +45,8 @@ import org.jugs.webdav.util.Utilities;
 @XmlRootElement(name = "propertyupdate")
 public final class PropertyUpdate {
 
-	@XmlElements({ @XmlElement(name = "remove", type = Remove.class), @XmlElement(name = "set", type = Set.class) })
+	@XmlElements({ @XmlElement(name = "remove", type = Remove.class, namespace = "DAV:"),
+				   @XmlElement(name = "set", type = Set.class, namespace = "DAV:") })
 	private final List<RemoveOrSet> removesOrSets;
 
 	@SuppressWarnings("unused")

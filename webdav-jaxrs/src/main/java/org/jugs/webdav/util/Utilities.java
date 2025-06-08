@@ -22,7 +22,7 @@
 
 package org.jugs.webdav.util;
 
-import static java.util.Arrays.asList;
+import org.jugs.webdav.jaxrs.NullArgumentException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.jugs.webdav.jaxrs.NullArgumentException;
+import static java.util.Arrays.asList;
 
 /**
  * Common purpose utilities.

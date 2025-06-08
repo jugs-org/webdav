@@ -22,20 +22,19 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static java.util.Arrays.asList;
-import static java.util.Collections.unmodifiableList;
-import static java.util.Objects.hash;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
+import org.jugs.webdav.util.Utilities;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
-
-import org.jugs.webdav.util.Utilities;
+import static java.util.Arrays.asList;
+import static java.util.Collections.unmodifiableList;
+import static java.util.Objects.hash;
 
 /**
  * WebDAV multistatus XML Element.
@@ -49,10 +48,10 @@ import org.jugs.webdav.util.Utilities;
 @XmlRootElement(name = "multistatus")
 public final class MultiStatus {
 
-	@XmlElement(name = "response")
+	@XmlElement(name = "response", namespace = "DAV:")
 	private final List<Response> responses;
 
-	@XmlElement(name = "responsedescription")
+	@XmlElement(name = "responsedescription", namespace = "DAV:")
 	private final ResponseDescription responseDescription;
 
 	public MultiStatus() {

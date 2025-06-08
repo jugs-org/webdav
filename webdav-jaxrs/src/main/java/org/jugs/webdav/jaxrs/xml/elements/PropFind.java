@@ -22,19 +22,18 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static java.util.Objects.hash;
-import static jakarta.xml.bind.annotation.XmlAccessType.FIELD;
-import static org.jugs.webdav.util.Utilities.array;
-import static org.jugs.webdav.util.Utilities.notNull;
-
-import java.util.Arrays;
-
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
-
 import org.jugs.webdav.util.Utilities;
+
+import java.util.Arrays;
+
+import static jakarta.xml.bind.annotation.XmlAccessType.FIELD;
+import static java.util.Objects.hash;
+import static org.jugs.webdav.util.Utilities.array;
+import static org.jugs.webdav.util.Utilities.notNull;
 
 /**
  * WebDAV propfind XML Element.
@@ -49,14 +48,16 @@ import org.jugs.webdav.util.Utilities;
 @XmlRootElement(name = "propfind")
 public final class PropFind {
 
-	@XmlElement(name = "propname")
+	@XmlElement(name = "propname", namespace = "DAV:")
 	private final PropName propName;
 
-	@XmlElement(name = "allprop")
+	@XmlElement(name = "allprop", namespace = "DAV:")
 	private final AllProp allProp;
 
+	@XmlElement(name = "include", namespace = "DAV:")
 	private final Include include;
 
+	@XmlElement(name = "prop", namespace = "DAV:")
 	private final Prop prop;
 
 	@SuppressWarnings("unused")
@@ -88,24 +89,24 @@ public final class PropFind {
 		this(null, null, null, notNull(prop, "prop"));
 	}
 
-	public final PropName getPropName() {
+	public PropName getPropName() {
 		return this.propName;
 	}
 
-	public final AllProp getAllProp() {
+	public AllProp getAllProp() {
 		return this.allProp;
 	}
 
-	public final Include getInclude() {
+	public Include getInclude() {
 		return this.include;
 	}
 
-	public final Prop getProp() {
+	public Prop getProp() {
 		return this.prop;
 	}
 
 	@Override
-	public final boolean equals(final Object o) {
+	public boolean equals(final Object o) {
 		if (this == o)
 			return true;
 
@@ -118,12 +119,12 @@ public final class PropFind {
 	}
 
 	@Override
-	public final int hashCode() {
+	public int hashCode() {
 		return hash(this.propName, this.allProp, this.include, this.prop);
 	}
 
 	@Override
-	public final String toString() {
+	public String toString() {
 		return Utilities.toString(this, this.propName, this.allProp, this.include, this.prop);
 	}
 }

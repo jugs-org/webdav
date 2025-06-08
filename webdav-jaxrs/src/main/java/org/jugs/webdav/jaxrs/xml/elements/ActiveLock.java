@@ -48,23 +48,25 @@ import static org.jugs.webdav.util.Utilities.notNull;
 @XmlRootElement(name = "activelock")
 public final class ActiveLock {
 
-	@XmlElement(name = "lockscope")
+	@XmlElement(name = "lockscope", namespace = "DAV:")
 	private final LockScope lockScope;
 
-	@XmlElement(name = "locktype")
+	@XmlElement(name = "locktype", namespace = "DAV:")
 	private final LockType lockType;
 
+	@XmlElement(name = "depth", namespace = "DAV:")
 	private final Depth depth;
 
+	@XmlElement(name = "owner", namespace = "DAV:")
 	private final Owner owner;
 
-	@XmlElement(name = "timeout")
+	@XmlElement(name = "timeout", namespace = "DAV:")
 	private final TimeOut timeOut;
 
-	@XmlElement(name = "locktoken")
+	@XmlElement(name = "locktoken", namespace = "DAV:")
 	private final LockToken lockToken;
 
-	@XmlElement(name = "lockroot")
+	@XmlElement(name = "lockroot", namespace = "DAV:")
 	private final LockRoot lockRoot;
 
 	@SuppressWarnings("unused")

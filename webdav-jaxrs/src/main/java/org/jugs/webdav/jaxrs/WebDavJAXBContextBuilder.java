@@ -24,27 +24,17 @@ package org.jugs.webdav.jaxrs;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
-
-import org.jugs.webdav.jaxrs.xml.conditions.CannotModifyProtectedProperty;
-import org.jugs.webdav.jaxrs.xml.conditions.LockTokenMatchesRequestUri;
-import org.jugs.webdav.jaxrs.xml.conditions.LockTokenSubmitted;
-import org.jugs.webdav.jaxrs.xml.conditions.NoConflictingLock;
-import org.jugs.webdav.jaxrs.xml.conditions.NoExternalEntities;
-import org.jugs.webdav.jaxrs.xml.conditions.PreservedLiveProperties;
-import org.jugs.webdav.jaxrs.xml.conditions.PropFindFiniteDepth;
+import org.eclipse.persistence.jaxb.JAXBContextProperties;
+import org.jugs.webdav.jaxrs.xml.conditions.*;
 import org.jugs.webdav.jaxrs.xml.elements.*;
 import org.jugs.webdav.jaxrs.xml.elements.Error;
-import org.jugs.webdav.jaxrs.xml.properties.CreationDate;
-import org.jugs.webdav.jaxrs.xml.properties.DisplayName;
-import org.jugs.webdav.jaxrs.xml.properties.GetContentLanguage;
-import org.jugs.webdav.jaxrs.xml.properties.GetContentLength;
-import org.jugs.webdav.jaxrs.xml.properties.GetContentType;
-import org.jugs.webdav.jaxrs.xml.properties.GetETag;
-import org.jugs.webdav.jaxrs.xml.properties.GetLastModified;
-import org.jugs.webdav.jaxrs.xml.properties.LockDiscovery;
-import org.jugs.webdav.jaxrs.xml.properties.ResourceType;
-import org.jugs.webdav.jaxrs.xml.properties.SupportedLock;
+import org.jugs.webdav.jaxrs.xml.properties.*;
 import org.jugs.webdav.util.Utilities;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Provides support for custom extensions to WebDAV, like custom Properties and XML Elements.<br>
@@ -75,8 +65,19 @@ final class WebDavJAXBContextBuilder {
                                                          MultiStatus.class, NoConflictingLock.class, NoExternalEntities.class, Owner.class, PreservedLiveProperties.class, Prop.class,
                                                          PropertyUpdate.class, PropFind.class, PropFindFiniteDepth.class, PropName.class, PropStat.class, Remove.class, ResourceType.class,
                                                          Response.class, ResponseDescription.class, Set.class, Shared.class, Status.class, SupportedLock.class, TimeOut.class, Write.class,
-														 DepthWrapper.class };
+														 DepthWrapper.class, Depth.class };
 		final Class<?>[] allClasses = Utilities.append(webDavClasses, auxiliaryClasses);
-		return JAXBContext.newInstance(allClasses);
+		return build(allClasses, "eclipse-oxm.xml");
 	}
+
+	private static JAXBContext build(Class<?>[] allClasses, String oxmResource) throws JAXBException {
+		try (InputStream istream = WebDavJAXBContextBuilder.class.getResourceAsStream(oxmResource)) {
+			Map<String, Object> props = new HashMap<>();
+			props.put(JAXBContextProperties.OXM_METADATA_SOURCE, istream);
+			return JAXBContext.newInstance(allClasses, props);
+		} catch (IOException ex) {
+			throw new IllegalArgumentException("cannot load resource " + oxmResource, ex);
+		}
+	}
+
 }

@@ -22,13 +22,13 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static jakarta.xml.bind.annotation.XmlAccessType.FIELD;
-
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
-
 import org.jugs.webdav.util.Utilities;
+
+import static jakarta.xml.bind.annotation.XmlAccessType.FIELD;
 
 /**
  * WebDAV locktype XML Element.
@@ -61,6 +61,7 @@ public final class LockType {
 	}
 
 	@SuppressWarnings("unused")
+	@XmlElement(name = "write", namespace = "DAV:")
 	private final Write write;
 
 	private LockType() {

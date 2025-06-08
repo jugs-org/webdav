@@ -22,14 +22,12 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static org.jugs.webdav.jaxrs.Headers.DEPTH_0;
-import static org.jugs.webdav.jaxrs.Headers.DEPTH_1;
-import static org.jugs.webdav.jaxrs.Headers.DEPTH_INFINITY;
-
+import jakarta.xml.bind.annotation.XmlEnum;
 import jakarta.xml.bind.annotation.XmlEnumValue;
-import jakarta.xml.bind.annotation.XmlRootElement;
-
+import jakarta.xml.bind.annotation.XmlType;
 import org.jugs.webdav.jaxrs.Headers;
+
+import static org.jugs.webdav.jaxrs.Headers.*;
 
 /**
  * WebDAV depth XML Element.
@@ -39,7 +37,8 @@ import org.jugs.webdav.jaxrs.Headers;
  * @see <a href="http://www.webdav.org/specs/rfc4918.html#ELEMENT_depth">Chapter 14.4 "depth XML Element" of RFC 4918
  *      "HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</a>
  */
-@XmlRootElement
+@XmlType
+@XmlEnum(String.class)
 public enum Depth {
 	@XmlEnumValue(DEPTH_0)
 	ZERO,
@@ -68,7 +67,7 @@ public enum Depth {
 	 *             in case an invalid string value is passed in.
 	 * @since 2.0
 	 */
-	public static final Depth fromString(final String depth) {
+	public static Depth fromString(final String depth) {
 		switch (depth) {
 		case DEPTH_0:
 			return ZERO;

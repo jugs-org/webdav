@@ -1,0 +1,126 @@
+<!--
+  #%L
+  WebDAV Support for JAX-RS
+  %%
+  Copyright (C) 2008 - 2025 Java User Group Stuttgart
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 3 of the 
+  License, or (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU General Public 
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-3.0.html>.
+  #L%
+  -->
+<xml-bindings
+        xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+        package-name="org.jugs.webdav.jaxrs.xml.elements">
+
+    <xml-schema element-form-default="QUALIFIED">
+<!--        <xml-ns prefix="dav" namespace-uri="DAV:"/>-->
+        <xml-ns prefix="D" namespace-uri="DAV:"/>
+    </xml-schema>
+
+    <java-types>
+        <java-type name="ActiveLock">
+            <xml-root-element name="activelock" namespace="DAV:"/>
+        </java-type>
+        <java-type name="AllProp">
+            <xml-root-element name="allprop" namespace="DAV:"/>
+        </java-type>
+        <java-type name="Collection">
+            <xml-root-element name="collection" namespace="DAV:"/>
+        </java-type>
+        <java-type name="Depth">
+            <xml-root-element name="depth" namespace="DAV:"/>
+        </java-type>
+        <java-type name="Error">
+            <xml-root-element name="error" namespace="DAV:"/>
+        </java-type>
+        <java-type name="Exclusive">
+            <xml-root-element name="exclusive" namespace="DAV:"/>
+        </java-type>
+        <java-type name="HRef">
+            <xml-root-element name="href" namespace="DAV:"/>
+        </java-type>
+        <java-type name="Include">
+            <xml-root-element name="include" namespace="DAV:"/>
+        </java-type>
+        <java-type name="Location">
+            <xml-root-element name="location" namespace="DAV:"/>
+        </java-type>
+        <java-type name="LockEntry">
+            <xml-root-element name="lockentry" namespace="DAV:"/>
+        </java-type>
+        <java-type name="LockInfo">
+            <xml-root-element name="lockinfo" namespace="DAV:"/>
+        </java-type>
+        <java-type name="LockRoot">
+            <xml-root-element name="lockroot" namespace="DAV:"/>
+        </java-type>
+        <java-type name="LockScope">
+            <xml-root-element name="lockscope" namespace="DAV:"/>
+        </java-type>
+        <java-type name="LockToken">
+            <xml-root-element name="locktoken" namespace="DAV:"/>
+        </java-type>
+        <java-type name="LockType">
+            <xml-root-element name="locktype" namespace="DAV:"/>
+            <java-attributes>
+                <xml-value java-attribute="value"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="MultiStatus">
+            <xml-root-element name="multistatus" namespace="DAV:"/>
+        </java-type>
+        <java-type name="Owner">
+            <xml-root-element name="owner" namespace="DAV:"/>
+        </java-type>
+        <java-type name="Prop">
+            <xml-root-element name="prop" namespace="DAV:"/>
+        </java-type>
+        <java-type name="PropertyUpdate">
+            <xml-root-element name="propertyupdate" namespace="DAV:"/>
+        </java-type>
+        <java-type name="PropFind">
+            <xml-root-element name="propfind" namespace="DAV:"/>
+        </java-type>
+        <java-type name="PropName">
+            <xml-root-element name="propname" namespace="DAV:"/>
+        </java-type>
+        <java-type name="PropStat">
+            <xml-root-element name="propstat" namespace="DAV:"/>
+        </java-type>
+        <java-type name="Remove">
+            <xml-root-element name="remove" namespace="DAV:"/>
+        </java-type>
+        <java-type name="Response">
+            <xml-root-element name="response" namespace="DAV:"/>
+        </java-type>
+        <java-type name="ResponseDescription">
+            <xml-root-element name="responsedescription" namespace="DAV:"/>
+        </java-type>
+        <java-type name="Set">
+            <xml-root-element name="set" namespace="DAV:"/>
+        </java-type>
+        <java-type name="Shared">
+            <xml-root-element name="shared" namespace="DAV:"/>
+        </java-type>
+        <java-type name="Status">
+            <xml-root-element name="status" namespace="DAV:"/>
+        </java-type>
+        <java-type name="TimeOut">
+            <xml-root-element name="timeout" namespace="DAV:"/>
+        </java-type>
+        <java-type name="Write">
+            <xml-root-element name="write" namespace="DAV:"/>
+        </java-type>
+    </java-types>
+</xml-bindings>

@@ -25,6 +25,7 @@ package org.jugs.webdav.util;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBIntrospector;
 
+import jakarta.xml.bind.annotation.XmlType;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
@@ -54,6 +55,10 @@ public final class ElementOf extends TypeSafeMatcher<Class<?>> {
 
 	@Override
 	public final boolean matchesSafely(final Class<?> cls) {
-		return this.introspector.isElement(Utilities.buildInstanceOf(cls));
+		if (cls.getAnnotation(XmlType.class) == null) {
+			return this.introspector.isElement(Utilities.buildInstanceOf(cls));
+		} else {
+			return true;
+		}
 	}
 }

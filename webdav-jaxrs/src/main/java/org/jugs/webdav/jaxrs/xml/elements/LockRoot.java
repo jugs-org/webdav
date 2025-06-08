@@ -22,12 +22,11 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static org.jugs.webdav.util.Utilities.notNull;
-
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
-
 import org.jugs.webdav.util.Utilities;
+
+import static org.jugs.webdav.util.Utilities.notNull;
 
 /**
  * WebDAV lockroot XML Element.
@@ -40,7 +39,7 @@ import org.jugs.webdav.util.Utilities;
 @XmlRootElement(name = "lockroot")
 public final class LockRoot {
 
-	@XmlElement(name = "href")
+	@XmlElement(name = "href", namespace = "DAV:")
 	private final HRef hRef;
 
 	@SuppressWarnings("unused")

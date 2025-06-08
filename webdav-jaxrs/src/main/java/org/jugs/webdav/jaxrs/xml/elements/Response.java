@@ -22,28 +22,21 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static java.util.Collections.singletonList;
-import static java.util.Collections.unmodifiableList;
-import static java.util.Objects.hash;
-import static jakarta.xml.bind.annotation.XmlAccessType.FIELD;
-import static org.jugs.webdav.util.Utilities.append;
-import static org.jugs.webdav.util.Utilities.array;
-import static org.jugs.webdav.util.Utilities.notNull;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
-
 import org.jugs.webdav.jaxrs.NullArgumentException;
 import org.jugs.webdav.util.Utilities;
+
+import java.util.*;
+import java.util.Collection;
+
+import static jakarta.xml.bind.annotation.XmlAccessType.FIELD;
+import static java.util.Collections.singletonList;
+import static java.util.Collections.unmodifiableList;
+import static java.util.Objects.hash;
+import static org.jugs.webdav.util.Utilities.*;
 
 /**
  * WebDAV response XML Element.
@@ -58,19 +51,22 @@ import org.jugs.webdav.util.Utilities;
 @XmlRootElement
 public final class Response {
 
-	@XmlElement(name = "href")
+	@XmlElement(name = "href", namespace = "DAV:")
 	private final List<HRef> hRefs;
 
+	@XmlElement(name = "status", namespace = "DAV:")
 	private final Status status;
 
-	@XmlElement(name = "propstat")
+	@XmlElement(name = "propstat", namespace = "DAV:")
 	private final List<PropStat> propStats;
 
+	@XmlElement(name = "error", namespace = "DAV:")
 	private final Error error;
 
-	@XmlElement(name = "responsedescription")
+	@XmlElement(name = "responsedescription", namespace = "DAV:")
 	private ResponseDescription responseDescription;
 
+	@XmlElement(name = "location", namespace = "DAV:")
 	private Location location;
 
 	@SuppressWarnings("unused")

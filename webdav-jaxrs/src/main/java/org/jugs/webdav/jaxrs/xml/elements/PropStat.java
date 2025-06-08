@@ -22,15 +22,14 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static java.util.Objects.hash;
-
-import java.util.Arrays;
-
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
-
 import org.jugs.webdav.util.Utilities;
+
+import java.util.Arrays;
+
+import static java.util.Objects.hash;
 
 /**
  * WebDAV propstat XML Element.
@@ -44,16 +43,16 @@ import org.jugs.webdav.util.Utilities;
 @XmlRootElement(name = "propstat")
 public final class PropStat {
 
-	@XmlElement
+	@XmlElement(name = "prop", namespace = "DAV:")
 	private final Prop prop;
 
-	@XmlElement
+	@XmlElement(name = "status", namespace = "DAV:")
 	private final Status status;
 
-	@XmlElement
+	@XmlElement(name = "error", namespace = "DAV:")
 	private final Error error;
 
-	@XmlElement(name = "responsedescription")
+	@XmlElement(name = "responsedescription", namespace = "DAV:")
 	private final ResponseDescription responseDescription;
 
 	@SuppressWarnings("unused")

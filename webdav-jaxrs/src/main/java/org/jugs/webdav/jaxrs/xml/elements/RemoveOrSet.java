@@ -38,7 +38,7 @@ import org.jugs.webdav.util.Utilities;
  */
 public abstract class RemoveOrSet {
 
-	@XmlElement
+	@XmlElement(name = "prop", namespace = "DAV:")
 	private final Prop prop;
 
 	public final Prop getProp() {

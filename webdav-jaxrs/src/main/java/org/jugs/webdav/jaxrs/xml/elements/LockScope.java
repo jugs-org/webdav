@@ -22,21 +22,21 @@
 
 package org.jugs.webdav.jaxrs.xml.elements;
 
-import static java.util.Arrays.asList;
-import static java.util.Objects.hash;
-import static jakarta.xml.bind.annotation.XmlAccessType.FIELD;
-import static org.jugs.webdav.util.Utilities.array;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import org.jugs.webdav.jaxrs.ConstantsAdapter;
+import org.jugs.webdav.util.Utilities;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
-import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import org.jugs.webdav.jaxrs.ConstantsAdapter;
-import org.jugs.webdav.util.Utilities;
+import static jakarta.xml.bind.annotation.XmlAccessType.FIELD;
+import static java.util.Arrays.asList;
+import static java.util.Objects.hash;
+import static org.jugs.webdav.util.Utilities.array;
 
 /**
  * WebDAV lockscope XML Element.
@@ -56,8 +56,10 @@ public final class LockScope {
 
 	public static final LockScope EXCLUSIVE = new LockScope(null, Exclusive.EXCLUSIVE);
 
+	@XmlElement(name = "shared", namespace = "DAV:")
 	private final Shared shared;
 
+	@XmlElement(name = "exclusive", namespace = "DAV:")
 	private final Exclusive exclusive;
 
 	// Singleton

@@ -75,6 +75,7 @@ public final class WebDavJAXBContextBuilderTest {
 	@org.junit.jupiter.api.DisplayName("webDavEnum")
 	@Test
 	void containsWebDavEnum() {
+		assertThat(DepthWrapper.class, is(elementOf(context)));
 		assertThat(Depth.class, is(elementOf(context)));
 	}
 

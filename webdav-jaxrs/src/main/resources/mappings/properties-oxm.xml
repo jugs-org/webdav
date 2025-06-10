@@ -1,0 +1,62 @@
+<!--
+  #%L
+  WebDAV Support for JAX-RS
+  %%
+  Copyright (C) 2008 - 2025 Java User Group Stuttgart
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 3 of the 
+  License, or (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU General Public 
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-3.0.html>.
+  #L%
+  -->
+<xml-bindings
+        xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+        package-name="org.jugs.webdav.jaxrs.xml.properties">
+
+    <xml-schema element-form-default="QUALIFIED">
+        <xml-ns prefix="D" namespace-uri="DAV:"/>
+    </xml-schema>
+
+    <java-types>
+        <java-type name="CreationDate">
+            <xml-root-element name="creationdate" namespace="DAV:"/>
+        </java-type>
+        <java-type name="DisplayName">
+            <xml-root-element name="displayname" namespace="DAV:"/>
+        </java-type>
+        <java-type name="GetContentLanguage">
+            <xml-root-element name="getcontentlanguage" namespace="DAV:"/>
+        </java-type>
+        <java-type name="GetContentLength">
+            <xml-root-element name="getcontentlength" namespace="DAV:"/>
+        </java-type>
+        <java-type name="GetContentType">
+            <xml-root-element name="getcontenttype" namespace="DAV:"/>
+        </java-type>
+        <java-type name="GetETag">
+            <xml-root-element name="getetag" namespace="DAV:"/>
+        </java-type>
+        <java-type name="GetLastModified">
+            <xml-root-element name="getlastmodified" namespace="DAV:"/>
+        </java-type>
+        <java-type name="LockDiscovery">
+            <xml-root-element name="lockdiscovery" namespace="DAV:"/>
+        </java-type>
+        <java-type name="ResourceType">
+            <xml-root-element name="resourcetype" namespace="DAV:"/>
+        </java-type>
+        <java-type name="SupportedLock">
+            <xml-root-element name="supportedlock" namespace="DAV:"/>
+        </java-type>
+    </java-types>
+</xml-bindings>

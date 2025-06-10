@@ -22,22 +22,21 @@
 
 package org.jugs.webdav.jaxrs.xml.properties;
 
-import static java.util.Arrays.asList;
-import static java.util.Collections.singleton;
-import static java.util.Collections.unmodifiableList;
-import static org.jugs.webdav.util.Utilities.notNull;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import org.jugs.webdav.jaxrs.ConstantsAdapter;
+import org.jugs.webdav.jaxrs.xml.elements.LockEntry;
+import org.jugs.webdav.util.Utilities;
 
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import org.jugs.webdav.jaxrs.ConstantsAdapter;
-import org.jugs.webdav.jaxrs.xml.elements.LockEntry;
-import org.jugs.webdav.util.Utilities;
+import static java.util.Arrays.asList;
+import static java.util.Collections.singleton;
+import static java.util.Collections.unmodifiableList;
+import static org.jugs.webdav.util.Utilities.notNull;
 
 /**
  * WebDAV supportedlock Property.
@@ -57,7 +56,7 @@ public final class SupportedLock {
 	 */
 	public static final SupportedLock SUPPORTEDLOCK = new SupportedLock();
 
-	@XmlElement(name = "lockentry")
+	@XmlElement(name = "lockentry", namespace = "DAV:")
 	private final List<LockEntry> lockEntries;
 
 	/**
@@ -73,17 +72,17 @@ public final class SupportedLock {
 		this.lockEntries = asList(notNull(lockEntries, "lockEntries"));
 	}
 
-	public final List<LockEntry> getLockEntries() {
+	public List<LockEntry> getLockEntries() {
 		return unmodifiableList(this.lockEntries);
 	}
 
 	@Override
-	public final int hashCode() {
+	public int hashCode() {
 		return this.lockEntries.hashCode();
 	}
 
 	@Override
-	public final boolean equals(final Object other) {
+	public boolean equals(final Object other) {
 		if (!(other instanceof SupportedLock))
 			return false;
 
@@ -105,7 +104,7 @@ public final class SupportedLock {
 	}
 
 	@Override
-	public final String toString() {
+	public String toString() {
 		return Utilities.toString(this, this.lockEntries);
 	}
 }

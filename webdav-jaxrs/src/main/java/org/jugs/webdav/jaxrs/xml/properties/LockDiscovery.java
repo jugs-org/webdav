@@ -22,22 +22,21 @@
 
 package org.jugs.webdav.jaxrs.xml.properties;
 
-import static java.util.Arrays.asList;
-import static java.util.Collections.singleton;
-import static java.util.Collections.unmodifiableList;
-import static org.jugs.webdav.util.Utilities.notNull;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import org.jugs.webdav.jaxrs.ConstantsAdapter;
+import org.jugs.webdav.jaxrs.xml.elements.ActiveLock;
+import org.jugs.webdav.util.Utilities;
 
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import org.jugs.webdav.jaxrs.ConstantsAdapter;
-import org.jugs.webdav.jaxrs.xml.elements.ActiveLock;
-import org.jugs.webdav.util.Utilities;
+import static java.util.Arrays.asList;
+import static java.util.Collections.singleton;
+import static java.util.Collections.unmodifiableList;
+import static org.jugs.webdav.util.Utilities.notNull;
 
 /**
  * WebDAV lockdiscovery Property.
@@ -57,7 +56,7 @@ public final class LockDiscovery {
 	 */
 	public static final LockDiscovery LOCKDISCOVERY = new LockDiscovery();
 
-	@XmlElement(name = "activelock")
+	@XmlElement(name = "activelock", namespace = "DAV:")
 	private final List<ActiveLock> activeLocks;
 
 	/**
@@ -73,17 +72,17 @@ public final class LockDiscovery {
 		this.activeLocks = asList(notNull(activeLocks, "activeLocks"));
 	}
 
-	public final List<ActiveLock> getActiveLocks() {
+	public List<ActiveLock> getActiveLocks() {
 		return unmodifiableList(this.activeLocks);
 	}
 
 	@Override
-	public final int hashCode() {
+	public int hashCode() {
 		return this.activeLocks.hashCode();
 	}
 
 	@Override
-	public final boolean equals(final Object other) {
+	public boolean equals(final Object other) {
 		if (!(other instanceof LockDiscovery))
 			return false;
 
@@ -105,7 +104,7 @@ public final class LockDiscovery {
 	}
 
 	@Override
-	public final String toString() {
+	public String toString() {
 		return Utilities.toString(this, this.activeLocks);
 	}
 }

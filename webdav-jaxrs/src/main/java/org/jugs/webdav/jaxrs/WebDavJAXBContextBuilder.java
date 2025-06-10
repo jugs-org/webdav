@@ -31,6 +31,8 @@ import org.jugs.webdav.jaxrs.xml.elements.Error;
 import org.jugs.webdav.jaxrs.xml.properties.*;
 import org.jugs.webdav.util.Utilities;
 
+import javax.xml.transform.Source;
+import javax.xml.transform.stream.StreamSource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -67,16 +69,18 @@ final class WebDavJAXBContextBuilder {
                                                          Response.class, ResponseDescription.class, Set.class, Shared.class, Status.class, SupportedLock.class, TimeOut.class, Write.class,
 														 DepthWrapper.class, Depth.class };
 		final Class<?>[] allClasses = Utilities.append(webDavClasses, auxiliaryClasses);
-		return build(allClasses, "eclipse-oxm.xml");
+		return build(allClasses, "/mappings/elements-oxm.xml");
 	}
 
-	private static JAXBContext build(Class<?>[] allClasses, String oxmResource) throws JAXBException {
-		try (InputStream istream = WebDavJAXBContextBuilder.class.getResourceAsStream(oxmResource)) {
+	private static JAXBContext build(Class<?>[] allClasses, String elementsResource) throws JAXBException {
+		try (InputStream istream = WebDavJAXBContextBuilder.class.getResourceAsStream(elementsResource)) {
+			Map<String, Source> metadata = new HashMap<>();
+			metadata.put("org.jugs.webdav.jaxrs.xml.elements", new StreamSource(istream));
 			Map<String, Object> props = new HashMap<>();
-			props.put(JAXBContextProperties.OXM_METADATA_SOURCE, istream);
+			props.put(JAXBContextProperties.OXM_METADATA_SOURCE, metadata);
 			return JAXBContext.newInstance(allClasses, props);
 		} catch (IOException ex) {
-			throw new IllegalArgumentException("cannot load resource " + oxmResource, ex);
+			throw new IllegalArgumentException("cannot load resource " + elementsResource, ex);
 		}
 	}
 

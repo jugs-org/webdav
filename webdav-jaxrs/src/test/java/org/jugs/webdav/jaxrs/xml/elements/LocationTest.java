@@ -46,7 +46,7 @@ public final class LocationTest extends AbstractJaxbCoreFunctionality<Location> 
 
 	private static HRef HREF = new HRef("http://localhost");
 	private static final Object[] SINGLE_VALUE_CONSTRUCTOR = { new Location(HREF),
-			"<D:location xmlns:D=\"DAV:\"><D:href>http://localhost</D:href></D:location>", HREF };
+			"<dav:location xmlns:dav=\"DAV:\"><dav:href>http://localhost</dav:href></dav:location>", HREF };
 
 	@Test
 	void testMarshalling() throws JAXBException {

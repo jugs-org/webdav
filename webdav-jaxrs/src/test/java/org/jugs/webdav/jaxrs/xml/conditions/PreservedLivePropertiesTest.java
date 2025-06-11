@@ -35,7 +35,7 @@ import jakarta.xml.bind.JAXBException;
 public final class PreservedLivePropertiesTest extends AbstractJaxbCoreFunctionality<PreservedLiveProperties> {
 
 	private static final Object[] SINGLETON = new Object[] { PreservedLiveProperties.PRESERVED_LIVE_PROPERTIES,
-			"<D:preserved-live-properties xmlns:D=\"DAV:\"/>" };
+			"<dav:preserved-live-properties xmlns:dav=\"DAV:\"/>" };
 
 	@Test
 	void testMarshalling() throws JAXBException {

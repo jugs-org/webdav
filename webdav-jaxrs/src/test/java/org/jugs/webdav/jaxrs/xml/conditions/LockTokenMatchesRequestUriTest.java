@@ -35,7 +35,7 @@ import jakarta.xml.bind.JAXBException;
 public final class LockTokenMatchesRequestUriTest extends AbstractJaxbCoreFunctionality<LockTokenMatchesRequestUri> {
 
 	private static final Object[] SINGLETON = { LockTokenMatchesRequestUri.LOCK_TOKEN_MATCHES_REQUEST_URI,
-			"<D:lock-token-matches-request-uri xmlns:D=\"DAV:\"/>" };
+			"<dav:lock-token-matches-request-uri xmlns:dav=\"DAV:\"/>" };
 
 	@Test
 	void testMarshalling() throws JAXBException {

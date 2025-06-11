@@ -47,7 +47,7 @@ public final class LockTokenTest extends AbstractJaxbCoreFunctionality<LockToken
 	private static final HRef HREF = new HRef("http://localhost");
 
 	private static final Object[] SINGLE_VALUE_CONSTRUCTOR = { new LockToken(HREF),
-			"<D:locktoken xmlns:D=\"DAV:\"><D:href>http://localhost</D:href></D:locktoken>", HREF };
+			"<dav:locktoken xmlns:dav=\"DAV:\"><dav:href>http://localhost</dav:href></dav:locktoken>", HREF };
 
 	@Test
 	void testMarshalling() throws JAXBException {

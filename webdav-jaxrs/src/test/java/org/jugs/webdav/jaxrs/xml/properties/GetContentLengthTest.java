@@ -42,8 +42,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public final class GetContentLengthTest extends AbstractJaxbCoreFunctionality<GetContentLength> {
 
-	private static final Object[] GETCONTENTLENGTH = { GetContentLength.GETCONTENTLENGTH, "<D:getcontentlength xmlns:D=\"DAV:\"/>", 0L };
-	private static final Object[] LENGTH_CONSTRUCTOR = { new GetContentLength(123L), "<D:getcontentlength xmlns:D=\"DAV:\">123</D:getcontentlength>", 123L };
+	private static final Object[] GETCONTENTLENGTH = { GetContentLength.GETCONTENTLENGTH, "<dav:getcontentlength xmlns:dav=\"DAV:\"/>", 0L };
+	private static final Object[] LENGTH_CONSTRUCTOR = { new GetContentLength(123L), "<dav:getcontentlength xmlns:dav=\"DAV:\">123</dav:getcontentlength>", 123L };
 
 	@Test
 	void marshallingGetcontentlength() throws JAXBException {
@@ -83,10 +83,10 @@ public final class GetContentLengthTest extends AbstractJaxbCoreFunctionality<Ge
 	@Test
 	void shouldUnmarshalGETCONTENTLENGTHConstant() throws JAXBException {
 		// given
-		final String marshalledForm = "<D:getcontentlength/>";
+		final String marshalledForm = "<dav:getcontentlength/>";
 		// when
 		final GetContentLength unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
-				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).getcontentlength;
+				.unmarshal(new StringReader(format("<dav:x xmlns:dav=\"DAV:\">%s</dav:x>", marshalledForm)))).getcontentlength;
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(GetContentLength.GETCONTENTLENGTH)));
 	}

@@ -49,9 +49,9 @@ public final class GetContentTypeTest extends AbstractJaxbCoreFunctionality<GetC
 		assertThrows(NullArgumentException.class, () -> new GetContentType(null));
 	}
 
-	private static final Object[] GETCONTENTTYPE = { GetContentType.GETCONTENTTYPE, "<D:getcontenttype xmlns:D=\"DAV:\"/>", "" };
+	private static final Object[] GETCONTENTTYPE = { GetContentType.GETCONTENTTYPE, "<dav:getcontenttype xmlns:dav=\"DAV:\"/>", "" };
 	private static final Object[] MEDIATYPE_CONSTRUCTOR = { new GetContentType("SomeMediaType"),
-			"<D:getcontenttype xmlns:D=\"DAV:\">SomeMediaType</D:getcontenttype>", "SomeMediaType" };
+			"<dav:getcontenttype xmlns:dav=\"DAV:\">SomeMediaType</dav:getcontenttype>", "SomeMediaType" };
 
 	@Test
 	void marshallingGetcontenttype() throws JAXBException {
@@ -87,10 +87,10 @@ public final class GetContentTypeTest extends AbstractJaxbCoreFunctionality<GetC
 	@Test
 	void shouldUnmarshalGETCONTENTTYPEConstant() throws JAXBException {
 		// given
-		final String marshalledForm = "<D:getcontenttype/>";
+		final String marshalledForm = "<dav:getcontenttype/>";
 		// when
 		final GetContentType unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
-				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).getcontenttype;
+				.unmarshal(new StringReader(format("<dav:x xmlns:dav=\"DAV:\">%s</dav:x>", marshalledForm)))).getcontenttype;
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(GetContentType.GETCONTENTTYPE)));
 	}

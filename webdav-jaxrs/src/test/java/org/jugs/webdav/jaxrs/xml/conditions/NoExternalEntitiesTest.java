@@ -34,7 +34,7 @@ import jakarta.xml.bind.JAXBException;
  */
 public final class NoExternalEntitiesTest extends AbstractJaxbCoreFunctionality<NoExternalEntities> {
 
-	private static final Object[] SINGLETON = new Object[] { NoExternalEntities.NO_EXTERNAL_ENTITIES, "<D:no-external-entities xmlns:D=\"DAV:\"/>" };
+	private static final Object[] SINGLETON = new Object[] { NoExternalEntities.NO_EXTERNAL_ENTITIES, "<dav:no-external-entities xmlns:dav=\"DAV:\"/>" };
 
 	@Test
 	void testMarshalling() throws JAXBException {

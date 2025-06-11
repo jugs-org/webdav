@@ -50,9 +50,9 @@ public final class PropertyUpdateTest extends AbstractJaxbCoreFunctionality<Prop
 	}
 
 	private static final Object[] SINGLE_UPDATE = { new PropertyUpdate(REMOVE),
-			"<D:propertyupdate xmlns:D=\"DAV:\"><D:remove><D:prop/></D:remove></D:propertyupdate>", asList(REMOVE) };
+			"<dav:propertyupdate xmlns:dav=\"DAV:\"><dav:remove><dav:prop/></dav:remove></dav:propertyupdate>", asList(REMOVE) };
 	private static final Object[] MULTIPLE_UPDATES = { new PropertyUpdate(SET, REMOVE, SET),
-			"<D:propertyupdate xmlns:D=\"DAV:\"><D:set><D:prop/></D:set><D:remove><D:prop/></D:remove><D:set><D:prop/></D:set></D:propertyupdate>",
+			"<dav:propertyupdate xmlns:dav=\"DAV:\"><dav:set><dav:prop/></dav:set><dav:remove><dav:prop/></dav:remove><dav:set><dav:prop/></dav:set></dav:propertyupdate>",
 			asList(SET, REMOVE, SET) };
 
 	@Test

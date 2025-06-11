@@ -35,7 +35,7 @@ import jakarta.xml.bind.JAXBException;
  */
 public final class CollectionTest extends AbstractJaxbCoreFunctionality<Collection> {
 
-	private static final Object[] SINGLETON = { Collection.COLLECTION, "<D:collection xmlns:D=\"DAV:\"/>" };
+	private static final Object[] SINGLETON = { Collection.COLLECTION, "<dav:collection xmlns:dav=\"DAV:\"/>" };
 
 	@Test
 	void testMarshalling() throws JAXBException {

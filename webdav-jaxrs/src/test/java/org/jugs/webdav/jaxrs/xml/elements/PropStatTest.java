@@ -45,15 +45,15 @@ public final class PropStatTest extends AbstractJaxbCoreFunctionality<PropStat> 
 	private static final ResponseDescription RESPONSEDESCRIPTION = new ResponseDescription("X");
 
 	private static final Object[] PROP_STATUS = { new PropStat(PROP, STATUS),
-			"<D:propstat xmlns:D=\"DAV:\"><D:prop/><D:status>HTTP/1.1 423 Locked</D:status></D:propstat>", PROP, STATUS, null, null };
+			"<dav:propstat xmlns:dav=\"DAV:\"><dav:prop/><dav:status>HTTP/1.1 423 Locked</dav:status></dav:propstat>", PROP, STATUS, null, null };
 
 	private static final Object[] PROP_STATUS_ERROR = { new PropStat(PROP, STATUS, ERROR),
-			"<D:propstat xmlns:D=\"DAV:\"><D:prop/><D:status>HTTP/1.1 423 Locked</D:status><D:error><D:prop/></D:error></D:propstat>", PROP, STATUS, ERROR,
+			"<dav:propstat xmlns:dav=\"DAV:\"><dav:prop/><dav:status>HTTP/1.1 423 Locked</dav:status><dav:error><dav:prop/></dav:error></dav:propstat>", PROP, STATUS, ERROR,
 			null };
 
 	private static final Object[] PROP_STATUS_ERROR_RESPONSEDESCRIPTION = {
 			new PropStat(PROP, STATUS, ERROR, RESPONSEDESCRIPTION),
-			"<D:propstat xmlns:D=\"DAV:\"><D:prop/><D:status>HTTP/1.1 423 Locked</D:status><D:error><D:prop/></D:error><D:responsedescription>X</D:responsedescription></D:propstat>",
+			"<dav:propstat xmlns:dav=\"DAV:\"><dav:prop/><dav:status>HTTP/1.1 423 Locked</dav:status><dav:error><dav:prop/></dav:error><dav:responsedescription>X</dav:responsedescription></dav:propstat>",
 			PROP, STATUS, ERROR, RESPONSEDESCRIPTION };
 
 	@Test

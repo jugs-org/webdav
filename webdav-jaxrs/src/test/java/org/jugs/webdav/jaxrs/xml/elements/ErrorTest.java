@@ -48,8 +48,8 @@ public final class ErrorTest extends AbstractJaxbCoreFunctionality<Error> {
 
 	private static final Object FIRST_ERROR = new Prop();
 	private static final Object SECOND_ERROR = GetContentLanguage.GETCONTENTLANGUAGE;
-	private static final Object[] ONE_ERROR = { new Error(FIRST_ERROR), "<D:error xmlns:D=\"DAV:\"><D:prop/></D:error>", asList(FIRST_ERROR) };
-	private static final Object[] TWO_ERRORS = { new Error(FIRST_ERROR, SECOND_ERROR), "<D:error xmlns:D=\"DAV:\"><D:prop/><D:getcontentlanguage/></D:error>",
+	private static final Object[] ONE_ERROR = { new Error(FIRST_ERROR), "<dav:error xmlns:dav=\"DAV:\"><dav:prop/></dav:error>", asList(FIRST_ERROR) };
+	private static final Object[] TWO_ERRORS = { new Error(FIRST_ERROR, SECOND_ERROR), "<dav:error xmlns:dav=\"DAV:\"><dav:prop/><dav:getcontentlanguage/></dav:error>",
 			asList(FIRST_ERROR, SECOND_ERROR) };
 
 	@Test

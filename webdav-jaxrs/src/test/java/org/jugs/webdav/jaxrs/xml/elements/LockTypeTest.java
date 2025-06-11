@@ -34,7 +34,7 @@ import jakarta.xml.bind.JAXBException;
  */
 public final class LockTypeTest extends AbstractJaxbCoreFunctionality<LockType> {
 
-	private static final Object[] SINGLETON = { LockType.WRITE, "<D:locktype xmlns:D=\"DAV:\"><D:write/></D:locktype>" };
+	private static final Object[] SINGLETON = { LockType.WRITE, "<dav:locktype xmlns:dav=\"DAV:\"><dav:write/></dav:locktype>" };
 
 	@Test
 	void testMarshalling() throws JAXBException {

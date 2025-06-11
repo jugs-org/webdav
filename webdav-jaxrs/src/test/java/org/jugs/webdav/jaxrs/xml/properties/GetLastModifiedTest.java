@@ -52,10 +52,10 @@ public final class GetLastModifiedTest extends AbstractJaxbCoreFunctionality<Get
 		assertThrows(NullArgumentException.class, () -> new GetLastModified(null));
 	}
 
-	private static final Object[] GETLASTMODIFIED = new Object[] { GetLastModified.GETLASTMODIFIED, "<D:getlastmodified xmlns:D=\"DAV:\"/>", null };
+	private static final Object[] GETLASTMODIFIED = new Object[] { GetLastModified.GETLASTMODIFIED, "<dav:getlastmodified xmlns:dav=\"DAV:\"/>", null };
 	private static final Object[] DATE_CONSTRUCTOR = new Object[] {new GetLastModified(
             DateBuilder.date(2012, 11, 12, 13, 14, 15, 0, "GMT")),
-                                                                  "<D:getlastmodified xmlns:D=\"DAV:\">Mon, 12 Nov 2012 13:14:15 GMT</D:getlastmodified>", DateBuilder.date(2012, 11, 12, 13, 14, 15, 0, "GMT") };
+                                                                  "<dav:getlastmodified xmlns:dav=\"DAV:\">Mon, 12 Nov 2012 13:14:15 GMT</dav:getlastmodified>", DateBuilder.date(2012, 11, 12, 13, 14, 15, 0, "GMT") };
 
 	@Test
 	void marshallingGetlastmodified() throws JAXBException {
@@ -106,10 +106,10 @@ public final class GetLastModifiedTest extends AbstractJaxbCoreFunctionality<Get
 	@Test
 	void shouldUnmarshalGETLASTMODIFIEDConstant() throws JAXBException {
 		// given
-		final String marshalledForm = "<D:getlastmodified/>";
+		final String marshalledForm = "<dav:getlastmodified/>";
 		// when
 		final GetLastModified unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
-				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).getlastmodified;
+				.unmarshal(new StringReader(format("<dav:x xmlns:dav=\"DAV:\">%s</dav:x>", marshalledForm)))).getlastmodified;
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(GetLastModified.GETLASTMODIFIED)));
 	}

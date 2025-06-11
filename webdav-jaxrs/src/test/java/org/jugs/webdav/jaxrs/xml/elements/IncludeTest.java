@@ -47,7 +47,7 @@ public final class IncludeTest extends AbstractJaxbCoreFunctionality<Include> {
 	}
 
 	private static final Object CREATION_DATE = new CreationDate();
-	private static final Object[] SINGLE_VALUE_CONSTRUCTOR = { new Include(CREATION_DATE), "<D:include xmlns:D=\"DAV:\"><D:creationdate/></D:include>",
+	private static final Object[] SINGLE_VALUE_CONSTRUCTOR = { new Include(CREATION_DATE), "<dav:include xmlns:dav=\"DAV:\"><dav:creationdate/></dav:include>",
 			asList(CREATION_DATE) };
 
 	@Test

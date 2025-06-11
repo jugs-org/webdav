@@ -34,7 +34,7 @@ import jakarta.xml.bind.JAXBException;
  */
 public final class PropNameTest extends AbstractJaxbCoreFunctionality<PropName> {
 
-	private static final Object[] SINGLETON = { PropName.PROPNAME, "<D:propname xmlns:D=\"DAV:\"/>" };
+	private static final Object[] SINGLETON = { PropName.PROPNAME, "<dav:propname xmlns:dav=\"DAV:\"/>" };
 
 	@Test
 	void testMarshalling() throws JAXBException {

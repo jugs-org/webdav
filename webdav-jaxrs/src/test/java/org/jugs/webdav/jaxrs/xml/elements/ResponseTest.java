@@ -80,18 +80,18 @@ public final class ResponseTest extends AbstractJaxbCoreFunctionality<Response> 
 
 	private static final Object[] STATUS_VARIANT = {
 			new Response(STATUS, ERROR, RESPONSE_DESCRIPTION, LOCATION, HREF),
-			"<D:response xmlns:D=\"DAV:\"><D:href>http://localhost</D:href><D:status>HTTP/1.1 207 Multi-Status</D:status><D:error><D:prop/></D:error><D:responsedescription>X</D:responsedescription><D:location><D:href>http://localhost</D:href></D:location></D:response>",
+			"<dav:response xmlns:dav=\"DAV:\"><dav:href>http://localhost</dav:href><dav:status>HTTP/1.1 207 Multi-Status</dav:status><dav:error><dav:prop/></dav:error><dav:responsedescription>X</dav:responsedescription><dav:location><dav:href>http://localhost</dav:href></dav:location></dav:response>",
 			asList(HREF), STATUS, EMPTY_LIST, ERROR, RESPONSE_DESCRIPTION, LOCATION };
 
 	private static final Object[] PROPSTATS_VARIANT = {
 			new Response(HREF, ERROR, RESPONSE_DESCRIPTION, LOCATION, PROP_STAT, PROP_STAT, PROP_STAT),
-			"<D:response xmlns:D=\"DAV:\"><D:href>http://localhost</D:href><D:propstat><D:prop/><D:status>HTTP/1.1 207 Multi-Status</D:status></D:propstat><D:propstat><D:prop/><D:status>HTTP/1.1 207 Multi-Status</D:status></D:propstat><D:propstat><D:prop/><D:status>HTTP/1.1 207 Multi-Status</D:status></D:propstat><D:error><D:prop/></D:error><D:responsedescription>X</D:responsedescription><D:location><D:href>http://localhost</D:href></D:location></D:response>",
+			"<dav:response xmlns:dav=\"DAV:\"><dav:href>http://localhost</dav:href><dav:propstat><dav:prop/><dav:status>HTTP/1.1 207 Multi-Status</dav:status></dav:propstat><dav:propstat><dav:prop/><dav:status>HTTP/1.1 207 Multi-Status</dav:status></dav:propstat><dav:propstat><dav:prop/><dav:status>HTTP/1.1 207 Multi-Status</dav:status></dav:propstat><dav:error><dav:prop/></dav:error><dav:responsedescription>X</dav:responsedescription><dav:location><dav:href>http://localhost</dav:href></dav:location></dav:response>",
 			asList(HREF), null, asList(PROP_STAT, PROP_STAT, PROP_STAT), ERROR, RESPONSE_DESCRIPTION, LOCATION };
 
 	@SuppressWarnings("deprecation")
 	private static final Object[] DEPRECATED_PROPSTATS_VARIANT = {
 			new Response(HREF, ERROR, RESPONSE_DESCRIPTION, LOCATION, asList(PROP_STAT, PROP_STAT, PROP_STAT)),
-			"<D:response xmlns:D=\"DAV:\"><D:href>http://localhost</D:href><D:propstat><D:prop/><D:status>HTTP/1.1 207 Multi-Status</D:status></D:propstat><D:propstat><D:prop/><D:status>HTTP/1.1 207 Multi-Status</D:status></D:propstat><D:propstat><D:prop/><D:status>HTTP/1.1 207 Multi-Status</D:status></D:propstat><D:error><D:prop/></D:error><D:responsedescription>X</D:responsedescription><D:location><D:href>http://localhost</D:href></D:location></D:response>",
+			"<dav:response xmlns:dav=\"DAV:\"><dav:href>http://localhost</dav:href><dav:propstat><dav:prop/><dav:status>HTTP/1.1 207 Multi-Status</dav:status></dav:propstat><dav:propstat><dav:prop/><dav:status>HTTP/1.1 207 Multi-Status</dav:status></dav:propstat><dav:propstat><dav:prop/><dav:status>HTTP/1.1 207 Multi-Status</dav:status></dav:propstat><dav:error><dav:prop/></dav:error><dav:responsedescription>X</dav:responsedescription><dav:location><dav:href>http://localhost</dav:href></dav:location></dav:response>",
 			asList(HREF), null, asList(PROP_STAT, PROP_STAT, PROP_STAT), ERROR, RESPONSE_DESCRIPTION, LOCATION };
 
 	@Test

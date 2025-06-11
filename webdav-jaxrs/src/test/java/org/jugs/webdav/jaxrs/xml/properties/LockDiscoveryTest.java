@@ -55,9 +55,9 @@ public final class LockDiscoveryTest extends AbstractJaxbCoreFunctionality<LockD
 		assertThrows(NullArgumentException.class, () -> new LockDiscovery((ActiveLock[]) null));
 	}
 
-	private static final Object[] LOCKDISCOVERY = { LockDiscovery.LOCKDISCOVERY, "<D:lockdiscovery xmlns:D=\"DAV:\"/>", EMPTY_LIST };
+	private static final Object[] LOCKDISCOVERY = { LockDiscovery.LOCKDISCOVERY, "<dav:lockdiscovery xmlns:dav=\"DAV:\"/>", EMPTY_LIST };
 	private static final Object[] ACTIVELOCKS_CONSTRUCTOR = { new LockDiscovery(ACTIVE_LOCK),
-			"<D:lockdiscovery xmlns:D=\"DAV:\"><D:activelock/></D:lockdiscovery>", asList(ACTIVE_LOCK) };
+			"<dav:lockdiscovery xmlns:dav=\"DAV:\"><dav:activelock/></dav:lockdiscovery>", asList(ACTIVE_LOCK) };
 
 	@Test
 	void marshallingLockdiscovery() throws JAXBException {
@@ -93,10 +93,10 @@ public final class LockDiscoveryTest extends AbstractJaxbCoreFunctionality<LockD
 	@Test
 	void shouldUnmarshalGETLCOKDISCOVERYConstant() throws JAXBException {
 		// given
-		final String marshalledForm = "<D:lockdiscovery/>";
+		final String marshalledForm = "<dav:lockdiscovery/>";
 		// when
 		final LockDiscovery unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
-				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).lockdiscovery;
+				.unmarshal(new StringReader(format("<dav:x xmlns:dav=\"DAV:\">%s</dav:x>", marshalledForm)))).lockdiscovery;
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(LockDiscovery.LOCKDISCOVERY)));
 	}

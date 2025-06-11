@@ -49,9 +49,9 @@ public final class GetContentLanguageTest extends AbstractJaxbCoreFunctionality<
 		assertThrows(NullArgumentException.class, () -> new GetContentLanguage(null));
 	}
 
-	private static final Object[] GETCONTENTLANGUAGE = { GetContentLanguage.GETCONTENTLANGUAGE, "<D:getcontentlanguage xmlns:D=\"DAV:\"/>", "" };
+	private static final Object[] GETCONTENTLANGUAGE = { GetContentLanguage.GETCONTENTLANGUAGE, "<dav:getcontentlanguage xmlns:dav=\"DAV:\"/>", "" };
 	private static final Object[] LANGUAGETAG_CONSTRUCTOR = { new GetContentLanguage("SomeLanguageTag"),
-			"<D:getcontentlanguage xmlns:D=\"DAV:\">SomeLanguageTag</D:getcontentlanguage>", "SomeLanguageTag" };
+			"<dav:getcontentlanguage xmlns:dav=\"DAV:\">SomeLanguageTag</dav:getcontentlanguage>", "SomeLanguageTag" };
 
 	@Test
 	void marshallingGetcontentlanguage() throws JAXBException {
@@ -87,10 +87,10 @@ public final class GetContentLanguageTest extends AbstractJaxbCoreFunctionality<
 	@Test
 	void shouldUnmarshalGETCONTENTLANGUAGEConstant() throws JAXBException {
 		// given
-		final String marshalledForm = "<D:getcontentlanguage/>";
+		final String marshalledForm = "<dav:getcontentlanguage/>";
 		// when
 		final GetContentLanguage unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
-				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).getcontentlanguage;
+				.unmarshal(new StringReader(format("<dav:x xmlns:dav=\"DAV:\">%s</dav:x>", marshalledForm)))).getcontentlanguage;
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(GetContentLanguage.GETCONTENTLANGUAGE)));
 	}

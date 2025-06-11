@@ -43,8 +43,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public final class LockScopeTest extends AbstractJaxbCoreFunctionality<LockScope> {
 
-	private static final Object[] EXCLUSIVE = { LockScope.EXCLUSIVE, "<D:lockscope xmlns:D=\"DAV:\"><D:exclusive/></D:lockscope>" };
-	private static final Object[] SHARED = { LockScope.SHARED, "<D:lockscope xmlns:D=\"DAV:\"><D:shared/></D:lockscope>" };
+	private static final Object[] EXCLUSIVE = { LockScope.EXCLUSIVE, "<dav:lockscope xmlns:dav=\"DAV:\"><dav:exclusive/></dav:lockscope>" };
+	private static final Object[] SHARED = { LockScope.SHARED, "<dav:lockscope xmlns:dav=\"DAV:\"><dav:shared/></dav:lockscope>" };
 
 	@Test
 	void marshallingExclusive() throws JAXBException {
@@ -77,11 +77,11 @@ public final class LockScopeTest extends AbstractJaxbCoreFunctionality<LockScope
 	@Test
 	void shouldUnmarshalEXCLUSIVEConstant() throws JAXBException {
 		// given
-		final String marshalledForm = "<D:lockscope><D:exclusive/></D:lockscope>";
+		final String marshalledForm = "<dav:lockscope><dav:exclusive/></dav:lockscope>";
 
 		// when
 		final LockScope unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
-				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).lockscope;
+				.unmarshal(new StringReader(format("<dav:x xmlns:dav=\"DAV:\">%s</dav:x>", marshalledForm)))).lockscope;
 
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(LockScope.EXCLUSIVE)));
@@ -90,11 +90,11 @@ public final class LockScopeTest extends AbstractJaxbCoreFunctionality<LockScope
 	@Test
 	void shouldUnmarshalSHAREDConstant() throws JAXBException {
 		// given
-		final String marshalledForm = "<D:lockscope><D:shared/></D:lockscope>";
+		final String marshalledForm = "<dav:lockscope><dav:shared/></dav:lockscope>";
 
 		// when
 		final LockScope unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
-				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).lockscope;
+				.unmarshal(new StringReader(format("<dav:x xmlns:dav=\"DAV:\">%s</dav:x>", marshalledForm)))).lockscope;
 
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(LockScope.SHARED)));

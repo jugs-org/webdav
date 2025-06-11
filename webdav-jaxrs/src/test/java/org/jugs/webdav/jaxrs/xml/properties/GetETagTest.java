@@ -49,8 +49,8 @@ public final class GetETagTest extends AbstractJaxbCoreFunctionality<GetETag> {
 		assertThrows(NullArgumentException.class, () -> new GetETag(null));
 	}
 
-	private static final Object[] GETETAG = { GetETag.GETETAG, "<D:getetag xmlns:D=\"DAV:\"/>", "" };
-	private static final Object[] ETAG_CONSTRUCTOR = { new GetETag("SomeETag"), "<D:getetag xmlns:D=\"DAV:\">SomeETag</D:getetag>", "SomeETag" };
+	private static final Object[] GETETAG = { GetETag.GETETAG, "<dav:getetag xmlns:dav=\"DAV:\"/>", "" };
+	private static final Object[] ETAG_CONSTRUCTOR = { new GetETag("SomeETag"), "<dav:getetag xmlns:dav=\"DAV:\">SomeETag</dav:getetag>", "SomeETag" };
 
 	@Test
 	void marshallingGetetag() throws JAXBException {
@@ -86,10 +86,10 @@ public final class GetETagTest extends AbstractJaxbCoreFunctionality<GetETag> {
 	@Test
 	void shouldUnmarshalGETETAGConstant() throws JAXBException {
 		// given
-		final String marshalledForm = "<D:getetag/>";
+		final String marshalledForm = "<dav:getetag/>";
 		// when
 		final GetETag unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
-				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).getetag;
+				.unmarshal(new StringReader(format("<dav:x xmlns:dav=\"DAV:\">%s</dav:x>", marshalledForm)))).getetag;
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(GetETag.GETETAG)));
 	}

@@ -41,7 +41,7 @@ public final class RemoveTest extends AbstractJaxbCoreFunctionality<Remove> {
 
 	private static final Prop PROP = new Prop();
 
-	private static final Object[] DATA_POINT = { new Remove(PROP), "<D:remove xmlns:D=\"DAV:\"><D:prop/></D:remove>", PROP };
+	private static final Object[] DATA_POINT = { new Remove(PROP), "<dav:remove xmlns:dav=\"DAV:\"><dav:prop/></dav:remove>", PROP };
 
 	@Test
 	void testMarshalling() throws JAXBException {

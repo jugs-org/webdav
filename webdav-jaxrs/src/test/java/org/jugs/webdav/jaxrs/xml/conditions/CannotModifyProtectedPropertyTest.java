@@ -36,7 +36,7 @@ public final class CannotModifyProtectedPropertyTest extends
         AbstractJaxbCoreFunctionality<CannotModifyProtectedProperty> {
 
 	private static final Object[] SINGLETON = { CannotModifyProtectedProperty.CANNOT_MODIFY_PROTECTED_PROPERTY,
-			"<D:cannot-modify-protected-property xmlns:D=\"DAV:\"/>" };
+			"<dav:cannot-modify-protected-property xmlns:dav=\"DAV:\"/>" };
 
 	@Test
 	void testMarshalling() throws JAXBException {

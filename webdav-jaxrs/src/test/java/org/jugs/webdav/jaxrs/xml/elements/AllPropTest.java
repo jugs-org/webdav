@@ -34,7 +34,7 @@ import jakarta.xml.bind.JAXBException;
  */
 public final class AllPropTest extends AbstractJaxbCoreFunctionality<AllProp> {
 
-	private static final Object[] SINGLETON = { AllProp.ALLPROP, "<D:allprop xmlns:D=\"DAV:\"/>" };
+	private static final Object[] SINGLETON = { AllProp.ALLPROP, "<dav:allprop xmlns:dav=\"DAV:\"/>" };
 
 	@Test
 	void testMarshalling() throws JAXBException {

@@ -57,8 +57,8 @@ public final class SupportedLockTest extends AbstractJaxbCoreFunctionality<Suppo
 		assertThrows(NullArgumentException.class, () -> new SupportedLock((LockEntry[]) null));
 	}
 
-	private static final Object[] SUPPORTEDLOCK = { SupportedLock.SUPPORTEDLOCK, "<D:supportedlock xmlns:D=\"DAV:\"/>", EMPTY_LIST };
-	private static final Object[] LOCKENTRY_CONSTRUCTOR = { new SupportedLock(LOCK_ENTRY), "<D:supportedlock xmlns:D=\"DAV:\"><D:lockentry/></D:supportedlock>",
+	private static final Object[] SUPPORTEDLOCK = { SupportedLock.SUPPORTEDLOCK, "<dav:supportedlock xmlns:dav=\"DAV:\"/>", EMPTY_LIST };
+	private static final Object[] LOCKENTRY_CONSTRUCTOR = { new SupportedLock(LOCK_ENTRY), "<dav:supportedlock xmlns:dav=\"DAV:\"><dav:lockentry/></dav:supportedlock>",
 			asList(LOCK_ENTRY) };
 
 	@Test
@@ -95,10 +95,10 @@ public final class SupportedLockTest extends AbstractJaxbCoreFunctionality<Suppo
 	@Test
 	void shouldUnmarshalSUPPORTEDLOCKConstant() throws JAXBException {
 		// given
-		final String marshalledForm = "<D:supportedlock/>";
+		final String marshalledForm = "<dav:supportedlock/>";
 		// when
 		final SupportedLock unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
-				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).supportedlock;
+				.unmarshal(new StringReader(format("<dav:x xmlns:dav=\"DAV:\">%s</dav:x>", marshalledForm)))).supportedlock;
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(SupportedLock.SUPPORTEDLOCK)));
 	}

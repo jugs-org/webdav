@@ -52,9 +52,9 @@ public final class LockInfoTest extends AbstractJaxbCoreFunctionality<LockInfo> 
 	}
 
 	private static final Object[] NO_OWNER = { new LockInfo(EXCLUSIVE, WRITE, null),
-			"<D:lockinfo xmlns:D=\"DAV:\"><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockinfo>", EXCLUSIVE, WRITE, null };
+			"<dav:lockinfo xmlns:dav=\"DAV:\"><dav:lockscope><dav:exclusive/></dav:lockscope><dav:locktype><dav:write/></dav:locktype></dav:lockinfo>", EXCLUSIVE, WRITE, null };
 	private static final Object[] HAS_OWNER = { new LockInfo(EXCLUSIVE, WRITE, new Owner()),
-			"<D:lockinfo xmlns:D=\"DAV:\"><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype><D:owner/></D:lockinfo>", EXCLUSIVE,
+			"<dav:lockinfo xmlns:dav=\"DAV:\"><dav:lockscope><dav:exclusive/></dav:lockscope><dav:locktype><dav:write/></dav:locktype><dav:owner/></dav:lockinfo>", EXCLUSIVE,
 			WRITE, new Owner() };
 
 	@Test

@@ -49,8 +49,8 @@ public final class DisplayNameTest extends AbstractJaxbCoreFunctionality<Display
 		assertThrows(NullArgumentException.class, () -> new DisplayName(null));
 	}
 
-	private static final Object[] DISPLAYNAME = { DisplayName.DISPLAYNAME, "<D:displayname xmlns:D=\"DAV:\"/>", "" };
-	private static final Object[] NAME_CONSTRUCTOR = { new DisplayName("SomeName"), "<D:displayname xmlns:D=\"DAV:\">SomeName</D:displayname>", "SomeName" };
+	private static final Object[] DISPLAYNAME = { DisplayName.DISPLAYNAME, "<dav:displayname xmlns:dav=\"DAV:\"/>", "" };
+	private static final Object[] NAME_CONSTRUCTOR = { new DisplayName("SomeName"), "<dav:displayname xmlns:dav=\"DAV:\">SomeName</dav:displayname>", "SomeName" };
 
 	@Test
 	void marshallingDisplayname() throws JAXBException {
@@ -86,10 +86,10 @@ public final class DisplayNameTest extends AbstractJaxbCoreFunctionality<Display
 	@Test
 	void shouldUnmarshalDISPLAYNAMEConstant() throws JAXBException {
 		// given
-		final String marshalledForm = "<D:displayname/>";
+		final String marshalledForm = "<dav:displayname/>";
 		// when
 		final DisplayName unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
-				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).displayname;
+				.unmarshal(new StringReader(format("<dav:x xmlns:dav=\"DAV:\">%s</dav:x>", marshalledForm)))).displayname;
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(DisplayName.DISPLAYNAME)));
 	}

@@ -52,10 +52,10 @@ public final class CreationDateTest extends AbstractJaxbCoreFunctionality<Creati
 		assertThrows(NullArgumentException.class, () -> new CreationDate(null));
 	}
 
-	private static final Object[] CREATIONDATE = new Object[] { CreationDate.CREATIONDATE, "<D:creationdate xmlns:D=\"DAV:\"/>", null };
+	private static final Object[] CREATIONDATE = new Object[] { CreationDate.CREATIONDATE, "<dav:creationdate xmlns:dav=\"DAV:\"/>", null };
 	private static final Object[] DATE_CONSTRUCTOR = new Object[] {new CreationDate(
             DateBuilder.date(2012, 11, 12, 13, 14, 15, 16, "UTC")),
-                                                                  "<D:creationdate xmlns:D=\"DAV:\">2012-11-12T13:14:15.016Z</D:creationdate>", DateBuilder.date(2012, 11, 12, 13, 14, 15, 16, "UTC") };
+                                                                  "<dav:creationdate xmlns:dav=\"DAV:\">2012-11-12T13:14:15.016Z</dav:creationdate>", DateBuilder.date(2012, 11, 12, 13, 14, 15, 16, "UTC") };
 
 	@Test
 	void marshallingCreationdate() throws JAXBException {
@@ -106,10 +106,10 @@ public final class CreationDateTest extends AbstractJaxbCoreFunctionality<Creati
 	@Test
 	public void shouldUnmarshalCREATIONDATEConstant() throws JAXBException {
 		// given
-		final String marshalledForm = "<D:creationdate/>";
+		final String marshalledForm = "<dav:creationdate/>";
 		// when
 		final CreationDate unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
-				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).creationdate;
+				.unmarshal(new StringReader(format("<dav:x xmlns:dav=\"DAV:\">%s</dav:x>", marshalledForm)))).creationdate;
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(CreationDate.CREATIONDATE)));
 	}

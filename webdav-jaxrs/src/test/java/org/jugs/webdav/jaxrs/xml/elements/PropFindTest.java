@@ -59,12 +59,12 @@ public final class PropFindTest extends AbstractJaxbCoreFunctionality<PropFind> 
 		assertThrows(NullArgumentException.class, () -> new PropFind((Prop) null));
 	}
 
-	private static final Object[] PROPNAME_VARIANT = { new PropFind(PROPNAME), "<D:propfind xmlns:D=\"DAV:\"><D:propname/></D:propfind>", PROPNAME, null, null,
+	private static final Object[] PROPNAME_VARIANT = { new PropFind(PROPNAME), "<dav:propfind xmlns:dav=\"DAV:\"><dav:propname/></dav:propfind>", PROPNAME, null, null,
 			null };
-	private static final Object[] ALLPROP_VARIANT = { new PropFind(ALLPROP), "<D:propfind xmlns:D=\"DAV:\"><D:allprop/></D:propfind>", null, ALLPROP, null, null };
+	private static final Object[] ALLPROP_VARIANT = { new PropFind(ALLPROP), "<dav:propfind xmlns:dav=\"DAV:\"><dav:allprop/></dav:propfind>", null, ALLPROP, null, null };
 	private static final Object[] ALLPROP_INCLUDE_VARIANT = { new PropFind(ALLPROP, INCLUDE),
-			"<D:propfind xmlns:D=\"DAV:\"><D:allprop/><D:include/></D:propfind>", null, ALLPROP, INCLUDE, null };
-	private static final Object[] PROP_VARIANT = { new PropFind(PROP), "<D:propfind xmlns:D=\"DAV:\"><D:prop/></D:propfind>", null, null, null, PROP };
+			"<dav:propfind xmlns:dav=\"DAV:\"><dav:allprop/><dav:include/></dav:propfind>", null, ALLPROP, INCLUDE, null };
+	private static final Object[] PROP_VARIANT = { new PropFind(PROP), "<dav:propfind xmlns:dav=\"DAV:\"><dav:prop/></dav:propfind>", null, null, null, PROP };
 
 	@Test
 	void marshallingPropname() throws JAXBException {

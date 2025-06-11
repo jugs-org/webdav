@@ -74,11 +74,11 @@ public final class ActiveLockTest extends AbstractJaxbCoreFunctionality<ActiveLo
 
 	private static final Object[] ALL_PARAMS = {
 			new ActiveLock(LOCK_SCOPE, LOCK_TYPE, DEPTH, OWNER, TIMEOUT, LOCK_TOKEN, LOCK_ROOT),
-			"<D:activelock xmlns:D=\"DAV:\"><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype><D:depth>infinity</D:depth><D:owner/><D:timeout>Infinite</D:timeout><D:locktoken><D:href>http://localhost</D:href></D:locktoken><D:lockroot><D:href>http://localhost</D:href></D:lockroot></D:activelock>",
+			"<dav:activelock xmlns:dav=\"DAV:\"><dav:lockscope><dav:exclusive/></dav:lockscope><dav:locktype><dav:write/></dav:locktype><dav:depth>infinity</dav:depth><dav:owner/><dav:timeout>Infinite</dav:timeout><dav:locktoken><dav:href>http://localhost</dav:href></dav:locktoken><dav:lockroot><dav:href>http://localhost</dav:href></dav:lockroot></dav:activelock>",
 			LOCK_SCOPE, LOCK_TYPE, DEPTH, OWNER, TIMEOUT, LOCK_TOKEN, LOCK_ROOT };
 	private static final Object[] MINIMUM_PARAMS = {
 			new ActiveLock(LOCK_SCOPE, LOCK_TYPE, DEPTH, null, null, null, LOCK_ROOT),
-			"<D:activelock xmlns:D=\"DAV:\"><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype><D:depth>infinity</D:depth><D:lockroot><D:href>http://localhost</D:href></D:lockroot></D:activelock>",
+			"<dav:activelock xmlns:dav=\"DAV:\"><dav:lockscope><dav:exclusive/></dav:lockscope><dav:locktype><dav:write/></dav:locktype><dav:depth>infinity</dav:depth><dav:lockroot><dav:href>http://localhost</dav:href></dav:lockroot></dav:activelock>",
 			LOCK_SCOPE, LOCK_TYPE, DEPTH, null, null, null, LOCK_ROOT };
 
 	@Test

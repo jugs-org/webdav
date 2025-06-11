@@ -34,7 +34,7 @@ import jakarta.xml.bind.JAXBException;
  */
 public final class SharedTest extends AbstractJaxbCoreFunctionality<Shared> {
 
-	private static final Object[] SINGLETON = { Shared.SHARED, "<D:shared xmlns:D=\"DAV:\"/>" };
+	private static final Object[] SINGLETON = { Shared.SHARED, "<dav:shared xmlns:dav=\"DAV:\"/>" };
 
 	@Test
 	void testMarshalling() throws JAXBException {

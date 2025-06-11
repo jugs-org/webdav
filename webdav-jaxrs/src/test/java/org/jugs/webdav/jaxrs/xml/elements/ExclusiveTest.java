@@ -34,7 +34,7 @@ import jakarta.xml.bind.JAXBException;
  */
 public final class ExclusiveTest extends AbstractJaxbCoreFunctionality<Exclusive> {
 
-	private static final Object[] SINGLETON = { Exclusive.EXCLUSIVE, "<D:exclusive xmlns:D=\"DAV:\"/>" };
+	private static final Object[] SINGLETON = { Exclusive.EXCLUSIVE, "<dav:exclusive xmlns:dav=\"DAV:\"/>" };
 
 	@Test
 	void testMarshalling() throws JAXBException {

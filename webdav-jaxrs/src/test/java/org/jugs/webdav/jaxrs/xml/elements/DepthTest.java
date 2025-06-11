@@ -40,8 +40,8 @@ import static org.jugs.webdav.jaxrs.xml.elements.Depth.*;
  */
 public final class DepthTest extends AbstractJaxbCoreFunctionality<Depth> {
 
-	private static final Object[][] DATA_POINTS = { { ZERO, "<D:depth xmlns:D=\"DAV:\">0</D:depth>", "0" },
-			{ ONE, "<D:depth xmlns:D=\"DAV:\">1</D:depth>", "1" }, { INFINITY, "<D:depth xmlns:D=\"DAV:\">infinity</D:depth>", "infinity" } };
+	private static final Object[][] DATA_POINTS = { { ZERO, "<dav:depth xmlns:dav=\"DAV:\">0</dav:depth>", "0" },
+			{ ONE, "<dav:depth xmlns:dav=\"DAV:\">1</dav:depth>", "1" }, { INFINITY, "<dav:depth xmlns:dav=\"DAV:\">infinity</dav:depth>", "infinity" } };
 
 
 	@ParameterizedTest(name = "depth {0}")

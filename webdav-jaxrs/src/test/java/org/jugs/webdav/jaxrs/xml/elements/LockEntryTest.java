@@ -52,7 +52,7 @@ public final class LockEntryTest extends AbstractJaxbCoreFunctionality<LockEntry
 	}
 
 	private static final Object[] STANDARD = { new LockEntry(EXCLUSIVE, WRITE),
-			"<D:lockentry xmlns:D=\"DAV:\"><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry>", EXCLUSIVE, WRITE };
+			"<dav:lockentry xmlns:dav=\"DAV:\"><dav:lockscope><dav:exclusive/></dav:lockscope><dav:locktype><dav:write/></dav:locktype></dav:lockentry>", EXCLUSIVE, WRITE };
 
 	@Test
 	void testMarshalling() throws JAXBException {

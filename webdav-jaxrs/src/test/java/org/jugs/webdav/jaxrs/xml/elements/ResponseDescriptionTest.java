@@ -38,7 +38,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public final class ResponseDescriptionTest extends AbstractJaxbCoreFunctionality<ResponseDescription> {
 
 	private static final Object[] DATA_POINT = { new ResponseDescription("some content"),
-			"<D:responsedescription xmlns:D=\"DAV:\">some content</D:responsedescription>", "some content" };
+			"<dav:responsedescription xmlns:dav=\"DAV:\">some content</dav:responsedescription>", "some content" };
 
 	@Test
 	void testMarshalling() throws JAXBException {

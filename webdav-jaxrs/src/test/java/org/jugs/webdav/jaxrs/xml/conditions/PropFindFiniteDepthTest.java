@@ -34,7 +34,7 @@ import jakarta.xml.bind.JAXBException;
  */
 public final class PropFindFiniteDepthTest extends AbstractJaxbCoreFunctionality<PropFindFiniteDepth> {
 
-	private static final Object[] SINGLETON = new Object[] { PropFindFiniteDepth.PROPFIND_FINITE_DEPTH, "<D:propfind-finite-depth xmlns:D=\"DAV:\"/>" };
+	private static final Object[] SINGLETON = new Object[] { PropFindFiniteDepth.PROPFIND_FINITE_DEPTH, "<dav:propfind-finite-depth xmlns:dav=\"DAV:\"/>" };
 
 	@Test
 	void testMarshalling() throws JAXBException {

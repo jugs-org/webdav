@@ -34,7 +34,7 @@ import jakarta.xml.bind.JAXBException;
  */
 public final class WriteTest extends AbstractJaxbCoreFunctionality<Write> {
 
-	private static final Object[] SINGLETON = { Write.WRITE, "<D:write xmlns:D=\"DAV:\"/>" };
+	private static final Object[] SINGLETON = { Write.WRITE, "<dav:write xmlns:dav=\"DAV:\"/>" };
 
 	@Test
 	void testMarshalling() throws JAXBException {

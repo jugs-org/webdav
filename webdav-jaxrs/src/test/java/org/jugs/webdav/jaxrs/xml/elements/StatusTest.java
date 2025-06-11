@@ -43,11 +43,11 @@ public final class StatusTest extends AbstractJaxbCoreFunctionality<Status> {
 
 	@SuppressWarnings("deprecation")
 	private static final Object[][] DATA_POINTS = {
-			{ new Status(ResponseStatus.FAILED_DEPENDENCY), "<D:status xmlns:D=\"DAV:\">HTTP/1.1 424 Failed Dependency</D:status>",
+			{ new Status(ResponseStatus.FAILED_DEPENDENCY), "<dav:status xmlns:dav=\"DAV:\">HTTP/1.1 424 Failed Dependency</dav:status>",
 					"HTTP/1.1 424 Failed Dependency" },
-			{ new Status(Response.Status.SERVICE_UNAVAILABLE), "<D:status xmlns:D=\"DAV:\">HTTP/1.1 503 Service Unavailable</D:status>",
+			{ new Status(Response.Status.SERVICE_UNAVAILABLE), "<dav:status xmlns:dav=\"DAV:\">HTTP/1.1 503 Service Unavailable</dav:status>",
 					"HTTP/1.1 503 Service Unavailable" },
-			{ new Status((Response.StatusType) Response.Status.BAD_REQUEST), "<D:status xmlns:D=\"DAV:\">HTTP/1.1 400 Bad Request</D:status>",
+			{ new Status((Response.StatusType) Response.Status.BAD_REQUEST), "<dav:status xmlns:dav=\"DAV:\">HTTP/1.1 400 Bad Request</dav:status>",
 					"HTTP/1.1 400 Bad Request" } };
 
 	@ParameterizedTest(name = "[{index}]")

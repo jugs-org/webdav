@@ -55,11 +55,11 @@ public final class ResourceTypeTest extends AbstractJaxbCoreFunctionality<Resour
 		assertThrows(NullArgumentException.class, () -> new ResourceType((Object[]) null));
 	}
 
-	private static final Object[] RESOURCETYPE = { ResourceType.RESOURCETYPE, "<D:resourcetype xmlns:D=\"DAV:\"/>", EMPTY_LIST };
-	private static final Object[] COLLECTION = { ResourceType.COLLECTION, "<D:resourcetype xmlns:D=\"DAV:\"><D:collection/></D:resourcetype>",
+	private static final Object[] RESOURCETYPE = { ResourceType.RESOURCETYPE, "<dav:resourcetype xmlns:dav=\"DAV:\"/>", EMPTY_LIST };
+	private static final Object[] COLLECTION = { ResourceType.COLLECTION, "<dav:resourcetype xmlns:dav=\"DAV:\"><dav:collection/></dav:resourcetype>",
 			asList(RESOURCE_TYPE) };
 	private static final Object[] RESOURCETYPE_CONSTRUCTOR = { new ResourceType(RESOURCE_TYPE),
-			"<D:resourcetype xmlns:D=\"DAV:\"><D:collection/></D:resourcetype>", asList(RESOURCE_TYPE) };
+			"<dav:resourcetype xmlns:dav=\"DAV:\"><dav:collection/></dav:resourcetype>", asList(RESOURCE_TYPE) };
 
 	@Test
 	void marshallingResourcetype() throws JAXBException {
@@ -105,10 +105,10 @@ public final class ResourceTypeTest extends AbstractJaxbCoreFunctionality<Resour
 	@Test
 	void shouldUnmarshalRESOURCETYPEConstant() throws JAXBException {
 		// given
-		final String marshalledForm = "<D:resourcetype/>";
+		final String marshalledForm = "<dav:resourcetype/>";
 		// when
 		final ResourceType unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
-				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).resourcetype;
+				.unmarshal(new StringReader(format("<dav:x xmlns:dav=\"DAV:\">%s</dav:x>", marshalledForm)))).resourcetype;
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(ResourceType.RESOURCETYPE)));
 	}
@@ -116,10 +116,10 @@ public final class ResourceTypeTest extends AbstractJaxbCoreFunctionality<Resour
 	@Test
 	void shouldUnmarshalCOLLECTIONConstant() throws JAXBException {
 		// given
-		final String marshalledForm = "<D:resourcetype><D:collection/></D:resourcetype>";
+		final String marshalledForm = "<dav:resourcetype><dav:collection/></dav:resourcetype>";
 		// when
 		final ResourceType unmarshalledInstance = ((X) JAXBContext.newInstance(X.class, Collection.class).createUnmarshaller()
-				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).resourcetype;
+				.unmarshal(new StringReader(format("<dav:x xmlns:dav=\"DAV:\">%s</dav:x>", marshalledForm)))).resourcetype;
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(ResourceType.COLLECTION)));
 	}

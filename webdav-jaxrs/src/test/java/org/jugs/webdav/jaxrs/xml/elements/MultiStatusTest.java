@@ -42,16 +42,16 @@ public final class MultiStatusTest extends AbstractJaxbCoreFunctionality<MultiSt
 	private static final Response RESPONSE = Utilities.buildInstanceOf(Response.class);
 	private static final ResponseDescription RESPONSE_DESCRIPTION = new ResponseDescription("X");
 
-	private static final Object[] SINGLE_RESPONSE_ONLY = { new MultiStatus(RESPONSE), "<D:multistatus xmlns:D=\"DAV:\"><D:response/></D:multistatus>",
+	private static final Object[] SINGLE_RESPONSE_ONLY = { new MultiStatus(RESPONSE), "<dav:multistatus xmlns:dav=\"DAV:\"><dav:response/></dav:multistatus>",
 			asList(RESPONSE), null };
 	private static final Object[] SINGLE_RESPONSE_WITH_RESPONSE_DESCRIPTION = { new MultiStatus(RESPONSE_DESCRIPTION, RESPONSE),
-			"<D:multistatus xmlns:D=\"DAV:\"><D:response/><D:responsedescription>X</D:responsedescription></D:multistatus>", asList(RESPONSE),
+			"<dav:multistatus xmlns:dav=\"DAV:\"><dav:response/><dav:responsedescription>X</dav:responsedescription></dav:multistatus>", asList(RESPONSE),
 			RESPONSE_DESCRIPTION };
 	private static final Object[] MULTI_RESPONSE_WITH_RESPONSE_DESCRIPTION = { new MultiStatus(RESPONSE_DESCRIPTION, RESPONSE, RESPONSE),
-			"<D:multistatus xmlns:D=\"DAV:\"><D:response/><D:response/><D:responsedescription>X</D:responsedescription></D:multistatus>",
+			"<dav:multistatus xmlns:dav=\"DAV:\"><dav:response/><dav:response/><dav:responsedescription>X</dav:responsedescription></dav:multistatus>",
 			asList(RESPONSE, RESPONSE), RESPONSE_DESCRIPTION };
 	private static final Object[] RESPONSE_DESCRIPTION_ONLY = { new MultiStatus(RESPONSE_DESCRIPTION),
-			"<D:multistatus xmlns:D=\"DAV:\"><D:responsedescription>X</D:responsedescription></D:multistatus>", EMPTY_LIST, RESPONSE_DESCRIPTION };
+			"<dav:multistatus xmlns:dav=\"DAV:\"><dav:responsedescription>X</dav:responsedescription></dav:multistatus>", EMPTY_LIST, RESPONSE_DESCRIPTION };
 
 	@Test
 	void marshallingSingleResponseOnly() throws JAXBException {

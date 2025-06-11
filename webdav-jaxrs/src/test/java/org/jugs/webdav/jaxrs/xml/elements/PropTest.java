@@ -41,7 +41,7 @@ public final class PropTest extends AbstractJaxbCoreFunctionality<Prop> {
 
 	private static final CreationDate CREATIONDATE = CreationDate.CREATIONDATE;
 
-	private static final Object[] DATA_POINT = { new Prop(CREATIONDATE), "<D:prop xmlns:D=\"DAV:\"><D:creationdate/></D:prop>", singletonList(CREATIONDATE) };
+	private static final Object[] DATA_POINT = { new Prop(CREATIONDATE), "<dav:prop xmlns:dav=\"DAV:\"><dav:creationdate/></dav:prop>", singletonList(CREATIONDATE) };
 
 	@Test
 	void testMarshalling() throws JAXBException {

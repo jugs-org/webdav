@@ -46,7 +46,7 @@ public final class LockRootTest extends AbstractJaxbCoreFunctionality<LockRoot> 
 
 	private static final HRef HREF = new HRef("http://localhost");
 	private static final Object[] SINGLE_VALUE_CONSTRUCTOR = { new LockRoot(HREF),
-			"<D:lockroot xmlns:D=\"DAV:\"><D:href>http://localhost</D:href></D:lockroot>", HREF };
+			"<dav:lockroot xmlns:dav=\"DAV:\"><dav:href>http://localhost</dav:href></dav:lockroot>", HREF };
 
 	@Test
 	void testMarshalling() throws JAXBException {

@@ -46,9 +46,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public final class TimeOutTest extends AbstractJaxbCoreFunctionality<TimeOut> {
 
-	private static final Object[] INFINITE = { TimeOut.INFINITE, "<D:timeout xmlns:D=\"DAV:\">Infinite</D:timeout>", MAX_VALUE, TRUE };
+	private static final Object[] INFINITE = { TimeOut.INFINITE, "<dav:timeout xmlns:dav=\"DAV:\">Infinite</dav:timeout>", MAX_VALUE, TRUE };
 
-	private static final Object[] SECOND = { new TimeOut(60L), "<D:timeout xmlns:D=\"DAV:\">Second-60</D:timeout>", 60L, FALSE };
+	private static final Object[] SECOND = { new TimeOut(60L), "<dav:timeout xmlns:dav=\"DAV:\">Second-60</dav:timeout>", 60L, FALSE };
 
 	@Test
 	void marshallingInfinite() throws JAXBException {
@@ -89,10 +89,10 @@ public final class TimeOutTest extends AbstractJaxbCoreFunctionality<TimeOut> {
 	@Test
 	void shouldUnmarshalINFINITEConstant() throws JAXBException {
 		// given
-		final String marshalledForm = "<D:timeout>Infinite</D:timeout>";
+		final String marshalledForm = "<dav:timeout>Infinite</dav:timeout>";
 		// when
 		final TimeOut unmarshalledInstance = ((X) JAXBContext.newInstance(X.class).createUnmarshaller()
-				.unmarshal(new StringReader(format("<D:x xmlns:D=\"DAV:\">%s</D:x>", marshalledForm)))).timeout;
+				.unmarshal(new StringReader(format("<dav:x xmlns:dav=\"DAV:\">%s</dav:x>", marshalledForm)))).timeout;
 		// then
 		assertThat(unmarshalledInstance, is(sameInstance(TimeOut.INFINITE)));
 	}

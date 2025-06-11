@@ -49,12 +49,12 @@ public final class NoConflictingLockTest extends AbstractJaxbCoreFunctionality<N
 	private static final HRef HREF = new HRef("x");
 
 	private static final Object[][] DATA_POINTS = new Object[][] {
-			{ new NoConflictingLock(), "<D:no-conflicting-lock xmlns:D=\"DAV:\"/>" },
-			{ new NoConflictingLock(HREF), "<D:no-conflicting-lock xmlns:D=\"DAV:\"><D:href>x</D:href></D:no-conflicting-lock>" },
+			{ new NoConflictingLock(), "<dav:no-conflicting-lock xmlns:dav=\"DAV:\"/>" },
+			{ new NoConflictingLock(HREF), "<dav:no-conflicting-lock xmlns:dav=\"DAV:\"><dav:href>x</dav:href></dav:no-conflicting-lock>" },
 			{ new NoConflictingLock(new HRef("x"), new HRef("y"), new HRef("z")),
-					"<D:no-conflicting-lock xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href><D:href>z</D:href></D:no-conflicting-lock>" },
+					"<dav:no-conflicting-lock xmlns:dav=\"DAV:\"><dav:href>x</dav:href><dav:href>y</dav:href><dav:href>z</dav:href></dav:no-conflicting-lock>" },
 			{ new NoConflictingLock(new HRef("x"), new HRef("y"), new HRef("z")),
-					"<D:no-conflicting-lock xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href><D:href>z</D:href></D:no-conflicting-lock>" } };
+					"<dav:no-conflicting-lock xmlns:dav=\"DAV:\"><dav:href>x</dav:href><dav:href>y</dav:href><dav:href>z</dav:href></dav:no-conflicting-lock>" } };
 
 	@ParameterizedTest(name = "[{index}]")
 	@ValueSource(ints = {0, 1, 2, 3})

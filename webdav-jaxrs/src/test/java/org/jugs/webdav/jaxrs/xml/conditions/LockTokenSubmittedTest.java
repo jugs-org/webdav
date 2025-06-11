@@ -66,11 +66,11 @@ public final class LockTokenSubmittedTest extends AbstractJaxbCoreFunctionality<
 	}
 
 	private static final Object[][] DATA_POINTS = new Object[][] {
-			{ new LockTokenSubmitted(HREF), "<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href></D:lock-token-submitted>" },
+			{ new LockTokenSubmitted(HREF), "<dav:lock-token-submitted xmlns:dav=\"DAV:\"><dav:href>x</dav:href></dav:lock-token-submitted>" },
 			{ new LockTokenSubmitted(new HRef("x"), new HRef("y")),
-					"<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href></D:lock-token-submitted>" },
+					"<dav:lock-token-submitted xmlns:dav=\"DAV:\"><dav:href>x</dav:href><dav:href>y</dav:href></dav:lock-token-submitted>" },
 			{ new LockTokenSubmitted(new HRef("x"), new HRef("y"), new HRef("z")),
-					"<D:lock-token-submitted xmlns:D=\"DAV:\"><D:href>x</D:href><D:href>y</D:href><D:href>z</D:href></D:lock-token-submitted>" } };
+					"<dav:lock-token-submitted xmlns:dav=\"DAV:\"><dav:href>x</dav:href><dav:href>y</dav:href><dav:href>z</dav:href></dav:lock-token-submitted>" } };
 
 	@ParameterizedTest(name = "[{index}]")
 	@ValueSource(ints = {0, 1, 2})

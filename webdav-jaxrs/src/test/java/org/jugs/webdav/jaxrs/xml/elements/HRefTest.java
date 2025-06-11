@@ -55,8 +55,8 @@ public final class HRefTest extends AbstractJaxbCoreFunctionality<HRef> {
 
 	private static final String STRING_VALUE = "http://localhost";
 	private static final URI URI_VALUE = create(STRING_VALUE);
-	private static final Object[] CASE_URI_CONSTRUCTOR = { new HRef(STRING_VALUE), "<D:href xmlns:D=\"DAV:\">http://localhost</D:href>", URI_VALUE, STRING_VALUE };
-	private static final Object[] CASE_STRING_CONSTRUCTOR = { new HRef(URI_VALUE), "<D:href xmlns:D=\"DAV:\">http://localhost</D:href>", URI_VALUE, STRING_VALUE };
+	private static final Object[] CASE_URI_CONSTRUCTOR = { new HRef(STRING_VALUE), "<dav:href xmlns:dav=\"DAV:\">http://localhost</dav:href>", URI_VALUE, STRING_VALUE };
+	private static final Object[] CASE_STRING_CONSTRUCTOR = { new HRef(URI_VALUE), "<dav:href xmlns:dav=\"DAV:\">http://localhost</dav:href>", URI_VALUE, STRING_VALUE };
 
 	@Test
 	void marshallingURI() throws JAXBException {

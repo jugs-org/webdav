@@ -24,8 +24,7 @@
         package-name="org.jugs.webdav.jaxrs.xml.elements">
 
     <xml-schema element-form-default="QUALIFIED">
-<!--        <xml-ns prefix="dav" namespace-uri="DAV:"/>-->
-        <xml-ns prefix="D" namespace-uri="DAV:"/>
+        <xml-ns prefix="dav" namespace-uri="DAV:"/>
     </xml-schema>
 
     <java-types>

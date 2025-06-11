@@ -45,8 +45,8 @@ public final class OwnerTest extends AbstractJaxbCoreFunctionality<Owner> {
 
 	private static final String ANY = "ANY";
 
-	private static final Object[][] DATA_POINTS = { { new Owner(), "<D:owner xmlns:D=\"DAV:\"/>", EMPTY_LIST },
-			{ new Owner(ANY), "<D:owner xmlns:D=\"DAV:\">ANY</D:owner>", asList(ANY) } };
+	private static final Object[][] DATA_POINTS = { { new Owner(), "<dav:owner xmlns:dav=\"DAV:\"/>", EMPTY_LIST },
+			{ new Owner(ANY), "<dav:owner xmlns:dav=\"DAV:\">ANY</dav:owner>", asList(ANY) } };
 
 	@ParameterizedTest(name = "[{index}]")
 	@ValueSource(ints = {0, 1})

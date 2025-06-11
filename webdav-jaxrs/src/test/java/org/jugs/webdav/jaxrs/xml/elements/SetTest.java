@@ -41,7 +41,7 @@ public final class SetTest extends AbstractJaxbCoreFunctionality<Set> {
 
 	private static final Prop PROP = new Prop();
 
-	private static final Object[] DATA_POINT = { new Set(PROP), "<D:set xmlns:D=\"DAV:\"><D:prop/></D:set>", PROP };
+	private static final Object[] DATA_POINT = { new Set(PROP), "<dav:set xmlns:dav=\"DAV:\"><dav:prop/></dav:set>", PROP };
 
 	@Test
 	void testMarshalling() throws JAXBException {

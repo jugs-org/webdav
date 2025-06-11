@@ -69,15 +69,17 @@ final class WebDavJAXBContextBuilder {
                                                          Response.class, ResponseDescription.class, Set.class, Shared.class, Status.class, SupportedLock.class, TimeOut.class, Write.class,
 														 DepthWrapper.class, Depth.class };
 		final Class<?>[] allClasses = Utilities.append(webDavClasses, auxiliaryClasses);
-		return build(allClasses, "/mappings/elements-oxm.xml", "/mappings/properties-oxm.xml");
+		return build(allClasses, "/mappings/elements-oxm.xml", "/mappings/properties-oxm.xml", "/mappings/conditions-oxm.xml");
 	}
 
-	private static JAXBContext build(Class<?>[] allClasses, String elementsResource, String propertiesResource) throws JAXBException {
+	private static JAXBContext build(Class<?>[] allClasses, String elementsResource, String propertiesResource, String conditionsResource) throws JAXBException {
 		try (InputStream elemStream = WebDavJAXBContextBuilder.class.getResourceAsStream(elementsResource);
-			 InputStream propStream = WebDavJAXBContextBuilder.class.getResourceAsStream(propertiesResource)) {
+			 InputStream propStream = WebDavJAXBContextBuilder.class.getResourceAsStream(propertiesResource);
+			 InputStream condStream = WebDavJAXBContextBuilder.class.getResourceAsStream(conditionsResource)) {
 			Map<String, Source> metadata = new HashMap<>();
 			metadata.put("org.jugs.webdav.jaxrs.xml.elements", new StreamSource(elemStream));
 			metadata.put("org.jugs.webdav.jaxrs.xml.properties", new StreamSource(propStream));
+			metadata.put("org.jugs.webdav.jaxrs.xml.conditions", new StreamSource(condStream));
 			Map<String, Object> props = new HashMap<>();
 			props.put(JAXBContextProperties.OXM_METADATA_SOURCE, metadata);
 			return JAXBContext.newInstance(allClasses, props);

@@ -73,9 +73,6 @@
         </java-type>
         <java-type name="LockType">
             <xml-root-element name="locktype" namespace="DAV:"/>
-            <java-attributes>
-                <xml-value java-attribute="value"/>
-            </java-attributes>
         </java-type>
         <java-type name="MultiStatus">
             <xml-root-element name="multistatus" namespace="DAV:"/>

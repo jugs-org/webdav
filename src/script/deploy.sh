@@ -8,7 +8,7 @@
 
 # set up some constants
 URL=https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/
-VERSION=3.2
+VERSION=3.3
 options="gpg:sign-and-deploy-file -Durl=$URL -DrepositoryId=s01-oss-sonatype"
 
 # passphrase is needed for signing

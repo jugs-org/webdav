@@ -34,6 +34,7 @@ You should see the directory where the server was started, e.g.
     $  ls -F /Volumes/fileserver/
     README.md      pom.xml        src/           target/
 
+You can also put this URL into your Web browser to see if the fileserver is working.
 
 
 
@@ -51,4 +52,5 @@ For a more detail description see above.
 
 ### How to Test
 
-* WebDAV-Client for http://localhost/fileserver
+* WebDAV-Client for http://localhost/fileserver or
+* mount it (Mac, Win11, Linux)

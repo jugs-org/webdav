@@ -15,7 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * switched to jakarta.xml.bind
 * using [Eclipse MOXy](https://eclipse.dev/eclipselink/documentation/4.0/moxy/moxy.html#INTRODUCTION001) for XML mapping
-* XML mapping changed to from prefix 'D' to 'dav' (module 'webdav-interop' no longer needed)
+* XML mapping changed to from prefix 'D' to 'dav' (module 'webdav-interop' no longer needed,
+  fixes [issue #1](https://github.com/jugs-org/webdav/issues/1))
 
 
 ## [3.2] - 2025-03-19

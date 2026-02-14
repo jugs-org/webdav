@@ -58,7 +58,7 @@ public class DirectoryResource extends AbstractResource {
 	public jakarta.ws.rs.core.Response move(final UriInfo uriInfo, String overwriteStr, String destination) throws URISyntaxException {
 		logRequest("MOVE", uriInfo);
 		URI uri = uriInfo.getBaseUri();
-		String host = uri.getScheme()+"://"+uri.getHost()+"/"+ FileServerApplication.RESOURCE_NAME+"/";
+		String host = uri +"/"+ FileServerApplication.RESOURCE_NAME+"/";
 		String originalDestination = destination;
         destination = URLDecoder.decode(destination, StandardCharsets.UTF_8);
         destination = destination.replace(host, "");
@@ -73,19 +73,26 @@ public class DirectoryResource extends AbstractResource {
 	private jakarta.ws.rs.core.Response move(String originalDestination, File destFile, boolean overwrite)
 			throws URISyntaxException {
 		if(destFile.equals(resource)){
+			logger.info("Move from '{}' to '{}' (overwrite={}) is forbidden.", originalDestination, destFile, overwrite);
 			return jakarta.ws.rs.core.Response.status(403).build();
 		}else{
 			if(destFile.exists() && !overwrite){
+				logger.debug("Cannot overwrite '{}' with '{}'", destFile, originalDestination);
 				return jakarta.ws.rs.core.Response.status(jakarta.ws.rs.core.Response.Status.PRECONDITION_FAILED).build();
 			}
 			if(!destFile.exists() || overwrite){
-				destFile.delete();
+				if (destFile.delete()) {
+					logger.info("File '{}' was deleted.", destFile);
+				}
 				boolean moved = resource.renameTo(destFile);
-				if(moved)
+				if(moved) {
 					return jakarta.ws.rs.core.Response.created(new URI(originalDestination)).build();
-				else
+				} else {
+					logger.error("'{}' cannot be renamed to '{}'.", resource, destFile);
 					return jakarta.ws.rs.core.Response.serverError().build();
+				}
 			}
+			logger.warn("There is a conflict moving '{}' to '{}' (overwrite={}).", originalDestination, destFile, overwrite);
 			return jakarta.ws.rs.core.Response.status(409).build();
 		}
 	}

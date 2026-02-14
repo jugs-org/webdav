@@ -26,6 +26,7 @@ import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -54,6 +55,7 @@ class DirectoryResourceTest {
         Response response = resource.move(uriInfo, null, "http://localhost:8002/fileserver/target/hello");
         // THEN
         assertNotNull(response);
+        assertNotEquals(500, response.getStatus());
     }
 
 }

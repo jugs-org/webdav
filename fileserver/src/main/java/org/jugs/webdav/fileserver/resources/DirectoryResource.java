@@ -1,5 +1,5 @@
 /*
- * Copyright 2008, 2009 Daniel MANZKE
+ * Copyright 2008-2026 Daniel MANZKE
  *
  * This file is part of webdav-jaxrs.
  *
@@ -18,6 +18,10 @@
  */
 package org.jugs.webdav.fileserver.resources;
 
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.UriInfo;
+import jakarta.ws.rs.ext.MessageBodyReader;
+import jakarta.ws.rs.ext.Providers;
 import org.jugs.webdav.fileserver.FileServerApplication;
 import org.jugs.webdav.fileserver.tools.PropStatBuilderExt;
 import org.jugs.webdav.jaxrs.xml.elements.*;
@@ -26,18 +30,14 @@ import org.jugs.webdav.jaxrs.xml.properties.GetLastModified;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jakarta.ws.rs.core.HttpHeaders;
-import jakarta.ws.rs.core.UriInfo;
-import jakarta.ws.rs.ext.MessageBodyReader;
-import jakarta.ws.rs.ext.Providers;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -60,16 +60,12 @@ public class DirectoryResource extends AbstractResource {
 		URI uri = uriInfo.getBaseUri();
 		String host = uri.getScheme()+"://"+uri.getHost()+"/"+ FileServerApplication.RESOURCE_NAME+"/";
 		String originalDestination = destination;
-		try {
-			destination = URLDecoder.decode(destination, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			logger.error("'{}' does not support UTF-8", destination, e);
-		}
-		destination = destination.replace(host, "");
+        destination = URLDecoder.decode(destination, StandardCharsets.UTF_8);
+        destination = destination.replace(host, "");
 		
 		String root = FileServerResource.davFolder;
 		File destFile = new File(root+File.separator+destination);
-		boolean overwrite = overwriteStr.equalsIgnoreCase("T");
+		boolean overwrite = "T".equalsIgnoreCase(overwriteStr);
 
 		return logResponse("MOVE", uriInfo, move(originalDestination, destFile, overwrite));
 	}
@@ -162,7 +158,7 @@ public class DirectoryResource extends AbstractResource {
 			}
 
 			MultiStatus st = new MultiStatus(responses
-					.toArray(new Response[responses.size()]));
+					.toArray(new Response[0]));
 
 			return jakarta.ws.rs.core.Response.ok(st).build();
 		}

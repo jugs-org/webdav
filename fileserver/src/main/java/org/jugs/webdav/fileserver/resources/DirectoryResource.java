@@ -49,7 +49,7 @@ import static org.jugs.webdav.jaxrs.xml.properties.ResourceType.COLLECTION;
 
 public class DirectoryResource extends AbstractResource {
 
-	private final static Logger logger = LoggerFactory.getLogger(DirectoryResource.class.getName());
+	private final static Logger logger = LoggerFactory.getLogger(DirectoryResource.class);
 	public DirectoryResource(File resource, String url) {
 		super(resource, url);
 	}
@@ -58,7 +58,7 @@ public class DirectoryResource extends AbstractResource {
 	public jakarta.ws.rs.core.Response move(final UriInfo uriInfo, String overwriteStr, String destination) throws URISyntaxException {
 		logRequest("MOVE", uriInfo);
 		URI uri = uriInfo.getBaseUri();
-		String host = uri +"/"+ FileServerApplication.RESOURCE_NAME+"/";
+		String host = uri.getScheme()+"://"+uri.getHost()+":"+uri.getPort()+"/"+ FileServerApplication.RESOURCE_NAME+"/";
 		String originalDestination = destination;
         destination = URLDecoder.decode(destination, StandardCharsets.UTF_8);
         destination = destination.replace(host, "");

@@ -21,13 +21,14 @@ package org.jugs.webdav.fileserver.resources;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -39,6 +40,7 @@ import static org.mockito.Mockito.when;
  */
 class DirectoryResourceTest {
 
+    private final static Logger log = LoggerFactory.getLogger(DirectoryResourceTest.class);
     private final DirectoryResource resource = new DirectoryResource(new File("./target/test"), "./target/test");
 
     /**
@@ -49,13 +51,22 @@ class DirectoryResourceTest {
     @Test
     void move() throws URISyntaxException {
         // GIVEN
+        if (resource.resource.mkdirs()) {
+            log.info("Directory {} was created.", resource.resource);
+        }
         UriInfo uriInfo = mock(UriInfo.class);
         when(uriInfo.getBaseUri()).thenReturn(URI.create("http://localhost:8002"));
+        File renamed = new File(resource.resource + "-renamed");
+        assertFalse(renamed.exists());
         // WHEN
-        Response response = resource.move(uriInfo, null, "http://localhost:8002/fileserver/target/hello");
-        // THEN
-        assertNotNull(response);
-        assertNotEquals(500, response.getStatus());
+        try (Response response = resource.move(uriInfo, null, "http://localhost:8002/fileserver/" + renamed)) {
+            // THEN
+            assertNotEquals(500, response.getStatus());
+            assertTrue(renamed.exists());
+        } finally {
+            boolean ok = renamed.delete();
+            log.info("Directory {} was {}deleted.", renamed, ok ? "" : "not ");
+        }
     }
 
 }

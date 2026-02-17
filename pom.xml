@@ -6,7 +6,7 @@
 
     <groupId>org.jugs.webdav</groupId>
     <artifactId>webdav</artifactId>
-    <version>3.4-SNAPSHOT</version>
+    <version>3.3.1</version>
     <packaging>pom</packaging>
     <name>WebDAV Support</name>
     <description>Provides module webdav-jaxrs for easier implementation of WebDAV based JAX-RS applications.</description>
@@ -252,18 +252,41 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>3.5.2</version>
             </plugin>
+            <!-- see https://central.sonatype.org/publish/publish-portal-maven/ -->
             <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.7.0</version>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.10.0</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                    <publishingServerId>central</publishingServerId>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>sign</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.2.8</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

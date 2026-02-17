@@ -23,5 +23,5 @@ Since 2.1 some webdav projects and samples received from [Markus Karg](http://ww
 * WebDAV Resources: [RFC4918](http://webdav.org/specs/rfc4918.html) and other [resources](http://webdav.org/)
 
 ---
-Februar 2023,
+February 2026,
 Oli B.
